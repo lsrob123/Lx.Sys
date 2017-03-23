@@ -55,8 +55,10 @@
     <Compile Include="Interfaces\IClientRedirectUri.cs" />
     <Compile Include="Interfaces\IClientScope.cs" />
     <Compile Include="Interfaces\IClientSecret.cs" />
+    <Compile Include="Interfaces\IProfileGroup.cs" />
     <Compile Include="Interfaces\IScopeClaim.cs" />
     <Compile Include="Interfaces\IScopeSecret.cs" />
+    <Compile Include="Interfaces\IUserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

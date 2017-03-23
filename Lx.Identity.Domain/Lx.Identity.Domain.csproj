@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,6 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Client.cs" />
+    <Compile Include="Entities\ClientClaim.cs" />
+    <Compile Include="Entities\ClientCorsOrigin.cs" />
+    <Compile Include="Entities\ClientCustomGrantType.cs" />
+    <Compile Include="Entities\ClientIdPRestriction.cs" />
+    <Compile Include="Entities\ClientPostLogoutRedirectUri.cs" />
+    <Compile Include="Entities\ClientRedirectUri.cs" />
+    <Compile Include="Entities\ClientScope.cs" />
+    <Compile Include="Entities\ClientSecret.cs" />
+    <Compile Include="Entities\Consent.cs" />
+    <Compile Include="Entities\Scope.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +61,13 @@
       <Project>{b115b835-1dd1-490d-a101-c8908d2a5e54}</Project>
       <Name>Lx.Identity.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
+      <Project>{B40ABC90-1F20-49A5-8734-92E8A13A183F}</Project>
+      <Name>Lx.Utilities.Contract</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ValueObjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

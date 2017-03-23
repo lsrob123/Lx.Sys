@@ -1,5 +1,5 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.DTO;
+﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contract.Mediator;
 
 namespace Lx.Utilities.Services.ServiceBus {
     public abstract class ResponseHandlersBase {

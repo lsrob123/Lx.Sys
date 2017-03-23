@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Transactions;
-using Lx.Utilities.Contract.Infrastructure.DTO;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 
 namespace Lx.Utilities.Contract.Persistence {
     /// <summary>

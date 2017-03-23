@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.DTO;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.ServiceBus;
 using NServiceBus;
 

@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.ServiceModel.Channels;
 using System.Web;
 using System.Web.Http;
-using Lx.Utilities.Contract.Infrastructure.DTO;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Microsoft.Owin;
 
 namespace Lx.Utilities.Services.Web {

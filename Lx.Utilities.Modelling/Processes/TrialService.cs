@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.DTO;
+﻿using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Enumerations;
 using Lx.Utilities.Modelling.DTOs;
 

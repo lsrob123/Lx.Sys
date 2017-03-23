@@ -4,8 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Claims;
 using Lx.Utilities.Contract.Authentication.Constants;
+using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Authentication.Extensions;
-using Lx.Utilities.Contract.Enumerations.Identity;
 using Lx.Utilities.Contract.Membership;
 using Newtonsoft.Json;
 

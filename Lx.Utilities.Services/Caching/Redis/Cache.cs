@@ -48,10 +48,10 @@ namespace Lx.Utilities.Services.Caching.Redis {
             config => ConnectionMultiplexer.Connect(connectionString),
             (config, connectionMultiplexer) => connectionMultiplexer.GetDatabase(database), serializer) {}
 
-        //    if (transactedOperations == null)
+        //public bool ExecuteTransaction(Func<ICacheWithHashes, Task> transactedOperations)
         //{
 
-        //public bool ExecuteTransaction(Func<ICacheWithHashes, Task> transactedOperations)
+        //    if (transactedOperations == null)
         //        return false;
 
         //    var transaction = Database.CreateTransaction();

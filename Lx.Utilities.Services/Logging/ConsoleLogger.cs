@@ -1,7 +1,7 @@
 ﻿using System;
-using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.DTO;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Logging;
+using Lx.Utilities.Contract.Mediator;
 
 namespace Lx.Utilities.Services.Logging {
     public class ConsoleLogger : ILogger {

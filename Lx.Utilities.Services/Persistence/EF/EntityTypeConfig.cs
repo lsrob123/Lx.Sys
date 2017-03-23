@@ -6,7 +6,6 @@ using System.Data.Entity.ModelConfiguration;
 using System.Globalization;
 using System.Linq.Expressions;
 using Lx.Utilities.Contract.Infrastructure.Domain;
-using System.Data.Entity.Infrastructure.Pluralization;
 
 namespace Lx.Utilities.Services.Persistence.EF {
     [Obsolete]

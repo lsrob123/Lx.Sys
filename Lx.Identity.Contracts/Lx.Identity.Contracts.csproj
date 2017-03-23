@@ -41,7 +41,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\AccessTokenType.cs" />
+    <Compile Include="Enumerations\Flows.cs" />
+    <Compile Include="Enumerations\ResetPasswordMethod.cs" />
+    <Compile Include="Enumerations\TokenExpiration.cs" />
+    <Compile Include="Enumerations\TokenUsage.cs" />
+    <Compile Include="Enumerations\VerificationPurpose.cs" />
+    <Compile Include="Interfaces\IClientClaim.cs" />
+    <Compile Include="Interfaces\IClientCorsOrigin.cs" />
+    <Compile Include="Interfaces\IClientCustomGrantType.cs" />
+    <Compile Include="Interfaces\IClientIdPRestriction.cs" />
+    <Compile Include="Interfaces\IClientPostLogoutRedirectUri.cs" />
+    <Compile Include="Interfaces\IClientRedirectUri.cs" />
+    <Compile Include="Interfaces\IClientScope.cs" />
+    <Compile Include="Interfaces\IClientSecret.cs" />
+    <Compile Include="Interfaces\IScopeClaim.cs" />
+    <Compile Include="Interfaces\IScopeSecret.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
+      <Project>{B40ABC90-1F20-49A5-8734-92E8A13A183F}</Project>
+      <Name>Lx.Utilities.Contract</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

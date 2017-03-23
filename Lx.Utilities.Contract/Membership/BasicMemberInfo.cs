@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Enumerations.Identity;
+using Lx.Utilities.Contract.Authentication.Enumerations;
 
 namespace Lx.Utilities.Contract.Membership {
     public class BasicMemberInfo : IMemberInfo {

@@ -1,6 +1,6 @@
 ﻿using System;
 using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Serialization;

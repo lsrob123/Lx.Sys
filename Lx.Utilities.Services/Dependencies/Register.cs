@@ -7,6 +7,7 @@ using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.IoC;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
+using Lx.Utilities.Contract.Mediator;
 using Lx.Utilities.Contract.Serialization;
 using Lx.Utilities.Services.Authentication;
 using Lx.Utilities.Services.Authorization;

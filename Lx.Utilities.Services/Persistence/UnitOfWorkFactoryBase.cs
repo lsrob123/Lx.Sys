@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Transactions;
 using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Infrastructure.DTO;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Enumerations;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;

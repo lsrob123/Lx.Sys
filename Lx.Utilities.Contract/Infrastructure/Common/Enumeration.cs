@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using Lx.Utilities.Contract.Infrastructure.ValueObject;
+using Lx.Utilities.Contract.Infrastructure.Domain;
 
 namespace Lx.Utilities.Contract.Infrastructure.Common {
     [Serializable]

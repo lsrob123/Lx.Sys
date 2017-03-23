@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.DTO;
+﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Contract.Infrastructure.Common {
     public interface IRequestDispatcher {

@@ -2,9 +2,9 @@
 using System.Reflection;
 using log4net;
 using log4net.Config;
-using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.DTO;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Logging;
+using Lx.Utilities.Contract.Mediator;
 
 namespace Lx.Utilities.Services.Logging.Log4Net {
     public class Logger : ILogger {

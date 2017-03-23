@@ -4,9 +4,9 @@ namespace Lx.Utilities.Contract.Mapping {
 
         TDestination Map<TSource, TDestination>(TSource source);
 
-        //IRelationalModel<TEntity> Map<TEntity>(TEntity entity)
-
         //object Map(object source, Type destinationType);
+
+        //IRelationalModel<TEntity> Map<TEntity>(TEntity entity)
         //    where TEntity : class, IEntity;
 
         //Type GetRelationalModelType(Type entityType);

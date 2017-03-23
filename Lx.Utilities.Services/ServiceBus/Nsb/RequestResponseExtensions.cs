@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.DTO;
+﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using NServiceBus.Saga;
 
 namespace Lx.Utilities.Services.ServiceBus.NSB {

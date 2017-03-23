@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.ServiceBus;
 
-namespace Lx.Utilities.Contract.Infrastructure.Dto {
+namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public abstract class RequestBase : IRequest, IBusCommand {
         protected RequestBase() {
             ServiceReferences = new List<string>();

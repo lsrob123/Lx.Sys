@@ -1,4 +1,4 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Dto {
+﻿namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public interface IHasOriginatorIp {
         IpAddressSetDto OriginatorIp { get; set; }
     }

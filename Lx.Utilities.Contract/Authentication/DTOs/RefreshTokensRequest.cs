@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Dto;
+﻿using Lx.Utilities.Contract.Infrastructure.DTO;
 using Newtonsoft.Json;
 
 namespace Lx.Utilities.Contract.Authentication.DTOs {

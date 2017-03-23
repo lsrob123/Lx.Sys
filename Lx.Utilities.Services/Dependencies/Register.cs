@@ -16,6 +16,7 @@ using Lx.Utilities.Services.Crypto;
 using Lx.Utilities.Services.Logging.Log4Net;
 using Lx.Utilities.Services.Mapping.AutoMapper;
 using Lx.Utilities.Services.Serialization;
+using Lx.Utilities.Services.ServiceBus.NSB;
 using Lx.Utilities.Services.SignalR;
 
 namespace Lx.Utilities.Services.Dependencies {
@@ -34,6 +35,7 @@ namespace Lx.Utilities.Services.Dependencies {
             Register<IOAuthHelper, OAuthHelper>();
             Register<IAuthorizationService, AuthorizationService>();
             Register<IOAuthClientSettings, OAuthClientSettings>();
+            Register<IRequestDispatcher, RequestDispatcher>();
         }
     }
 }

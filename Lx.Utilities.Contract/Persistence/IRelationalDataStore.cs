@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.Domain;
-using Lx.Utilities.Contract.Infrastructure.Dto;
+using Lx.Utilities.Contract.Infrastructure.DTO;
 using Lx.Utilities.Contract.Infrastructure.Enums;
 
 namespace Lx.Utilities.Contract.Persistence {

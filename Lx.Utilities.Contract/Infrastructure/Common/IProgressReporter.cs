@@ -1,5 +1,5 @@
 ﻿using System;
-using Lx.Utilities.Contract.Infrastructure.Dto;
+using Lx.Utilities.Contract.Infrastructure.DTO;
 
 namespace Lx.Utilities.Contract.Infrastructure.Common {
     public interface IProgressReporter<out TProgress> where TProgress : Progress, new() {

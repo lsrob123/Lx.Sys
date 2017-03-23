@@ -12,7 +12,7 @@ using Lx.Utilities.Services.Infrastructure;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Owin;
-using IRequest = Lx.Utilities.Contract.Infrastructure.Dto.IRequest;
+using IRequest = Lx.Utilities.Contract.Infrastructure.DTO.IRequest;
 
 namespace Lx.Utilities.Services.SignalR {
     /// <summary>

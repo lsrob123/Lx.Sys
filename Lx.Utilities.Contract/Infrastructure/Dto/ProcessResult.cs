@@ -13,7 +13,7 @@ using Lx.Utilities.Contract.Infrastructure.Exceptions;
 using Lx.Utilities.Contract.Logging;
 using Newtonsoft.Json;
 
-namespace Lx.Utilities.Contract.Infrastructure.Dto {
+namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public class ProcessResult : IDto {
         /// <summary>
         ///     The following exception types can not be deserialized with JSON serializer used in NServiceBus and

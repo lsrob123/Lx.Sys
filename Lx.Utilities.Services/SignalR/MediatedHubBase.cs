@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.Dto;
+using Lx.Utilities.Contract.Infrastructure.DTO;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Services.Infrastructure;
@@ -14,21 +14,23 @@ using Lx.Utilities.Services.Reflection;
 using Lx.Utilities.Services.Serialization;
 using Microsoft.AspNet.SignalR;
 using Remotion.Linq.Utilities;
-using IRequest = Lx.Utilities.Contract.Infrastructure.Dto.IRequest;
+using IRequest = Lx.Utilities.Contract.Infrastructure.DTO.IRequest;
 
 namespace Lx.Utilities.Services.SignalR {
-    public abstract class MediatedHubBase : Hub, IMediatorMessageHandler<GeneralDataResponse>, IHasInstanceKey {
+    public abstract class MediatedHubBase : Hub, IHasInstanceKey {
         protected static readonly Type MediatorMessageHandlerType = typeof(IMediatorMessageHandler);
 
         protected readonly ILogger Logger;
         protected readonly IMappingService MappingService;
         protected readonly IOAuthHelper OAuthHelper;
+        protected readonly IRequestDispatcher RequestDispatcher;
 
         protected MediatedHubBase(IMediator mediator, ILogger logger, IMappingService mappingService,
-            IOAuthHelper oauthHelper = null) {
+            IRequestDispatcher requestDispatcher, IOAuthHelper oauthHelper = null) {
             InstanceKey = Guid.NewGuid();
             Logger = logger;
             MappingService = mappingService;
+            RequestDispatcher = requestDispatcher;
             OAuthHelper = oauthHelper;
 
             if (mediator == null)
@@ -39,9 +41,8 @@ namespace Lx.Utilities.Services.SignalR {
 
         public Guid InstanceKey { get; protected set; }
 
-        public void Handle(GeneralDataResponse message) {
-            if (message.HasServiceReference(this))
-                SendGroupResponse(message);
+        protected virtual void Dispatch(IRequest request) {
+            RequestDispatcher.Dispatch(request);
         }
 
         public async Task<string> CreateGroupAsync() {

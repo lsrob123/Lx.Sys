@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.Dto;
+using Lx.Utilities.Contract.Infrastructure.DTO;
 
 namespace Lx.Utilities.Services.Infrastructure {
     /// <summary>

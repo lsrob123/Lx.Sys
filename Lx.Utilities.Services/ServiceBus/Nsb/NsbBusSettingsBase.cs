@@ -3,7 +3,7 @@ using System.Configuration;
 using Lx.Utilities.Contract.ServiceBus;
 using Lx.Utilities.Services.Config;
 
-namespace Lx.Utilities.Services.ServiceBus.Nsb {
+namespace Lx.Utilities.Services.ServiceBus.NSB {
     internal class NsbSettingsInConfigFile {
         public string PersistenceStoreConnectionString { get; set; }
         public string MqConnectionString { get; set; }

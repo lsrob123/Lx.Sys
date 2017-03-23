@@ -4,7 +4,7 @@ using System.Linq;
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Common;
 
-namespace Lx.Utilities.Contract.Infrastructure.Dto {
+namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public static class RequestResponseExtensions {
         public static TResult WithProcessResult<TResult>(this TResult result, ProcessResult processResult,
             string reason = null)

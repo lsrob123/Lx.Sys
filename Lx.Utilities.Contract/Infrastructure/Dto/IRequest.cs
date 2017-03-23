@@ -1,6 +1,6 @@
 ﻿using Lx.Utilities.Contract.Authentication.DTOs;
 
-namespace Lx.Utilities.Contract.Infrastructure.Dto {
+namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public interface IRequest : IDto, IRequestKey, IHasOriginatorIp, IHasOriginatorDevice, IHasSagaId {
         string AccessToken { get; set; }
 

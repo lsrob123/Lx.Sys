@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Dto;
+﻿using Lx.Utilities.Contract.Infrastructure.DTO;
 
 namespace Lx.Utilities.Services.SignalR {
     public class SignalRGroupResponse {

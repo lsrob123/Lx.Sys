@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net;
-using Lx.Utilities.Contract.Infrastructure.Dto;
+using Lx.Utilities.Contract.Infrastructure.DTO;
 
 namespace Lx.Utilities.Contract.Authentication.DTOs {
     public class GetTokensResponse : ResponseBase {

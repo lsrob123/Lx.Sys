@@ -1,6 +1,6 @@
 ﻿using System;
 using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.Dto;
+using Lx.Utilities.Contract.Infrastructure.DTO;
 using Lx.Utilities.Contract.Logging;
 using Moq;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Lx.Utilities.Contract.Infrastructure.Common;
 
-namespace Lx.Utilities.Contract.Infrastructure.Dto {
+namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public abstract class ResultBase : IResultBase, IHasInstanceKey {
         protected ResultBase() {
             ServiceReferences = new List<string>();

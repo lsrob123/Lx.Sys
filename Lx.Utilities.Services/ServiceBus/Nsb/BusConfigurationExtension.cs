@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using NServiceBus;
 
-namespace Lx.Utilities.Services.ServiceBus.Nsb {
+namespace Lx.Utilities.Services.ServiceBus.NSB {
     public static class BusConfigurationExtension {
         public static void RegisterWithAutofac(this BusConfiguration busConfiguration, IContainer container = null) {
             if (container == null)

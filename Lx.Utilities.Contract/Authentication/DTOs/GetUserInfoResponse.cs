@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Security.Claims;
-using Lx.Utilities.Contract.Infrastructure.Dto;
+using Lx.Utilities.Contract.Infrastructure.DTO;
 
 namespace Lx.Utilities.Contract.Authentication.DTOs {
     public class GetUserInfoResponse : ResponseBase {

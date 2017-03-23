@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lx.Utilities.Contract.Infrastructure.Dto {
+namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public interface IHasSagaId {
         /// <summary>
         ///     Saga look up key

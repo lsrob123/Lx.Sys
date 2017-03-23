@@ -1,4 +1,4 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Dto {
+﻿namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public class CompletionState : ResponseBase, ICompletionState {
         public CompletionState() {}
 

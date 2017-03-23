@@ -1,4 +1,4 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Dto {
+﻿namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public static class ProgressExtensions {
         public static TProgress WithPayload<TProgress>(this TProgress progress, object data)
             where TProgress : Progress {

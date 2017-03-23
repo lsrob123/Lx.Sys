@@ -1,4 +1,4 @@
-namespace Lx.Utilities.Contract.Infrastructure.Dto {
+namespace Lx.Utilities.Contract.Infrastructure.DTO {
     public static class PaginationExtension {
         public static TPaginatedList WithPaginationAndDisplayOrder<TPaginatedList>(this TPaginatedList list,
             int pageNumber, int pageSize, bool inDescendingOrder, long? itemCount = null)

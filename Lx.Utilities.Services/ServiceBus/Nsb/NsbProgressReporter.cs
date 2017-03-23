@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Transactions;
-using Lx.Utilities.Contract.Infrastructure.Dto;
+using Lx.Utilities.Contract.Infrastructure.DTO;
 using Lx.Utilities.Services.Infrastructure;
 using NServiceBus;
 
-namespace Lx.Utilities.Services.ServiceBus.Nsb {
+namespace Lx.Utilities.Services.ServiceBus.NSB {
     public class NsbProgressReporter<TProgress> : ProgressReporter<TProgress>
         where TProgress : Progress, new() {
         public NsbProgressReporter(ISendOnlyBus bus, ICompletionState completionState,

@@ -17,16 +17,15 @@ namespace Lx.Utilities.Services.ServiceBus.NSB
 
         public void SpecifyOrder(Order order)
         {
-            var responseTypes = AssemblyHelper.GetTypesInReferencedAssemblies(
+            var adapterTypes = AssemblyHelper.GetTypesInReferencedAssemblies(
                 typeFilter: t =>
                     t.IsInstanceOfType(ResponseType) &&
-                    t.CustomAttributes.All(a => a.AttributeType != NotToBeMediatedAttributeType));
+                    t.CustomAttributes.All(a => a.AttributeType != NotToBeMediatedAttributeType))
+                .Select(responseType =>
+                    typeof (MessageHandlerAdapter<>).MakeGenericType(responseType))
+                .ToArray();
 
-            var adapterTypes = responseTypes
-                .Select(responseType => typeof (MessageHandlerAdapter<>)
-                    .MakeGenericType(responseType)).ToList();
-
-            order.Specify(adapterTypes.ToArray());
+            order.Specify(adapterTypes);
         }
     }
 }

@@ -39,9 +39,9 @@ namespace Lx.Utilities.Services.Config {
                     return;
 
                 Lock.EnterWriteLock();
-                try {
-                    var actions = AssemblyHelper.GetReferencedAssemblies()
-                        .SelectMany(assembly => assembly.GetTypes())
+                try
+                {
+                    var actions = AssemblyHelper.GetTypesInReferencedAssemblies()
                         .SelectMany(type => type.GetMethods())
                         .Where(method => method.IsStatic &&
                                          (method.GetCustomAttribute<PreconfigurationAttribute>() != null))

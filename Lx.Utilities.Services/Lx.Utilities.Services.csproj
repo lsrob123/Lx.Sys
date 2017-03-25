@@ -251,8 +251,10 @@
     <Compile Include="Serialization\JsonSerializer.cs" />
     <Compile Include="Serialization\SnakeCaseFullContractResolver.cs" />
     <Compile Include="Serialization\SnakeCasePropertyNameContractResolver.cs" />
+    <Compile Include="ServiceBus\NSB\MessageHandlerAdapter.cs" />
     <Compile Include="ServiceBus\NSB\RequestDispatcher.cs" />
     <Compile Include="ServiceBus\NSB\RequestHandlersBase.cs" />
+    <Compile Include="ServiceBus\NSB\MessageHandlerAdapterLister.cs" />
     <Compile Include="ServiceBus\ResponseHandlersBase.cs" />
     <Compile Include="ServiceBus\NSB\BusConfigurationExtension.cs" />
     <Compile Include="ServiceBus\NSB\BusConfigurationHelper.cs" />

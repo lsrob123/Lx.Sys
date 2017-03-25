@@ -7,6 +7,9 @@ using NServiceBus;
 
 namespace Lx.Utilities.Services.ServiceBus.NSB
 {
+    /// <summary>
+    ///     http://stackoverflow.com/questions/9027662/nservicebus-custom-message-handler-type
+    /// </summary>
     public class MessageHandlerAdapterLister : ISpecifyMessageHandlerOrdering
     {
         private static readonly Type ResponseType = typeof (IResponse),

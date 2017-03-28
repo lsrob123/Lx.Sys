@@ -18,7 +18,7 @@ namespace Lx.Utilities.Services.Web {
             if (!files.Any())
                 return;
 
-            var types = AssemblyHelper.GetReferencedAssemblies().SelectMany(a => a.GetTypes()).ToList();
+            var types = AssemblyHelper.GetTypesInReferencedAssemblies();
             foreach (var file in files) {
                 var fileName = Path.GetFileNameWithoutExtension(file);
                 var modelType = types.FirstOrDefault(x => x.Name.Equals(fileName, StringComparison.OrdinalIgnoreCase));

@@ -7,12 +7,15 @@ using System.Linq.Expressions;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
-namespace Lx.Utilities.Services.Persistence.EF {
-    public static class DbModelBuilderExtensions {
+namespace Lx.Utilities.Services.Persistence.EF
+{
+    public static class DbModelBuilderExtensions
+    {
         public static PrimitivePropertyConfiguration Index<TWithRelationalId>(
             this DbModelBuilder modelBuilder, Expression<Func<TWithRelationalId, string>> propertyGetter,
             bool? isUnique = false, string name = null, int? order = null)
-            where TWithRelationalId : class, IWithRelationalId {
+            where TWithRelationalId : class, IWithRelationalId
+        {
             return modelBuilder.Entity<TWithRelationalId>()
                 .Property(propertyGetter)
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName,
@@ -23,7 +26,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
             this DbModelBuilder modelBuilder, Expression<Func<TWithRelationalId, TProperty?>> propertyGetter,
             bool? isUnique = false, string name = null, int? order = null)
             where TWithRelationalId : class, IWithRelationalId
-            where TProperty : struct {
+            where TProperty : struct
+        {
             return modelBuilder.Entity<TWithRelationalId>()
                 .Property(propertyGetter)
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName,
@@ -34,7 +38,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
             this DbModelBuilder modelBuilder, Expression<Func<TWithRelationalId, TProperty>> propertyGetter,
             bool? isUnique = false, string name = null, int? order = null)
             where TWithRelationalId : class, IWithRelationalId
-            where TProperty : struct {
+            where TProperty : struct
+        {
             return modelBuilder.Entity<TWithRelationalId>()
                 .Property(propertyGetter)
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName,
@@ -42,7 +47,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
         }
 
         private static IndexAnnotation CreateIndexAnnotation(bool? isUnique = false, string name = null,
-            int? order = null) {
+            int? order = null)
+        {
             IndexAttribute indexAttribute;
             if (!string.IsNullOrWhiteSpace(name) && order.HasValue)
                 indexAttribute = new IndexAttribute(name, order.Value);
@@ -61,13 +67,15 @@ namespace Lx.Utilities.Services.Persistence.EF {
         public static PrimitivePropertyConfiguration UniquelyIndex<TWithRelationalId, TProperty>(
             this DbModelBuilder modelBuilder, Expression<Func<TWithRelationalId, TProperty>> propertyGetter)
             where TWithRelationalId : class, IWithRelationalId
-            where TProperty : struct {
+            where TProperty : struct
+        {
             return Index(modelBuilder, propertyGetter, true);
         }
 
         public static PrimitivePropertyConfiguration UniquelyIndex<TWithRelationalId>(
             this DbModelBuilder modelBuilder, Expression<Func<TWithRelationalId, string>> propertyGetter)
-            where TWithRelationalId : class, IWithRelationalId {
+            where TWithRelationalId : class, IWithRelationalId
+        {
             return modelBuilder.Entity<TWithRelationalId>()
                 .Property(propertyGetter)
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName,
@@ -75,7 +83,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
         }
 
         public static PrimitivePropertyConfiguration UniquelyIndexEntityKey<TEntity>(this DbModelBuilder modelBuilder)
-            where TEntity : class, IEntity {
+            where TEntity : class, IEntity
+        {
             return modelBuilder.Entity<TEntity>()
                 .Property(t => t.Key)
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName,

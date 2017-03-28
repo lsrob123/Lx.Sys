@@ -5,12 +5,29 @@ using Lx.Utilities.Contract.Infrastructure.Domain;
 using Lx.Utilities.Contract.Infrastructure.Helpers;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Infrastructure.ValueObjects {
-    public class PhoneNumber : IValueObject, IPhoneNumber, IEquatable<PhoneNumber> {
+namespace Lx.Utilities.Contract.Infrastructure.ValueObjects
+{
+    public class PhoneNumber : IValueObject, IPhoneNumber, IEquatable<PhoneNumber>
+    {
+        public PhoneNumber()
+        {
+        }
+
+        public PhoneNumber(string localNumberWithAreaCode, bool verified, int? countryCode = null,
+            string countryName = null)
+        {
+            LocalNumberWithAreaCode = localNumberWithAreaCode;
+            SetVerified(verified);
+            CountryCode = countryCode;
+            CountryName = countryName;
+            LocalNumberWithAreaCodeInDigits = PhoneNumberHelper.GetNumberInDigits(LocalNumberWithAreaCode);
+        }
+
         [StringLength(100)]
         public string LocalNumberWithAreaCodeInDigits { get; protected set; }
 
-        public bool Equals(PhoneNumber other) {
+        public bool Equals(PhoneNumber other)
+        {
             if (other == null)
                 return false;
 
@@ -30,7 +47,8 @@ namespace Lx.Utilities.Contract.Infrastructure.ValueObjects {
         [NotMapped]
         public string FullNumber => PhoneNumberHelper.GetFullNumber(this);
 
-        public void SetVerified(bool verified) {
+        public void SetVerified(bool verified)
+        {
             Verified = verified;
         }
     }

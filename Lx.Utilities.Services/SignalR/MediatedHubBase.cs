@@ -91,6 +91,7 @@ namespace Lx.Utilities.Services.SignalR {
         }
 
         public async Task<IdentityDto> EnsureInGroupAsync(IRequest request, bool tryUseUserKeyAsGroupName = true) {
+            request.OriginatorConnection = Context.ConnectionId;
             this.CollectClientIp(request);
 
             var enforceNotificationOfAllocatedGroup = false;

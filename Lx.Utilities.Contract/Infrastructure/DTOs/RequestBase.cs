@@ -16,6 +16,7 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
         public IdentityDto User { get; set; }
         public string OriginatorGroup { get; set; }
         public string RequestReference { get; set; }
+        public string OriginatorConnection { get; set; }
         public ICollection<string> ServiceReferences { get; set; }
         public Guid Sid { get; set; }
 

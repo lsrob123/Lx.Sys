@@ -34,6 +34,7 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
 
             basicRequestKey.OriginatorGroup = other.OriginatorGroup;
             basicRequestKey.RequestReference = other.RequestReference;
+            basicRequestKey.OriginatorConnection = other.OriginatorConnection;
 
             var requestKey = basicRequestKey as IRequestKey;
             if (requestKey != null) {

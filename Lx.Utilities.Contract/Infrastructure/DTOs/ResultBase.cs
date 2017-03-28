@@ -27,6 +27,7 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
 
         public virtual string OriginatorGroup { get; set; }
         public virtual string RequestReference { get; set; }
+        public string OriginatorConnection { get; set; }
 
         public ICollection<string> ServiceReferences { get; set; }
 
@@ -35,6 +36,7 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
         protected virtual void CleanUpForClientSide() {
             Result?.SetExceptions(null);
             ServiceReferences = null;
+            OriginatorConnection = null;
         }
 
         protected virtual ICollection<string> MakeShareGroups(IEnumerable<string> shareGroups) {

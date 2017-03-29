@@ -8,7 +8,7 @@ using NServiceBus.Logging;
 using NServiceBus.Newtonsoft.Json;
 using NServiceBus.Persistence;
 
-namespace Lx.Utilities.Services.ServiceBus.NSB {
+namespace Lx.Utilities.Services.ServiceBus.Nsb {
     public class BusConfigurationHelper {
         protected static readonly Type BusCommandType = typeof(IBusCommand);
         protected static readonly Type BusEventType = typeof(IBusEvent);

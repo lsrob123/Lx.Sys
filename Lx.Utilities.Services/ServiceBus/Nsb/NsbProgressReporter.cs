@@ -5,7 +5,7 @@ using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Services.Infrastructure;
 using NServiceBus;
 
-namespace Lx.Utilities.Services.ServiceBus.NSB {
+namespace Lx.Utilities.Services.ServiceBus.Nsb {
     public class NsbProgressReporter<TProgress> : ProgressReporter<TProgress>
         where TProgress : Progress, new() {
         public NsbProgressReporter(ISendOnlyBus bus, ICompletionState completionState,

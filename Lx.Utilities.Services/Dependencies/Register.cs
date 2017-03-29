@@ -3,7 +3,8 @@ using Lx.Utilities.Contract.Authentication.Config;
 using Lx.Utilities.Contract.Authorization;
 using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Crypto;
-using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Contract.Infrastructure.EventDispacthing;
+using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
 using Lx.Utilities.Contract.IoC;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
@@ -14,10 +15,10 @@ using Lx.Utilities.Services.Authorization;
 using Lx.Utilities.Services.Caching.InProcess;
 using Lx.Utilities.Services.Caching.Redis;
 using Lx.Utilities.Services.Crypto;
+using Lx.Utilities.Services.Infrastructure;
 using Lx.Utilities.Services.Logging.Log4Net;
 using Lx.Utilities.Services.Mapping.AutoMapper;
 using Lx.Utilities.Services.Serialization;
-using Lx.Utilities.Services.ServiceBus.NSB;
 using Lx.Utilities.Services.SignalR;
 
 namespace Lx.Utilities.Services.Dependencies {
@@ -36,7 +37,8 @@ namespace Lx.Utilities.Services.Dependencies {
             Register<IOAuthHelper, OAuthHelper>();
             Register<IAuthorizationService, AuthorizationService>();
             Register<IOAuthClientSettings, OAuthClientSettings>();
-            Register<IRequestDispatcher, RequestDispatcher>();
+            Register<IRequestDispatchingProxy, RequestDispatchingProxy>();
+            Register<IEventDispatchingProxy, EventDispatchingProxy>();
         }
     }
 }

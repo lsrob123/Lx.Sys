@@ -1,6 +1,6 @@
 ﻿using Lx.Utilities.Modelling.DTOs;
 using Lx.Utilities.Modelling.Processes;
-using Lx.Utilities.Services.ServiceBus.NSB;
+using Lx.Utilities.Services.ServiceBus.Nsb;
 using NServiceBus;
 
 namespace Lx.Utilities.Modelling.NSB {

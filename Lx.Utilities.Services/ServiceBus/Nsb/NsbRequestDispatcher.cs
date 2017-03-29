@@ -1,25 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
 using Lx.Utilities.Contract.ServiceBus;
 using NServiceBus;
 
-namespace Lx.Utilities.Services.ServiceBus.NSB {
-    public class RequestDispatcher : IRequestDispatcher {
+namespace Lx.Utilities.Services.ServiceBus.Nsb {
+    public class NsbRequestDispatcher : IRequestDispatcher {
         protected readonly IBus Bus;
         protected readonly IBusSettings BusSettings;
         protected readonly IDictionary<Type, string> ExceptionalBusEndpointMaps;
 
-        public RequestDispatcher(IBus bus, IBusSettings busSettings,
-            IBusEndpointMapFactory exceptionalBusEndpointMapFactory) {
+        public NsbRequestDispatcher(IBus bus, IBusSettings busSettings,
+            IBusEndpointMapFactory exceptionalBusEndpointMapFactory = null) {
             Bus = bus;
             BusSettings = busSettings;
 
-            ExceptionalBusEndpointMaps = exceptionalBusEndpointMapFactory?.GetMaps();
+            exceptionalBusEndpointMapFactory = exceptionalBusEndpointMapFactory ?? new DefaultBusEndpointMapFactory();
+            ExceptionalBusEndpointMaps = exceptionalBusEndpointMapFactory.GetMaps();
         }
 
-        public void Dispatch(IRequest request) {
+        public void Dispatch<TRequest>(TRequest request) where TRequest : IRequest {
             string busEndpoint;
             if ((ExceptionalBusEndpointMaps == null) ||
                 !ExceptionalBusEndpointMaps.TryGetValue(request.GetType(), out busEndpoint))

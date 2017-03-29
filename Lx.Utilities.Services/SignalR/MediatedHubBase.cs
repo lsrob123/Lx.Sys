@@ -8,6 +8,7 @@ using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Mediator;
@@ -25,14 +26,14 @@ namespace Lx.Utilities.Services.SignalR {
         protected readonly ILogger Logger;
         protected readonly IMappingService MappingService;
         protected readonly IOAuthHelper OAuthHelper;
-        protected readonly IRequestDispatcher RequestDispatcher;
+        protected readonly IRequestDispatchingProxy RequestDispatchingProxy;
 
         protected MediatedHubBase(IMediator mediator, ILogger logger, IMappingService mappingService,
-            IRequestDispatcher requestDispatcher, IOAuthHelper oauthHelper = null) {
+            IRequestDispatchingProxy requestDispatchingProxy, IOAuthHelper oauthHelper = null) {
             InstanceKey = Guid.NewGuid();
             Logger = logger;
             MappingService = mappingService;
-            RequestDispatcher = requestDispatcher;
+            RequestDispatchingProxy = requestDispatchingProxy;
             OAuthHelper = oauthHelper;
 
             if (mediator == null)
@@ -44,7 +45,7 @@ namespace Lx.Utilities.Services.SignalR {
         public Guid InstanceKey { get; protected set; }
 
         protected virtual void Dispatch(IRequest request) {
-            RequestDispatcher.Dispatch(request);
+            RequestDispatchingProxy.Dispatch(request);
         }
 
         public async Task<string> CreateGroupAsync() {

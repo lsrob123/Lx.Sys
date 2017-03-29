@@ -6,7 +6,7 @@ using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Serialization;
 using NServiceBus.Saga;
 
-namespace Lx.Utilities.Services.ServiceBus.NSB {
+namespace Lx.Utilities.Services.ServiceBus.Nsb {
     public abstract class SagaBase<TSagaData> : Saga<TSagaData>, IHasInstanceKey
         where TSagaData : IContainSagaData, new() {
         protected readonly ICacheFactory CacheFactory;

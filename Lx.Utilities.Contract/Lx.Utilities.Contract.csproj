@@ -120,6 +120,9 @@
     <Compile Include="Infrastructure\Common\AssemblyHelper.cs" />
     <Compile Include="Infrastructure\Common\Casing.cs" />
     <Compile Include="Infrastructure\Common\Enumeration.cs" />
+    <Compile Include="Infrastructure\EventDispacthing\IEventDispatcher.cs" />
+    <Compile Include="Infrastructure\EventDispacthing\IEventDispatcherBase.cs" />
+    <Compile Include="Infrastructure\EventDispacthing\IEventDispatchingProxy.cs" />
     <Compile Include="Infrastructure\Helpers\PhoneNumberHelper.cs" />
     <Compile Include="Infrastructure\Interfaces\IBasicRequestKey.cs" />
     <Compile Include="Infrastructure\Interfaces\IDbConfig.cs" />
@@ -131,6 +134,8 @@
     <Compile Include="Infrastructure\Interfaces\IPersonName.cs" />
     <Compile Include="Infrastructure\Interfaces\IPhoneNumber.cs" />
     <Compile Include="Infrastructure\Interfaces\IVerified.cs" />
+    <Compile Include="Infrastructure\RequestDispatching\IRequestDispatcherBase.cs" />
+    <Compile Include="Infrastructure\RequestDispatching\IRequestDispatchingProxy.cs" />
     <Compile Include="Infrastructure\ValueObjects\Email.cs" />
     <Compile Include="Infrastructure\ValueObjects\PersonName.cs" />
     <Compile Include="Infrastructure\ValueObjects\PhoneNumber.cs" />
@@ -138,7 +143,7 @@
     <Compile Include="Mediator\IMediatorMessageHandler.cs" />
     <Compile Include="Infrastructure\Common\IMessageBase.cs" />
     <Compile Include="Infrastructure\Common\IProgressReporter.cs" />
-    <Compile Include="Infrastructure\Common\IRequestDispatcher.cs" />
+    <Compile Include="Infrastructure\RequestDispatching\IRequestDispatcher.cs" />
     <Compile Include="Infrastructure\Common\IWithRelationalId.cs" />
     <Compile Include="Mediator\Mediator.cs" />
     <Compile Include="Mediator\MediatorReadyEvent.cs" />
@@ -201,6 +206,7 @@
     <Compile Include="Serialization\IClaimRelatedJsonDeserializer.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\SerializationOptions.cs" />
+    <Compile Include="ServiceBus\DefaultBusEndpointMapFactory.cs" />
     <Compile Include="ServiceBus\IBusClient.cs" />
     <Compile Include="ServiceBus\IBusCommand.cs" />
     <Compile Include="ServiceBus\IBusEndpointMapFactory.cs" />

@@ -2,7 +2,7 @@
 using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.IoC;
 using Lx.Utilities.Contract.ServiceBus;
-using Lx.Utilities.Services.ServiceBus.NSB;
+using Lx.Utilities.Services.ServiceBus.Nsb;
 using Lx.Utilities.Services.SignalR;
 using NServiceBus;
 

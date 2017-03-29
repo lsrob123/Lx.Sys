@@ -2,7 +2,7 @@
 using Lx.Utilities.Contract.Mediator;
 using NServiceBus;
 
-namespace Lx.Utilities.Services.ServiceBus.NSB
+namespace Lx.Utilities.Services.ServiceBus.Nsb
 {
     public class MessageHandlerAdapter<TMessage> : IHandleMessages<TMessage>
         where TMessage : IResponse

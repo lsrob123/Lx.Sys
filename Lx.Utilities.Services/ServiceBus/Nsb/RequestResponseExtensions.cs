@@ -1,7 +1,7 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using NServiceBus.Saga;
 
-namespace Lx.Utilities.Services.ServiceBus.NSB {
+namespace Lx.Utilities.Services.ServiceBus.Nsb {
     public static class RequestResponseExtensions {
         public static THasSagaId WithSaga<THasSagaId, TSagaData>(this THasSagaId hasSagaId, Saga<TSagaData> saga)
             where THasSagaId : IHasSagaId

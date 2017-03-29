@@ -5,7 +5,7 @@ using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using NServiceBus;
 
-namespace Lx.Utilities.Services.ServiceBus.NSB
+namespace Lx.Utilities.Services.ServiceBus.Nsb
 {
     /// <summary>
     ///     http://stackoverflow.com/questions/9027662/nservicebus-custom-message-handler-type

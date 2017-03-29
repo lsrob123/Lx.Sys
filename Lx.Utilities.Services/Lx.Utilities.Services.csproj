@@ -217,9 +217,11 @@
     <Compile Include="Crypto\DefaultConfigCrypto.cs" />
     <Compile Include="Crypto\DefaultCryptoFactory.cs" />
     <Compile Include="Dependencies\Register.cs" />
+    <Compile Include="Infrastructure\EventDispatchingProxy.cs" />
     <Compile Include="Infrastructure\ExceptionExtensions.cs" />
     <Compile Include="Infrastructure\MediatedApiBase.cs" />
     <Compile Include="Infrastructure\ProgressReporter.cs" />
+    <Compile Include="Infrastructure\RequestDispatchingProxy.cs" />
     <Compile Include="Infrastructure\StringExtensions.cs" />
     <Compile Include="IoC\AutoFac\ContainerBuilderExtensions.cs" />
     <Compile Include="IoC\AutoFac\ContainerBuilderExtensionsForOwin.cs" />
@@ -252,7 +254,8 @@
     <Compile Include="Serialization\SnakeCaseFullContractResolver.cs" />
     <Compile Include="Serialization\SnakeCasePropertyNameContractResolver.cs" />
     <Compile Include="ServiceBus\NSB\MessageHandlerAdapter.cs" />
-    <Compile Include="ServiceBus\NSB\RequestDispatcher.cs" />
+    <Compile Include="ServiceBus\NSB\NsbEventDispatcher.cs" />
+    <Compile Include="ServiceBus\NSB\NsbRequestDispatcher.cs" />
     <Compile Include="ServiceBus\NSB\RequestHandlersBase.cs" />
     <Compile Include="ServiceBus\NSB\MessageHandlerAdapterLister.cs" />
     <Compile Include="ServiceBus\ResponseHandlersBase.cs" />

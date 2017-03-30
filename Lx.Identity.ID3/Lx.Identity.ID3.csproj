@@ -60,6 +60,10 @@
       <Project>{B115B835-1DD1-490D-A101-C8908D2A5E54}</Project>
       <Name>Lx.Identity.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lx.Identity.Domain\Lx.Identity.Domain.csproj">
+      <Project>{818ddd07-ecfd-4337-ae5e-6f110470123f}</Project>
+      <Name>Lx.Identity.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lx.Identity.Services\Lx.Identity.Services.csproj">
       <Project>{0A887CA1-5FFF-4DBF-8CD1-D7EA8AB05B75}</Project>
       <Name>Lx.Identity.Services</Name>

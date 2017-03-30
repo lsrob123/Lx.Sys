@@ -125,7 +125,7 @@
     <Compile Include="Infrastructure\EventDispacthing\IEventDispatchingProxy.cs" />
     <Compile Include="Infrastructure\Helpers\PhoneNumberHelper.cs" />
     <Compile Include="Infrastructure\Interfaces\IBasicRequestKey.cs" />
-    <Compile Include="Infrastructure\Interfaces\IDbConfig.cs" />
+    <Compile Include="Persistence\IDbConfig.cs" />
     <Compile Include="Infrastructure\Interfaces\IDevice.cs" />
     <Compile Include="Infrastructure\Interfaces\IEmail.cs" />
     <Compile Include="Infrastructure\Interfaces\IEndpointSettings.cs" />

@@ -5,6 +5,8 @@ using Lx.Utilities.Contract.Infrastructure.Domain;
 
 namespace Lx.Identity.Domain.Entities {
     public class ScopeSecret : EntityBase, IScopeSecret {
+        public Guid ScopeKey { get; protected set; }
+
         [StringLength(1000)]
         public string Description { get; set; }
 

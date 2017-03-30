@@ -16,11 +16,14 @@ namespace Lx.Utilities.Services.Persistence {
         protected readonly ICacheFactory CacheFactory;
         protected readonly ILogger Logger;
         protected readonly IMappingService MappingService;
+        protected readonly IDbConfig PrimaryDbConfig;
 
-        protected UnitOfWorkFactoryBase(ILogger logger, ICacheFactory cacheFactory, IMappingService mappingService) {
+        protected UnitOfWorkFactoryBase(ILogger logger, ICacheFactory cacheFactory, IMappingService mappingService,
+            IDbConfig primaryDbConfig) {
             Logger = logger;
             CacheFactory = cacheFactory;
             MappingService = mappingService;
+            PrimaryDbConfig = primaryDbConfig;
         }
 
         /// <summary>

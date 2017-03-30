@@ -1,4 +1,4 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Interfaces
+﻿namespace Lx.Utilities.Contract.Persistence
 {
     public interface IDbConfig
     {

@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
 namespace Lx.Identity.Domain.Entities {
     public class ClientClaim : EntityBase, IClientClaim {
+        public Guid ClientKey { get; protected set; }
+
         [Required]
         [StringLength(250)]
         public string Type { get; protected set; }

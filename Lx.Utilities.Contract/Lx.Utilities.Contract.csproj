@@ -90,6 +90,7 @@
     <Compile Include="Authentication\DTOs\RevokeTokenResponse.cs" />
     <Compile Include="Authentication\DTOs\RoleDto.cs" />
     <Compile Include="Authentication\DTOs\RoleProcessDto.cs" />
+    <Compile Include="Authentication\Enumerations\VerificationPurpose.cs" />
     <Compile Include="Authentication\Extensions\ClaimsExtensions.cs" />
     <Compile Include="Authentication\Extensions\ClaimsPrincipalExtensions.cs" />
     <Compile Include="Authentication\Extensions\IdentityDtoExtensions.cs" />

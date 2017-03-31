@@ -1,4 +1,6 @@
-﻿namespace Lx.Shared.All.Common.DTOs {
+﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
+
+namespace Lx.Shared.All.Common.DTOs {
     public class AddressDto : IDto, IAddress {
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

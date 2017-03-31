@@ -1,4 +1,9 @@
-﻿namespace Lx.Shared.All.Common.DTOs {
+﻿using System.Runtime.Serialization;
+using Lx.Utilities.Contract.Infrastructure.Helpers;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Newtonsoft.Json;
+
+namespace Lx.Shared.All.Common.DTOs {
     public class PhoneNumberDto : IDto, IPhoneNumber {
         public string LocalNumberWithAreaCode { get; set; }
         public int? CountryCode { get; set; }

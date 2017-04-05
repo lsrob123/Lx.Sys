@@ -290,7 +290,14 @@
       <Name>Lx.Utilities.Contract</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Assets\index.html" />
+    <Content Include="Assets\jquery.cookie.js" />
+    <Content Include="Assets\jquery.js" />
+    <Content Include="Assets\jquery.signalR.js" />
+    <Content Include="Assets\moment.js" />
+    <Content Include="Assets\tester.html" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

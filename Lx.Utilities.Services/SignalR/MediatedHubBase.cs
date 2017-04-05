@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.DTOs;
+using Lx.Utilities.Contract.Infrastructure.Attributes;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
@@ -112,7 +113,7 @@ namespace Lx.Utilities.Services.SignalR {
             return request.User;
         }
 
-        public async Task GetRequestSampleAsync(string originatorGroup, string methodName) {
+        public async Task GetRequestSampleAsync(string originatorGroup, string methodName, string requestReference) {
             if (string.IsNullOrWhiteSpace(methodName))
                 return;
 
@@ -122,7 +123,7 @@ namespace Lx.Utilities.Services.SignalR {
             if (string.IsNullOrWhiteSpace(json))
                 return;
 
-            Clients.Group(originatorGroup).requestSampleReturned(json);
+            Clients.Group(originatorGroup).requestSampleReturned(json, requestReference);
         }
 
         public string GetRequestSample(string methodName) {
@@ -166,18 +167,25 @@ namespace Lx.Utilities.Services.SignalR {
         }
 
         protected void InitializeComplexTypePropertyValuesRecursively(object instance) {
+            var invisibleInTestExampleAttributeType = typeof(InvisibleInTestExampleAttribute);
             var stringType = typeof(string);
             var dateTimeOffsetType = typeof(DateTimeOffset);
             var timeSpanType = typeof(TimeSpan);
             var genericNumerableType = typeof(IEnumerable);
             var userType = typeof(IdentityDto);
+            const string nameOfServiceReferences = nameof(IRequestKey.ServiceReferences);
+            const string nameOfSid = nameof(IRequest.Sid);
 
             var properties = instance.GetType().GetProperties();
             foreach (var property in properties)
                 try {
-                    if ((property.PropertyType == userType) ||
-                        property.Name.Equals(nameof(IRequestKey.ServiceReferences)))
+                    if (property.GetCustomAttributes(invisibleInTestExampleAttributeType, false).Any() ||
+                        (property.PropertyType == userType) ||
+                        property.Name.Equals(nameOfServiceReferences) ||
+                        property.Name.Equals(nameOfSid)) {
+                        property.SetValue(instance, null);
                         continue;
+                    }
 
                     if (stringType.IsAssignableFrom(property.PropertyType)) {
                         property.SetValue(instance, string.Empty);

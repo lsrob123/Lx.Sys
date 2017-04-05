@@ -111,8 +111,10 @@
     <Compile Include="Configuration\PreconfigurationAttribute.cs" />
     <Compile Include="Crypto\IConfigCrypto.cs" />
     <Compile Include="Crypto\ICryptoService.cs" />
+    <Compile Include="Infrastructure\Attributes\InvisibleInTestExampleAttribute.cs" />
     <Compile Include="Infrastructure\Common\IHasRichContent.cs" />
     <Compile Include="Infrastructure\DTOs\NotToBeMediatedAttribute.cs" />
+    <Compile Include="Infrastructure\Enumerations\Locale.cs" />
     <Compile Include="Infrastructure\Enumerations\PhoneDestinationType.cs" />
     <Compile Include="Infrastructure\Enumerations\RichContentType.cs" />
     <Compile Include="Authentication\Enumerations\PriorUserState.cs" />

@@ -2,9 +2,10 @@
 
 namespace Lx.Utilities.Contract.Infrastructure.Enumerations {
     public class RichContentType : Enumeration {
-        public RichContentType(int value, string name) : base(value, name) { }
+        protected RichContentType(int value, string name) : base(value, name) { }
 
-        public RichContentType() { }
+        protected RichContentType() { }
+
         public static RichContentType TextOnly => new RichContentType(0, nameof(TextOnly));
         public static RichContentType TextWithEmbeddedMedia => new RichContentType(10, nameof(TextWithEmbeddedMedia));
         public static RichContentType InternalReference => new RichContentType(20, nameof(InternalReference));

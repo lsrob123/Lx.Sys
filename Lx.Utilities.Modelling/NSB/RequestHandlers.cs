@@ -4,7 +4,7 @@ using Lx.Utilities.Services.ServiceBus.Nsb;
 using NServiceBus;
 
 namespace Lx.Utilities.Modelling.NSB {
-    public class RequestHandlers : RequestHandlersBase {
+    public class RequestHandlers : RequestHandlersBase, IHandleMessages<TrialRequest> {
         private readonly ITrialService _trialService;
 
         public RequestHandlers(IBus bus, ITrialService trialService) : base(bus) {

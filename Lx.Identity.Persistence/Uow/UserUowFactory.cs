@@ -4,6 +4,7 @@ using Lx.Identity.Persistence.EF;
 using Lx.Shared.All.Identity.Constants;
 using Lx.Shared.All.Identity.DTOs;
 using Lx.Utilities.Contract.Caching;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.EventDispacthing;
 using Lx.Utilities.Contract.Infrastructure.Helpers;
 using Lx.Utilities.Contract.Logging;
@@ -107,7 +108,11 @@ namespace Lx.Identity.Persistence.Uow {
                 userUpdatedEvent.Roles = basicMemberInfo.Roles;
             }
 
-            EventDispatchingProxy.Dispatch(userUpdatedEvent);
+            DispatchEvent(userUpdatedEvent);
+        }
+
+        protected virtual void DispatchEvent<TEvent>(TEvent eventObject) where TEvent : ResponseBase {
+            EventDispatchingProxy.Dispatch(eventObject);
         }
     }
 }

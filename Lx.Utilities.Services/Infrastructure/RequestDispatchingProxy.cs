@@ -21,7 +21,7 @@ namespace Lx.Utilities.Services.Infrastructure {
         protected readonly IMediator Mediator;
 
         public RequestDispatchingProxy(IMediator mediator, IBus bus, IBusSettings busSettings,
-            IBusEndpointMapFactory exceptionalBusEndpointMapFactory = null) {
+            IBusEndpointMapFactory exceptionalBusEndpointMapFactory) {
             Mediator = mediator;
             Bus = bus;
 

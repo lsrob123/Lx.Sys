@@ -35,7 +35,7 @@ namespace Lx.Utilities.Services.Infrastructure {
                 broadcaster.Broadcast(e);
         }
 
-        public void Register<TDispatcher>(TDispatcher broadcaster) where TDispatcher : IEventBroadcaster {
+        public void Register<TBroadcaster>(TBroadcaster broadcaster) where TBroadcaster : IEventBroadcaster {
             Lock.EnterUpgradeableReadLock();
             try {
                 var broadcasterType = broadcaster.GetType();

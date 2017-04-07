@@ -3,10 +3,10 @@ using Lx.Utilities.Contract.Infrastructure.EventDispacthing;
 using NServiceBus;
 
 namespace Lx.Utilities.Services.ServiceBus.Nsb {
-    public class NsbEventDispatcher : IEventDispatcher {
+    public class NsbInProcessEventDispatcher : IEventDispatcher {
         protected readonly IBus Bus;
 
-        public NsbEventDispatcher(IBus bus) {
+        public NsbInProcessEventDispatcher(IBus bus) {
             Bus = bus;
         }
 

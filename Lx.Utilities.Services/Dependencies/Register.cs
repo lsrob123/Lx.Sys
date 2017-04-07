@@ -38,7 +38,7 @@ namespace Lx.Utilities.Services.Dependencies {
             Register<IAuthorizationService, AuthorizationService>();
             Register<IOAuthClientSettings, OAuthClientSettings>();
             Register<IRequestDispatchingProxy, RequestDispatchingProxy>();
-            Register<IEventDispatchingProxy, EventDispatchingProxy>();
+            Register<IEventDispatchingProxy, InProcessEventDispatchingProxy>();
         }
     }
 }

@@ -8,7 +8,7 @@ using Lx.Utilities.Services.ServiceBus.Nsb;
 using NServiceBus;
 
 namespace Lx.Utilities.Services.Infrastructure {
-    public class EventDispatchingProxy : IEventDispatchingProxy {
+    public class InProcessEventDispatchingProxy : IEventDispatchingProxy {
         protected static readonly SortedDictionary<Type, IEventDispatcher> DispatcherLookUps =
             new SortedDictionary<Type, IEventDispatcher>();
 
@@ -17,13 +17,10 @@ namespace Lx.Utilities.Services.Infrastructure {
 
         protected readonly IBus Bus;
 
-        protected readonly IMediator Mediator;
-
-        public EventDispatchingProxy(IMediator mediator, IBus bus) {
-            Mediator = mediator;
+        public InProcessEventDispatchingProxy(IBus bus) {
             Bus = bus;
 
-            RegisterDispatcher(new NsbEventDispatcher(Bus));
+            RegisterDispatcher(new NsbInProcessEventDispatcher(Bus));
         }
 
         public void Dispatch<TEvent>(TEvent e) where TEvent : ResponseBase {

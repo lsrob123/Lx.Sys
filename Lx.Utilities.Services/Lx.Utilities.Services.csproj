@@ -217,7 +217,7 @@
     <Compile Include="Crypto\DefaultConfigCrypto.cs" />
     <Compile Include="Crypto\DefaultCryptoFactory.cs" />
     <Compile Include="Dependencies\Register.cs" />
-    <Compile Include="Infrastructure\InProcessEventDispatchingProxy.cs" />
+    <Compile Include="Infrastructure\EventBroadcastingProxy.cs" />
     <Compile Include="Infrastructure\ExceptionExtensions.cs" />
     <Compile Include="Infrastructure\MediatedApiBase.cs" />
     <Compile Include="Infrastructure\ProgressReporter.cs" />
@@ -254,7 +254,7 @@
     <Compile Include="Serialization\SnakeCaseFullContractResolver.cs" />
     <Compile Include="Serialization\SnakeCasePropertyNameContractResolver.cs" />
     <Compile Include="ServiceBus\NSB\MessageHandlerAdapter.cs" />
-    <Compile Include="ServiceBus\NSB\NsbInProcessEventDispatcher.cs" />
+    <Compile Include="ServiceBus\NSB\NsbEventBroadcaster.cs" />
     <Compile Include="ServiceBus\NSB\NsbRequestDispatcher.cs" />
     <Compile Include="ServiceBus\NSB\RequestHandlersBase.cs" />
     <Compile Include="ServiceBus\NSB\MessageHandlerAdapterLister.cs" />

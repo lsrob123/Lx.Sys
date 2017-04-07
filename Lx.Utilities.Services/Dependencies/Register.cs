@@ -3,7 +3,7 @@ using Lx.Utilities.Contract.Authentication.Config;
 using Lx.Utilities.Contract.Authorization;
 using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Crypto;
-using Lx.Utilities.Contract.Infrastructure.EventDispacthing;
+using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
 using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
 using Lx.Utilities.Contract.IoC;
 using Lx.Utilities.Contract.Logging;
@@ -38,7 +38,7 @@ namespace Lx.Utilities.Services.Dependencies {
             Register<IAuthorizationService, AuthorizationService>();
             Register<IOAuthClientSettings, OAuthClientSettings>();
             Register<IRequestDispatchingProxy, RequestDispatchingProxy>();
-            Register<IEventDispatchingProxy, InProcessEventDispatchingProxy>();
+            Register<IEventBroadcastingProxy, EventBroadcastingProxy>();
         }
     }
 }

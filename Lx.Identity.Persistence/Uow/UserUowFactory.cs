@@ -5,7 +5,7 @@ using Lx.Shared.All.Identity.Constants;
 using Lx.Shared.All.Identity.DTOs;
 using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.EventDispacthing;
+using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
 using Lx.Utilities.Contract.Infrastructure.Helpers;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
@@ -17,7 +17,7 @@ using Lx.Utilities.Services.Persistence;
 namespace Lx.Identity.Persistence.Uow {
     public class UserUowFactory : UnitOfWorkFactoryBase<IdentityUow> {
         public UserUowFactory(ILogger logger, ICacheFactory cacheFactory, IMappingService mappingService,
-            IDbConfig primaryDbConfig, ISerializer serializer, IEventDispatchingProxy eventDispatchingProxy)
+            IDbConfig primaryDbConfig, ISerializer serializer, IEventBroadcastingProxy eventDispatchingProxy)
             : base(primaryDbConfig, logger, cacheFactory, mappingService, serializer, eventDispatchingProxy) {}
 
         protected override IdentityUow GetUnitOfWork() {
@@ -112,7 +112,7 @@ namespace Lx.Identity.Persistence.Uow {
         }
 
         protected virtual void DispatchEvent<TEvent>(TEvent eventObject) where TEvent : ResponseBase {
-            EventDispatchingProxy.Dispatch(eventObject);
+            EventDispatchingProxy.Broadcast(eventObject);
         }
     }
 }

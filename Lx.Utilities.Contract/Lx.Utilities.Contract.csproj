@@ -124,8 +124,8 @@
     <Compile Include="Infrastructure\Common\AssemblyHelper.cs" />
     <Compile Include="Infrastructure\Common\Casing.cs" />
     <Compile Include="Infrastructure\Common\Enumeration.cs" />
-    <Compile Include="Infrastructure\EventDispacthing\IEventDispatcher.cs" />
-    <Compile Include="Infrastructure\EventDispacthing\IEventDispatchingProxy.cs" />
+    <Compile Include="Infrastructure\EventBroadcasting\IEventBroadcaster.cs" />
+    <Compile Include="Infrastructure\EventBroadcasting\IEventBroadcastingProxy.cs" />
     <Compile Include="Infrastructure\Helpers\PhoneNumberHelper.cs" />
     <Compile Include="Infrastructure\Interfaces\IBasicRequestKey.cs" />
     <Compile Include="Persistence\IDbConfig.cs" />

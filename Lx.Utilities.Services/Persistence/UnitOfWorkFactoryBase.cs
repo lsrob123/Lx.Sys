@@ -3,7 +3,7 @@ using System.Transactions;
 using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.EventDispacthing;
+using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Persistence;
@@ -16,14 +16,14 @@ namespace Lx.Utilities.Services.Persistence {
     /// <typeparam name="T">A UnitOfWork type which implements <see cref="IUnitOfWork" /></typeparam>
     public abstract class UnitOfWorkFactoryBase<T> : IUnitOfWorkFactory<T> where T : IUnitOfWork {
         protected readonly ICacheFactory CacheFactory;
-        protected readonly IEventDispatchingProxy EventDispatchingProxy;
+        protected readonly IEventBroadcastingProxy EventDispatchingProxy;
         protected readonly ILogger Logger;
         protected readonly IMappingService MappingService;
         protected readonly IDbConfig PrimaryDbConfig;
         protected readonly ISerializer Serializer;
 
         protected UnitOfWorkFactoryBase(IDbConfig primaryDbConfig, ILogger logger, ICacheFactory cacheFactory,
-            IMappingService mappingService, ISerializer serializer, IEventDispatchingProxy eventDispatchingProxy) {
+            IMappingService mappingService, ISerializer serializer, IEventBroadcastingProxy eventDispatchingProxy) {
             Logger = logger;
             CacheFactory = cacheFactory;
             MappingService = mappingService;

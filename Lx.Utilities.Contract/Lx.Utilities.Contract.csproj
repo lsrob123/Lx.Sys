@@ -220,6 +220,8 @@
     <Compile Include="ServiceBus\RequestResponseExtensions.cs" />
     <Compile Include="ValidationAttributes\EnumerationValidateAttribute.cs" />
     <Compile Include="Web\ITypedModelHtmlGenerationService.cs" />
+    <Compile Include="Web\IUploadFileSettings.cs" />
+    <Compile Include="Web\UploadFileResultDto.cs" />
     <Compile Include="WindowsService\IServiceManager.cs" />
   </ItemGroup>
   <ItemGroup>

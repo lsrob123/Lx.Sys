@@ -39,8 +39,12 @@ namespace Lx.Utilities.Contract.Mediator {
             }
 
             if (handlers != null)
-                Parallel.ForEach(handlers, handler => ((IMediatorMessageHandler<T>) handler).Handle(message));
+                Parallel.ForEach(handlers, handler => ExecuteHandler(handler, message));
             return this;
+        }
+
+        protected void ExecuteHandler<T>(IMediatorMessageHandler handler, T message) where T : IMessageBase {
+            ((IMediatorMessageHandler<T>)handler)?.Handle(message);
         }
 
         public virtual IMediator Subscribe<T>(IMediatorMessageHandler<T> handler)

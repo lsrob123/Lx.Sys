@@ -26,13 +26,17 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
         /// <typeparam name="TRequestKey"></typeparam>
         /// <param name="basicRequestKey"></param>
         /// <param name="other"></param>
+        /// <param name="alternativeGroup"></param>
         /// <returns></returns>
-        public static TRequestKey LinkTo<TRequestKey>(this TRequestKey basicRequestKey, IBasicRequestKey other)
+        public static TRequestKey LinkTo<TRequestKey>(this TRequestKey basicRequestKey, IBasicRequestKey other,
+            string alternativeGroup = null)
             where TRequestKey : IBasicRequestKey {
             if (other == null)
                 return basicRequestKey;
 
-            basicRequestKey.OriginatorGroup = other.OriginatorGroup;
+            basicRequestKey.OriginatorGroup = string.IsNullOrWhiteSpace(alternativeGroup)
+                ? other.OriginatorGroup
+                : alternativeGroup.Trim();
             basicRequestKey.RequestReference = other.RequestReference;
             basicRequestKey.OriginatorConnection = other.OriginatorConnection;
 

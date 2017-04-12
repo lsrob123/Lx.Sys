@@ -166,6 +166,10 @@ namespace Lx.Utilities.Services.SignalR {
             return result;
         }
 
+        protected void BroadcastToAllClients<TResponse>(TResponse response) where TResponse : IResponse {
+            this.ExecuteOnAllClients(response, (clients, groupResponse) => clients.groupResponseReceived(groupResponse));
+        }
+
         protected void InitializeComplexTypePropertyValuesRecursively(object instance) {
             var invisibleInTestExampleAttributeType = typeof(InvisibleInTestExampleAttribute);
             var stringType = typeof(string);

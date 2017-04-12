@@ -57,5 +57,15 @@ namespace Lx.Utilities.Services.SignalR {
 
             return hub;
         }
+
+        public static THub ExecuteOnAllClients<THub, TResponse>(this THub hub, TResponse response,
+            Action<dynamic, SignalRGroupResponse> actionsOnAllClients)
+            where THub : Hub
+            where TResponse : IResponse {
+            var groupResponse = new SignalRGroupResponse(response);
+            var clients = GlobalHost.ConnectionManager.GetHubContext<THub>().Clients;
+            actionsOnAllClients?.Invoke(clients, groupResponse);
+            return hub;
+        }
     }
 }

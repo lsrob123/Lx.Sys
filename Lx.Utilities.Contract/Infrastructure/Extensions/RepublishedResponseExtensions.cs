@@ -1,8 +1,9 @@
 ﻿using System;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.Mapping;
 
-namespace Lx.Utilities.Contract.Infrastructure.DTOs {
+namespace Lx.Utilities.Contract.Infrastructure.Extensions {
     public static class RepublishedResponseExtensions {
         public static TRepublish With<TRepublish, TOriginalResponse>(this TRepublish republish,
             Func<TOriginalResponse, TOriginalResponse> replicateResponseInstance,

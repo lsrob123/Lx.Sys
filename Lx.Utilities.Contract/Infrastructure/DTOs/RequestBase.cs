@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Attributes;
+using Lx.Utilities.Contract.Infrastructure.Extensions;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.ServiceBus;
 

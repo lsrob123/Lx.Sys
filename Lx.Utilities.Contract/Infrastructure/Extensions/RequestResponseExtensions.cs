@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Lx.Utilities.Contract.Authentication.DTOs;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Infrastructure.DTOs {
+namespace Lx.Utilities.Contract.Infrastructure.Extensions {
     public static class RequestResponseExtensions {
         public static TResult WithProcessResult<TResult>(this TResult result, ProcessResult processResult,
             string reason = null)

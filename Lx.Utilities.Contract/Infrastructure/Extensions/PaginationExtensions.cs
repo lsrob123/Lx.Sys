@@ -1,7 +1,17 @@
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Infrastructure.DTOs {
-    public static class PaginationExtension {
+namespace Lx.Utilities.Contract.Infrastructure.Extensions {
+    public static class PaginationExtensions {
+        public static TWithPagination WithValidPageNumberAndSize<TWithPagination>(this TWithPagination ownerObject,
+        int defaultPageSize = 20) where TWithPagination : IWithPagination {
+            if (ownerObject.PageNumber == 0)
+                ownerObject.PageNumber = 1;
+            if (ownerObject.PageSize == 0)
+                ownerObject.PageSize = defaultPageSize;
+
+            return ownerObject;
+        }
+
         public static TPaginatedList WithPaginationAndDisplayOrder<TPaginatedList>(this TPaginatedList list,
             int pageNumber, int pageSize, bool inDescendingOrder, long? itemCount = null)
             where TPaginatedList : IWithPaginatedList {

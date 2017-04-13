@@ -176,15 +176,15 @@
     <Compile Include="Infrastructure\Interfaces\IResultBase.cs" />
     <Compile Include="Infrastructure\Interfaces\IWithPaginatedList.cs" />
     <Compile Include="Infrastructure\Interfaces\IWithPagination.cs" />
-    <Compile Include="Infrastructure\DTOs\PaginationExtension.cs" />
+    <Compile Include="Infrastructure\Extensions\PaginationExtensions.cs" />
     <Compile Include="Infrastructure\DTOs\ProcessResult.cs" />
     <Compile Include="Infrastructure\DTOs\Progress.cs" />
-    <Compile Include="Infrastructure\DTOs\ProgressExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\ProgressExtensions.cs" />
     <Compile Include="Infrastructure\DTOs\ReplyBase.cs" />
     <Compile Include="Infrastructure\DTOs\RepublishedResponseBase.cs" />
-    <Compile Include="Infrastructure\DTOs\RepublishedResponseExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\RepublishedResponseExtensions.cs" />
     <Compile Include="Infrastructure\DTOs\RequestBase.cs" />
-    <Compile Include="Infrastructure\DTOs\RequestResponseExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\RequestResponseExtensions.cs" />
     <Compile Include="Infrastructure\DTOs\ResponseBase.cs" />
     <Compile Include="Infrastructure\DTOs\ResultBase.cs" />
     <Compile Include="Infrastructure\Enumerations\Privilege.cs" />
@@ -229,9 +229,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

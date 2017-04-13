@@ -8,6 +8,7 @@ using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Attributes;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
+using Lx.Utilities.Contract.Infrastructure.Extensions;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
 using Lx.Utilities.Contract.Logging;

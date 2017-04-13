@@ -1,4 +1,5 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
+﻿using Lx.Utilities.Contract.Infrastructure.Extensions;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Contract.Infrastructure.DTOs {
     public class CompletionState : ResponseBase, ICompletionState {

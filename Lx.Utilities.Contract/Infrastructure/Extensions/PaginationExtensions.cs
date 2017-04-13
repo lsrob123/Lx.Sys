@@ -2,7 +2,7 @@ using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Contract.Infrastructure.Extensions {
     public static class PaginationExtensions {
-        public static TWithPagination WithValidPageNumberAndSize<TWithPagination>(this TWithPagination ownerObject,
+        public static TWithPagination EnsureValidPageNumberAndSize<TWithPagination>(this TWithPagination ownerObject,
         int defaultPageSize = 20) where TWithPagination : IWithPagination {
             if (ownerObject.PageNumber == 0)
                 ownerObject.PageNumber = 1;

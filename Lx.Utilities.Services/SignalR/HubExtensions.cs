@@ -63,8 +63,7 @@ namespace Lx.Utilities.Services.SignalR {
             where THub : Hub
             where TResponse : IResponse {
             var groupResponse = new SignalRGroupResponse(response);
-            var clients = GlobalHost.ConnectionManager.GetHubContext<THub>().Clients;
-            actionsOnAllClients?.Invoke(clients, groupResponse);
+            actionsOnAllClients?.Invoke(hub.Clients.All, groupResponse);
             return hub;
         }
     }

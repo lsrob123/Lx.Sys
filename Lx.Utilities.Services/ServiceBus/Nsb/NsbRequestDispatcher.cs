@@ -5,14 +5,17 @@ using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
 using Lx.Utilities.Contract.ServiceBus;
 using NServiceBus;
 
-namespace Lx.Utilities.Services.ServiceBus.Nsb {
-    public class NsbRequestDispatcher : IRequestDispatcher {
+namespace Lx.Utilities.Services.ServiceBus.Nsb
+{
+    public class NsbRequestDispatcher : IRequestDispatcher
+    {
         protected readonly IBus Bus;
         protected readonly IBusSettings BusSettings;
         protected readonly IDictionary<Type, string> ExceptionalBusEndpointMaps;
 
         public NsbRequestDispatcher(IBus bus, IBusSettings busSettings,
-            IBusEndpointMapFactory exceptionalBusEndpointMapFactory = null) {
+            IBusEndpointMapFactory exceptionalBusEndpointMapFactory = null)
+        {
             Bus = bus;
             BusSettings = busSettings;
 
@@ -20,7 +23,8 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb {
             ExceptionalBusEndpointMaps = exceptionalBusEndpointMapFactory.GetMaps();
         }
 
-        public void Dispatch<TRequest>(TRequest request) where TRequest : IRequest {
+        public void Dispatch<TRequest>(TRequest request) where TRequest : IRequest
+        {
             string busEndpoint;
             if ((ExceptionalBusEndpointMaps == null) ||
                 !ExceptionalBusEndpointMaps.TryGetValue(request.GetType(), out busEndpoint))

@@ -3,17 +3,21 @@ using Lx.Utilities.Contract.Infrastructure.Enums;
 using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
 using NServiceBus;
 
-namespace Lx.Utilities.Services.ServiceBus.Nsb {
-    public class NsbEventBroadcaster : IEventBroadcaster {
+namespace Lx.Utilities.Services.ServiceBus.Nsb
+{
+    public class NsbEventBroadcaster : IEventBroadcaster
+    {
         protected readonly IBus Bus;
 
-        public NsbEventBroadcaster(IBus bus) {
+        public NsbEventBroadcaster(IBus bus)
+        {
             Bus = bus;
         }
 
         public EventBroadcastingScope AllowedScope => EventBroadcastingScope.CrossProcesses;
 
-        public void Broadcast<TEvent>(TEvent e) where TEvent : ResponseBase {
+        public void Broadcast<TEvent>(TEvent e) where TEvent : ResponseBase
+        {
             Bus.Publish(e);
         }
     }

@@ -4,20 +4,25 @@ using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mediator;
 using Moq;
 
-namespace Lx.Utilities.Services.Logging.Moq {
-    public static class LoggerMockFactory {
-        public static Mock<ILogger> Make(Action<Exception, string> callback) {
+namespace Lx.Utilities.Services.Logging.Moq
+{
+    public static class LoggerMockFactory
+    {
+        public static Mock<ILogger> Make(Action<Exception, string> callback)
+        {
             var mock = new Mock<ILogger>();
 
             mock.Setup(x => x.LogException(It.IsAny<Exception>(), It.IsAny<string>()))
-                .Callback<Exception, string>((exception, logReference) => {
+                .Callback<Exception, string>((exception, logReference) =>
+                {
                     Console.WriteLine($"Logging exception {exception.ToString()}");
                     Console.WriteLine($"With reference {logReference}");
                     callback(exception, logReference);
                 });
 
             mock.Setup(x => x.Handle(It.IsAny<ProcessResult>()))
-                .Callback<ProcessResult>(processResult => {
+                .Callback<ProcessResult>(processResult =>
+                {
                     Console.WriteLine("Writing to log ...");
                     processResult.WriteExceptionsToLog(mock.Object);
                 });

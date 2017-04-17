@@ -2,10 +2,13 @@
 using AutoMapper;
 using Lx.Utilities.Contract.Infrastructure.Common;
 
-namespace Lx.Utilities.Services.Mapping.AutoMapper {
-    public class MapSetting {
+namespace Lx.Utilities.Services.Mapping.AutoMapper
+{
+    public class MapSetting
+    {
         public MapSetting(Type source, Type destination,
-            Func<IMappingExpression, IMappingExpression> customMapFunc = null) {
+            Func<IMappingExpression, IMappingExpression> customMapFunc = null)
+        {
             Source = source;
             Destination = destination;
             CustomMap = customMapFunc;
@@ -28,31 +31,32 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper {
 
         public static MapSetting<TEnumeration, TEnum> EnumerationToEnumMap<TEnumeration, TEnum>()
             where TEnumeration : Enumeration
-            where TEnum : struct, IComparable, IConvertible, IFormattable {
+            where TEnum : struct, IComparable, IConvertible, IFormattable
+        {
             return new MapSetting<TEnumeration, TEnum>(exp => exp.ConstructUsing(x =>
-                    (TEnum) Enum.Parse(typeof(TEnum), ((TEnumeration) x).Name)));
+                (TEnum) Enum.Parse(typeof (TEnum), ((TEnumeration) x).Name)));
         }
 
         public static MapSetting<TEnumeration, string> EnumerationToStringMap<TEnumeration>()
-            where TEnumeration : Enumeration {
+            where TEnumeration : Enumeration
+        {
             return new MapSetting<TEnumeration, string>(
                 exp => exp.ConstructUsing(x => ((TEnumeration) x).Name));
         }
 
         public static MapSetting<string, TEnumeration> StringToEnumerationMap<TEnumeration>()
-            where TEnumeration : Enumeration {
+            where TEnumeration : Enumeration
+        {
             return new MapSetting<string, TEnumeration>(
                 exp => exp.ConstructUsing(x => Enumeration.FromName<TEnumeration>((string) x)));
         }
     }
 
-    public class MapSetting<TSource, TDestination> : MapSetting {
+    public class MapSetting<TSource, TDestination> : MapSetting
+    {
         public MapSetting(Func<IMappingExpression, IMappingExpression> customMapFunc = null)
-            : base(typeof(TSource), typeof(TDestination), customMapFunc) {}
-
-        //public MapSetting(Action<IMappingExpression> customMapAction = null)
-        //    : base(typeof(TSource), typeof(TDestination), customMapAction)
-        //{
-        //}
+            : base(typeof (TSource), typeof (TDestination), customMapFunc)
+        {
+        }
     }
 }

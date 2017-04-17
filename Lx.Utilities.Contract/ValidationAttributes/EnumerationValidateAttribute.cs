@@ -1,16 +1,20 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Lx.Utilities.Contract.ValidationAttributes {
+namespace Lx.Utilities.Contract.ValidationAttributes
+{
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
-    public sealed class EnumerationValidateAttribute : ValidationAttribute {
+    public sealed class EnumerationValidateAttribute : ValidationAttribute
+    {
         private readonly Type _acceptedEnumeration;
 
-        public EnumerationValidateAttribute(Type acceptedEnumeration) {
+        public EnumerationValidateAttribute(Type acceptedEnumeration)
+        {
             _acceptedEnumeration = acceptedEnumeration;
         }
 
-        public override bool IsValid(object value) {
+        public override bool IsValid(object value)
+        {
             var result = false;
             var inputStr = (string) value;
             if (_acceptedEnumeration.BaseType == null)

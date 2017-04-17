@@ -1,10 +1,14 @@
 ﻿using System.Configuration;
 
-namespace Lx.Utilities.Services.Caching.Redis.Config {
-    public class CacheHostCollection : ConfigurationElementCollection {
-        public CacheHost this[int index] {
+namespace Lx.Utilities.Services.Caching.Redis.Config
+{
+    public class CacheHostCollection : ConfigurationElementCollection
+    {
+        public CacheHost this[int index]
+        {
             get { return BaseGet(index) as CacheHost; }
-            set {
+            set
+            {
                 if (BaseGet(index) != null)
                     BaseRemoveAt(index);
 
@@ -12,11 +16,13 @@ namespace Lx.Utilities.Services.Caching.Redis.Config {
             }
         }
 
-        protected override ConfigurationElement CreateNewElement() {
+        protected override ConfigurationElement CreateNewElement()
+        {
             return new CacheHost();
         }
 
-        protected override object GetElementKey(ConfigurationElement element) {
+        protected override object GetElementKey(ConfigurationElement element)
+        {
             return ((CacheHost) element).Host;
         }
     }

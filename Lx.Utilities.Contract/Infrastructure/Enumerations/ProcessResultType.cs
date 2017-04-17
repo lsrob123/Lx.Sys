@@ -1,7 +1,9 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Common;
 
-namespace Lx.Utilities.Contract.Infrastructure.Enumerations {
-    public class ProcessResultType : Enumeration {
+namespace Lx.Utilities.Contract.Infrastructure.Enumerations
+{
+    public class ProcessResultType : Enumeration
+    {
         public static ProcessResultType Unknown = new ProcessResultType(0, nameof(Unknown));
         public static ProcessResultType Continue = new ProcessResultType(100, nameof(Continue));
         public static ProcessResultType SwitchingProtocols = new ProcessResultType(101, nameof(SwitchingProtocols));
@@ -63,10 +65,13 @@ namespace Lx.Utilities.Contract.Infrastructure.Enumerations {
         public static ProcessResultType HttpVersionNotSupported = new ProcessResultType(505,
             nameof(HttpVersionNotSupported));
 
-        public ProcessResultType() {}
+        public ProcessResultType()
+        {
+        }
 
         public ProcessResultType(int value, string name, bool isSuccess = false)
-            : base(value, name) {
+            : base(value, name)
+        {
             IsSuccess = isSuccess;
         }
 

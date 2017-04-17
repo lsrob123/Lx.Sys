@@ -33,9 +33,9 @@
     }
 
     function parseCookieValue(s) {
-        if (s.indexOf('"') === 0) {
+        if (s.indexOf("\"") === 0) {
             // This is a quoted cookie as according to RFC2068, unescape...
-            s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, "\\");
+            s = s.slice(1, -1).replace(/\\"/g, "\"").replace(/\\\\/g, "\\");
         }
 
         try {
@@ -49,7 +49,7 @@
     }
 
     function read(s, converter) {
-        var value = config.raw ? s : parseCookieValue(s);
+        const value = config.raw ? s : parseCookieValue(s);
         return $.isFunction(converter) ? converter(value) : value;
     }
 
@@ -61,7 +61,8 @@
             options = $.extend({}, config.defaults, options);
 
             if (typeof options.expires === "number") {
-                var days = options.expires, t = options.expires = new Date();
+                const t = options.expires = new Date();
+                const days = options.expires;
                 t.setMilliseconds(t.getMilliseconds() + days * 864e+5);
             }
 
@@ -69,29 +70,27 @@
                 encode(key), "=", stringifyCookieValue(value),
                 options
                 .expires
-                ? "; expires=" + options.expires.toUTCString()
+                ? `; expires=${options.expires.toUTCString()}`
                 : "", // use expires attribute, max-age is not supported by IE
-                options.path ? "; path=" + options.path : "",
-                options.domain ? "; domain=" + options.domain : "",
+                options.path ? `; path=${options.path}` : "",
+                options.domain ? `; domain=${options.domain}` : "",
                 options.secure ? "; secure" : ""
             ].join(""));
         }
 
         // Read
 
-        var result = key ? undefined : {},
-            // To prevent the for loop in the first place assign an empty array
+        var result = key ? undefined : {} // To prevent the for loop in the first place assign an empty array
             // in case there are no cookies at all. Also prevents odd result when
             // calling $.cookie().
-            cookies = document.cookie ? document.cookie.split("; ") : [],
-            i = 0,
-            l = cookies.length;
-
+            ,
+            i = 0;
+        const l = cookies.length;
+        const cookies = document.cookie ? document.cookie.split("; ") : [];
         for (; i < l; i++) {
-            var parts = cookies[i].split("="),
-                name = decode(parts.shift()),
-                cookie = parts.join("=");
-
+            let cookie = parts.join("=");
+            const name = decode(parts.shift());
+            const parts = cookies[i].split("=");
             if (key === name) {
                 // If second argument (value) is a function it's a converter...
                 result = read(cookie, value);

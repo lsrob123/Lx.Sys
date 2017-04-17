@@ -7,14 +7,17 @@ using System.Globalization;
 using System.Linq.Expressions;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
-namespace Lx.Utilities.Services.Persistence.EF {
+namespace Lx.Utilities.Services.Persistence.EF
+{
     [Obsolete]
     public class EntityTypeConfig<TEntity> : EntityTypeConfiguration<TEntity>
-        where TEntity : class, IEntity {
-        public EntityTypeConfig(string tableName = null) {
+        where TEntity : class, IEntity
+    {
+        public EntityTypeConfig(string tableName = null)
+        {
             if (string.IsNullOrWhiteSpace(tableName))
                 tableName = PluralizationService.CreateService(CultureInfo.GetCultureInfo("en-us"))
-                    .Pluralize(typeof(TEntity).Name);
+                    .Pluralize(typeof (TEntity).Name);
 
             ToTable(tableName);
 
@@ -28,7 +31,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
         /// <param name="propertyExpression">Expression&lt;Func&lt;T, TProperty&gt;&gt;</param>
         public EntityTypeConfig<TEntity> SetUniqueIndex<TProperty>(
             Expression<Func<TEntity, TProperty>> propertyExpression)
-            where TProperty : struct {
+            where TProperty : struct
+        {
             Property(propertyExpression).IsRequired()
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName,
                     new IndexAnnotation(new IndexAttribute {IsUnique = true}));
@@ -38,7 +42,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
 
         public EntityTypeConfig<TEntity> SetIndex<TProperty>(
             Expression<Func<TEntity, TProperty>> propertyExpression)
-            where TProperty : struct {
+            where TProperty : struct
+        {
             Property(propertyExpression)
                 .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute[] {}));
 

@@ -3,18 +3,22 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Lx.Utilities.Services.Persistence.DataAnnotation {
-    public class EmailAddressAllowsEmptyStringAttribute : DataTypeAttribute {
+namespace Lx.Utilities.Services.Persistence.DataAnnotation
+{
+    public class EmailAddressAllowsEmptyStringAttribute : DataTypeAttribute
+    {
         private static readonly Regex _regex = CreateRegEx();
 
-        public EmailAddressAllowsEmptyStringAttribute() : base(DataType.EmailAddress) {
+        public EmailAddressAllowsEmptyStringAttribute() : base(DataType.EmailAddress)
+        {
             ErrorMessage = ErrorMessageResourceName + "field is not a valid phone number";
         }
 
         /// <summary>Determines whether the specified value matches the pattern of a valid email address.</summary>
         /// <returns>true if the specified value is valid or null; otherwise, false.</returns>
         /// <param name="value">The value to validate.</param>
-        public override bool IsValid(object value) {
+        public override bool IsValid(object value)
+        {
             if ((value == null) || ((string) value == string.Empty))
                 return true;
             var input = (string) value;
@@ -26,15 +30,19 @@ namespace Lx.Utilities.Services.Persistence.DataAnnotation {
             return false;
         }
 
-        private static Regex CreateRegEx() {
+        private static Regex CreateRegEx()
+        {
             var matchTimeout = TimeSpan.FromSeconds(2.0);
-            try {
+            try
+            {
                 if (AppDomain.CurrentDomain.GetData("REGEX_DEFAULT_MATCH_TIMEOUT") == null)
                     return
                         new Regex(
                             "^((([a-z]|\\d|[!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}~]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])+(\\.([a-z]|\\d|[!#\\$%&'\\*\\+\\-\\/=\\?\\^_`{\\|}~]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])+)*)|((\\x22)((((\\x20|\\x09)*(\\x0d\\x0a))?(\\x20|\\x09)+)?(([\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f]|\\x21|[\\x23-\\x5b]|[\\x5d-\\x7e]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])|(\\\\([\\x01-\\x09\\x0b\\x0c\\x0d-\\x7f]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF]))))*(((\\x20|\\x09)*(\\x0d\\x0a))?(\\x20|\\x09)+)?(\\x22)))@((([a-z]|\\d|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])|(([a-z]|\\d|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])([a-z]|\\d|-|\\.|_|~|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])*([a-z]|\\d|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])))\\.)+(([a-z]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])|(([a-z]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])([a-z]|\\d|-|\\.|_|~|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])*([a-z]|[\\u00A0-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFEF])))\\.?$",
                             RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled, matchTimeout);
-            } catch {
+            }
+            catch
+            {
                 // ignored
             }
             return

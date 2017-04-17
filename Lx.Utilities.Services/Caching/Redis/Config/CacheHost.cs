@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Configuration;
 
-namespace Lx.Utilities.Services.Caching.Redis.Config {
-    public class CacheHost : ConfigurationElement {
+namespace Lx.Utilities.Services.Caching.Redis.Config
+{
+    public class CacheHost : ConfigurationElement
+    {
         [ConfigurationProperty("host", IsRequired = true)]
         public string Host => this["host"] as string;
 
         [ConfigurationProperty("cachePort", IsRequired = true)]
-        public int CachePort {
-            get {
+        public int CachePort
+        {
+            get
+            {
                 var config = this["cachePort"];
                 if (config == null)
                     throw new Exception("Redis Cahe port must be number.");

@@ -6,18 +6,22 @@ using AutoMapper;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 using Lx.Utilities.Contract.Mapping;
 
-namespace Lx.Utilities.Services.Mapping.AutoMapper {
-    public class MappingService : IMappingService {
+namespace Lx.Utilities.Services.Mapping.AutoMapper
+{
+    public class MappingService : IMappingService
+    {
         protected static readonly ConcurrentBag<MapSetting> MapSettings = new ConcurrentBag<MapSetting>();
 
-        public TDestination Map<TDestination>(object source) {
+        public TDestination Map<TDestination>(object source)
+        {
             var mappedObject = Mapper.Map<TDestination>(source);
             (mappedObject as IEntity)?.AssignDefaultValuesToComplexPropertiesIfNull();
 
             return mappedObject;
         }
 
-        public TDestination Map<TSource, TDestination>(TSource source) {
+        public TDestination Map<TSource, TDestination>(TSource source)
+        {
             var mappedObject = Mapper.Map<TSource, TDestination>(source);
             (mappedObject as IEntity)?.AssignDefaultValuesToComplexPropertiesIfNull();
 
@@ -42,16 +46,19 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper {
         //    return mappedObject;
         //}
 
-        public static void AddMaps(IEnumerable<MapSetting> maps = null) {
+        public static void AddMaps(IEnumerable<MapSetting> maps = null)
+        {
             AddMapsInternal(maps);
         }
 
-        protected static void AddMapsInternal(IEnumerable<MapSetting> maps) {
+        protected static void AddMapsInternal(IEnumerable<MapSetting> maps)
+        {
             if (maps == null)
                 return;
 
             var mapList = maps.ToList();
-            foreach (var map in mapList) {
+            foreach (var map in mapList)
+            {
                 if (MapSettings.Any(x => (x.Source == map.Source) && (x.Destination == map.Destination)))
                     continue;
 
@@ -59,8 +66,10 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper {
             }
         }
 
-        public static void Configure() {
-            Mapper.Initialize(config => {
+        public static void Configure()
+        {
+            Mapper.Initialize(config =>
+            {
                 config.CreateMissingTypeMaps = true;
 
                 foreach (var map in MapSettings)
@@ -68,12 +77,14 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper {
             });
         }
 
-        public static void AddMaps(params MapSetting[] maps) {
+        public static void AddMaps(params MapSetting[] maps)
+        {
             AddMapsInternal(maps);
         }
 
         protected static IMappingExpression RegisterMap(IMapperConfigurationExpression config,
-            Type source, Type destination, Func<IMappingExpression, IMappingExpression> customMapping = null) {
+            Type source, Type destination, Func<IMappingExpression, IMappingExpression> customMapping = null)
+        {
             var expression = config.CreateMap(source, destination);
 
             if (customMapping != null)

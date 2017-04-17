@@ -1,5 +1,8 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.DTOs;
 
-namespace Lx.Utilities.Modelling.DTOs {
-    public class TrialRequest : RequestBase {}
+namespace Lx.Utilities.Modelling.DTOs
+{
+    public class TrialRequest : RequestBase
+    {
+    }
 }

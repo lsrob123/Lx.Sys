@@ -8,5 +8,6 @@ namespace Lx.Shared.All.Identity.DTOs {
         string VerficationCode { get; set; }
         PriorUserState PriorUserState { get; set; }
         DateTimeOffset? TimeLockedOut { get; set; }
+        UserProfileDto UserProfile { get; set; }
     }
 }

@@ -7,27 +7,36 @@ using Newtonsoft.Json.Serialization;
 
 // ReSharper disable SwitchStatementMissingSomeCases
 
-namespace Lx.Utilities.Services.Serialization {
-    public class JsonSerializer : ISerializer {
-        public bool CanDeserialize(string strInput) {
+namespace Lx.Utilities.Services.Serialization
+{
+    public class JsonSerializer : ISerializer
+    {
+        public bool CanDeserialize(string strInput)
+        {
             strInput = strInput.Trim();
 
             if ((!strInput.StartsWith("{") || !strInput.EndsWith("}")) &&
                 (!strInput.StartsWith("[") || !strInput.EndsWith("]")))
                 return false; //For array 
 
-            try {
+            try
+            {
                 var obj = JToken.Parse(strInput);
                 return true;
-            } catch (JsonReaderException) {
+            }
+            catch (JsonReaderException)
+            {
                 return false; //Exception in parsing json
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 return false; //some other exception
             }
         }
 
         public string Serialize(object anyObject, Casing casing = Casing.Default,
-            SerializationOptions serializationOptions = SerializationOptions.IgnoreSelfReferencedProperties) {
+            SerializationOptions serializationOptions = SerializationOptions.IgnoreSelfReferencedProperties)
+        {
             var settings = GetJsonSerializerSettings(serializationOptions, casing);
             var json = JsonConvert.SerializeObject(anyObject, settings);
             return json;
@@ -35,7 +44,8 @@ namespace Lx.Utilities.Services.Serialization {
 
         public T Deserialize<T>(string serialized, Casing casing = Casing.Default,
             SerializationOptions serializationOptions =
-                SerializationOptions.UseFullContractResolver | SerializationOptions.IgnoreSelfReferencedProperties) {
+                SerializationOptions.UseFullContractResolver | SerializationOptions.IgnoreSelfReferencedProperties)
+        {
             if (string.IsNullOrWhiteSpace(serialized))
                 return default(T);
 
@@ -45,13 +55,15 @@ namespace Lx.Utilities.Services.Serialization {
         }
 
         protected virtual JsonSerializerSettings GetJsonSerializerSettings(SerializationOptions serializationOptions,
-            Casing serializationCasing) {
+            Casing serializationCasing)
+        {
             var settings = new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore};
             if (serializationOptions.HasFlag(SerializationOptions.IgnoreSelfReferencedProperties))
                 settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
             if (serializationOptions.HasFlag(SerializationOptions.UseFullContractResolver))
-                switch (serializationCasing) {
+                switch (serializationCasing)
+                {
                     case Casing.Snake:
                         settings.ContractResolver = new SnakeCaseFullContractResolver();
                         break;
@@ -63,7 +75,8 @@ namespace Lx.Utilities.Services.Serialization {
                         break;
                 }
             else
-                switch (serializationCasing) {
+                switch (serializationCasing)
+                {
                     case Casing.Snake:
                         settings.ContractResolver = new SnakeCasePropertyNameContractResolver();
                         break;

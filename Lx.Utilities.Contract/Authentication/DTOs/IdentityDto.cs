@@ -9,17 +9,21 @@ using Lx.Utilities.Contract.Authentication.Extensions;
 using Lx.Utilities.Contract.Membership;
 using Newtonsoft.Json;
 
-namespace Lx.Utilities.Contract.Authentication.DTOs {
-    public class IdentityDto : IIdentityDto {
+namespace Lx.Utilities.Contract.Authentication.DTOs
+{
+    public class IdentityDto : IIdentityDto
+    {
         public ICollection<RoleDto> Roles { get; set; }
         public UserState State { get; set; }
 
         public void FromClaimsPrincipal(ClaimsPrincipal claimsPrincipal,
-            Func<string, IMemberInfo> extractMemberInfo) {
+            Func<string, IMemberInfo> extractMemberInfo)
+        {
             FromClaims(claimsPrincipal?.Claims, extractMemberInfo);
         }
 
-        public void FromClaims(IEnumerable<Claim> claims, Func<string, IMemberInfo> extractMemberInfo) {
+        public void FromClaims(IEnumerable<Claim> claims, Func<string, IMemberInfo> extractMemberInfo)
+        {
             OriginalClaims = claims?.ToList();
             if ((OriginalClaims == null) || !OriginalClaims.Any())
                 return;
@@ -41,10 +45,13 @@ namespace Lx.Utilities.Contract.Authentication.DTOs {
             var memberInfo = extractMemberInfo?.Invoke(Profile);
 
             var rolesInClaims = OriginalClaims.GetRoles() ?? new List<RoleDto>();
-            if (memberInfo == null) {
+            if (memberInfo == null)
+            {
                 State = UserState.MemberInfoNotFound;
                 Roles = rolesInClaims;
-            } else {
+            }
+            else
+            {
                 State = memberInfo.State;
                 var roles = memberInfo.Roles?.ToDictionary(x => x.RoleType) ?? new Dictionary<string, RoleDto>();
                 foreach (var role in rolesInClaims)
@@ -59,9 +66,7 @@ namespace Lx.Utilities.Contract.Authentication.DTOs {
         public ICollection<Claim> OriginalClaims { get; protected set; }
 
         public string Profile { get; set; }
-
         public string UserReference { get; set; }
-
         public Guid Key { get; set; }
 
         [IgnoreDataMember]

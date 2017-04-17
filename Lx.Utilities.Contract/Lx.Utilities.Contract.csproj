@@ -94,12 +94,12 @@
     <Compile Include="Authentication\Extensions\ClaimsExtensions.cs" />
     <Compile Include="Authentication\Extensions\ClaimsPrincipalExtensions.cs" />
     <Compile Include="Authentication\Extensions\IdentityDtoExtensions.cs" />
-    <Compile Include="Authentication\IClaimProcessor.cs" />
-    <Compile Include="Authentication\IOAuthHelper.cs" />
-    <Compile Include="Authentication\IOAuthLogin.cs" />
-    <Compile Include="Authentication\IOAuthLoginClient.cs" />
-    <Compile Include="Authentication\OAuthLogin.cs" />
-    <Compile Include="Authentication\OAuthLoginClient.cs" />
+    <Compile Include="Authentication\Interfaces\IClaimProcessor.cs" />
+    <Compile Include="Authentication\Interfaces\IOAuthHelper.cs" />
+    <Compile Include="Authentication\Interfaces\IOAuthLogin.cs" />
+    <Compile Include="Authentication\Interfaces\IOAuthLoginClient.cs" />
+    <Compile Include="Authentication\DTOs\OAuthLogin.cs" />
+    <Compile Include="Authentication\DTOs\OAuthLoginClient.cs" />
     <Compile Include="Authorization\IAccessCriteria.cs" />
     <Compile Include="Authorization\IAuthorizationService.cs" />
     <Compile Include="Caching\CacheKeyHelper.cs" />
@@ -128,6 +128,7 @@
     <Compile Include="Infrastructure\EventBroadcasting\IEventBroadcaster.cs" />
     <Compile Include="Infrastructure\EventBroadcasting\IEventBroadcastingProxy.cs" />
     <Compile Include="Infrastructure\Helpers\PhoneNumberHelper.cs" />
+    <Compile Include="Infrastructure\Interfaces\IAddress.cs" />
     <Compile Include="Infrastructure\Interfaces\IBasicRequestKey.cs" />
     <Compile Include="Persistence\IDbConfig.cs" />
     <Compile Include="Infrastructure\Interfaces\IDevice.cs" />

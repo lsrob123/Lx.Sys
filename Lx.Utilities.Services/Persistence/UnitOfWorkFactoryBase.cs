@@ -9,12 +9,14 @@ using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Persistence;
 using Lx.Utilities.Contract.Serialization;
 
-namespace Lx.Utilities.Services.Persistence {
+namespace Lx.Utilities.Services.Persistence
+{
     /// <summary>
     ///     Provides base class for a generic UnitOfWork factory
     /// </summary>
     /// <typeparam name="T">A UnitOfWork type which implements <see cref="IUnitOfWork" /></typeparam>
-    public abstract class UnitOfWorkFactoryBase<T> : IUnitOfWorkFactory<T> where T : IUnitOfWork {
+    public abstract class UnitOfWorkFactoryBase<T> : IUnitOfWorkFactory<T> where T : IUnitOfWork
+    {
         protected readonly ICacheFactory CacheFactory;
         protected readonly IEventBroadcastingProxy EventDispatchingProxy;
         protected readonly ILogger Logger;
@@ -23,7 +25,8 @@ namespace Lx.Utilities.Services.Persistence {
         protected readonly ISerializer Serializer;
 
         protected UnitOfWorkFactoryBase(IDbConfig primaryDbConfig, ILogger logger, ICacheFactory cacheFactory,
-            IMappingService mappingService, ISerializer serializer, IEventBroadcastingProxy eventDispatchingProxy) {
+            IMappingService mappingService, ISerializer serializer, IEventBroadcastingProxy eventDispatchingProxy)
+        {
             Logger = logger;
             CacheFactory = cacheFactory;
             MappingService = mappingService;
@@ -40,12 +43,14 @@ namespace Lx.Utilities.Services.Persistence {
         /// <param name="applyOuterTransactionScope">true: Wrap the UnitOfWork scope with an outer TrasactionScope</param>
         /// <param name="transactionScopeOption">TransactionScopeOption of the applied outer TrasactionScope</param>
         public virtual void Execute(Action<T> action, bool applyOuterTransactionScope = false,
-            TransactionScopeOption transactionScopeOption = TransactionScopeOption.Suppress) {
+            TransactionScopeOption transactionScopeOption = TransactionScopeOption.Suppress)
+        {
             if (action == null)
                 throw new NullReferenceException("action");
 
             if (applyOuterTransactionScope)
-                using (var transactionScope = new TransactionScope()) {
+                using (var transactionScope = new TransactionScope())
+                {
                     ExecuteInScope(action, true);
                     transactionScope.Complete();
                 }
@@ -62,13 +67,15 @@ namespace Lx.Utilities.Services.Persistence {
         /// <param name="transactionScopeOption">TransactionScopeOption of the applied outer TrasactionScope</param>
         /// <returns>ProcessResult instance which could include handled exceptions</returns>
         public virtual ProcessResult ExecuteWithProcessResult(Action<T> action, bool applyOuterTransactionScope = false,
-            TransactionScopeOption transactionScopeOption = TransactionScopeOption.Suppress) {
+            TransactionScopeOption transactionScopeOption = TransactionScopeOption.Suppress)
+        {
             if (action == null)
                 return new NullReferenceException("action");
 
             ProcessResult result;
             if (applyOuterTransactionScope)
-                using (var transactionScope = new TransactionScope(transactionScopeOption)) {
+                using (var transactionScope = new TransactionScope(transactionScopeOption))
+                {
                     result = ExecuteInScope(action);
                     transactionScope.Complete();
                 }
@@ -84,12 +91,17 @@ namespace Lx.Utilities.Services.Persistence {
         /// <returns></returns>
         protected abstract T GetUnitOfWork();
 
-        protected virtual ProcessResult ExecuteInScope(Action<T> action, bool rethrowException = false) {
-            using (var unitOfWork = GetUnitOfWork()) {
-                try {
+        protected virtual ProcessResult ExecuteInScope(Action<T> action, bool rethrowException = false)
+        {
+            using (var unitOfWork = GetUnitOfWork())
+            {
+                try
+                {
                     action(unitOfWork);
                     return ProcessResultType.Ok;
-                } catch (Exception exception) {
+                }
+                catch (Exception exception)
+                {
                     Logger.LogException(
                         new Exception(
                             $"<<{GetType().AssemblyQualifiedName} is throwing exception {exception.GetType().FullName}>>",

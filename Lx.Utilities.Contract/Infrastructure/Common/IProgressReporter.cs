@@ -2,8 +2,10 @@
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Infrastructure.Common {
-    public interface IProgressReporter<out TProgress> where TProgress : Progress, new() {
+namespace Lx.Utilities.Contract.Infrastructure.Common
+{
+    public interface IProgressReporter<out TProgress> where TProgress : Progress, new()
+    {
         ICompletionState CompletionState { get; }
         void LinkTo(ICompletionState completionState);
 

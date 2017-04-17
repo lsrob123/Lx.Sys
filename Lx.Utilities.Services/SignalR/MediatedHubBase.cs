@@ -21,17 +21,19 @@ using Microsoft.AspNet.SignalR;
 using Remotion.Linq.Utilities;
 using IRequest = Lx.Utilities.Contract.Infrastructure.Interfaces.IRequest;
 
-namespace Lx.Utilities.Services.SignalR {
-    public abstract class MediatedHubBase : Hub, IHasInstanceKey {
-        protected static readonly Type MediatorMessageHandlerType = typeof(IMediatorMessageHandler);
-
+namespace Lx.Utilities.Services.SignalR
+{
+    public abstract class MediatedHubBase : Hub, IHasInstanceKey
+    {
+        protected static readonly Type MediatorMessageHandlerType = typeof (IMediatorMessageHandler);
         protected readonly ILogger Logger;
         protected readonly IMappingService MappingService;
         protected readonly IOAuthHelper OAuthHelper;
         protected readonly IRequestDispatchingProxy RequestDispatchingProxy;
 
         protected MediatedHubBase(IMediator mediator, ILogger logger, IMappingService mappingService,
-            IRequestDispatchingProxy requestDispatchingProxy, IOAuthHelper oauthHelper = null) {
+            IRequestDispatchingProxy requestDispatchingProxy, IOAuthHelper oauthHelper = null)
+        {
             InstanceKey = Guid.NewGuid();
             Logger = logger;
             MappingService = mappingService;
@@ -46,19 +48,23 @@ namespace Lx.Utilities.Services.SignalR {
 
         public Guid InstanceKey { get; protected set; }
 
-        protected virtual void Dispatch(IRequest request) {
+        protected virtual void Dispatch(IRequest request)
+        {
             RequestDispatchingProxy.Dispatch(request);
         }
 
-        public async Task<string> CreateGroupAsync() {
+        public async Task<string> CreateGroupAsync()
+        {
             return await JoinGroupAsync(Guid.NewGuid().ToString(), true);
         }
 
-        protected virtual string GetGroupName(Guid userKey) {
+        protected virtual string GetGroupName(Guid userKey)
+        {
             return userKey.ToString().ToLower();
         }
 
-        public async Task<string> JoinGroupWithAccessTokenAsync(string accessToken) {
+        public async Task<string> JoinGroupWithAccessTokenAsync(string accessToken)
+        {
             if ((OAuthHelper == null) || string.IsNullOrWhiteSpace(accessToken))
                 return string.Empty;
 
@@ -71,7 +77,8 @@ namespace Lx.Utilities.Services.SignalR {
             return groupName;
         }
 
-        protected async Task<string> JoinGroupAsync(string groupName, bool enforceNotificationOfAllocatedGroup) {
+        protected async Task<string> JoinGroupAsync(string groupName, bool enforceNotificationOfAllocatedGroup)
+        {
             var isNewGroupNameRequired = string.IsNullOrWhiteSpace(groupName);
             if (isNewGroupNameRequired)
                 groupName = Guid.NewGuid().ToString();
@@ -84,7 +91,8 @@ namespace Lx.Utilities.Services.SignalR {
             return groupName;
         }
 
-        public async Task<string> LeaveGroupAsync(string groupName) {
+        public async Task<string> LeaveGroupAsync(string groupName)
+        {
             if (string.IsNullOrWhiteSpace(groupName))
                 groupName = Guid.NewGuid().ToString();
 
@@ -93,15 +101,18 @@ namespace Lx.Utilities.Services.SignalR {
             return groupName;
         }
 
-        public async Task<IdentityDto> EnsureInGroupAsync(IRequest request, bool tryUseUserKeyAsGroupName = true) {
+        public async Task<IdentityDto> EnsureInGroupAsync(IRequest request, bool tryUseUserKeyAsGroupName = true)
+        {
             request.OriginatorConnection = Context.ConnectionId;
             this.CollectClientIp(request);
 
             var enforceNotificationOfAllocatedGroup = false;
 
-            if (tryUseUserKeyAsGroupName && (OAuthHelper != null) && !string.IsNullOrWhiteSpace(request.AccessToken)) {
+            if (tryUseUserKeyAsGroupName && (OAuthHelper != null) && !string.IsNullOrWhiteSpace(request.AccessToken))
+            {
                 var user = await OAuthHelper.GetUserAsync(request.AccessToken);
-                if (user != null) {
+                if (user != null)
+                {
                     enforceNotificationOfAllocatedGroup =
                         string.IsNullOrWhiteSpace(request.OriginatorGroup) ||
                         !request.OriginatorGroup.Equals(user.UserReference, StringComparison.OrdinalIgnoreCase);
@@ -114,7 +125,8 @@ namespace Lx.Utilities.Services.SignalR {
             return request.User;
         }
 
-        public async Task GetRequestSampleAsync(string originatorGroup, string methodName, string requestReference) {
+        public async Task GetRequestSampleAsync(string originatorGroup, string methodName, string requestReference)
+        {
             if (string.IsNullOrWhiteSpace(methodName))
                 return;
 
@@ -127,7 +139,8 @@ namespace Lx.Utilities.Services.SignalR {
             Clients.Group(originatorGroup).requestSampleReturned(json, requestReference);
         }
 
-        public string GetRequestSample(string methodName) {
+        public string GetRequestSample(string methodName)
+        {
             methodName = methodName.Substring(0, 1).ToUpper() + methodName.Substring(1, methodName.Length - 1);
 
             var parameterTypes = this.GetMethodParameterTypes(methodName);
@@ -143,7 +156,8 @@ namespace Lx.Utilities.Services.SignalR {
         }
 
         protected ProcessResult SendGroupResponse<TResponse>(TResponse response, string message = null,
-            Action<string, Exception> handleException = null) where TResponse : IResponse {
+            Action<string, Exception> handleException = null) where TResponse : IResponse
+        {
             var shareGroups = response.ShareGroups();
 
             var responseToOriginator = MappingService.Map<TResponse>(response);
@@ -157,7 +171,8 @@ namespace Lx.Utilities.Services.SignalR {
 
             var responseToShareGroups = MappingService.Map<TResponse>(response);
             var groupResponseToShareGroups = new SignalRGroupResponse(responseToShareGroups);
-            foreach (var shareGroup in shareGroups) {
+            foreach (var shareGroup in shareGroups)
+            {
                 responseToShareGroups.WithOriginatorGroup(shareGroup);
                 this.ExecuteGroupAction(shareGroup,
                     group => group.groupResponseReceived(groupResponseToShareGroups),
@@ -167,56 +182,65 @@ namespace Lx.Utilities.Services.SignalR {
             return result;
         }
 
-        protected void BroadcastToAllClients<TResponse>(TResponse response) where TResponse : IResponse {
+        protected void BroadcastToAllClients<TResponse>(TResponse response) where TResponse : IResponse
+        {
             this.ExecuteOnAllClients(response, (clients, groupResponse) => clients.groupResponseReceived(groupResponse));
         }
 
-        protected void InitializeComplexTypePropertyValuesRecursively(object instance) {
-            var invisibleInTestExampleAttributeType = typeof(InvisibleInTestExampleAttribute);
-            var stringType = typeof(string);
-            var dateTimeOffsetType = typeof(DateTimeOffset);
-            var timeSpanType = typeof(TimeSpan);
-            var genericNumerableType = typeof(IEnumerable);
-            var userType = typeof(IdentityDto);
+        protected void InitializeComplexTypePropertyValuesRecursively(object instance)
+        {
+            var invisibleInTestExampleAttributeType = typeof (InvisibleInTestExampleAttribute);
+            var stringType = typeof (string);
+            var dateTimeOffsetType = typeof (DateTimeOffset);
+            var timeSpanType = typeof (TimeSpan);
+            var genericNumerableType = typeof (IEnumerable);
+            var userType = typeof (IdentityDto);
             const string nameOfServiceReferences = nameof(IRequestKey.ServiceReferences);
             const string nameOfSid = nameof(IRequest.Sid);
 
             var properties = instance.GetType().GetProperties();
             foreach (var property in properties)
-                try {
+                try
+                {
                     if (property.GetCustomAttributes(invisibleInTestExampleAttributeType, false).Any() ||
                         (property.PropertyType == userType) ||
                         property.Name.Equals(nameOfServiceReferences) ||
-                        property.Name.Equals(nameOfSid)) {
+                        property.Name.Equals(nameOfSid))
+                    {
                         property.SetValue(instance, null);
                         continue;
                     }
 
-                    if (stringType.IsAssignableFrom(property.PropertyType)) {
+                    if (stringType.IsAssignableFrom(property.PropertyType))
+                    {
                         property.SetValue(instance, string.Empty);
                         continue;
                     }
 
-                    if (dateTimeOffsetType.IsAssignableFrom(property.PropertyType)) {
+                    if (dateTimeOffsetType.IsAssignableFrom(property.PropertyType))
+                    {
                         property.SetValue(instance, DateTimeOffset.UtcNow);
                         continue;
                     }
 
-                    if (timeSpanType.IsAssignableFrom(property.PropertyType)) {
+                    if (timeSpanType.IsAssignableFrom(property.PropertyType))
+                    {
                         property.SetValue(instance, TimeSpan.FromMinutes(1));
                         continue;
                     }
 
-                    if (genericNumerableType.IsAssignableFrom(property.PropertyType)) {
+                    if (genericNumerableType.IsAssignableFrom(property.PropertyType))
+                    {
                         var genericArguments = property.PropertyType.GetGenericArguments();
                         if (!genericArguments.Any())
                             throw new ArgumentEmptyException(nameof(property.Name));
 
                         var elementType = genericArguments.First();
-                        var listType = typeof(List<>).MakeGenericType(elementType);
+                        var listType = typeof (List<>).MakeGenericType(elementType);
                         var list = Activator.CreateInstance(listType) as IList;
 
-                        if (list != null) {
+                        if (list != null)
+                        {
                             var element = Activator.CreateInstance(elementType);
                             InitializeComplexTypePropertyValuesRecursively(element);
                             list.Add(element);
@@ -238,24 +262,29 @@ namespace Lx.Utilities.Services.SignalR {
                     InitializeComplexTypePropertyValuesRecursively(propertyInstance);
 
                     property.SetValue(instance, propertyInstance);
-                } catch (Exception ex) {
+                }
+                catch (Exception ex)
+                {
                     new Exception(property.Name + ":" + property.PropertyType.FullName, ex).WriteToLog(Logger);
                 }
         }
 
-        public override Task OnConnected() {
+        public override Task OnConnected()
+        {
             var connId = Context.ConnectionId;
             Console.WriteLine("OnConnected " + connId);
             return base.OnConnected();
         }
 
-        public override Task OnDisconnected(bool stopCalled) {
+        public override Task OnDisconnected(bool stopCalled)
+        {
             var connId = Context.ConnectionId;
             Console.WriteLine("OnDisconnected " + connId);
             return base.OnDisconnected(stopCalled);
         }
 
-        public override Task OnReconnected() {
+        public override Task OnReconnected()
+        {
             var connId = Context.ConnectionId;
             Console.WriteLine("OnReconnected " + connId);
             return base.OnReconnected();

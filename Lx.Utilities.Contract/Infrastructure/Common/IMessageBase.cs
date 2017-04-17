@@ -1,3 +1,6 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Common {
-    public interface IMessageBase {}
+﻿namespace Lx.Utilities.Contract.Infrastructure.Common
+{
+    public interface IMessageBase
+    {
+    }
 }

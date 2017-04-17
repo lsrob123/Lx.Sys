@@ -1,10 +1,12 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Common;
 
-namespace Lx.Utilities.Contract.Serialization {
+namespace Lx.Utilities.Contract.Serialization
+{
     /// <summary>
     ///     For implementation of serializer
     /// </summary>
-    public interface ISerializer {
+    public interface ISerializer
+    {
         bool CanDeserialize(string strInput);
 
         string Serialize(object anyObject, Casing casing = Casing.Default,

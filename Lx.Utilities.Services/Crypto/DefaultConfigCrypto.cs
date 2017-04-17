@@ -1,20 +1,25 @@
 ﻿using Lx.Utilities.Contract.Crypto;
 
-namespace Lx.Utilities.Services.Crypto {
+namespace Lx.Utilities.Services.Crypto
+{
     /// <summary>
     ///     Default config for crypto with an iteration count value of 10,000
     /// </summary>
-    public class DefaultConfigCrypto : IConfigCrypto {
+    public class DefaultConfigCrypto : IConfigCrypto
+    {
         /// <summary>
         ///     Default config for crypto with an iteration count value of 10,000
         /// </summary>
-        public DefaultConfigCrypto() : this(10000) {}
+        public DefaultConfigCrypto() : this(10000)
+        {
+        }
 
         /// <summary>
         ///     Default config with custom interation count
         /// </summary>
         /// <param name="pbkdf2Iterations">Iteration count</param>
-        public DefaultConfigCrypto(int pbkdf2Iterations) {
+        public DefaultConfigCrypto(int pbkdf2Iterations)
+        {
             SaltByteSize = 24;
             HashByteSize = 24;
             IterationIndex = 0;

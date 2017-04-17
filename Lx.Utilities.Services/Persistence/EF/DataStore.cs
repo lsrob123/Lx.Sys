@@ -13,13 +13,16 @@ using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Persistence;
 using Lx.Utilities.Services.Infrastructure;
 
-namespace Lx.Utilities.Services.Persistence.EF {
-    public class DataStore<TDbContext> : IRelationalDataStore where TDbContext : DbContext {
+namespace Lx.Utilities.Services.Persistence.EF
+{
+    public class DataStore<TDbContext> : IRelationalDataStore where TDbContext : DbContext
+    {
         protected readonly TDbContext DbContext;
         protected readonly ILogger Logger;
         protected readonly IMappingService MappingService;
 
-        public DataStore(TDbContext dbContext, IMappingService mappingService, ILogger logger) {
+        public DataStore(TDbContext dbContext, IMappingService mappingService, ILogger logger)
+        {
             DbContext = dbContext;
             MappingService = mappingService;
             Logger = logger;
@@ -27,7 +30,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
 
         public ICollection<TWithRelationalId> List<TWithRelationalId>(
             Func<IQueryable<TWithRelationalId>, IQueryable<TWithRelationalId>> queryFunc)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             var dbSet = DbContext.Set<TWithRelationalId>();
 
             var entities = new List<TWithRelationalId>(queryFunc == null ? dbSet : queryFunc(dbSet));
@@ -37,7 +41,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
 
         public long Count<TWithRelationalId>(
             Func<IQueryable<TWithRelationalId>, IQueryable<TWithRelationalId>> queryFunc)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             var dbSet = DbContext.Set<TWithRelationalId>();
 
             var count = queryFunc?.Invoke(dbSet).LongCount() ?? dbSet.LongCount();
@@ -47,7 +52,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
 
         public TWithRelationalId FirstOrDefault<TWithRelationalId>(
             Func<IQueryable<TWithRelationalId>, IQueryable<TWithRelationalId>> queryFunc)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             var record = queryFunc(DbContext.Set<TWithRelationalId>()).FirstOrDefault();
             return record;
         }
@@ -55,7 +61,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
         public TWithRelationalId FirstOrDefault<TWithRelationalId>(
             Expression<Func<TWithRelationalId, bool>> queryExpression,
             Func<IQueryable<TWithRelationalId>, IQueryable<TWithRelationalId>> preQueryFunc = null)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             var dbSet = DbContext.Set<TWithRelationalId>();
             var entity = preQueryFunc == null
                 ? dbSet.FirstOrDefault(queryExpression)
@@ -67,7 +74,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
         public TWithRelationalId SingleOrDefault<TWithRelationalId>(
             Expression<Func<TWithRelationalId, bool>> queryExpression,
             Func<IQueryable<TWithRelationalId>, IQueryable<TWithRelationalId>> preQueryFunc = null)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             var dbSet = DbContext.Set<TWithRelationalId>();
             var entity = preQueryFunc == null
                 ? dbSet.SingleOrDefault(queryExpression)
@@ -79,24 +87,31 @@ namespace Lx.Utilities.Services.Persistence.EF {
             Expression<Func<TWithRelationalId, bool>> queryExpression, bool addWithoutRelatedEntities = false,
             Action<TWithRelationalId> updatePropertiesAction = null,
             AddUpdateOptions addUpdateOptions = AddUpdateOptions.Add | AddUpdateOptions.Update, bool saveChanges = true)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             TWithRelationalId addedOrUpdatedItem = null;
 
             var dbSet = DbContext.Set<TWithRelationalId>();
             var existingItems = dbSet.Where(queryExpression).ToList();
 
-            if (!existingItems.Any()) {
+            if (!existingItems.Any())
+            {
                 if (!addUpdateOptions.HasFlag(AddUpdateOptions.Add))
                     return null;
 
-                if (addWithoutRelatedEntities) {
+                if (addWithoutRelatedEntities)
+                {
                     dbSet.Attach(withRelationalId);
                     DbContext.Entry(withRelationalId).State = EntityState.Added;
-                } else {
+                }
+                else
+                {
                     dbSet.Add(withRelationalId);
                 }
                 addedOrUpdatedItem = withRelationalId;
-            } else if (updatePropertiesAction == null) {
+            }
+            else if (updatePropertiesAction == null)
+            {
                 var firstMatch = existingItems.First();
                 withRelationalId.SetId(firstMatch.Id);
 
@@ -108,8 +123,11 @@ namespace Lx.Utilities.Services.Persistence.EF {
                 dbSet.Attach(withRelationalId);
                 DbContext.Entry(withRelationalId).State = EntityState.Modified;
                 addedOrUpdatedItem = withRelationalId;
-            } else {
-                foreach (var item in existingItems) {
+            }
+            else
+            {
+                foreach (var item in existingItems)
+                {
                     updatePropertiesAction(item);
                     DbContext.Entry(item).State = EntityState.Modified;
                     addedOrUpdatedItem = addedOrUpdatedItem ?? item;
@@ -125,7 +143,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
         public TEntity AddOrUpdateByKey<TEntity>(TEntity entity, bool addWithoutRelatedEntities = false,
             Action<TEntity> updatePropertiesAction = null,
             AddUpdateOptions addUpdateOptions = AddUpdateOptions.Add | AddUpdateOptions.Update, bool saveChanges = true)
-            where TEntity : class, IEntity, new() {
+            where TEntity : class, IEntity, new()
+        {
             if (entity.Key == Guid.Empty)
                 return null;
 
@@ -135,7 +154,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
 
         public ProcessResult Delete<TWithRelationalId>(Func<TWithRelationalId, bool> queryExpression,
             bool saveChanges = true)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             var dbSet = DbContext.Set<TWithRelationalId>();
             var existing = dbSet.SingleOrDefault(x => queryExpression(x));
             if (existing != null)
@@ -148,7 +168,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
         }
 
         public ProcessResult DeleteByKey<TEntity>(Guid key, bool saveChanges = true)
-            where TEntity : class, IEntity, new() {
+            where TEntity : class, IEntity, new()
+        {
             return Delete<TEntity>(existing => existing.Key == key, saveChanges);
         }
 
@@ -156,8 +177,10 @@ namespace Lx.Utilities.Services.Persistence.EF {
             Expression<Func<TWithRelationalId, bool>> searchExpression,
             Action<TWithRelationalId> updateAction,
             bool saveChanges = true)
-            where TWithRelationalId : class, IWithRelationalId {
-            if (updateAction == null) {
+            where TWithRelationalId : class, IWithRelationalId
+        {
+            if (updateAction == null)
+            {
                 new ArgumentNullException(nameof(updateAction)).WriteToLog(Logger);
                 return null;
             }
@@ -168,7 +191,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
             if (!existingItems.Any())
                 return null;
 
-            foreach (var item in existingItems) {
+            foreach (var item in existingItems)
+            {
                 updateAction(item);
                 DbContext.Entry(item).State = EntityState.Modified;
             }
@@ -180,7 +204,8 @@ namespace Lx.Utilities.Services.Persistence.EF {
         }
 
         public ProcessResult Save<TWithRelationalId>(TWithRelationalId existing, bool saveChanges = true)
-            where TWithRelationalId : class, IWithRelationalId {
+            where TWithRelationalId : class, IWithRelationalId
+        {
             NotifyModified(existing);
 
             if (saveChanges)
@@ -190,18 +215,23 @@ namespace Lx.Utilities.Services.Persistence.EF {
         }
 
         public void NotifyModified<TWithRelationalId>(TWithRelationalId item)
-            where TWithRelationalId : class, IWithRelationalId {
+            where TWithRelationalId : class, IWithRelationalId
+        {
             DbContext.Entry(item).State = EntityState.Modified;
         }
 
         public TWithRelationalId Add<TWithRelationalId>(TWithRelationalId withRelationalId,
             bool addWithoutRelatedEntities = false, bool saveChanges = true)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             var dbSet = DbContext.Set<TWithRelationalId>();
-            if (addWithoutRelatedEntities) {
+            if (addWithoutRelatedEntities)
+            {
                 dbSet.Attach(withRelationalId);
                 DbContext.Entry(withRelationalId).State = EntityState.Added;
-            } else {
+            }
+            else
+            {
                 dbSet.Add(withRelationalId);
             }
 
@@ -212,21 +242,25 @@ namespace Lx.Utilities.Services.Persistence.EF {
         }
 
         public virtual void Detach<TWithRelationalId>(TWithRelationalId withRelationalId)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             DbContext.Entry(withRelationalId).State = EntityState.Detached;
         }
 
         public virtual void Attach<TWithRelationalId>(TWithRelationalId withRelationalId)
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             DbContext.Set<TWithRelationalId>().Attach(withRelationalId);
         }
 
         public IQueryable<TWithRelationalId> DbSetAsQueryable<TWithRelationalId>()
-            where TWithRelationalId : class, IWithRelationalId, new() {
+            where TWithRelationalId : class, IWithRelationalId, new()
+        {
             return DbContext.Set<TWithRelationalId>().AsQueryable();
         }
 
-        public DbSet DbSet<TWithRelationalId>() where TWithRelationalId : class, IWithRelationalId, new() {
+        public DbSet DbSet<TWithRelationalId>() where TWithRelationalId : class, IWithRelationalId, new()
+        {
             return DbContext.Set<TWithRelationalId>();
         }
     }

@@ -3,16 +3,20 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Lx.Utilities.Services.Persistence.DataAnnotation {
-    public sealed class PhoneAllowsEmptyStringAttribute : DataTypeAttribute {
+namespace Lx.Utilities.Services.Persistence.DataAnnotation
+{
+    public sealed class PhoneAllowsEmptyStringAttribute : DataTypeAttribute
+    {
         private static readonly Regex _regex = CreateRegEx();
 
         public PhoneAllowsEmptyStringAttribute()
-            : base(DataType.PhoneNumber) {
+            : base(DataType.PhoneNumber)
+        {
             ErrorMessage = ErrorMessageResourceName + "field is not a valid phone number";
         }
 
-        public override bool IsValid(object value) {
+        public override bool IsValid(object value)
+        {
             if ((value == null) || ((string) value == string.Empty))
                 return true;
             var input = (string) value;
@@ -23,15 +27,19 @@ namespace Lx.Utilities.Services.Persistence.DataAnnotation {
             return flag && str.All(c => char.IsDigit(c) || char.IsWhiteSpace(c) || ("-.()".IndexOf(c) != -1));
         }
 
-        private static Regex CreateRegEx() {
+        private static Regex CreateRegEx()
+        {
             var matchTimeout = TimeSpan.FromSeconds(2.0);
-            try {
+            try
+            {
                 if (AppDomain.CurrentDomain.GetData("REGEX_DEFAULT_MATCH_TIMEOUT") == null)
                     return
                         new Regex(
                             "^(\\+\\s?)?((?<!\\+.*)\\(\\+?\\d+([\\s\\-\\.]?\\d+)?\\)|\\d+)([\\s\\-\\.]?(\\(\\d+([\\s\\-\\.]?\\d+)?\\)|\\d+))*(\\s?(x|ext\\.?)\\s?\\d+)?$",
                             RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled, matchTimeout);
-            } catch {
+            }
+            catch
+            {
                 // ignored
             }
             return
@@ -40,7 +48,8 @@ namespace Lx.Utilities.Services.Persistence.DataAnnotation {
                     RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled);
         }
 
-        private static string RemoveExtension(string potentialPhoneNumber) {
+        private static string RemoveExtension(string potentialPhoneNumber)
+        {
             var length1 = potentialPhoneNumber.LastIndexOf("ext.", StringComparison.InvariantCultureIgnoreCase);
             if ((length1 >= 0) && MatchesExtension(potentialPhoneNumber.Substring(length1 + 4)))
                 return potentialPhoneNumber.Substring(0, length1);
@@ -53,7 +62,8 @@ namespace Lx.Utilities.Services.Persistence.DataAnnotation {
             return potentialPhoneNumber;
         }
 
-        private static bool MatchesExtension(string potentialExtension) {
+        private static bool MatchesExtension(string potentialExtension)
+        {
             potentialExtension = potentialExtension.TrimStart();
             return (potentialExtension.Length != 0) && potentialExtension.All(char.IsDigit);
         }

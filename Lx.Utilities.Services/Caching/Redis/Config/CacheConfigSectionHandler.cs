@@ -1,13 +1,17 @@
 ﻿using System.Configuration;
 
-namespace Lx.Utilities.Services.Caching.Redis.Config {
-    public class CacheConfigSectionHandler : ConfigurationSection, ICacheConfig {
+namespace Lx.Utilities.Services.Caching.Redis.Config
+{
+    public class CacheConfigSectionHandler : ConfigurationSection, ICacheConfig
+    {
         [ConfigurationProperty("hosts")]
         public CacheHostCollection RedisHosts => this["hosts"] as CacheHostCollection;
 
         [ConfigurationProperty("allowAdmin")]
-        public bool AllowAdmin {
-            get {
+        public bool AllowAdmin
+        {
+            get
+            {
                 var config = this["allowAdmin"];
 
                 var value = config?.ToString();
@@ -21,8 +25,10 @@ namespace Lx.Utilities.Services.Caching.Redis.Config {
         }
 
         [ConfigurationProperty("ssl")]
-        public bool Ssl {
-            get {
+        public bool Ssl
+        {
+            get
+            {
                 var config = this["ssl"];
                 var value = config?.ToString();
 
@@ -35,8 +41,10 @@ namespace Lx.Utilities.Services.Caching.Redis.Config {
         }
 
         [ConfigurationProperty("connectTimeout")]
-        public int ConnectTimeout {
-            get {
+        public int ConnectTimeout
+        {
+            get
+            {
                 var config = this["connectTimeout"];
                 var value = config?.ToString();
 
@@ -49,8 +57,10 @@ namespace Lx.Utilities.Services.Caching.Redis.Config {
         }
 
         [ConfigurationProperty("database")]
-        public int Database {
-            get {
+        public int Database
+        {
+            get
+            {
                 var config = this["database"];
                 var value = config?.ToString();
 
@@ -65,7 +75,8 @@ namespace Lx.Utilities.Services.Caching.Redis.Config {
         [ConfigurationProperty("password", IsRequired = false)]
         public string Password => this["password"] as string;
 
-        public static CacheConfigSectionHandler GetConfig() {
+        public static CacheConfigSectionHandler GetConfig()
+        {
             return ConfigurationManager.GetSection("redisCacheClient") as CacheConfigSectionHandler;
         }
     }

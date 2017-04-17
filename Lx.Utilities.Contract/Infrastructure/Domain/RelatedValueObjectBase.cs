@@ -3,9 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Lx.Utilities.Contract.Infrastructure.Common;
 
-namespace Lx.Utilities.Contract.Infrastructure.Domain {
-    public abstract class RelatedValueObjectBase : IValueObject, IWithRelationalId {
-        protected RelatedValueObjectBase() {
+namespace Lx.Utilities.Contract.Infrastructure.Domain
+{
+    public abstract class RelatedValueObjectBase : IValueObject, IWithRelationalId
+    {
+        protected RelatedValueObjectBase()
+        {
             TimeCreated = TimeCreated ?? DateTimeOffset.UtcNow;
             TimeModified = TimeModified ?? DateTimeOffset.UtcNow;
         }
@@ -17,11 +20,13 @@ namespace Lx.Utilities.Contract.Infrastructure.Domain {
         [IgnoreDataMember]
         public long Id { get; protected set; }
 
-        public virtual void SetId(long id) {
+        public virtual void SetId(long id)
+        {
             Id = id;
         }
 
-        public void SetTimeCreated(DateTimeOffset? timeCreated) {
+        public void SetTimeCreated(DateTimeOffset? timeCreated)
+        {
             TimeCreated = timeCreated;
         }
     }

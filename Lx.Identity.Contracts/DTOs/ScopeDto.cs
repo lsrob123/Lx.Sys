@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using Lx.Identity.Contracts.Interfaces;
 
-namespace Lx.Identity.Contracts.DTOs {
-    public class ScopeDto : IScope {
+namespace Lx.Identity.Contracts.DTOs
+{
+    public class ScopeDto : IScope
+    {
         public ICollection<ScopeClaimDto> ScopeClaims { get; set; }
         public ICollection<ScopeSecretDto> ScopeSecrets { get; set; }
         public bool Enabled { get; set; }

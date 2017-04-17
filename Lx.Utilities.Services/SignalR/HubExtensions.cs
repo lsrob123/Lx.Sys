@@ -6,13 +6,17 @@ using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Microsoft.AspNet.SignalR;
 using IRequest = Microsoft.AspNet.SignalR.IRequest;
 
-namespace Lx.Utilities.Services.SignalR {
-    public static class HubExtensions {
+namespace Lx.Utilities.Services.SignalR
+{
+    public static class HubExtensions
+    {
         private const string RemoteIpAddressToHub = "server.RemoteIpAddress";
 
         public static ProcessResult ExecuteGroupAction(this Hub hub, string groupName, Action<dynamic> action,
-            Action<Exception> handleException = null) {
-            try {
+            Action<Exception> handleException = null)
+        {
+            try
+            {
                 if (string.IsNullOrWhiteSpace(groupName))
                     throw new ArgumentNullException(nameof(groupName));
 
@@ -23,17 +27,21 @@ namespace Lx.Utilities.Services.SignalR {
                 action?.Invoke(group);
 
                 return ProcessResultType.Ok;
-            } catch (Exception exception) {
+            }
+            catch (Exception exception)
+            {
                 handleException?.Invoke(exception);
                 return new ProcessResult(exception, logExcetions: !(exception is NullReferenceException));
             }
         }
 
-        public static string GetClientIp(this Hub hub) {
+        public static string GetClientIp(this Hub hub)
+        {
             return hub.Context.Request.ClientIp();
         }
 
-        public static string ClientIp(this IRequest request) {
+        public static string ClientIp(this IRequest request)
+        {
             string ipAddress = null;
             object tempObject;
 
@@ -45,7 +53,8 @@ namespace Lx.Utilities.Services.SignalR {
             return ipAddress;
         }
 
-        public static Hub CollectClientIp(this Hub hub, IHasOriginatorIp request) {
+        public static Hub CollectClientIp(this Hub hub, IHasOriginatorIp request)
+        {
             if (request == null)
                 return hub;
 
@@ -61,7 +70,8 @@ namespace Lx.Utilities.Services.SignalR {
         public static THub ExecuteOnAllClients<THub, TResponse>(this THub hub, TResponse response,
             Action<dynamic, SignalRGroupResponse> actionsOnAllClients)
             where THub : Hub
-            where TResponse : IResponse {
+            where TResponse : IResponse
+        {
             var groupResponse = new SignalRGroupResponse(response);
             actionsOnAllClients?.Invoke(hub.Clients.All, groupResponse);
             return hub;

@@ -3,15 +3,19 @@ using System.Configuration;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Lx.Utilities.Services.Config {
-    public static class ConfigExtensions {
+namespace Lx.Utilities.Services.Config
+{
+    public static class ConfigExtensions
+    {
         public static string AppSettingKey<TConfig>(TConfig configObject,
             Expression<Func<TConfig, object>> propertyGetter,
-            string separator = ".") {
+            string separator = ".")
+        {
             var configType = configObject.GetType();
 
             var memberExpression = propertyGetter.Body as MemberExpression;
-            if (memberExpression == null) {
+            if (memberExpression == null)
+            {
                 if (!propertyGetter.Body.NodeType.Equals(ExpressionType.Convert))
                     return null;
 
@@ -41,7 +45,8 @@ namespace Lx.Utilities.Services.Config {
         /// <returns>Value of the appSetting</returns>
         public static string AppSettingStringValue<TConfig>(this TConfig config,
             Expression<Func<TConfig, object>> propertyGetter,
-            string separator = ".") {
+            string separator = ".")
+        {
             var key = AppSettingKey(config, propertyGetter, separator);
             var value = ConfigurationManager.AppSettings[key];
             return value;
@@ -49,7 +54,8 @@ namespace Lx.Utilities.Services.Config {
 
         public static int AppSettingIntValue<TConfig>(this TConfig config,
             Expression<Func<TConfig, object>> propertyGetter,
-            string separator = ".") {
+            string separator = ".")
+        {
             var value = AppSettingStringValue(config, propertyGetter, separator);
             int targetValue;
             return int.TryParse(value, out targetValue) ? targetValue : 0;
@@ -57,7 +63,8 @@ namespace Lx.Utilities.Services.Config {
 
         public static decimal AppSettingDecimalValue<TConfig>(this TConfig config,
             Expression<Func<TConfig, object>> propertyGetter,
-            string separator = ".") {
+            string separator = ".")
+        {
             var value = AppSettingStringValue(config, propertyGetter, separator);
             decimal targetValue;
             return decimal.TryParse(value, out targetValue) ? targetValue : 0M;
@@ -65,7 +72,8 @@ namespace Lx.Utilities.Services.Config {
 
         public static Guid AppSettingGuidValue<TConfig>(this TConfig config,
             Expression<Func<TConfig, object>> propertyGetter,
-            string separator = ".") {
+            string separator = ".")
+        {
             var value = AppSettingStringValue(config, propertyGetter, separator);
             Guid targetValue;
             return Guid.TryParse(value, out targetValue) ? targetValue : Guid.Empty;
@@ -73,12 +81,13 @@ namespace Lx.Utilities.Services.Config {
 
         public static TValue? AppSettingNullableValue<TConfig, TValue>(this TConfig config,
             Expression<Func<TConfig, object>> propertyGetter, string separator = ".")
-            where TValue : struct {
+            where TValue : struct
+        {
             var stringValue = AppSettingStringValue(config, propertyGetter, separator);
             if (string.IsNullOrWhiteSpace(stringValue))
                 return null;
 
-            var value = (TValue) Convert.ChangeType(stringValue, typeof(TValue));
+            var value = (TValue) Convert.ChangeType(stringValue, typeof (TValue));
 
             return value;
         }
@@ -90,12 +99,14 @@ namespace Lx.Utilities.Services.Config {
         /// <returns>Value of the appSetting</returns>
         public static bool AppSettingBooleanValue<TConfig>(this TConfig config,
             Expression<Func<TConfig, object>> propertyGetter,
-            string separator = ".") {
+            string separator = ".")
+        {
             var value = AppSettingStringValue(config, propertyGetter, separator);
             return GetBoolValue<TConfig>(value);
         }
 
-        private static bool GetBoolValue<TConfig>(string value) {
+        private static bool GetBoolValue<TConfig>(string value)
+        {
             var boolValue = !string.IsNullOrWhiteSpace(value) &&
                             (value.Equals("yes", StringComparison.OrdinalIgnoreCase) ||
                              value.Equals("true", StringComparison.OrdinalIgnoreCase) ||
@@ -116,7 +127,8 @@ namespace Lx.Utilities.Services.Config {
         /// <returns>Value of the appSetting</returns>
         public static bool? AppSettingNullableBooleanValue<TConfig>(this TConfig config,
             Expression<Func<TConfig, object>> propertyGetter,
-            string separator = ".") {
+            string separator = ".")
+        {
             var value = AppSettingStringValue(config, propertyGetter, separator);
             if (string.IsNullOrWhiteSpace(value))
                 return null;
@@ -126,7 +138,8 @@ namespace Lx.Utilities.Services.Config {
 
         public static TimeSpan AppSettingTimeSpanFromDaysOrMinutes<TConfig>(this TConfig config,
             Expression<Func<TConfig, object>> propertyGetter,
-            int defaultMinutes = 0, int defaultDays = 0, string separator = ".") {
+            int defaultMinutes = 0, int defaultDays = 0, string separator = ".")
+        {
             var defaultValue = defaultMinutes == 0
                 ? (defaultDays == 0 ? TimeSpan.Zero : TimeSpan.FromDays(defaultDays))
                 : TimeSpan.FromMinutes(defaultMinutes);
@@ -140,11 +153,14 @@ namespace Lx.Utilities.Services.Config {
             Func<int, TimeSpan> getTimeSpan = x => TimeSpan.FromDays(x);
             var lengthInText = text.ToLower();
 
-            if (lengthInText.Contains("m") || lengthInText.Contains("min") || lengthInText.Contains("minutes")) {
+            if (lengthInText.Contains("m") || lengthInText.Contains("min") || lengthInText.Contains("minutes"))
+            {
                 lengthInText = lengthInText.Replace("minutes", string.Empty)
                     .Replace("min", string.Empty).Replace("m", string.Empty);
                 getTimeSpan = x => TimeSpan.FromMinutes(x);
-            } else if (lengthInText.Contains("d") || lengthInText.Contains("days")) {
+            }
+            else if (lengthInText.Contains("d") || lengthInText.Contains("days"))
+            {
                 lengthInText = lengthInText.Replace("days", string.Empty).Replace("d", string.Empty);
             }
 

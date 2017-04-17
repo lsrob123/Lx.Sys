@@ -6,20 +6,21 @@ using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Serialization;
 using NServiceBus.Saga;
 
-namespace Lx.Utilities.Services.ServiceBus.Nsb {
+namespace Lx.Utilities.Services.ServiceBus.Nsb
+{
     public abstract class SagaBase<TSagaData> : Saga<TSagaData>, IHasInstanceKey
-        where TSagaData : IContainSagaData, new() {
+        where TSagaData : IContainSagaData, new()
+    {
         protected readonly ICacheFactory CacheFactory;
         protected readonly ILogger Logger;
         protected readonly IMappingService MappingService;
         protected readonly ISerializer Serializer;
-
         protected SagaDataCache DataCacheInstance;
-
         protected volatile bool SagaCompleted, TimeoutRequested;
 
         protected SagaBase(ICacheFactory cacheFactory, ISerializer serializer, IMappingService mappingService,
-            ILogger logger) {
+            ILogger logger)
+        {
             CacheFactory = cacheFactory;
             Serializer = serializer;
             MappingService = mappingService;
@@ -31,7 +32,8 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb {
 
         public Guid InstanceKey => Data.Id;
 
-        protected new void RequestTimeout<TTimeoutMessageType>(DateTime at) where TTimeoutMessageType : new() {
+        protected new void RequestTimeout<TTimeoutMessageType>(DateTime at) where TTimeoutMessageType : new()
+        {
             if (TimeoutRequested)
                 return;
 
@@ -39,7 +41,8 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb {
             base.RequestTimeout<TTimeoutMessageType>(at);
         }
 
-        protected new void RequestTimeout<TTimeoutMessageType>(TimeSpan within) where TTimeoutMessageType : new() {
+        protected new void RequestTimeout<TTimeoutMessageType>(TimeSpan within) where TTimeoutMessageType : new()
+        {
             if (TimeoutRequested)
                 return;
 
@@ -47,7 +50,8 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb {
             base.RequestTimeout<TTimeoutMessageType>(within);
         }
 
-        protected new void RequestTimeout<TTimeoutMessageType>(DateTime at, TTimeoutMessageType timeoutMessage) {
+        protected new void RequestTimeout<TTimeoutMessageType>(DateTime at, TTimeoutMessageType timeoutMessage)
+        {
             if (TimeoutRequested)
                 return;
 
@@ -55,7 +59,8 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb {
             base.RequestTimeout(at, timeoutMessage);
         }
 
-        protected new void RequestTimeout<TTimeoutMessageType>(TimeSpan within, TTimeoutMessageType timeoutMessage) {
+        protected new void RequestTimeout<TTimeoutMessageType>(TimeSpan within, TTimeoutMessageType timeoutMessage)
+        {
             if (TimeoutRequested)
                 return;
 
@@ -63,11 +68,13 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb {
             base.RequestTimeout(within, timeoutMessage);
         }
 
-        ~SagaBase() {
+        ~SagaBase()
+        {
             SagaCompleted = true;
         }
 
-        protected override void MarkAsComplete() {
+        protected override void MarkAsComplete()
+        {
             SagaCompleted = true;
             DataCache.RemoveAll();
             DataCache.Dispose();

@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Lx.Utilities.Contract.Crypto;
 
-namespace Lx.Utilities.Services.Crypto {
+namespace Lx.Utilities.Services.Crypto
+{
     /// <summary>
     ///     Default implementation of ICryptoService with PBKDF2 algorithm
     /// </summary>
-    public class CryptoService : ICryptoService {
+    public class CryptoService : ICryptoService
+    {
         private readonly IConfigCrypto _config;
 
         /// <summary>
         ///     Using the default settings with iteration count set to 10,000 from ConfigCryptoDefault
         /// </summary>
-        public CryptoService() : this(new DefaultConfigCrypto()) {}
+        public CryptoService() : this(new DefaultConfigCrypto())
+        {
+        }
 
         /// <summary>
         ///     Using the default settings with iteration count set to 10,000 from ConfigCryptoDefault
         /// </summary>
         /// <param name="config"></param>
-        public CryptoService(IConfigCrypto config) {
+        public CryptoService(IConfigCrypto config)
+        {
             _config = config;
         }
 
@@ -28,7 +33,8 @@ namespace Lx.Utilities.Services.Crypto {
         /// </summary>
         /// <param name="source">The source string to hash.</param>
         /// <returns>The hash of the source string.</returns>
-        public string CreateHash(string source) {
+        public string CreateHash(string source)
+        {
             // Generate a random salt
             var csprng = new RNGCryptoServiceProvider();
             var salt = new byte[_config.SaltByteSize];
@@ -47,7 +53,8 @@ namespace Lx.Utilities.Services.Crypto {
         /// <param name="source">The source string to check.</param>
         /// <param name="correctHash">A hash of the correct source string.</param>
         /// <returns>True if the source string is correct. False otherwise.</returns>
-        public bool Validate(string source, string correctHash) {
+        public bool Validate(string source, string correctHash)
+        {
             // Extract the parameters from the hash
             char[] delimiter = {':'};
             var split = correctHash.Split(delimiter);
@@ -68,7 +75,8 @@ namespace Lx.Utilities.Services.Crypto {
         /// <param name="a">The first byte array.</param>
         /// <param name="b">The second byte array.</param>
         /// <returns>True if both byte arrays are equal. False otherwise.</returns>
-        private static bool SlowEquals(IReadOnlyList<byte> a, IReadOnlyList<byte> b) {
+        private static bool SlowEquals(IReadOnlyList<byte> a, IReadOnlyList<byte> b)
+        {
             var diff = (uint) a.Count ^ (uint) b.Count;
             for (var i = 0; (i < a.Count) && (i < b.Count); i++)
                 diff |= (uint) (a[i] ^ b[i]);
@@ -83,7 +91,8 @@ namespace Lx.Utilities.Services.Crypto {
         /// <param name="iterations">The PBKDF2 iteration count.</param>
         /// <param name="outputBytes">The length of the hash to generate, in bytes.</param>
         /// <returns>A hash of the password.</returns>
-        private static byte[] Pbkdf2(string password, byte[] salt, int iterations, int outputBytes) {
+        private static byte[] Pbkdf2(string password, byte[] salt, int iterations, int outputBytes)
+        {
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt) {IterationCount = iterations};
             return pbkdf2.GetBytes(outputBytes);
         }

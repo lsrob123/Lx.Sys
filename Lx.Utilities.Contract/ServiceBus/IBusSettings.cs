@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Lx.Utilities.Contract.ServiceBus {
-    public interface IBusSettings {
+namespace Lx.Utilities.Contract.ServiceBus
+{
+    public interface IBusSettings
+    {
         string EndpointName { get; }
         string MqConnectionString { get; }
         Type SerializerType { get; }

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Linq;
 
-namespace Lx.Utilities.Services.Infrastructure {
-    public static class StringExtensions {
+namespace Lx.Utilities.Services.Infrastructure
+{
+    public static class StringExtensions
+    {
         public static bool MatchesAnyInExpectedList(this string actual, string expectedList,
             StringComparison comparison = StringComparison.OrdinalIgnoreCase,
-            bool defaultReturnIfEitherNullOrWhiteSpace = true, string[] splitters = null) {
+            bool defaultReturnIfEitherNullOrWhiteSpace = true, string[] splitters = null)
+        {
             if (string.IsNullOrWhiteSpace(actual) || string.IsNullOrWhiteSpace(expectedList))
                 return defaultReturnIfEitherNullOrWhiteSpace;
             // No need to compare as the source user object doesn't have the value for this field
@@ -19,7 +22,8 @@ namespace Lx.Utilities.Services.Infrastructure {
 
         public static bool MatchesExpected(this string actual, string expected,
             StringComparison comparison = StringComparison.OrdinalIgnoreCase,
-            bool defaultReturnIfEitherNullOrWhiteSpace = true) {
+            bool defaultReturnIfEitherNullOrWhiteSpace = true)
+        {
             if (string.IsNullOrWhiteSpace(actual) || string.IsNullOrWhiteSpace(expected))
                 return defaultReturnIfEitherNullOrWhiteSpace;
 

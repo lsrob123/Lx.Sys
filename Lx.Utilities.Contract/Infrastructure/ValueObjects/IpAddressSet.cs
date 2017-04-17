@@ -2,11 +2,16 @@
 using Lx.Utilities.Contract.Infrastructure.Domain;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Infrastructure.ValueObjects {
-    public class IpAddressSet : IValueObject, IIpAddressSet {
-        public IpAddressSet() {}
+namespace Lx.Utilities.Contract.Infrastructure.ValueObjects
+{
+    public class IpAddressSet : IValueObject, IIpAddressSet
+    {
+        public IpAddressSet()
+        {
+        }
 
-        public IpAddressSet(string external, string @internal = null) {
+        public IpAddressSet(string external, string @internal = null)
+        {
             External = external;
             Internal = @internal;
         }

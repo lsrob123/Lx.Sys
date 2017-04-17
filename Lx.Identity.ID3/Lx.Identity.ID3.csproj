@@ -50,7 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Stores\Id3AuthorizationCodeStore.cs" />
     <Compile Include="Services\Id3UserService.cs" />
+    <Compile Include="Stores\Id3ClientStore.cs" />
+    <Compile Include="Stores\Id3ConsentStore.cs" />
+    <Compile Include="Stores\Id3RefreshTokenStore.cs" />
+    <Compile Include="Stores\Id3ScopeStore.cs" />
+    <Compile Include="Stores\Id3TokenHandleStore.cs" />
+    <Compile Include="Stores\Id3TokenStoreBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -60,10 +67,6 @@
     <ProjectReference Include="..\Lx.Identity.Contracts\Lx.Identity.Contracts.csproj">
       <Project>{B115B835-1DD1-490D-A101-C8908D2A5E54}</Project>
       <Name>Lx.Identity.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lx.Identity.Domain\Lx.Identity.Domain.csproj">
-      <Project>{818ddd07-ecfd-4337-ae5e-6f110470123f}</Project>
-      <Name>Lx.Identity.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lx.Identity.Services\Lx.Identity.Services.csproj">
       <Project>{0A887CA1-5FFF-4DBF-8CD1-D7EA8AB05B75}</Project>
@@ -76,6 +79,10 @@
     <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
       <Project>{B40ABC90-1F20-49A5-8734-92E8A13A183F}</Project>
       <Name>Lx.Utilities.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
+      <Project>{e732222f-4036-4a90-952d-4b72cbdaed08}</Project>
+      <Name>Lx.Utilities.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

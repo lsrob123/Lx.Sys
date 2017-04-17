@@ -2,11 +2,13 @@
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Mediator;
 
-namespace Lx.Utilities.Contract.Logging {
+namespace Lx.Utilities.Contract.Logging
+{
     /// <summary>
     ///     For general purposed loggers
     /// </summary>
-    public interface ILogger : IMediatorMessageHandler<ProcessResult> {
+    public interface ILogger : IMediatorMessageHandler<ProcessResult>
+    {
         /// <summary>
         ///     Log with normal message
         /// </summary>

@@ -5,19 +5,23 @@ using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.IoC;
 using Lx.Utilities.Services.Config;
 
-namespace Lx.Utilities.Services.IoC.AutoFac {
-    public static class ContainerBuilderExtensions {
+namespace Lx.Utilities.Services.IoC.AutoFac
+{
+    public static class ContainerBuilderExtensions
+    {
         public static ContainerBuilder Call(this ContainerBuilder builder,
-            Action<Action<Type, Type>, Action<Type, object>> executeRegistrations) {
+            Action<Action<Type, Type>, Action<Type, object>> executeRegistrations)
+        {
             executeRegistrations(
                 (tInterface, tImplementation) => builder.RegisterType(tImplementation).As(tInterface),
                 (tInterface, instance) => builder.RegisterInstance(instance).As(tInterface)
-            );
+                );
             return builder;
         }
 
         public static ContainerBuilder Call<TDependencyRegister>(this ContainerBuilder builder)
-            where TDependencyRegister : DefaultDependencyRegisterBase, new() {
+            where TDependencyRegister : DefaultDependencyRegisterBase, new()
+        {
             var register = new TDependencyRegister();
 
             LinkRegisterToContainerBuilder(builder, register);
@@ -25,38 +29,45 @@ namespace Lx.Utilities.Services.IoC.AutoFac {
         }
 
         public static ContainerBuilder LinkRegisterToContainerBuilder(this ContainerBuilder builder,
-            DefaultDependencyRegisterBase register) {
+            DefaultDependencyRegisterBase register)
+        {
             register.SetActions(
-                (tInterface, tImplementation, externallyOwned, singleInstance) => {
-                    if (externallyOwned) {
+                (tInterface, tImplementation, externallyOwned, singleInstance) =>
+                {
+                    if (externallyOwned)
+                    {
                         if (singleInstance)
                             builder.RegisterType(tImplementation).ExternallyOwned().SingleInstance().As(tInterface);
                         else
                             builder.RegisterType(tImplementation).ExternallyOwned().As(tInterface);
-                    } else {
+                    }
+                    else
+                    {
                         if (singleInstance)
                             builder.RegisterType(tImplementation).SingleInstance().As(tInterface);
                         else
                             builder.RegisterType(tImplementation).As(tInterface);
                     }
                 },
-                (tInterface, instance, externallyOwned) => {
+                (tInterface, instance, externallyOwned) =>
+                {
                     if (externallyOwned)
                         builder.RegisterInstance(instance).ExternallyOwned().As(tInterface);
                     else
                         builder.RegisterInstance(instance).As(tInterface);
                 }
-            );
+                );
 
             register.AddRegistrations();
 
             return builder;
         }
 
-        public static ContainerBuilder CallDefaultDependencyRegisters(this ContainerBuilder builder) {
+        public static ContainerBuilder CallDefaultDependencyRegisters(this ContainerBuilder builder)
+        {
             Preconfigurator.Configure();
 
-            var dependencyRegisterTypeBase = typeof(DefaultDependencyRegisterBase);
+            var dependencyRegisterTypeBase = typeof (DefaultDependencyRegisterBase);
 
             var dependencyRegisters = AssemblyHelper.GetReferencedAssemblies()
                 .SelectMany(a => a.GetTypes())

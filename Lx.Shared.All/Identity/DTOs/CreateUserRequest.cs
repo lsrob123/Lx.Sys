@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Lx.Shared.All.Common.DTOs;
+using Lx.Shared.All.Identity.Interfaces;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 

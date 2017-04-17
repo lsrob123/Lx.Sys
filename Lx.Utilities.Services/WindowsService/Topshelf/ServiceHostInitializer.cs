@@ -2,17 +2,22 @@
 using System.Reflection;
 using Topshelf;
 
-namespace Lx.Utilities.Services.WindowsService.Topshelf {
+namespace Lx.Utilities.Services.WindowsService.Topshelf
+{
     public class ServiceHostInitializer<TServiceManager>
-        where TServiceManager : ServiceManagerBase, new() {
+        where TServiceManager : ServiceManagerBase, new()
+    {
         public ServiceHostInitializer(string serviceName = null, Action<int> handleExitOnError = null,
-            bool runAsNetworkService = false) {
+            bool runAsNetworkService = false)
+        {
             if (string.IsNullOrWhiteSpace(serviceName))
                 serviceName = Assembly.GetEntryAssembly().GetName().Name;
 
             Host = HostFactory.New(
-                configurator => {
-                    configurator.Service<TServiceManager>(service => {
+                configurator =>
+                {
+                    configurator.Service<TServiceManager>(service =>
+                    {
                         service.ConstructUsing(s => new TServiceManager());
                         service.WhenStarted(start => start.StartService());
                         service.WhenStopped(stop => stop.StopService());

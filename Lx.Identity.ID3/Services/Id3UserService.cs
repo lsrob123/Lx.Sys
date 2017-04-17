@@ -14,30 +14,36 @@ using Lx.Utilities.Contract.Authentication.Constants;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Crypto;
 
-namespace Lx.Identity.ID3.Services {
-    public class Id3UserService : UserServiceBase {
+namespace Lx.Identity.ID3.Services
+{
+    public class Id3UserService : UserServiceBase
+    {
         protected readonly IUserService BackingUserService;
         protected readonly IClientService ClientService;
         protected readonly ICryptoService CryptoService;
         protected readonly IIdentityServiceConfig IdentityServiceConfig;
 
         public Id3UserService(IUserService userService, IClientService clientService,
-            ICryptoService cryptoService, IIdentityServiceConfig identityServiceConfig) {
+            ICryptoService cryptoService, IIdentityServiceConfig identityServiceConfig)
+        {
             BackingUserService = userService;
             ClientService = clientService;
             CryptoService = cryptoService;
             IdentityServiceConfig = identityServiceConfig;
         }
 
-        public override async Task AuthenticateLocalAsync(LocalAuthenticationContext context) {
-            var user = await Task.Run(() => BackingUserService.GetUser(context.UserName));
-            if ((user == null) || !user.UserState.Equals(UserState.Active)) {
+        public override async Task AuthenticateLocalAsync(LocalAuthenticationContext context)
+        {
+            var user = await Task.Run(() => BackingUserService.GetUser(context.UserName, null));
+            if ((user == null) || !user.UserState.Equals(UserState.Active))
+            {
                 context.AuthenticateResult = new AuthenticateResult("Invalid user");
                 return;
             }
 
             var passwordValid = CryptoService.Validate(context.Password, user.HashedPassword);
-            if (!passwordValid) {
+            if (!passwordValid)
+            {
                 context.AuthenticateResult = new AuthenticateResult("Invalid user or password");
                 return;
             }
@@ -48,12 +54,14 @@ namespace Lx.Identity.ID3.Services {
                 identityProvider: IdentityServiceConfig.IdentityProviderName, claims: claims);
         }
 
-        public override async Task AuthenticateExternalAsync(ExternalAuthenticationContext context) {
+        public override async Task AuthenticateExternalAsync(ExternalAuthenticationContext context)
+        {
             context.AuthenticateResult = new AuthenticateResult("Authentication failed");
             await Task.CompletedTask;
         }
 
-        public override async Task GetProfileDataAsync(ProfileDataRequestContext context) {
+        public override async Task GetProfileDataAsync(ProfileDataRequestContext context)
+        {
             var user = await GetUserBySubjectAsync(context.Subject);
             if (user == null)
                 return;
@@ -61,11 +69,12 @@ namespace Lx.Identity.ID3.Services {
             context.IssuedClaims = await GetClaimsAsync(context.Client.ClientId, user);
         }
 
-        private async Task<IReadOnlyCollection<Claim>> GetClaimsAsync(string clientId, IUserDtoBase user) {
+        private async Task<IReadOnlyCollection<Claim>> GetClaimsAsync(string clientId, IUserDtoBase user)
+        {
             var claims = new List<Claim>();
             var client = await Task.Run(() => ClientService.GetClientByClientId(clientId));
             var userProfile =
-                await Task.Run(() => BackingUserService.GetUserProfile(client.UserProfileOriginator, user.Key));
+                await Task.Run(() => BackingUserService.GetUserProfile(user.Key, client.UserProfileOriginator));
             //make sure user is within expected profile group
 
             if (userProfile == null)
@@ -73,13 +82,15 @@ namespace Lx.Identity.ID3.Services {
 
             claims.Add(new Claim(Constants.ClaimTypes.Subject, user.Key.ToString()));
 
-            if (!string.IsNullOrWhiteSpace(user.Email.Address)) {
+            if (!string.IsNullOrWhiteSpace(user.Email.Address))
+            {
                 claims.Add(new Claim(Constants.ClaimTypes.Email, user.Email.Address));
                 if (user.Email.Verified)
                     claims.Add(new Claim(Constants.ClaimTypes.EmailVerified, user.Email.Address));
             }
 
-            if (!string.IsNullOrWhiteSpace(user.MobileNumber.FullNumber)) {
+            if (!string.IsNullOrWhiteSpace(user.MobileNumber.FullNumber))
+            {
                 claims.Add(new Claim(Constants.ClaimTypes.PhoneNumber, user.MobileNumber.FullNumber));
                 if (user.MobileNumber.Verified)
                     claims.Add(new Claim(Constants.ClaimTypes.PhoneNumberVerified, user.MobileNumber.FullNumber));
@@ -94,9 +105,11 @@ namespace Lx.Identity.ID3.Services {
             return claims;
         }
 
-        public override async Task IsActiveAsync(IsActiveContext context) {
+        public override async Task IsActiveAsync(IsActiveContext context)
+        {
             var user = await GetUserBySubjectAsync(context.Subject);
-            if (user == null) {
+            if (user == null)
+            {
                 context.IsActive = false;
                 return;
             }
@@ -104,20 +117,21 @@ namespace Lx.Identity.ID3.Services {
             var client =
                 await Task.Run(() => ClientService.GetClientByClientId(context.Client.ClientId));
             var userProfile =
-                await Task.Run(() => BackingUserService.GetUserProfile(client.UserProfileOriginator, user.Key));
+                await Task.Run(() => BackingUserService.GetUserProfile(user.Key, client.UserProfileOriginator));
             //make sure user is within expected profile group
 
             context.IsActive = user.UserState.Equals(UserState.Active) && (userProfile != null);
         }
 
-        protected async Task<IUserDto> GetUserBySubjectAsync(IPrincipal subject) {
+        protected async Task<IUserDto> GetUserBySubjectAsync(IPrincipal subject)
+        {
             var subjectId = subject.GetSubjectId();
             Guid userKey;
 
             if ((subjectId == null) || !Guid.TryParse(subjectId, out userKey))
                 return null;
 
-            var user = await Task.Run(() => BackingUserService.GetUser(userKey));
+            var user = await Task.Run(() => BackingUserService.GetUser(userKey, null));
             return user;
         }
     }

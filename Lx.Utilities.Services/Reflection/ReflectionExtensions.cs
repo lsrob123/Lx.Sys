@@ -4,16 +4,20 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Lx.Utilities.Services.Reflection {
-    public static class ReflectionExtensions {
+namespace Lx.Utilities.Services.Reflection
+{
+    public static class ReflectionExtensions
+    {
         public static void AssignPropertyValuesTo(this object source, object destination,
-            params string[] excludedPropertyNames) {
+            params string[] excludedPropertyNames)
+        {
             var sourceType = source.GetType();
             var destinationType = destination.GetType();
             var excluded = new List<string>(excludedPropertyNames);
 
             var sourceProperties = sourceType.GetProperties();
-            foreach (var sourceProperty in sourceProperties) {
+            foreach (var sourceProperty in sourceProperties)
+            {
                 if (excluded.Any(x => sourceProperty.Name.Equals(x, StringComparison.OrdinalIgnoreCase)))
                     continue;
 
@@ -26,19 +30,22 @@ namespace Lx.Utilities.Services.Reflection {
             }
         }
 
-        public static ICollection<Type> GetMethodParameterTypes(Type objectType, string methodName) {
+        public static ICollection<Type> GetMethodParameterTypes(Type objectType, string methodName)
+        {
             var methodInfo = objectType.GetMethod(methodName);
             var parameterTypes = methodInfo.GetParameters().Select(x => x.ParameterType).ToList();
             return parameterTypes;
         }
 
-        public static ICollection<Type> GetMethodParameterTypes(this object source, string methodName) {
+        public static ICollection<Type> GetMethodParameterTypes(this object source, string methodName)
+        {
             return GetMethodParameterTypes(source.GetType(), methodName);
         }
 
         public static PropertyInfo GetPropertyInfo<TSource, TProperty>(this TSource source,
-            Expression<Func<TSource, TProperty>> propertyGetterExpression) {
-            var type = typeof(TSource);
+            Expression<Func<TSource, TProperty>> propertyGetterExpression)
+        {
+            var type = typeof (TSource);
 
             var member = propertyGetterExpression.Body as MemberExpression;
             if (member == null)

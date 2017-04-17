@@ -3,13 +3,16 @@ using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Serialization;
 using Lx.Utilities.Contract.ServiceBus;
 
-namespace Lx.Utilities.Services.ServiceBus {
-    public class SagaDataCache : ISagaDataCache {
+namespace Lx.Utilities.Services.ServiceBus
+{
+    public class SagaDataCache : ISagaDataCache
+    {
         protected readonly ICacheWithHashes Cache;
         protected readonly string CacheHashKey;
         protected readonly ISerializer Serializer;
 
-        public SagaDataCache(ICacheFactory cacheFactory, ISerializer serializer, Guid sagaId) {
+        public SagaDataCache(ICacheFactory cacheFactory, ISerializer serializer, Guid sagaId)
+        {
             Cache = cacheFactory.NewDisposableCache();
             Serializer = serializer;
             SagaId = sagaId;
@@ -18,19 +21,21 @@ namespace Lx.Utilities.Services.ServiceBus {
 
         public Guid SagaId { get; protected set; }
 
-        public void SetItem<T>(T data, string key = null) {
+        public void SetItem<T>(T data, string key = null)
+        {
             if (data == null)
                 return;
 
-            var cacheKey = $"{typeof(T).Name}{key ?? string.Empty}";
+            var cacheKey = $"{typeof (T).Name}{key ?? string.Empty}";
 
             var cachedData = Serializer.Serialize(data);
 
             Cache.HashSetAsync(CacheHashKey, cacheKey, cachedData).Wait();
         }
 
-        public T GetItem<T>(string key = null) {
-            var cacheKey = $"{typeof(T).Name}{key ?? string.Empty}";
+        public T GetItem<T>(string key = null)
+        {
+            var cacheKey = $"{typeof (T).Name}{key ?? string.Empty}";
 
             var cachedData = Cache.HashGet(CacheHashKey, cacheKey);
             if (string.IsNullOrWhiteSpace(cachedData))
@@ -41,11 +46,13 @@ namespace Lx.Utilities.Services.ServiceBus {
             return data;
         }
 
-        public void RemoveAll() {
+        public void RemoveAll()
+        {
             Cache.HashDeleteAsync(CacheHashKey).Wait();
         }
 
-        public void Dispose() {
+        public void Dispose()
+        {
             Cache.Dispose();
         }
     }

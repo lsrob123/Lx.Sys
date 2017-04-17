@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Lx.Identity.Contracts.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
 namespace Lx.Identity.Domain.Entities {
-    public class Consent : EntityBase {
+    public class Consent : EntityBase, IConsent
+    {
         [Required]
         [StringLength(200)]
         public string ClientId { get; protected set; }

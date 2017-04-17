@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using Lx.Identity.Contracts.Enumerations;
 using Lx.Identity.Contracts.Interfaces;
 
-namespace Lx.Identity.Contracts.DTOs {
-    public class ClientDto : IClient {
+namespace Lx.Identity.Contracts.DTOs
+{
+    public class ClientDto : IClient
+    {
         public ICollection<ClientRedirectUriDto> ClientRedirectUris { get; set; }
         public ICollection<ClientScopeDto> ClientScopes { get; set; }
         public ICollection<ClientSecretDto> ClientSecrets { get; set; }

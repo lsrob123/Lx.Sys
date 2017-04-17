@@ -8,8 +8,10 @@ using Lx.Utilities.Contract.Configuration;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Services.Mapping.AutoMapper;
 
-namespace Lx.Utilities.Services.Config {
-    public static class Preconfigurator {
+namespace Lx.Utilities.Services.Config
+{
+    public static class Preconfigurator
+    {
         private static readonly ConcurrentBag<Action> Actions = new ConcurrentBag<Action>();
 
         private static readonly ReaderWriterLockSlim Lock =
@@ -17,11 +19,13 @@ namespace Lx.Utilities.Services.Config {
 
         private static bool _isPreConfigurationDone;
 
-        public static void RegisterTasks(params Action[] actions) {
+        public static void RegisterTasks(params Action[] actions)
+        {
             AddPreconfigurationTasks(actions);
         }
 
-        private static void AddPreconfigurationTasks(IEnumerable<Action> actions) {
+        private static void AddPreconfigurationTasks(IEnumerable<Action> actions)
+        {
             foreach (var action in actions.ToList())
                 Actions.Add(action);
         }
@@ -32,9 +36,11 @@ namespace Lx.Utilities.Services.Config {
         /// <remarks>
         ///     Preconfigurator.Configure() is thread safe and idempotent
         /// </remarks>
-        public static void Configure(bool forcedExecutionRequired = false) {
+        public static void Configure(bool forcedExecutionRequired = false)
+        {
             Lock.EnterUpgradeableReadLock();
-            try {
+            try
+            {
                 if (_isPreConfigurationDone && !forcedExecutionRequired)
                     return;
 
@@ -56,10 +62,14 @@ namespace Lx.Utilities.Services.Config {
                     MappingService.Configure();
 
                     _isPreConfigurationDone = true;
-                } finally {
+                }
+                finally
+                {
                     Lock.ExitWriteLock();
                 }
-            } finally {
+            }
+            finally
+            {
                 Lock.ExitUpgradeableReadLock();
             }
         }

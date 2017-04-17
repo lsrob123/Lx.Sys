@@ -5,12 +5,15 @@ using System.Linq;
 using Lx.Utilities.Contract.Configuration;
 using Lx.Utilities.Contract.Infrastructure.Common;
 
-namespace Lx.Utilities.Services.Web {
-    public class RazorTemplateLoader {
+namespace Lx.Utilities.Services.Web
+{
+    public class RazorTemplateLoader
+    {
         public static ConcurrentDictionary<Type, string> Templates { get; protected set; }
 
         [Preconfiguration]
-        public static void LoadAndCompileRazorTemplates() {
+        public static void LoadAndCompileRazorTemplates()
+        {
             Templates = new ConcurrentDictionary<Type, string>();
 
             var files = Directory.GetFileSystemEntries(Directory.GetCurrentDirectory(), "*.cshtml",
@@ -19,7 +22,8 @@ namespace Lx.Utilities.Services.Web {
                 return;
 
             var types = AssemblyHelper.GetTypesInReferencedAssemblies();
-            foreach (var file in files) {
+            foreach (var file in files)
+            {
                 var fileName = Path.GetFileNameWithoutExtension(file);
                 var modelType = types.FirstOrDefault(x => x.Name.Equals(fileName, StringComparison.OrdinalIgnoreCase));
                 if (modelType != null)

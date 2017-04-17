@@ -1,3 +1,6 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Interfaces {
-    public interface IEvent : IMessage {}
+﻿namespace Lx.Utilities.Contract.Infrastructure.Interfaces
+{
+    public interface IEvent : IMessage
+    {
+    }
 }

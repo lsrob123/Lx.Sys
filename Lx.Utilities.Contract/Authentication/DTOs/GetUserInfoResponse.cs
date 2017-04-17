@@ -4,8 +4,10 @@ using System.Net;
 using System.Security.Claims;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 
-namespace Lx.Utilities.Contract.Authentication.DTOs {
-    public class GetUserInfoResponse : ResponseBase {
+namespace Lx.Utilities.Contract.Authentication.DTOs
+{
+    public class GetUserInfoResponse : ResponseBase
+    {
         public IEnumerable<Claim> Claims { get; set; }
         public string Error { get; set; }
         public string ErrorType { get; set; }
@@ -13,6 +15,9 @@ namespace Lx.Utilities.Contract.Authentication.DTOs {
         public HttpStatusCode HttpStatusCode { get; set; }
         public bool IsError { get; set; }
         public string Raw { get; set; }
-        public override void EraseShareGroupInfoForClientSide() {}
+
+        public override void EraseShareGroupInfoForClientSide()
+        {
+        }
     }
 }

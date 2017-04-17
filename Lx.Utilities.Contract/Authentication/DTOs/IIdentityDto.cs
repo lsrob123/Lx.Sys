@@ -4,8 +4,10 @@ using System.Security.Claims;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Membership;
 
-namespace Lx.Utilities.Contract.Authentication.DTOs {
-    public interface IIdentityDto {
+namespace Lx.Utilities.Contract.Authentication.DTOs
+{
+    public interface IIdentityDto
+    {
         UserState State { get; set; }
         ICollection<RoleDto> Roles { get; set; }
         string UserReference { get; set; }

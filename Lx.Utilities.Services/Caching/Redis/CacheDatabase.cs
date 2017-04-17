@@ -8,8 +8,10 @@ using Lx.Utilities.Services.Caching.Redis.Config;
 using Lx.Utilities.Services.Serialization;
 using StackExchange.Redis;
 
-namespace Lx.Utilities.Services.Caching.Redis {
-    public class CacheDatabase : ICacheWithHashes {
+namespace Lx.Utilities.Services.Caching.Redis
+{
+    public class CacheDatabase : ICacheWithHashes
+    {
         protected readonly ICacheConfig Config;
         protected readonly ConnectionMultiplexer ConnectionMultiplexer;
         protected readonly IDatabase Database;
@@ -18,7 +20,8 @@ namespace Lx.Utilities.Services.Caching.Redis {
         public CacheDatabase(Func<ICacheConfig> configFactory,
             Func<ICacheConfig, ConnectionMultiplexer> connectionMultiplexerFactory,
             Func<ICacheConfig, ConnectionMultiplexer, IDatabase> databaseFactory, ISerializer serializer = null)
-            : this(serializer) {
+            : this(serializer)
+        {
             if (configFactory != null)
                 Config = configFactory();
 
@@ -26,42 +29,51 @@ namespace Lx.Utilities.Services.Caching.Redis {
             Database = databaseFactory(Config, ConnectionMultiplexer);
         }
 
-        public CacheDatabase(IDatabase database, ISerializer serializer = null) : this(serializer) {
+        public CacheDatabase(IDatabase database, ISerializer serializer = null) : this(serializer)
+        {
             Database = database;
         }
 
-        public CacheDatabase(ISerializer serializer = null) {
+        public CacheDatabase(ISerializer serializer = null)
+        {
             Serializer = serializer ?? new JsonSerializer();
         }
 
-        public bool Exists(string cacheKey) {
+        public bool Exists(string cacheKey)
+        {
             return Database.KeyExists(cacheKey);
         }
 
-        public async Task<bool> RemoveCachedItemAsync(string cacheKey) {
+        public async Task<bool> RemoveCachedItemAsync(string cacheKey)
+        {
             var result = await Database.KeyDeleteAsync(cacheKey);
             return result;
         }
 
-        public T GetCachedItem<T>(string cacheKey) {
+        public T GetCachedItem<T>(string cacheKey)
+        {
             var redisValue = Database.StringGet(cacheKey).ToString();
             return string.IsNullOrWhiteSpace(redisValue)
                 ? default(T)
                 : Serializer.Deserialize<T>(redisValue);
         }
 
-        public async Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem, TimeSpan expiration) {
+        public async Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem, TimeSpan expiration)
+        {
             var cachedString = Serializer.Serialize(cachedItem);
             var result = await Database.StringSetAsync(cacheKey, cachedString, expiration);
             return result;
         }
 
-        public async Task HashSetAsync(string hashKey, IDictionary<string, string> nameValues) {
+        public async Task HashSetAsync(string hashKey, IDictionary<string, string> nameValues)
+        {
             await Database.HashSetAsync(hashKey, nameValues.Select(x => new HashEntry(x.Key, x.Value)).ToArray());
         }
 
-        public async Task HashDeleteAsync(string hashKey, string fieldName = null) {
-            if (fieldName != null) {
+        public async Task HashDeleteAsync(string hashKey, string fieldName = null)
+        {
+            if (fieldName != null)
+            {
                 await Database.HashDeleteAsync(hashKey, fieldName);
                 return;
             }
@@ -71,26 +83,31 @@ namespace Lx.Utilities.Services.Caching.Redis {
                 await Database.HashDeleteAsync(hashKey, entry.Key);
         }
 
-        public async Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem) {
+        public async Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem)
+        {
             var cachedString = Serializer.Serialize(cachedItem);
             var result = await Database.StringSetAsync(cacheKey, cachedString);
             return result;
         }
 
-        public void Dispose() {
+        public void Dispose()
+        {
             ConnectionMultiplexer.Dispose();
         }
 
-        public async Task HashSetAsync(string hashKey, string itemName, string itemValue) {
+        public async Task HashSetAsync(string hashKey, string itemName, string itemValue)
+        {
             var pair = new KeyValuePair<string, string>(itemName, itemValue);
             await HashSetAsync(hashKey, pair);
         }
 
-        public async Task HashSetAsync(string hashKey, params KeyValuePair<string, string>[] nameValues) {
+        public async Task HashSetAsync(string hashKey, params KeyValuePair<string, string>[] nameValues)
+        {
             await Database.HashSetAsync(hashKey, nameValues.Select(x => new HashEntry(x.Key, x.Value)).ToArray());
         }
 
-        public void FlushDb() {
+        public void FlushDb()
+        {
             var endPoints = Database.Multiplexer.GetEndPoints();
 
             foreach (var endpoint in endPoints)
@@ -98,9 +115,11 @@ namespace Lx.Utilities.Services.Caching.Redis {
         }
 
         public IDictionary<string, string> HashGet(string hashKey, IEnumerable<string> nameEnumerable = null,
-            params string[] individuallySuppliedNames) {
+            params string[] individuallySuppliedNames)
+        {
             List<string> names = null;
-            if ((nameEnumerable != null) || ((individuallySuppliedNames != null) && individuallySuppliedNames.Any())) {
+            if ((nameEnumerable != null) || ((individuallySuppliedNames != null) && individuallySuppliedNames.Any()))
+            {
                 names = new List<string>();
                 if (nameEnumerable != null)
                     names.AddRange(nameEnumerable);
@@ -111,12 +130,16 @@ namespace Lx.Utilities.Services.Caching.Redis {
 
             var fields = new Dictionary<string, string>();
 
-            if (names == null) {
+            if (names == null)
+            {
                 var entries = Database.HashGetAll(hashKey);
                 foreach (var entry in entries)
                     fields.Add(entry.Name, entry.Value);
-            } else {
-                foreach (var name in names) {
+            }
+            else
+            {
+                foreach (var name in names)
+                {
                     var value = Database.HashGet(hashKey, name);
                     if (value.HasValue)
                         fields.Add(name, value);
@@ -126,7 +149,8 @@ namespace Lx.Utilities.Services.Caching.Redis {
             return fields;
         }
 
-        public string HashGet(string hashKey, string fieldName) {
+        public string HashGet(string hashKey, string fieldName)
+        {
             var value = Database.HashGet(hashKey, fieldName);
             if (value.HasValue)
                 return value;
@@ -134,15 +158,18 @@ namespace Lx.Utilities.Services.Caching.Redis {
             return null;
         }
 
-        public void RemoveAllCachedItems(ICollection<string> cacheKeys) {
+        public void RemoveAllCachedItems(ICollection<string> cacheKeys)
+        {
             foreach (var cacheKey in cacheKeys)
                 RemoveCachedItemAsync(cacheKey).Wait();
         }
 
-        public IDictionary<string, T> GetAllCachedItems<T>(ICollection<string> cacheKeys) {
+        public IDictionary<string, T> GetAllCachedItems<T>(ICollection<string> cacheKeys)
+        {
             var redisKeys = cacheKeys.Select(x => (RedisKey) x).ToArray();
             var result = Database.StringGet(redisKeys);
-            return redisKeys.ToDictionary(key => (string) key, key => {
+            return redisKeys.ToDictionary(key => (string) key, key =>
+            {
                 {
                     var index = Array.IndexOf(redisKeys, key);
                     var value = result[index];
@@ -151,11 +178,13 @@ namespace Lx.Utilities.Services.Caching.Redis {
             });
         }
 
-        public IDictionary<string, T> GetAllCachedItems<T>() {
+        public IDictionary<string, T> GetAllCachedItems<T>()
+        {
             var cacheKeys = GetKeys();
             var redisKeys = cacheKeys.Select(x => (RedisKey) x).ToArray();
             var result = Database.StringGet(redisKeys);
-            return redisKeys.ToDictionary(key => (string) key, key => {
+            return redisKeys.ToDictionary(key => (string) key, key =>
+            {
                 {
                     var index = Array.IndexOf(redisKeys, key);
                     var value = result[index];
@@ -165,12 +194,14 @@ namespace Lx.Utilities.Services.Caching.Redis {
         }
 
         public async Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem, DateTimeOffset expiresAt)
-            where T : class {
+            where T : class
+        {
             var expiration = expiresAt.Subtract(DateTimeOffset.Now);
             return await SetCachedItemAsync(cacheKey, cachedItem, expiration);
         }
 
-        public bool SetCachedItems<T>(IList<Tuple<string, T>> cachedItems) {
+        public bool SetCachedItems<T>(IList<Tuple<string, T>> cachedItems)
+        {
             var redisKeyValueDictionary =
                 cachedItems.ToDictionary<Tuple<string, T>, RedisKey, RedisValue>(item => item.Item1,
                     item => Serializer.Serialize(item.Item2));
@@ -178,29 +209,34 @@ namespace Lx.Utilities.Services.Caching.Redis {
             return Database.StringSet(redisKeyValueDictionary.ToArray());
         }
 
-        public Dictionary<string, string> GetInfo() {
+        public Dictionary<string, string> GetInfo()
+        {
             var redisInfo = Database.ScriptEvaluate("return redis.call('INFO')").ToString();
 
             return ParseRedisInfo(redisInfo);
         }
 
-        public ICollection<string> GetKeys() {
+        public ICollection<string> GetKeys()
+        {
             var keys = (string[]) Database.ScriptEvaluate("return redis.call('KEYS','*')");
 
             return keys;
         }
 
-        public void SaveDb(SaveType saveType) {
+        public void SaveDb(SaveType saveType)
+        {
             var endPoints = Database.Multiplexer.GetEndPoints();
 
             foreach (var endpoint in endPoints)
                 Database.Multiplexer.GetServer(endpoint).Save(saveType);
         }
 
-        protected static Dictionary<string, string> ParseRedisInfo(string redisInfo) {
+        protected static Dictionary<string, string> ParseRedisInfo(string redisInfo)
+        {
             var strArr = redisInfo.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
             var dict = new Dictionary<string, string>();
-            foreach (var str in strArr) {
+            foreach (var str in strArr)
+            {
                 if (string.IsNullOrEmpty(str) || (str[0] == '#'))
                     continue;
 

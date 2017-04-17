@@ -13,33 +13,42 @@ using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.Logging;
 using Newtonsoft.Json;
 
-namespace Lx.Utilities.Contract.Infrastructure.DTOs {
-    public class ProcessResult : IDto {
+namespace Lx.Utilities.Contract.Infrastructure.DTOs
+{
+    public class ProcessResult : IDto
+    {
         /// <summary>
         ///     The following exception types can not be deserialized with JSON serializer used in NServiceBus and
         ///     hence are required to convert to general exception type
         /// </summary>
-        protected static readonly Type[] ReplicationRequiringExceptions = {
-            typeof(EntitySqlException),
-            typeof(PropertyConstraintException),
-            typeof(DbUpdateConcurrencyException),
-            typeof(DbUpdateException),
-            typeof(DbEntityValidationException)
+        protected static readonly Type[] ReplicationRequiringExceptions =
+        {
+            typeof (EntitySqlException),
+            typeof (PropertyConstraintException),
+            typeof (DbUpdateConcurrencyException),
+            typeof (DbUpdateException),
+            typeof (DbEntityValidationException)
         };
 
-        public ProcessResult() {}
+        public ProcessResult()
+        {
+        }
 
         public ProcessResult(ProcessResultType type, Exception exception,
             string resultReference = null, bool logExcetions = true)
-            : this(type, new List<Exception> {exception}, resultReference, logExcetions) {}
+            : this(type, new List<Exception> {exception}, resultReference, logExcetions)
+        {
+        }
 
         public ProcessResult(ProcessResultType type, IEnumerable<Exception> exceptions = null,
-            string resultReference = null, bool logExcetions = true) {
+            string resultReference = null, bool logExcetions = true)
+        {
             Type = type;
             LogExcetions = logExcetions;
             SetExceptions(exceptions);
 
-            if (!string.IsNullOrWhiteSpace(resultReference)) {
+            if (!string.IsNullOrWhiteSpace(resultReference))
+            {
                 ResultReference = resultReference.Trim();
                 return;
             }
@@ -48,7 +57,7 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
 
             if (HasExceptions && LogExcetions)
                 Mediator.Mediator.Default.Publish(this);
-                    // TODO: Assess the possibility of asynchronizing this mediator publish
+            // TODO: Assess the possibility of asynchronizing this mediator publish
         }
 
         /// <summary>
@@ -60,7 +69,9 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
         public ProcessResult(IReadOnlyCollection<Exception> exceptions, string resultReference = null,
             bool logExcetions = true)
             : this(GetProcessResultType(exceptions),
-                exceptions, resultReference, logExcetions) {}
+                exceptions, resultReference, logExcetions)
+        {
+        }
 
         /// <summary>
         ///     Type is defaulted to ProcessResultType.InternalServerError
@@ -70,12 +81,12 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
         /// <param name="logExcetions"></param>
         public ProcessResult(Exception exception, string resultReference = null, bool logExcetions = true)
             : this(ProcessResultType.InternalServerError, new List<Exception> {exception}, resultReference, logExcetions
-            ) {}
+                )
+        {
+        }
 
         public bool LogExcetions { get; set; }
-
         public ProcessResultType Type { get; set; }
-
         public ICollection<Exception> Exceptions { get; set; }
         public string Reason { get; set; }
 
@@ -86,12 +97,14 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
 
         public string ResultReference { get; set; }
 
-        public ProcessResult WithReason(string reason) {
+        public ProcessResult WithReason(string reason)
+        {
             Reason = reason;
             return this;
         }
 
-        private static ProcessResultType GetProcessResultType(IReadOnlyCollection<Exception> exceptions) {
+        private static ProcessResultType GetProcessResultType(IReadOnlyCollection<Exception> exceptions)
+        {
             if ((exceptions == null) || !exceptions.Any())
                 return ProcessResultType.Ok;
 
@@ -112,7 +125,8 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
             return ProcessResultType.InternalServerError;
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             if (!HasExceptions)
                 return Type.IsSuccess ? Type.Name : base.ToString();
 
@@ -120,7 +134,8 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
             return aggregateException.ToString();
         }
 
-        public static Exception ReplicateToGeneralException<TException>(TException source) where TException : Exception {
+        public static Exception ReplicateToGeneralException<TException>(TException source) where TException : Exception
+        {
             if (source == null)
                 return null;
 
@@ -132,67 +147,83 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
             return destination;
         }
 
-        public ProcessResult DisableExceptionLogging() {
+        public ProcessResult DisableExceptionLogging()
+        {
             LogExcetions = false;
             return this;
         }
 
-        public ProcessResult EnableExceptionLogging() {
+        public ProcessResult EnableExceptionLogging()
+        {
             LogExcetions = true;
             return this;
         }
 
-        public ProcessResult SetExceptions(IEnumerable<Exception> exceptions) {
+        public ProcessResult SetExceptions(IEnumerable<Exception> exceptions)
+        {
             Exceptions = exceptions?.Select(ReplicateToGeneralException).ToList();
             return this;
         }
 
-        public ProcessResult SetException(Exception exception) {
+        public ProcessResult SetException(Exception exception)
+        {
             if (exception != null)
                 SetExceptions(new List<Exception> {exception});
             return this;
         }
 
-        public ProcessResult WithProcessResultType(ProcessResultType processResultType) {
+        public ProcessResult WithProcessResultType(ProcessResultType processResultType)
+        {
             Type = processResultType;
             return this;
         }
 
-        public static implicit operator ProcessResult(ProcessResultType type) {
+        public static implicit operator ProcessResult(ProcessResultType type)
+        {
             return new ProcessResult(type);
         }
 
-        public bool Equals(ProcessResultType type) {
+        public bool Equals(ProcessResultType type)
+        {
             return Type.Equals(type);
         }
 
-        public static implicit operator ProcessResult(Exception exception) {
+        public static implicit operator ProcessResult(Exception exception)
+        {
             return new ProcessResult(exception);
         }
 
-        public static implicit operator ProcessResult(List<Exception> exceptions) {
+        public static implicit operator ProcessResult(List<Exception> exceptions)
+        {
             return new ProcessResult(exceptions);
         }
 
-        public static implicit operator ProcessResult(HashSet<Exception> exceptions) {
+        public static implicit operator ProcessResult(HashSet<Exception> exceptions)
+        {
             return new ProcessResult(exceptions);
         }
 
-        public static implicit operator ProcessResult(Exception[] exceptions) {
+        public static implicit operator ProcessResult(Exception[] exceptions)
+        {
             return new ProcessResult(exceptions);
         }
 
-        public static implicit operator ProcessResult(ConcurrentBag<Exception> exceptions) {
+        public static implicit operator ProcessResult(ConcurrentBag<Exception> exceptions)
+        {
             return new ProcessResult(exceptions);
         }
 
-        public void WriteExceptionsToLog(ILogger logger) {
+        public void WriteExceptionsToLog(ILogger logger)
+        {
             if (!LogExcetions || !HasExceptions)
                 return;
 
-            if (Exceptions.Count == 1) {
+            if (Exceptions.Count == 1)
+            {
                 logger.LogException(Exceptions.First(), ResultReference);
-            } else {
+            }
+            else
+            {
                 var aggregateException = new AggregateException(Exceptions);
                 logger.LogException(aggregateException, ResultReference);
             }

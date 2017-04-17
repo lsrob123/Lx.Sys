@@ -3,13 +3,18 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Lx.Utilities.Services.Web {
-    public class HttpLoggingHandler : DelegatingHandler {
+namespace Lx.Utilities.Services.Web
+{
+    public class HttpLoggingHandler : DelegatingHandler
+    {
         public HttpLoggingHandler(HttpMessageHandler innerHandler)
-            : base(innerHandler) {}
+            : base(innerHandler)
+        {
+        }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
-            CancellationToken cancellationToken) {
+            CancellationToken cancellationToken)
+        {
             Console.WriteLine("Request:");
             Console.WriteLine(request.ToString());
             if (request.Content != null)

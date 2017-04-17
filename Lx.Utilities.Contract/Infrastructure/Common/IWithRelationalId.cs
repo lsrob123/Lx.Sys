@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Lx.Utilities.Contract.Infrastructure.Common {
-    public interface IWithRelationalId {
+namespace Lx.Utilities.Contract.Infrastructure.Common
+{
+    public interface IWithRelationalId
+    {
         long Id { get; }
         DateTimeOffset? TimeCreated { get; }
         DateTimeOffset? TimeModified { get; }

@@ -5,14 +5,17 @@ using System.Text.RegularExpressions;
 using Lx.Utilities.Contract.Web;
 using RazorTemplates.Core;
 
-namespace Lx.Utilities.Services.Web {
-    public class RazorTemplatesService : ITypedModelHtmlGenerationService {
+namespace Lx.Utilities.Services.Web
+{
+    public class RazorTemplatesService : ITypedModelHtmlGenerationService
+    {
         protected static volatile bool AllTemplatesCompiled;
 
         protected static readonly ConcurrentDictionary<Type, ITemplate<dynamic>> CompiledTemplates =
             new ConcurrentDictionary<Type, ITemplate<dynamic>>();
 
-        public RazorTemplatesService() {
+        public RazorTemplatesService()
+        {
             if (AllTemplatesCompiled)
                 return;
 
@@ -20,7 +23,8 @@ namespace Lx.Utilities.Services.Web {
             AllTemplatesCompiled = true;
         }
 
-        public string GetHtml<TModel>(TModel model) {
+        public string GetHtml<TModel>(TModel model)
+        {
             var type = model.GetType();
 
             ITemplate<dynamic> compiledTemplate;
@@ -31,8 +35,10 @@ namespace Lx.Utilities.Services.Web {
             return html;
         }
 
-        protected void Compile(IDictionary<Type, string> templates) {
-            foreach (var template in templates) {
+        protected void Compile(IDictionary<Type, string> templates)
+        {
+            foreach (var template in templates)
+            {
                 var templateWithoutNamespaceImport = Regex.Replace(template.Value, $"@model.*{template.Key.FullName}",
                     string.Empty);
 

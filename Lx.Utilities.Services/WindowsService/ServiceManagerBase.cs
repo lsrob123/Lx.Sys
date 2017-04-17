@@ -1,8 +1,10 @@
 ﻿using Lx.Utilities.Contract.WindowsService;
 using Lx.Utilities.Services.Config;
 
-namespace Lx.Utilities.Services.WindowsService {
-    public abstract class ServiceManagerBase : IServiceManager {
+namespace Lx.Utilities.Services.WindowsService
+{
+    public abstract class ServiceManagerBase : IServiceManager
+    {
         /// <summary>
         ///     ServiceManagerBase
         /// </summary>
@@ -14,7 +16,8 @@ namespace Lx.Utilities.Services.WindowsService {
         /// <remarks>
         ///     Preconfigurator.Configure() is thread safe and idempotent
         /// </remarks>
-        protected ServiceManagerBase(bool explicitlyApplyGlobalPreConfiguration = false) {
+        protected ServiceManagerBase(bool explicitlyApplyGlobalPreConfiguration = false)
+        {
             if (explicitlyApplyGlobalPreConfiguration)
                 Preconfigurator.Configure();
         }

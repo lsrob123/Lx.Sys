@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 
 namespace Lx.Shared.All.Identity.DTOs {
-    public class UpdateUserProfileRequest : RequestBase<UpdateUserProfileResponse> {
+    public class UpdateUserProfileRequest : RequestBase {
         public Guid UserKey { get; set; }
         public ICollection<UserProfileDto> UserProfiles { get; set; }
     }

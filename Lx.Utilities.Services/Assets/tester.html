@@ -114,67 +114,52 @@
                     } else if (/null/.test(match)) {
                         cls = nothing;
                     }
-                    return '<span style="' + cls + '">' + match + '</span>';
+                    return `<span style="${cls}">${match}</span>`;
                 });
     }
 
     function getTime(d) {
-        var now = d ? d : new Date(),
-            addZero = function(n) { return (n >= 0 && n < 10) ? "0" + n : n + ""; };
-        return '[' +
-            addZero(now.getHours()) +
-            ':' +
-            addZero(now.getMinutes()) +
-            ':' +
-            addZero(now.getSeconds()) +
-            ']';
+        const addZero = function(n) { return (n >= 0 && n < 10) ? `0${n}` : n + ""; };
+        const now = d ? d : new Date();
+        return `[${addZero(now.getHours())}:${addZero(now.getMinutes())}:${addZero(now.getSeconds())}]`;
     }
 
     function displayResponse(response) {
-        var json = JSON.stringify(response, undefined, 4);
-        var formatted = (syntaxHighlight(json));
-
-        var heading = response.dataType ? '<h2>' + response.dataType + '</h2>' : '';
+        const json = JSON.stringify(response, undefined, 4);
+        const formatted = (syntaxHighlight(json));
+        const heading = response.dataType ? `<h2>${response.dataType}</h2>` : '';
         document.getElementById('response').appendChild(document.createElement('pre')).innerHTML = heading + formatted;
     }
 
     function applyFuncName(hubName, funcName) {
         $('#func-name').val(funcName);
         $('#hub-name').val(hubName);
-
-        var currentHubName = $.trim($('#hub-name').val());
-        var hub = $.connection[currentHubName];
+        const currentHubName = $.trim($('#hub-name').val());
+        const hub = $.connection[currentHubName];
         hub.server.getRequestSampleAsync(groupName, funcName, requestReference);
     }
 
     function getCookieKeyPrefix() {
-        var prefix = $('#hub-name').val() + $('#func-name').val();
+        const prefix = $('#hub-name').val() + $('#func-name').val();
         return prefix;
     }
 
     function invoke() {
         $('#response').html("");
-
-        var currentHubName = $.trim($('#hub-name').val());
-        var funcName = $.trim($('#func-name').val());
-
+        const currentHubName = $.trim($('#hub-name').val());
+        const funcName = $.trim($('#func-name').val());
         if (funcName === "")
             alert("Function name can not be empty");
-
-        var accessToken = $.trim($('#access-token').val());
-
-        var requestJson = $('#request').val();
+        const accessToken = $.trim($('#access-token').val());
+        const requestJson = $('#request').val();
         if (!requestJson) {
             alert("Request is empty");
         }
-
-        var request = JSON.parse(requestJson);
+        const request = JSON.parse(requestJson);
         if (!request) {
             alert("Request is empty");
         }
-
-        var hub = $.connection[currentHubName];
-
+        const hub = $.connection[currentHubName];
         request.originatorGroup = groupName;
         request.accessToken = accessToken;
         request.requestReference = requestReference;
@@ -206,7 +191,7 @@
     }
 
     setInterval(function() {
-        $.cookie('accessToken', $('#access-token').val());
+            $.cookie('accessToken', $('#access-token').val());
             if (getParam('remember_data')) {
                 //$.cookie(getCookieKeyPrefix() + "request", $('#request').val());
                 $.cookie("func-name", $('#func-name').val());
@@ -231,23 +216,18 @@
                 }
 
                 $('#hub-list')
-                    .append('<li><strong>' +
-                        index +
-                        '</strong> <ul id="' +
-                        index +
-                        '"></ul></li>');
+                    .append(`<li><strong>${index}</strong> <ul id="${index}"></ul></li>`);
 
                 if ($.trim($('#hub-name').val()) === "")
                     $('#hub-name').val(index);
 
-                for (var i in hub.server) {
-                    var functionName = i.toString();
+                for (let i in hub.server) {
+                    const functionName = i.toString();
                     if (functionName.indexOf("handle") >= 0) {
                         continue;
                     }
-
-                    var isExcluded = false;
-                    for (var excludedMethodIndex in excludedMethods) {
+                    let isExcluded = false;
+                    for (let excludedMethodIndex in excludedMethods) {
                         if (excludedMethods[excludedMethodIndex] === functionName) {
                             isExcluded = true;
                             break;
@@ -256,24 +236,20 @@
                     if (isExcluded) {
                         continue;
                     }
-
-                    var linkFunc = "javascript:applyFuncName('" + index + "','" + functionName + "')";
-                    $('#' + index).append('<li><a href="' + linkFunc + '">' + functionName + '</a></li>');
+                    const linkFunc = `javascript:applyFuncName('${index}','${functionName}')`;
+                    $(`#${index}`).append(`<li><a href="${linkFunc}">${functionName}</a></li>`);
                 }
-
-                var currentHub = $.connection[index];
+                const currentHub = $.connection[index];
                 hubs.push(currentHub);
 
                 currentHub.client.groupAllocated = function(newGroupName) {
                     groupName = newGroupName;
                     $('#group-name').html(newGroupName);
                     $('#group-time').html(moment().format());
-
-                    var requestJson = $('#request').val();
+                    const requestJson = $('#request').val();
                     if (!requestJson)
                         return;
-
-                    var request = JSON.parse(requestJson);
+                    const request = JSON.parse(requestJson);
                     if (!request || !request.hasOwnProperty("originatorGroup"))
                         return;
 
@@ -285,25 +261,22 @@
 
                     if (response.dataType !== "GetTokensResponse")
                         return;
-
-                    var accessToken = response.data.accessToken;
+                    const accessToken = response.data.accessToken;
                     $('#access-token').val(accessToken);
-
-                    var requestJson = $('#request').val();
+                    const requestJson = $('#request').val();
                     if (!requestJson)
                         return;
-                    var request = JSON.parse(requestJson);
+                    const request = JSON.parse(requestJson);
                     if (!request)
                         return;
                     request.accessToken = accessToken;
                     $('#request').val(JSON.stringify(request, null, 2));
 
                 };
-                currentHub.client.requestSampleReturned = function (response, returnedRequestReference) {
+                currentHub.client.requestSampleReturned = function(response, returnedRequestReference) {
                     if (returnedRequestReference !== requestReference)
                         return;
-
-                    var requestSample = JSON.parse(response);
+                    const requestSample = JSON.parse(response);
                     if (requestSample.hasOwnProperty("accessToken"))
                         requestSample.accessToken = $('#access-token').val();
                     if (requestSample.hasOwnProperty("originatorGroup"))
@@ -327,8 +300,7 @@
             .click(function(e) {
                 if (isDisconnected)
                     startConnection();
-
-                var accessToken = $('#access-token').val();
+                const accessToken = $('#access-token').val();
                 if (!accessToken || $.trim(accessToken) === "") {
                     alert("Access token is required.");
                     return;
@@ -337,15 +309,14 @@
                 if (!hubs || hubs.length === 0)
                     return;
 
-                for (var hubIndex in hubs) {
+                for (let hubIndex in hubs) {
                     hubs[hubIndex].invoke("JoinGroupWithAccessTokenAsync", accessToken);
                 }
             });
 
         $('#restore')
             .click(function(e) {
-                var cookieValue = $.cookie(getCookieKeyPrefix() + 'request');
-
+                const cookieValue = $.cookie(getCookieKeyPrefix() + 'request');
                 if (cookieValue)
                     $('#request').val(cookieValue);
             });

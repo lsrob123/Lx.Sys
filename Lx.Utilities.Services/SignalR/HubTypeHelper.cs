@@ -4,11 +4,14 @@ using System.Linq;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Microsoft.AspNet.SignalR;
 
-namespace Lx.Utilities.Services.SignalR {
-    public static class HubTypeHelper {
-        public static readonly Type HubTypeBase = typeof(Hub);
+namespace Lx.Utilities.Services.SignalR
+{
+    public static class HubTypeHelper
+    {
+        public static readonly Type HubTypeBase = typeof (Hub);
 
-        public static IReadOnlyCollection<Type> GetHubTypes() {
+        public static IReadOnlyCollection<Type> GetHubTypes()
+        {
             var hubTypes = AssemblyHelper.GetReferencedAssemblies().SelectMany(x => x.GetTypes())
                 .Where(t => HubTypeBase.IsAssignableFrom(t) && !t.IsAbstract)
                 .ToList();

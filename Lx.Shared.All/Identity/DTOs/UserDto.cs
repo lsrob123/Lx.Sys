@@ -2,8 +2,10 @@
 using Lx.Shared.All.Common.DTOs;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 
-namespace Lx.Shared.All.Identity.DTOs {
-    public class UserDto : IUserDto {
+namespace Lx.Shared.All.Identity.DTOs
+{
+    public class UserDto : IUserDto
+    {
         public string Username { get; set; }
         public string HashedPassword { get; set; }
         public EmailDto Email { get; set; }
@@ -15,6 +17,7 @@ namespace Lx.Shared.All.Identity.DTOs {
         public PersonNameDto Name { get; set; }
         public bool IsAdmin { get; set; }
         public DateTimeOffset? TimeLockedOut { get; set; }
+        public UserProfileDto UserProfile { get; set; }
         public Guid Key { get; set; }
     }
 }

@@ -11,24 +11,27 @@ using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Membership;
 using Lx.Utilities.Contract.Serialization;
 
-namespace Lx.Utilities.Services.Authentication {
-    public class OAuthHelper : IOAuthHelper {
-        protected static readonly string OAuthHelperTypeName = typeof(OAuthHelper).FullName;
-
+namespace Lx.Utilities.Services.Authentication
+{
+    public class OAuthHelper : IOAuthHelper
+    {
+        protected static readonly string OAuthHelperTypeName = typeof (OAuthHelper).FullName;
         protected readonly IClaimProcessor ClaimProcessor;
         protected readonly IInProcessCache InProcessCache;
         protected readonly ISerializer Serializer;
         protected readonly IOAuthClientSettings Settings;
 
         public OAuthHelper(IOAuthClientSettings settings, IInProcessCache inProcessCache,
-            IClaimProcessor claimProcessor, ISerializer serializer) {
+            IClaimProcessor claimProcessor, ISerializer serializer)
+        {
             Settings = settings;
             InProcessCache = inProcessCache;
             Serializer = serializer;
             ClaimProcessor = claimProcessor ?? new StraightThroughClaimProcessor();
         }
 
-        public virtual async Task<IdentityDto> GetUserAsync(string accessToken) {
+        public virtual async Task<IdentityDto> GetUserAsync(string accessToken)
+        {
             var cacheKey = OAuthHelperTypeName + nameof(IdentityDto) + accessToken;
             var user = InProcessCache.GetCachedItem<IdentityDto>(cacheKey);
             if (user != null)
@@ -46,7 +49,8 @@ namespace Lx.Utilities.Services.Authentication {
             return user;
         }
 
-        protected virtual async Task<ICollection<Claim>> GetClaimsFromIdentityServiceAsync(string accessToken) {
+        protected virtual async Task<ICollection<Claim>> GetClaimsFromIdentityServiceAsync(string accessToken)
+        {
             var userInfoResponse = await GetUserInfoAsync(accessToken);
 
             if (userInfoResponse.IsError)
@@ -56,7 +60,8 @@ namespace Lx.Utilities.Services.Authentication {
             return claims;
         }
 
-        protected virtual async Task<UserInfoResponse> GetUserInfoAsync(string accessToken) {
+        protected virtual async Task<UserInfoResponse> GetUserInfoAsync(string accessToken)
+        {
             var userInfoClient = new UserInfoClient(Settings.UserInfoEndpointAbsolutePath);
 
             var result = await userInfoClient.GetAsync(accessToken);

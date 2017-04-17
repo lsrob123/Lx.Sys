@@ -21,9 +21,12 @@ using Lx.Utilities.Services.Mapping.AutoMapper;
 using Lx.Utilities.Services.Serialization;
 using Lx.Utilities.Services.SignalR;
 
-namespace Lx.Utilities.Services.Dependencies {
-    public class Register : DefaultDependencyRegisterBase {
-        public override void AddRegistrations() {
+namespace Lx.Utilities.Services.Dependencies
+{
+    public class Register : DefaultDependencyRegisterBase
+    {
+        public override void AddRegistrations()
+        {
             Register<ICryptoService, CryptoService>();
             Register(() => Mediator.Default);
             Register<ICryptoService, CryptoService>();

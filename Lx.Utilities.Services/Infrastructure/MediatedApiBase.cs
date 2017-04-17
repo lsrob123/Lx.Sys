@@ -5,17 +5,20 @@ using Lx.Utilities.Contract.Serialization;
 using Lx.Utilities.Contract.ServiceBus;
 using NServiceBus;
 
-namespace Lx.Utilities.Services.Infrastructure {
+namespace Lx.Utilities.Services.Infrastructure
+{
     /// <summary>
     ///     Base class for mediated API services
     /// </summary>
-    public abstract class MediatedApiBase : IMediatedApi {
+    public abstract class MediatedApiBase : IMediatedApi
+    {
         protected readonly IBus Bus;
         protected readonly IBusSettings BusSettings;
         protected readonly IMediator Mediator;
         protected readonly ISerializer Serializer;
 
-        protected MediatedApiBase(IMediator mediator, IBus bus, IBusSettings busSettings, ISerializer serializer) {
+        protected MediatedApiBase(IMediator mediator, IBus bus, IBusSettings busSettings, ISerializer serializer)
+        {
             Mediator = mediator;
             Bus = bus;
             BusSettings = busSettings;
@@ -24,18 +27,21 @@ namespace Lx.Utilities.Services.Infrastructure {
 
         /// <inheritdoc />
         public void SendToBus<TBusCommand>(TBusCommand message, string endpointName = null)
-            where TBusCommand : IBusCommand {
+            where TBusCommand : IBusCommand
+        {
             endpointName = endpointName ?? BusSettings.GetSendEndpoint(message);
             Bus.Send(endpointName, message);
         }
 
         /// <inheritdoc />
-        public void PublishToBus<TBusMessage>(TBusMessage message) where TBusMessage : IBusMessage {
+        public void PublishToBus<TBusMessage>(TBusMessage message) where TBusMessage : IBusMessage
+        {
             Bus.Publish(message);
         }
 
         /// <inheritdoc />
-        public void PublishToFrontEnd<TMessage>(TMessage message) where TMessage : IMessageBase {
+        public void PublishToFrontEnd<TMessage>(TMessage message) where TMessage : IMessageBase
+        {
             Mediator.Publish(message);
         }
     }

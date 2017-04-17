@@ -1,8 +1,10 @@
-﻿namespace Lx.Utilities.Contract.Crypto {
+﻿namespace Lx.Utilities.Contract.Crypto
+{
     /// <summary>
     ///     For crypto service implementations
     /// </summary>
-    public interface ICryptoService {
+    public interface ICryptoService
+    {
         /// <summary>
         ///     Creates a salted hash of the source string.
         /// </summary>

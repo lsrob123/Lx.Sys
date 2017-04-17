@@ -58,6 +58,7 @@
     <Compile Include="Identity\DTOs\CreateUserRequest.cs" />
     <Compile Include="Identity\DTOs\GetUserKeyEmailsRequest.cs" />
     <Compile Include="Identity\DTOs\GetUserKeyEmailsResponse.cs" />
+    <Compile Include="Identity\DTOs\IBasicUserInfoDto.cs" />
     <Compile Include="Identity\DTOs\IUserDto.cs" />
     <Compile Include="Identity\DTOs\IUserDtoBase.cs" />
     <Compile Include="Identity\DTOs\IUserKeyEmailDto.cs" />
@@ -69,7 +70,10 @@
     <Compile Include="Identity\DTOs\UserKeyEmailDto.cs" />
     <Compile Include="Identity\DTOs\UserProfileDto.cs" />
     <Compile Include="Identity\DTOs\UserUpdatedEvent.cs" />
+    <Compile Include="Identity\Enumerations\UserCreationResultType.cs" />
     <Compile Include="Identity\Interfaces\IHasUserProfileOriginator.cs" />
+    <Compile Include="Identity\DTOs\IUserCreationDto.cs" />
+    <Compile Include="Identity\Interfaces\IUserCreationResult.cs" />
     <Compile Include="Identity\Interfaces\IUserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -87,6 +91,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,17 +1,20 @@
 ﻿using System;
 using Lx.Utilities.Contract.Persistence;
 
-namespace Lx.Utilities.Services.Persistence {
+namespace Lx.Utilities.Services.Persistence
+{
     /// <summary>
     ///     Provides base class for a UnitOfWork which implements IDisposable
     /// </summary>
-    public abstract class UnitOfWorkBase : IUnitOfWork {
+    public abstract class UnitOfWorkBase : IUnitOfWork
+    {
         protected volatile bool Disposed;
 
         /// <summary>
         ///     Execute disposal before finalizer
         /// </summary>
-        public void Dispose() {
+        public void Dispose()
+        {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
@@ -26,7 +29,8 @@ namespace Lx.Utilities.Services.Persistence {
         ///     Execute disposal by looking at flag "disposing" as condition for the execution
         /// </summary>
         /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing) {
+        protected virtual void Dispose(bool disposing)
+        {
             if (!Disposed)
                 if (disposing)
                     DisposingAction();

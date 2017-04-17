@@ -1,10 +1,12 @@
 ﻿using System;
 
-namespace Lx.Utilities.Contract.Persistence {
+namespace Lx.Utilities.Contract.Persistence
+{
     /// <summary>
     ///     Provides interface for implementing a concrete UnitOfWork
     /// </summary>
-    public interface IUnitOfWork : IDisposable {
+    public interface IUnitOfWork : IDisposable
+    {
         /// <summary>
         ///     Persist all changes within the scope. It can be implemented with empty action if it is not required by the backing
         ///     data store

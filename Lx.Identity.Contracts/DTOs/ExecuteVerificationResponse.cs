@@ -1,4 +1,7 @@
-﻿namespace Lx.Identity.Contracts.DTOs
+﻿using Lx.Identity.Contracts.Enumerations;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
+
+namespace Lx.Identity.Contracts.DTOs
 {
     public class ExecuteVerificationResponse : ResponseBase
     {

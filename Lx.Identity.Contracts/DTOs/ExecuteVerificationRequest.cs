@@ -1,4 +1,7 @@
-﻿namespace Lx.Identity.Contracts.DTOs
+﻿using Lx.Utilities.Contract.Authentication.Enumerations;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
+
+namespace Lx.Identity.Contracts.DTOs
 {
     public class ExecuteVerificationRequest : RequestBase
     {

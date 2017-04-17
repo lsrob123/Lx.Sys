@@ -6,7 +6,7 @@ namespace Lx.Identity.Persistence.Uow
     public interface IUserUowFactory
     {
         UserProfile GetUserProfile(Guid userKey, string profileOriginator);
-        User GetUser(string usernameOrEmailOrMobileNumber);
-        User GetUser(Guid userKey);
+        User GetUser(string usernameOrEmailOrMobileNumber, string userProfileOriginator);
+        User GetUser(Guid userKey, string userProfileOriginator);
     }
 }

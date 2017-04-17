@@ -6,12 +6,12 @@ namespace Lx.Identity.Persistence.Uow
 {
     public interface IOAuthUowFactory
     {
-        void AddOrUpdateClient(ClientDto clientDto);
+        ClientDto AddOrUpdateClient(ClientDto clientDto);
         ClientDto GetClient(string clientId);
-        void AddOrUpdateScope(Scope scope);
-        IReadOnlyCollection<Scope> ListScopes(IEnumerable<string> scopeNames = null);
+        ScopeDto AddOrUpdateScope(ScopeDto scopeDto);
+        ICollection<ScopeDto> ListScopes(IEnumerable<string> scopeNames = null);
         void AddOrUpdateConsent(Consent consent);
-        IReadOnlyCollection<Consent> ListConsents(string subjectId);
+        ICollection<Consent> ListConsents(string subjectId);
         Consent GetConsent(string subjectId, string clientId);
         void RemoveConsent(string subjectId, string clientId);
     }

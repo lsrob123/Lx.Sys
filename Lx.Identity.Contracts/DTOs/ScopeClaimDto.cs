@@ -1,4 +1,5 @@
-﻿using Lx.Identity.Contracts.Interfaces;
+﻿using System;
+using Lx.Identity.Contracts.Interfaces;
 
 namespace Lx.Identity.Contracts.DTOs
 {
@@ -7,5 +8,6 @@ namespace Lx.Identity.Contracts.DTOs
         public string Name { get; set; }
         public string Description { get; set; }
         public bool AlwaysIncludeInIdToken { get; set; }
+        public Guid ScopeKey { get; set; }
     }
 }

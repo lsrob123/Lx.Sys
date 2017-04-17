@@ -21,15 +21,31 @@ namespace Lx.Identity.ID3.Stores
 
         public async Task<IEnumerable<Scope>> FindScopesAsync(IEnumerable<string> scopeNames)
         {
+            var scopes = await ListScopesAsync(scopeNames);
+            return scopes;
+        }
+
+        private async Task<ICollection<Scope>> ListScopesAsync(IEnumerable<string> scopeNames)
+        {
             var scopes = await Task.Run(() => ScopeService
                 .ListScopes(scopeNames)
-                .Select(x => MappingService.Map<Scope>(x)));
+                .Select(x => MappingService.Map<Scope>(x))
+                .ToList()
+                );
+
+            scopes.Add(StandardScopes.OfflineAccess);
+            scopes.Add(StandardScopes.Email);
+            scopes.Add(StandardScopes.Phone);
+            scopes.Add(StandardScopes.OpenId);
+            scopes.Add(StandardScopes.Profile);
+            scopes.Add(StandardScopes.AllClaims);
+
             return scopes;
         }
 
         public async Task<IEnumerable<Scope>> GetScopesAsync(bool publicOnly = true)
         {
-            var scopes = await Task.Run(() => ScopeService.ListScopes().Select(x => MappingService.Map<Scope>(x)));
+            var scopes = await ListScopesAsync(null);
             return scopes;
         }
     }

@@ -9,5 +9,6 @@ namespace Lx.Identity.Contracts.DTOs
         public DateTimeOffset? Expiration { get; set; }
         public string Type { get; set; }
         public string Value { get; set; }
+        public Guid ScopeKey { get; set; }
     }
 }

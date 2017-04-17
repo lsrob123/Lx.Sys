@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
-namespace Lx.Identity.Domain.Entities {
-    public class ScopeSecret : EntityBase, IScopeSecret {
+namespace Lx.Identity.Domain.Entities
+{
+    public class ScopeSecret : EntityBase, IScopeSecret
+    {
         public Guid ScopeKey { get; protected set; }
 
         [StringLength(1000)]
@@ -19,6 +21,14 @@ namespace Lx.Identity.Domain.Entities {
         [StringLength(250)]
         public string Value { get; set; }
 
-        public override void AssignDefaultValuesToComplexPropertiesIfNull() {}
+        public override void AssignDefaultValuesToComplexPropertiesIfNull()
+        {
+        }
+
+        public ScopeSecret WithScope(IScope scope)
+        {
+            ScopeKey = scope.Key;
+            return this;
+        }
     }
 }

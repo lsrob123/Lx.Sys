@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
-namespace Lx.Identity.Domain.Entities {
-    public class ScopeClaim : EntityBase, IScopeClaim {
+namespace Lx.Identity.Domain.Entities
+{
+    public class ScopeClaim : EntityBase, IScopeClaim
+    {
         public Guid ScopeKey { get; protected set; }
 
         [Required]
@@ -16,6 +18,14 @@ namespace Lx.Identity.Domain.Entities {
 
         public bool AlwaysIncludeInIdToken { get; protected set; }
 
-        public override void AssignDefaultValuesToComplexPropertiesIfNull() {}
+        public override void AssignDefaultValuesToComplexPropertiesIfNull()
+        {
+        }
+
+        public ScopeClaim WithScope(IScope scope)
+        {
+            ScopeKey = scope.Key;
+            return this;
+        }
     }
 }

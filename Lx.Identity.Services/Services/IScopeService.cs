@@ -5,6 +5,6 @@ namespace Lx.Identity.Services.Services
 {
     public interface IScopeService
     {
-        IReadOnlyCollection<ScopeDto> ListScopes(IEnumerable<string> scopeNames = null);
+        ICollection<ScopeDto> ListScopes(IEnumerable<string> scopeNames);
     }
 }

@@ -11,5 +11,11 @@ namespace Lx.Identity.Domain.Entities {
         public string Value { get; protected set; }
 
         public override void AssignDefaultValuesToComplexPropertiesIfNull() {}
+
+        public ClientSecret WithClient(IClient client)
+        {
+            ClientKey = client.Key;
+            return this;
+        }
     }
 }

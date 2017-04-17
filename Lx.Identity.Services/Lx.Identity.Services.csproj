@@ -43,11 +43,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ClientService.cs" />
+    <Compile Include="Services\ConsentService.cs" />
     <Compile Include="Services\IClientService.cs" />
     <Compile Include="Services\IConsentService.cs" />
     <Compile Include="Services\IScopeService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\IVerificationService.cs" />
+    <Compile Include="Services\ScopeService.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lx.Identity.Contracts\Lx.Identity.Contracts.csproj">

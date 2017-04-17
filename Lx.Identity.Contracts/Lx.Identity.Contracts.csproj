@@ -78,6 +78,8 @@
     <Compile Include="Interfaces\IClientScope.cs" />
     <Compile Include="Interfaces\IClientSecret.cs" />
     <Compile Include="Interfaces\IConsent.cs" />
+    <Compile Include="Interfaces\IHasClientKey.cs" />
+    <Compile Include="Interfaces\IHasScopeKey.cs" />
     <Compile Include="Interfaces\IScope.cs" />
     <Compile Include="Interfaces\IScopeClaim.cs" />
     <Compile Include="Interfaces\IScopeSecret.cs" />

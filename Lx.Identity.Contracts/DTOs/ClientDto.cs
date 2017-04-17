@@ -7,8 +7,8 @@ namespace Lx.Identity.Contracts.DTOs
 {
     public class ClientDto : IClient
     {
-        public ICollection<ClientRedirectUriDto> ClientRedirectUris { get; set; }
-        public ICollection<ClientScopeDto> ClientScopes { get; set; }
+        public ICollection<ClientRedirectUriDto> RedirectUris { get; set; }
+        public ICollection<ClientScopeDto> AllowedScopes { get; set; }
         public ICollection<ClientSecretDto> ClientSecrets { get; set; }
         public string UserProfileOriginator { get; set; }
         public bool Enabled { get; set; }

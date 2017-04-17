@@ -12,5 +12,11 @@ namespace Lx.Identity.Domain.Entities {
         public string Scope { get; protected set; }
 
         public override void AssignDefaultValuesToComplexPropertiesIfNull() {}
+
+        public ClientScope WithClient(IClient client)
+        {
+            ClientKey = client.Key;
+            return this;
+        }
     }
 }

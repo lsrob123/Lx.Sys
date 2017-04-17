@@ -12,5 +12,11 @@ namespace Lx.Identity.Domain.Entities {
         public string Uri { get; protected set; }
 
         public override void AssignDefaultValuesToComplexPropertiesIfNull() {}
+
+        public ClientRedirectUri WithClient(IClient client)
+        {
+            ClientKey = client.Key;
+            return this;
+        }
     }
 }

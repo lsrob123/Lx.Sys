@@ -17,7 +17,7 @@ using Lx.Identity.Domain.Entities;
 
 namespace Lx.Identity.Persistence.Uow
 {
-    public class UserUowFactory : UnitOfWorkFactoryBase<IdentityUow>
+    public class UserUowFactory : UnitOfWorkFactoryBase<IdentityUow>, IUserUowFactory
     {
         protected readonly IUserProfileConfig UserProfileConfig;
 

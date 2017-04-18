@@ -3,6 +3,7 @@ using System.Transactions;
 using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Enumerations;
+using Lx.Utilities.Contract.Infrastructure.Enums;
 using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
@@ -113,6 +114,11 @@ namespace Lx.Utilities.Services.Persistence
                     return exception;
                 }
             }
+        }
+
+        protected virtual void DispatchEvent<TEvent>(TEvent eventObject) where TEvent : ResponseBase
+        {
+            EventDispatchingProxy.Broadcast(eventObject, EventBroadcastingScope.CrossProcesses);
         }
     }
 }

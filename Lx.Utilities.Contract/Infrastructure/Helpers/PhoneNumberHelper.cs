@@ -7,7 +7,7 @@ namespace Lx.Utilities.Contract.Infrastructure.Helpers
 {
     public static class PhoneNumberHelper
     {
-        public static string GetFullNumber(IPhoneNumber phoneNumberObject)
+        public static string GetFullNumber(this IPhoneNumber phoneNumberObject)
         {
             if (!phoneNumberObject.CountryCode.HasValue ||
                 string.IsNullOrWhiteSpace(phoneNumberObject.LocalNumberWithAreaCode))
@@ -16,12 +16,12 @@ namespace Lx.Utilities.Contract.Infrastructure.Helpers
             return phoneNumberObject.CountryCode.Value + localNumber;
         }
 
-        public static string GetLocalNumberInDigits(IPhoneNumber phoneNumberObject)
+        public static string GetLocalNumberInDigits(this IPhoneNumber phoneNumberObject)
         {
             return GetNumberInDigits(phoneNumberObject.LocalNumberWithAreaCode);
         }
 
-        public static string GetNumberInDigits(string originalNumber)
+        public static string GetNumberInDigits(this string originalNumber)
         {
             if (string.IsNullOrWhiteSpace(originalNumber))
                 return originalNumber;
@@ -39,7 +39,7 @@ namespace Lx.Utilities.Contract.Infrastructure.Helpers
             return localNumber;
         }
 
-        public static PhoneDestinationType GetPhoneDestinationType(IPhoneNumber phoneNumberObject, int? defCountryCode)
+        public static PhoneDestinationType GetPhoneDestinationType(this IPhoneNumber phoneNumberObject, int? defCountryCode)
         {
             if (!phoneNumberObject.CountryCode.HasValue || (phoneNumberObject.CountryCode.Value == defCountryCode))
                 return PhoneDestinationType.Domestic;

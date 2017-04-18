@@ -1,10 +1,9 @@
 ﻿using System;
+using Lx.Identity.Domain.Entities;
 using Lx.Identity.Persistence.EF;
 using Lx.Shared.All.Identity.Config;
 using Lx.Shared.All.Identity.DTOs;
 using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Enums;
 using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
 using Lx.Utilities.Contract.Infrastructure.Helpers;
 using Lx.Utilities.Contract.Logging;
@@ -13,7 +12,6 @@ using Lx.Utilities.Contract.Membership;
 using Lx.Utilities.Contract.Persistence;
 using Lx.Utilities.Contract.Serialization;
 using Lx.Utilities.Services.Persistence;
-using Lx.Identity.Domain.Entities;
 
 namespace Lx.Identity.Persistence.Uow
 {
@@ -29,100 +27,122 @@ namespace Lx.Identity.Persistence.Uow
             UserProfileConfig = userProfileConfig;
         }
 
+        public UserProfileDto GetUserProfile(Guid userKey, string profileOriginator)
+        {
+            UserProfileDto userProfileDto = null;
+            Execute(uow => userProfileDto = GetUserProfile(uow, userKey, profileOriginator));
+
+            return userProfileDto;
+        }
+
+        public UserDto GetUser(string usernameOrEmailOrMobileNumber, string userProfileOriginator)
+        {
+            UserDto userDto = null;
+            Execute(uow =>
+            {
+                var cacheKey = CacheKeyHelper.GetCacheKey<UserDto>(usernameOrEmailOrMobileNumber);
+                userDto = uow.Cache.GetCachedItem<UserDto>(cacheKey);
+                if (userDto != null)
+                {
+                    userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
+                    return;
+                }
+
+                var localNumberInDigits = usernameOrEmailOrMobileNumber.GetNumberInDigits();
+                if (!string.IsNullOrWhiteSpace(localNumberInDigits))
+                {
+                    cacheKey = CacheKeyHelper.GetCacheKey<UserDto>(localNumberInDigits);
+                    userDto = uow.Cache.GetCachedItem<UserDto>(cacheKey);
+                }
+                if (userDto != null)
+                {
+                    userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
+                    return;
+                }
+
+                var user = uow.Store.FirstOrDefault<User>(
+                    x => (x.Email.Address == usernameOrEmailOrMobileNumber) ||
+                         (x.Username == usernameOrEmailOrMobileNumber) ||
+                         (x.MobileNumber.LocalNumberWithAreaCode == usernameOrEmailOrMobileNumber) ||
+                         (x.MobileNumber.LocalNumberWithAreaCodeInDigits == localNumberInDigits)
+                    );
+                if (user == null)
+                    return;
+
+                userDto = MappingService.Map<UserDto>(user);
+                userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
+                CacheUserDto(userDto, uow);
+            });
+
+            return userDto;
+        }
+
+        public UserDto GetUser(Guid userKey, string userProfileOriginator)
+        {
+            UserDto userDto = null;
+            Execute(uow =>
+            {
+                var cacheKey = CacheKeyHelper.GetCacheKey<UserDto>(userKey);
+                userDto = uow.Cache.GetCachedItem<UserDto>(cacheKey);
+                if (userDto != null)
+                {
+                    userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
+                    return;
+                }
+
+                var user = uow.Store.FirstOrDefault<User>(x => x.Key == userKey);
+                if (user == null)
+                    return;
+                userDto = MappingService.Map<UserDto>(user);
+                userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
+                CacheUserDto(userDto, uow);
+            });
+
+            return userDto;
+        }
+
+        private UserProfileDto GetUserProfile(IdentityUow uow, Guid userKey, string profileOriginator)
+        {
+            var cacheKey = CacheKeyHelper.GetCacheKey<UserProfileDto>(profileOriginator + userKey);
+            var userProfileDto = uow.Cache.GetCachedItem<UserProfileDto>(cacheKey);
+            if (userProfileDto != null)
+                return userProfileDto;
+
+            userProfileDto = MappingService.Map<UserProfileDto>(uow.Store.FirstOrDefault<UserProfile>(
+                x => (x.UserKey == userKey) && (x.UserProfileOriginator == profileOriginator)));
+            if (userProfileDto != null)
+                uow.Cache.SetCachedItemAsync(cacheKey, userProfileDto).Wait();
+            return userProfileDto;
+        }
+
         protected override IdentityUow GetUnitOfWork()
         {
             return new IdentityUow(() => new IdentityDbContext(PrimaryDbConfig.ConnectionString), CacheFactory,
                 MappingService, Logger);
         }
 
-        public UserProfile GetUserProfile(Guid userKey, string profileOriginator)
+        /// <summary>
+        ///     It doesn't cache user profiles
+        /// </summary>
+        /// <param name="userDto"></param>
+        /// <param name="uow"></param>
+        protected void CacheUserDto(UserDto userDto, IdentityUow uow)
         {
-            UserProfile userProfile = null;
-            Execute(uow =>
-            {
-                var cacheKey = GetUserProfileCacehKey(profileOriginator, userKey);
-                userProfile = uow.Cache.GetCachedItem<UserProfile>(cacheKey) ??
-                              uow.Store.FirstOrDefault<UserProfile>(
-                                  x => (x.UserKey == userKey) && (x.UserProfileOriginator == profileOriginator));
-            });
-
-            return userProfile;
-        }
-
-        private static void CacheUserProfile(IdentityUow uow, UserProfile userProfileEntity)
-        {
-            var cacheKey = GetUserProfileCacehKey(userProfileEntity.UserProfileOriginator, userProfileEntity.UserKey);
-            uow.Cache.SetCachedItemAsync(cacheKey, userProfileEntity).Wait();
-        }
-
-        private static string GetUserProfileCacehKey(string profileOriginator, Guid userKey)
-        {
-            var key = CacheKeyHelper.GetCacheKey<UserProfile>(profileOriginator + userKey);
-            return key;
-        }
-
-        public User GetUser(string usernameOrEmailOrMobileNumber)
-        {
-            User user = null;
-            Execute(uow =>
-            {
-                var cacheKey = CacheKeyHelper.GetCacheKey<User>(usernameOrEmailOrMobileNumber);
-                user = uow.Cache.GetCachedItem<User>(cacheKey);
-                if (user != null)
-                    return;
-
-                var localNumberInDigits = PhoneNumberHelper.GetNumberInDigits(usernameOrEmailOrMobileNumber);
-                if (!string.IsNullOrWhiteSpace(localNumberInDigits))
-                {
-                    cacheKey = CacheKeyHelper.GetCacheKey<User>(localNumberInDigits);
-                    user = uow.Cache.GetCachedItem<User>(cacheKey);
-                }
-                if (user != null)
-                    return;
-
-                user = uow.Store.FirstOrDefault<User>(
-                    x => (x.Email.Address == usernameOrEmailOrMobileNumber) ||
-                         (x.Username == usernameOrEmailOrMobileNumber) ||
-                         (x.MobileNumber.LocalNumberWithAreaCode == usernameOrEmailOrMobileNumber) ||
-                         (x.MobileNumber.LocalNumberWithAreaCodeInDigits == localNumberInDigits)
-                    );
-
-                CacheUser(user, uow);
-            });
-
-            return user;
-        }
-
-        public User GetUser(Guid userKey)
-        {
-            User user = null;
-            Execute(uow =>
-            {
-                var cacheKey = CacheKeyHelper.GetCacheKey<User>(userKey);
-                user = uow.Cache.GetCachedItem<User>(cacheKey) ??
-                       uow.Store.FirstOrDefault<User>(x => x.Key == userKey);
-            });
-
-            return user;
-        }
-
-        protected void CacheUser(User user, IdentityUow uow)
-        {
-            if (user == null)
+            if (userDto == null)
                 return;
 
-            uow.Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(user.Key), user);
-            uow.Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(user.Username), user);
-            uow.Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<User>(user.Email), user);
+            uow.Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<UserDto>(userDto.Key), userDto);
+            uow.Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<UserDto>(userDto.Username), userDto);
+            uow.Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<UserDto>(userDto.Email), userDto);
 
             uow.Cache.SetCachedItemAsync(
-                CacheKeyHelper.GetCacheKey<User>(user.MobileNumber.LocalNumberWithAreaCode), user);
+                CacheKeyHelper.GetCacheKey<UserDto>(userDto.MobileNumber.LocalNumberWithAreaCode), userDto);
 
             uow.Cache.SetCachedItemAsync(
-                CacheKeyHelper.GetCacheKey<User>(user.MobileNumber.LocalNumberWithAreaCodeInDigits), user);
+                CacheKeyHelper.GetCacheKey<UserDto>(userDto.MobileNumber.LocalNumberWithAreaCodeInDigits), userDto);
 
-            var userUpdatedEvent = new UserUpdatedEvent {UpdatedUser = MappingService.Map<UserDto>(user)};
-            var userProfile = GetUserProfile(user.Key, UserProfileConfig.Originator);
+            var userUpdatedEvent = new UserUpdatedEvent {UpdatedUser = userDto};
+            var userProfile = GetUserProfile(userDto.Key, UserProfileConfig.Originator);
             if (!string.IsNullOrWhiteSpace(userProfile?.Body))
             {
                 var basicMemberInfo = Serializer.Deserialize<BasicMemberInfo>(userProfile.Body);
@@ -130,11 +150,6 @@ namespace Lx.Identity.Persistence.Uow
             }
 
             DispatchEvent(userUpdatedEvent);
-        }
-
-        protected virtual void DispatchEvent<TEvent>(TEvent eventObject) where TEvent : ResponseBase
-        {
-            EventDispatchingProxy.Broadcast(eventObject, EventBroadcastingScope.CrossProcesses);
         }
     }
 }

@@ -1,12 +1,12 @@
 using System;
-using Lx.Identity.Domain.Entities;
+using Lx.Shared.All.Identity.DTOs;
 
 namespace Lx.Identity.Persistence.Uow
 {
     public interface IUserUowFactory
     {
-        UserProfile GetUserProfile(Guid userKey, string profileOriginator);
-        User GetUser(string usernameOrEmailOrMobileNumber, string userProfileOriginator);
-        User GetUser(Guid userKey, string userProfileOriginator);
+        UserProfileDto GetUserProfile(Guid userKey, string profileOriginator);
+        UserDto GetUser(string usernameOrEmailOrMobileNumber, string userProfileOriginator);
+        UserDto GetUser(Guid userKey, string userProfileOriginator);
     }
 }

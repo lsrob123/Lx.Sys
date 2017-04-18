@@ -6,10 +6,7 @@ using IdentityModel.Client;
 using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.Config;
 using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Extensions;
 using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Membership;
-using Lx.Utilities.Contract.Serialization;
 
 namespace Lx.Utilities.Services.Authentication
 {
@@ -18,15 +15,13 @@ namespace Lx.Utilities.Services.Authentication
         protected static readonly string OAuthHelperTypeName = typeof (OAuthHelper).FullName;
         protected readonly IClaimProcessor ClaimProcessor;
         protected readonly IInProcessCache InProcessCache;
-        protected readonly ISerializer Serializer;
         protected readonly IOAuthClientSettings Settings;
 
         public OAuthHelper(IOAuthClientSettings settings, IInProcessCache inProcessCache,
-            IClaimProcessor claimProcessor, ISerializer serializer)
+            IClaimProcessor claimProcessor)
         {
             Settings = settings;
             InProcessCache = inProcessCache;
-            Serializer = serializer;
             ClaimProcessor = claimProcessor ?? new StraightThroughClaimProcessor();
         }
 
@@ -38,8 +33,7 @@ namespace Lx.Utilities.Services.Authentication
                 return user;
 
             var claims = await GetClaimsFromIdentityServiceAsync(accessToken);
-            user = new IdentityDto().WithClaims(claims,
-                profileString => Serializer.Deserialize<BasicMemberInfo>(profileString));
+            user = new IdentityDto().WithClaims(claims);
 
             if (user == null)
                 return null;

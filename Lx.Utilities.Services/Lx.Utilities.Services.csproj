@@ -198,7 +198,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authentication\OAuthAuthenticationMiddleware.cs" />
+    <Compile Include="Authentication\IdentityDtoExtensions.cs" />
+    <Compile Include="Web\OAuthAuthenticationMiddleware.cs" />
     <Compile Include="Authentication\OAuthClientSettings.cs" />
     <Compile Include="Authentication\OAuthHelper.cs" />
     <Compile Include="Authentication\StraightThroughClaimProcessor.cs" />

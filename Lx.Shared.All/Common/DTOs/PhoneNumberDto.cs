@@ -12,6 +12,9 @@ namespace Lx.Shared.All.Common.DTOs {
 
         [IgnoreDataMember]
         [JsonIgnore]
-        public string FullNumber => PhoneNumberHelper.GetFullNumber(this);
+        public string FullNumber => this.GetFullNumber();
+
+        public string LocalNumberWithAreaCodeInDigits => this.GetLocalNumberInDigits();
+
     }
 }

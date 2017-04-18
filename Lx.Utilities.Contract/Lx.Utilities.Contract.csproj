@@ -83,7 +83,6 @@
     <Compile Include="Authentication\DTOs\GetUserInfoRequest.cs" />
     <Compile Include="Authentication\DTOs\GetUserInfoResponse.cs" />
     <Compile Include="Authentication\DTOs\IdentityDto.cs" />
-    <Compile Include="Authentication\DTOs\IdentityDtoExtensions.cs" />
     <Compile Include="Authentication\DTOs\IIdentityDto.cs" />
     <Compile Include="Authentication\DTOs\RefreshTokensRequest.cs" />
     <Compile Include="Authentication\DTOs\RevokeTokenRequest.cs" />
@@ -93,7 +92,6 @@
     <Compile Include="Authentication\Enumerations\VerificationPurpose.cs" />
     <Compile Include="Authentication\Extensions\ClaimsExtensions.cs" />
     <Compile Include="Authentication\Extensions\ClaimsPrincipalExtensions.cs" />
-    <Compile Include="Authentication\Extensions\IdentityDtoExtensions.cs" />
     <Compile Include="Authentication\Interfaces\IClaimProcessor.cs" />
     <Compile Include="Authentication\Interfaces\IOAuthHelper.cs" />
     <Compile Include="Authentication\Interfaces\IOAuthLogin.cs" />

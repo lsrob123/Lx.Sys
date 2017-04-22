@@ -10,6 +10,8 @@ using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Lx.Utilities.Contract.Infrastructure.Enumerations;
+using Lx.Utilities.Contract.Infrastructure.Extensions;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.Web;
 using Microsoft.Owin;
@@ -50,12 +52,12 @@ namespace Lx.Utilities.Services.Web
         public static string ClientIp(this HttpRequestMessage request)
         {
             if (request.Properties.ContainsKey(HttpContextPropertyName))
-                return ((HttpContextWrapper) request
+                return ((HttpContextWrapper)request
                     .Properties[HttpContextPropertyName]).Request.UserHostAddress;
 
             if (request.Properties.ContainsKey(OwinContextPropertyName))
             {
-                var owinContext = (OwinContext) request.Properties[OwinContextPropertyName];
+                var owinContext = (OwinContext)request.Properties[OwinContextPropertyName];
                 if (owinContext?.Request?.RemoteIpAddress != null)
                     return owinContext.Request.RemoteIpAddress;
             }
@@ -64,7 +66,7 @@ namespace Lx.Utilities.Services.Web
                 return HttpContext.Current == null ? null : HttpContext.Current.Request.UserHostAddress;
 
             var prop =
-                (RemoteEndpointMessageProperty) request.Properties[RemoteEndpointMessageProperty.Name];
+                (RemoteEndpointMessageProperty)request.Properties[RemoteEndpointMessageProperty.Name];
             return prop.Address;
         }
 
@@ -96,7 +98,7 @@ namespace Lx.Utilities.Services.Web
                 originalResponse.EnsureSecurityForClientSide();
                 var statusCode = originalResponse.Result == null
                     ? HttpStatusCode.OK
-                    : (HttpStatusCode) originalResponse.Result.Type.Value;
+                    : (HttpStatusCode)originalResponse.Result.Type.Value;
 
                 if ((originalResponse.Result != null) && originalResponse.Result.Type.IsSuccess)
                     response = request.CreateResponse(statusCode,
@@ -109,33 +111,66 @@ namespace Lx.Utilities.Services.Web
             return response;
         }
 
-        public static async Task<HttpResponseMessage> ProcessUploadFilesAsync(this ApiController controller,
-            IUploadFileSettings settings, Func<HttpRequestMessage, string> subFolderPathFactory = null)
+        public static async Task<UploadFileResult> ProcessUploadFilesAsync(this ApiController controller,
+            string uploadFileFullPathTemplate, Guid uploadKey, string assignedNameForFirstFile = null,
+            IImageProcess imageProcess = null)
         {
             var request = controller.Request;
             if (!request.Content.IsMimeMultipartContent())
-                return request.CreateErrorResponse(HttpStatusCode.UnsupportedMediaType, "Media type is not supported");
+                return new UploadFileResult()
+                    .WithProcessResult(ProcessResultType.UnsupportedMediaType, "Media type is not supported");
 
-            var folderPath = HttpContext.Current.Server.MapPath(settings.RootFolderPhysical);
-            var subFolderPath = subFolderPathFactory?.Invoke(request);
-            if (!string.IsNullOrWhiteSpace(subFolderPath))
-                folderPath = Path.Combine(folderPath, subFolderPath);
+            var destinationPath = string.Format(uploadFileFullPathTemplate, uploadKey);
 
-            var provider = new MultipartFormDataStreamProvider(folderPath);
+            if (!Directory.Exists(destinationPath))
+                Directory.CreateDirectory(destinationPath);
 
+            var provider = new MultipartFormDataStreamProvider(destinationPath);
             await request.Content.ReadAsMultipartAsync(provider);
 
-            var result = new UploadFileResultDto
+            var result = new UploadFileResult
             {
-                FileNames = provider.FileData.Select(entry => entry.LocalFileName).ToList(),
-                Names = provider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName).ToList(),
-                ContentTypes = provider.FileData.Select(entry => entry.Headers.ContentType.MediaType).ToList(),
-                Description = provider.FormData["description"],
-                CreatedTimestamp = DateTimeOffset.UtcNow,
-                UpdatedTimestamp = DateTimeOffset.UtcNow
+                UploadKey = uploadKey,
+                UploadFiles = provider.FileData
+                    .Select(x => new UploadFileInfoDto
+                    {
+                        MediaType = x.Headers.ContentType.MediaType,
+                        FileName = x.Headers.ContentDisposition.FileName.Replace("\"", string.Empty),
+                        TempFileName = x.LocalFileName
+                    }).ToList(),
+                TimeUploaded = DateTimeOffset.UtcNow
             };
 
-            return request.CreateResponse(result);
+            var isFirstFile = true;
+            foreach (var uploadFileInfo in result.UploadFiles)
+            {
+                var tempFile = Path.Combine(destinationPath, uploadFileInfo.TempFileName);
+                if (imageProcess != null)
+                {
+                    tempFile = imageProcess.Process(tempFile);
+                }
+
+                uploadFileInfo.FullFilePath = Path.Combine(destinationPath, uploadFileInfo.FileName);
+                if (isFirstFile)
+                {
+                    isFirstFile = false;
+                    if (!string.IsNullOrWhiteSpace(assignedNameForFirstFile))
+                    {
+                        uploadFileInfo.FullFilePath = Path.Combine(destinationPath,
+                            assignedNameForFirstFile + uploadFileInfo.FileNameExtension);
+                    }
+                }
+
+                if (File.Exists(uploadFileInfo.FullFilePath))
+                {
+                    File.Delete(uploadFileInfo.FullFilePath);
+                }
+
+                File.Move(tempFile, uploadFileInfo.FullFilePath);
+                File.Delete(tempFile);
+            }
+
+            return result.WithProcessResult(ProcessResultType.Ok);
         }
 
         public static async Task<HttpResponseMessage> CreateImageResponseAsync(this ApiController controller,
@@ -160,8 +195,7 @@ namespace Lx.Utilities.Services.Web
 
             var content = await Task.Run(() => new FileStream(filePathPhysical, FileMode.Open))
                 .ContinueWith(t => Image.FromStream(t.Result))
-                .ContinueWith(t =>
-                {
+                .ContinueWith(t => {
                     var x = new MemoryStream();
                     t.Result.Save(x, ImageFormat.Jpeg);
                     var y = new ByteArrayContent(x.ToArray());
@@ -187,7 +221,7 @@ namespace Lx.Utilities.Services.Web
             DateTimeOffset timeLastWriteOffset)
         {
             notModifiedResponse.Headers.AcceptRanges.Add("bytes");
-            notModifiedResponse.Headers.CacheControl = new CacheControlHeaderValue {Public = true};
+            notModifiedResponse.Headers.CacheControl = new CacheControlHeaderValue { Public = true };
             notModifiedResponse.Headers.ETag = eTag;
             notModifiedResponse.Content.Headers.LastModified = timeLastWriteOffset;
         }

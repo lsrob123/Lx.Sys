@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Lx.Utilities.Contract.Infrastructure.Common
+namespace Lx.Utilities.Contract.Infrastructure.Interfaces
 {
     public interface IWithRelationalId
     {

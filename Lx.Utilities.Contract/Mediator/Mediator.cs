@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Lx.Utilities.Contract.Configuration;
 using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Contract.Mediator
 {

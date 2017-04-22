@@ -8,6 +8,7 @@ using Lx.Utilities.Contract.Infrastructure.Domain;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Enumerations;
 using Lx.Utilities.Contract.Infrastructure.Enums;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Persistence;

@@ -1,4 +1,5 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.ServiceBus;
 
 namespace Lx.Utilities.Contract.Infrastructure.Api

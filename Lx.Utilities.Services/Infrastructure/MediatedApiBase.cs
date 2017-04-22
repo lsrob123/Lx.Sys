@@ -1,5 +1,6 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Api;
 using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.Mediator;
 using Lx.Utilities.Contract.Serialization;
 using Lx.Utilities.Contract.ServiceBus;

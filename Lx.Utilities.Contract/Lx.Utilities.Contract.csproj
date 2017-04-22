@@ -112,7 +112,7 @@
     <Compile Include="Crypto\IConfigCrypto.cs" />
     <Compile Include="Crypto\ICryptoService.cs" />
     <Compile Include="Infrastructure\Attributes\InvisibleInTestExampleAttribute.cs" />
-    <Compile Include="Infrastructure\Common\IHasRichContent.cs" />
+    <Compile Include="Infrastructure\Interfaces\IHasRichContent.cs" />
     <Compile Include="Infrastructure\DTOs\NotToBeMediatedAttribute.cs" />
     <Compile Include="Infrastructure\Enumerations\Locale.cs" />
     <Compile Include="Infrastructure\Enumerations\PhoneDestinationType.cs" />
@@ -129,6 +129,7 @@
     <Compile Include="Infrastructure\Helpers\PhoneNumberHelper.cs" />
     <Compile Include="Infrastructure\Interfaces\IAddress.cs" />
     <Compile Include="Infrastructure\Interfaces\IBasicRequestKey.cs" />
+    <Compile Include="Infrastructure\Interfaces\IImageProcess.cs" />
     <Compile Include="Persistence\IDbConfig.cs" />
     <Compile Include="Infrastructure\Interfaces\IDevice.cs" />
     <Compile Include="Infrastructure\Interfaces\IEmail.cs" />
@@ -145,10 +146,10 @@
     <Compile Include="Infrastructure\ValueObjects\PhoneNumber.cs" />
     <Compile Include="Mediator\IMediator.cs" />
     <Compile Include="Mediator\IMediatorMessageHandler.cs" />
-    <Compile Include="Infrastructure\Common\IMessageBase.cs" />
-    <Compile Include="Infrastructure\Common\IProgressReporter.cs" />
+    <Compile Include="Infrastructure\Interfaces\IMessageBase.cs" />
+    <Compile Include="Infrastructure\Interfaces\IProgressReporter.cs" />
     <Compile Include="Infrastructure\RequestDispatching\IRequestDispatcher.cs" />
-    <Compile Include="Infrastructure\Common\IWithRelationalId.cs" />
+    <Compile Include="Infrastructure\Interfaces\IWithRelationalId.cs" />
     <Compile Include="Mediator\Mediator.cs" />
     <Compile Include="Mediator\MediatorReadyEvent.cs" />
     <Compile Include="Mediator\MessageHandlerBase.cs" />
@@ -222,7 +223,8 @@
     <Compile Include="ValidationAttributes\EnumerationValidateAttribute.cs" />
     <Compile Include="Web\ITypedModelHtmlGenerationService.cs" />
     <Compile Include="Web\IUploadFileSettings.cs" />
-    <Compile Include="Web\UploadFileResultDto.cs" />
+    <Compile Include="Web\UploadFileInfoDto.cs" />
+    <Compile Include="Web\UploadFileResult.cs" />
     <Compile Include="WindowsService\IServiceManager.cs" />
   </ItemGroup>
   <ItemGroup>

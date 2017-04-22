@@ -116,6 +116,9 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs
             if (exception is ForbiddenException)
                 return ProcessResultType.Forbidden;
 
+            if (exception is ArgumentNullException || exception is ArgumentException)
+                return ProcessResultType.BadRequest;
+
             if (exception is KeyNotFoundException || exception is ObjectNotFoundException)
                 return ProcessResultType.NotFound;
 

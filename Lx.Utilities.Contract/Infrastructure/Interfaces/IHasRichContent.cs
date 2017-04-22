@@ -1,6 +1,6 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Enumerations;
 
-namespace Lx.Utilities.Contract.Infrastructure.Common
+namespace Lx.Utilities.Contract.Infrastructure.Interfaces
 {
     public interface IHasRichContent
     {

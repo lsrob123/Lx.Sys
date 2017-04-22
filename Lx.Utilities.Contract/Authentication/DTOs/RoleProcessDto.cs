@@ -1,6 +1,8 @@
-﻿namespace Lx.Utilities.Contract.Authentication.DTOs
+﻿using Lx.Utilities.Contract.Authentication.Interfaces;
+
+namespace Lx.Utilities.Contract.Authentication.DTOs
 {
-    public class RoleProcessDto
+    public class RoleProcessDto : IRoleProcess
     {
         public virtual string Name { get; set; }
         public virtual string Target { get; set; }

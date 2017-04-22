@@ -8,6 +8,8 @@ namespace Lx.Utilities.Contract.Authentication.DTOs
 {
     public interface IIdentityDto
     {
+        string AvatarUriDefault { get; set; }
+        string AvatarUriRelative { get; set; }
         UserState State { get; set; }
         ICollection<RoleDto> Roles { get; set; }
         string UserReference { get; set; }
@@ -21,7 +23,6 @@ namespace Lx.Utilities.Contract.Authentication.DTOs
         bool IsMobileNumberVerified { get; }
         string Profile { get; set; }
         ICollection<Claim> OriginalClaims { get; }
-        void FromClaimsPrincipal(ClaimsPrincipal claimsPrincipal, Func<string, IMemberInfo> extractMemberInfo = null);
         void FromClaims(IEnumerable<Claim> claims, Func<string, IMemberInfo> extractMemberInfo = null);
     }
 }

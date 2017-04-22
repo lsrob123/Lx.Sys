@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 
-namespace Lx.Utilities.Contract.Infrastructure.Common
+namespace Lx.Utilities.Services.Infrastructure
 {
     public static class AssemblyHelper
     {
@@ -16,10 +16,11 @@ namespace Lx.Utilities.Contract.Infrastructure.Common
 
         public static IReadOnlyCollection<Assembly> GetReferencedAssemblies(ICollection<string> namespaceKeywords = null)
         {
-            namespaceKeywords = namespaceKeywords ?? new List<string>();
-            namespaceKeywords.Add(typeof (AssemblyHelper).Namespace?.Split('.')[0]);
+            namespaceKeywords = new AssemblyHelperConfig().NamespaceKeywords;
 
-            var domainAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            var domainAssemblies = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(x => namespaceKeywords.Any(y => x.FullName.Contains(y)))
+                .ToList();
 
             Lock.EnterUpgradeableReadLock();
             try

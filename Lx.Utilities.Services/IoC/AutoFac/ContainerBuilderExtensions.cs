@@ -4,6 +4,7 @@ using Autofac;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.IoC;
 using Lx.Utilities.Services.Config;
+using Lx.Utilities.Services.Infrastructure;
 
 namespace Lx.Utilities.Services.IoC.AutoFac
 {

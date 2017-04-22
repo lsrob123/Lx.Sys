@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading;
 using Lx.Utilities.Contract.Configuration;
 using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Services.Infrastructure;
 using Lx.Utilities.Services.Mapping.AutoMapper;
 
 namespace Lx.Utilities.Services.Config

@@ -199,6 +199,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\IdentityDtoExtensions.cs" />
+    <Compile Include="Infrastructure\AssemblyHelper.cs" />
+    <Compile Include="Infrastructure\AssemblyHelperConfig.cs" />
+    <Compile Include="Web\AuthorizeWithUserInRequestAttribute.cs" />
     <Compile Include="Web\OAuthAuthenticationMiddleware.cs" />
     <Compile Include="Authentication\OAuthClientSettings.cs" />
     <Compile Include="Authentication\OAuthHelper.cs" />

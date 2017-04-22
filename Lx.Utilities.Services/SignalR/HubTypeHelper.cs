@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Services.Infrastructure;
 using Microsoft.AspNet.SignalR;
 
 namespace Lx.Utilities.Services.SignalR

@@ -10,5 +10,7 @@ namespace Lx.Utilities.Contract.Membership
         public Guid Key { get; set; }
         public ICollection<RoleDto> Roles { get; set; }
         public UserState State { get; set; }
+        public string AvatarUriDefault { get; set; }
+        public string AvatarUriRelative { get; set; }
     }
 }

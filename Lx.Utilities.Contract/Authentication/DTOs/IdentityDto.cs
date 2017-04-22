@@ -15,12 +15,8 @@ namespace Lx.Utilities.Contract.Authentication.DTOs
     {
         public ICollection<RoleDto> Roles { get; set; }
         public UserState State { get; set; }
-
-        public void FromClaimsPrincipal(ClaimsPrincipal claimsPrincipal,
-            Func<string, IMemberInfo> extractMemberInfo)
-        {
-            FromClaims(claimsPrincipal?.Claims, extractMemberInfo);
-        }
+        public string AvatarUriDefault { get; set; }
+        public string AvatarUriRelative { get; set; }
 
         public void FromClaims(IEnumerable<Claim> claims, Func<string, IMemberInfo> extractMemberInfo)
         {
@@ -40,8 +36,11 @@ namespace Lx.Utilities.Contract.Authentication.DTOs
             VerifiedEmail = OriginalClaims.GetClaimValue(ClaimType.VerifiedEmail);
             MobileNumber = OriginalClaims.GetClaimValue(ClaimType.PhoneNumber);
             VerifiedMobileNumber = OriginalClaims.GetClaimValue(ClaimType.VerifiedPhoneNumber);
+            AvatarUriDefault = OriginalClaims.GetClaimValue(ClaimType.AvatarUriDefault);
+            AvatarUriRelative = OriginalClaims.GetClaimValue(ClaimType.AvatarUriRelative);
 
             Profile = OriginalClaims.GetClaimValue(ClaimType.Profile);
+
             var memberInfo = extractMemberInfo?.Invoke(Profile);
 
             var rolesInClaims = OriginalClaims.GetRoles() ?? new List<RoleDto>();
@@ -54,6 +53,7 @@ namespace Lx.Utilities.Contract.Authentication.DTOs
             {
                 State = memberInfo.State;
                 var roles = memberInfo.Roles?.ToDictionary(x => x.RoleType) ?? new Dictionary<string, RoleDto>();
+                // ReSharper disable once LoopCanBePartlyConvertedToQuery
                 foreach (var role in rolesInClaims)
                     if (!roles.ContainsKey(role.RoleType))
                         roles.Add(role.RoleType, role);
@@ -66,7 +66,9 @@ namespace Lx.Utilities.Contract.Authentication.DTOs
         public ICollection<Claim> OriginalClaims { get; protected set; }
 
         public string Profile { get; set; }
+
         public string UserReference { get; set; }
+
         public Guid Key { get; set; }
 
         [IgnoreDataMember]

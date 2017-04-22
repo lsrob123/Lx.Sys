@@ -20,7 +20,7 @@ namespace Lx.Utilities.Services.SignalR
     ///     TODO: Add unit tests
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
-    public class OAuthAuthorizeAttribute : AuthorizeAttribute, IAccessCriteria
+    public class OAuthAuthorizeAttribute : AuthorizeAttribute, ICustomAuthorizeAttribute
     {
         protected const string UserEnvironmentField = "server.User";
         protected readonly IAuthorizationService AuthorizationService;

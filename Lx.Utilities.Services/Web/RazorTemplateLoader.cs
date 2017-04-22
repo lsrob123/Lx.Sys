@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Lx.Utilities.Contract.Configuration;
 using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Services.Infrastructure;
 
 namespace Lx.Utilities.Services.Web
 {

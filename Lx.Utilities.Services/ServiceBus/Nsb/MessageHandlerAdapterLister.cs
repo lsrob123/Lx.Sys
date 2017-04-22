@@ -3,6 +3,7 @@ using System.Linq;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Services.Infrastructure;
 using NServiceBus;
 
 namespace Lx.Utilities.Services.ServiceBus.Nsb

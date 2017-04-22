@@ -9,6 +9,8 @@
             Email = "email",
             VerifiedEmail = "email_verified",
             PhoneNumber = "phone_number",
-            VerifiedPhoneNumber = "phone_number_verified";
+            VerifiedPhoneNumber = "phone_number_verified",
+            AvatarUriDefault = "avatar_uri_default",
+            AvatarUriRelative = "avatar_uri_relative";
     }
 }

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\IIdentityServiceConfig.cs" />
+    <Compile Include="Config\IVerificationCodeConfig.cs" />
     <Compile Include="DTOs\ClientDto.cs" />
     <Compile Include="DTOs\ClientRedirectUriDto.cs" />
     <Compile Include="DTOs\ClientScopeDto.cs" />

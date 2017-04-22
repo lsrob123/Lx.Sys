@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lx.Utilities.Services.WindowsService.Topshelf;
+using Topshelf;
 
-namespace Lx.Identity.Endpoint {
-    class Program {
-        static void Main(string[] args) {
+namespace Lx.Identity.Endpoint
+{
+    internal class Program
+    {
+        public static Host Host { get; protected set; }
+
+        private static void Main(string[] args)
+        {
+            Host = new ServiceHostInitializer<ServiceManager>().Host;
         }
     }
 }

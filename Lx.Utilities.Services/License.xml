@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<license id="93358ac0-aa29-470b-894d-9379561bd575" expiration="2017-09-07T00:00:00.0000000" type="Standard" LicenseVersion="5.0" WorkerThreads="Max" AllowedNumberOfWorkerNodes="Max" MaxMessageThroughputPerSecond="Max" Quantity="3" Edition="Enterprise" Applications="All">
+  <name>Lixin Yang</name>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>keX/cpGPUPxfVUboXoCr9f3I8ac=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>LJz102raKRhpCNPtvlUMEOKixuTIurFlYcdxn23Yjr2IpCSwa/UW6lhcIrb3umCfTjVRtM0lbqjVECOeJ3d4S0Tq8wMCQPNbpHSanXcqQ5qYGqquaHjIU4WI+X9U1JqrK+0tMkHMiszeOJFVGvZWmlF7ZFMY8VllG2aFHTDlyPs=</SignatureValue>
+  </Signature>
+</license>

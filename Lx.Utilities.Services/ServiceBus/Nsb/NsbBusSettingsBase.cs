@@ -15,36 +15,20 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb
 
     public abstract class NsbBusSettingsBase : IBusSettings
     {
-        protected NsbBusSettingsBase(string endpointName, string dbConnectionString = "nservicebus",
-            string mqConnectionString = null, bool purgeOnStartup = false, Type serializerType = null,
-            string logFolderRelativePath = null)
-        {
-            var settingsInConfigFile = new NsbSettingsInConfigFile
-            {
-                PersistenceStoreConnectionString =
-                    ConfigurationManager.ConnectionStrings[dbConnectionString ?? "nservicebus"].ConnectionString,
-                MqConnectionString = this.AppSettingStringValue(x => x.MqConnectionString),
-                LogFolderRelativePath = this.AppSettingStringValue(x => x.LogFolderRelativePath),
-                PurgeOnStartup = this.AppSettingNullableBooleanValue(x => x.PurgeOnStartup)
-            };
+        public abstract string EndpointName { get; }
 
-            EndpointName = endpointName;
-            PersistenceStoreConnectionString = settingsInConfigFile.PersistenceStoreConnectionString;
-            MqConnectionString = mqConnectionString ?? settingsInConfigFile.MqConnectionString ?? "host=localhost";
+        public virtual string MqConnectionString
+            => this.AppSettingStringValue(x => x.MqConnectionString) ?? "host=localhost";
 
-            PurgeOnStartup = settingsInConfigFile.PurgeOnStartup ?? purgeOnStartup;
-            // Highly likely it was not set in config file
+        public virtual Type SerializerType => null;
 
-            SerializerType = serializerType;
-            LogFolderRelativePath = logFolderRelativePath ?? settingsInConfigFile.LogFolderRelativePath ?? "_logs";
-        }
+        public virtual string PersistenceStoreConnectionString
+            => ConfigurationManager.ConnectionStrings["nservicebus"].ConnectionString;
 
-        public string EndpointName { get; protected set; }
-        public string MqConnectionString { get; protected set; }
-        public Type SerializerType { get; protected set; }
-        public string PersistenceStoreConnectionString { get; protected set; }
-        public string LogFolderRelativePath { get; protected set; }
-        public bool PurgeOnStartup { get; protected set; }
+        public virtual string LogFolderRelativePath
+            => this.AppSettingStringValue(x => x.LogFolderRelativePath) ?? "_logs";
+
+        public virtual bool PurgeOnStartup => this.AppSettingNullableBooleanValue(x => x.PurgeOnStartup) ?? false;
 
         public virtual string GetSendEndpoint<TBusCommand>(TBusCommand command = default(TBusCommand))
             where TBusCommand : IBusCommand

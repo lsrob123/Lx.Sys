@@ -1,20 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Lx.Identity.Contracts.Enumerations;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.ValueObjects;
 
-namespace Lx.Identity.Domain.Entities {
+namespace Lx.Identity.Domain.Entities
+{
     public class User : EntityBase
     {
-        public User() : this(Guid.Empty, null, null, new Email(), new PhoneNumber(), UserState.Unknown) { }
+        public User() : this(Guid.Empty, null, null, new Email(), new PhoneNumber(), UserState.Unknown)
+        {
+        }
 
         public User(Guid key, string username, string hashedPassword, Email email, PhoneNumber mobileNumber,
-            UserState userState, IEnumerable<UserProfile> userProfiles = null, bool isAdmin = false) : base(key)
+            UserState userState, bool isAdmin = false) : base(key)
         {
             Username = username;
             HashedPassword = hashedPassword;
@@ -22,7 +23,6 @@ namespace Lx.Identity.Domain.Entities {
             MobileNumber = mobileNumber;
             UserState = userState;
             IsAdmin = isAdmin;
-            SetUserProfiles(userProfiles);
         }
 
         [MaxLength(200)]
@@ -39,7 +39,6 @@ namespace Lx.Identity.Domain.Entities {
         public DateTimeOffset? TimeTemporaryPasswordSent { get; protected set; }
         public PriorUserState PriorUserState { get; protected set; }
         public DateTimeOffset? TimeLockedOut { get; protected set; }
-        public virtual ICollection<UserProfile> UserProfiles { get; protected set; }
         public UserState UserState { get; protected set; }
         public PersonName Name { get; protected set; }
         public bool IsAdmin { get; protected set; }
@@ -152,12 +151,6 @@ namespace Lx.Identity.Domain.Entities {
         {
             TimeLockedOut = null;
             UserState = PriorUserState;
-        }
-
-        public User SetUserProfiles(IEnumerable<UserProfile> userProfiles)
-        {
-            UserProfiles = userProfiles?.ToList();
-            return this;
         }
 
         public override void AssignDefaultValuesToComplexPropertiesIfNull()

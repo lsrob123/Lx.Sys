@@ -23,6 +23,7 @@ namespace Lx.Identity.Endpoint
             var container = new ContainerBuilder()
                 .CallDefaultDependencyRegisters()
                 .Build()
+                .StartBus()
                 .ClearCache()
                 .SetAsGlobalDependencyResolver();
 

@@ -47,6 +47,7 @@ namespace Lx.Identity.Persistence.EF
             modelBuilder.Index<Scope>(x => x.Name, true);
 
             modelBuilder.UniquelyIndexEntityKey<UserProfile>();
+
             modelBuilder.UniquelyIndexEntityKey<ClientClaim>();
             modelBuilder.UniquelyIndexEntityKey<ClientCorsOrigin>();
             modelBuilder.UniquelyIndexEntityKey<ClientCustomGrantType>();

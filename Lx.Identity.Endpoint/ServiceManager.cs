@@ -1,11 +1,13 @@
 ﻿using System;
 using Autofac;
-using Lx.Identity.Endpoint.Configurators;
 using Lx.Utilities.Contract.Web;
+using Lx.Utilities.Services.Authentication;
 using Lx.Utilities.Services.IoC.AutoFac;
+using Lx.Utilities.Services.OWIN;
 using Lx.Utilities.Services.WindowsService;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Hosting;
+using Microsoft.Owin.StaticFiles;
 using Owin;
 
 namespace Lx.Identity.Endpoint
@@ -35,7 +37,7 @@ namespace Lx.Identity.Endpoint
                     app.UseAutofacMiddleware(container);
                     app.UseCors(CorsOptions.AllowAll);
 
-                    app.UseFileServer(StaticFileServerConfigurator.FileServerOptions());
+                    app.UseFileServer(new FileServerOptions().WithFolderAndDefaultFile("Assets"));
                     app.UseIdentityServer(IdentityServerConfigurator.IdentityServerOptions(container));
                 });
 

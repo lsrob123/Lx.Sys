@@ -3,10 +3,9 @@ using Autofac;
 using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Services;
 using IdentityServer3.Core.Services.Default;
-using Lx.Identity.Contracts.Config;
+using Lx.Utilities.Contract.Authentication.Config;
 
-namespace Lx.Identity.Endpoint.Configurators {
-    //TODO: further refactoring is required
+namespace Lx.Utilities.Services.Authentication {
     public static class IdentityServerConfigurator {
         public static IdentityServerServiceFactory IdentityServerServiceFactory(IContainer container) {
             var config = container.Resolve<IIdentityServiceConfig>();

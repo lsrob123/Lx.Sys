@@ -1,5 +1,6 @@
 ﻿using System;
 using Lx.Identity.Contracts.Config;
+using Lx.Utilities.Contract.Authentication.Config;
 using Lx.Utilities.Services.Config;
 
 namespace Lx.Identity.Endpoint.Config {

@@ -72,6 +72,7 @@
     <Compile Include="Identity\Enumerations\UserCreationResultType.cs" />
     <Compile Include="Identity\Interfaces\IHasUserProfileOriginator.cs" />
     <Compile Include="Identity\DTOs\IUserCreationDto.cs" />
+    <Compile Include="Identity\Interfaces\IUserBase.cs" />
     <Compile Include="Identity\Interfaces\IUserCreationResult.cs" />
     <Compile Include="Identity\Interfaces\IUserProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,7 +95,22 @@
     <Folder Include="Identity\Constants\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="StaticPages\index.html">
+    <Content Include="Assets\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\jquery.cookie.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\jquery.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\jquery.signalR.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\moment.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\tester.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

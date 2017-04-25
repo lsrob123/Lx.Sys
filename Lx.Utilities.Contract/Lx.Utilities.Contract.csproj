@@ -84,6 +84,7 @@
     <Compile Include="Authentication\DTOs\GetUserInfoResponse.cs" />
     <Compile Include="Authentication\DTOs\IdentityDto.cs" />
     <Compile Include="Authentication\DTOs\IIdentityDto.cs" />
+    <Compile Include="Authentication\Config\IIdentityServiceConfig.cs" />
     <Compile Include="Authentication\Interfaces\IRoleProcess.cs" />
     <Compile Include="Authentication\DTOs\RefreshTokensRequest.cs" />
     <Compile Include="Authentication\DTOs\RevokeTokenRequest.cs" />

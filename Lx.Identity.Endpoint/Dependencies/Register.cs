@@ -1,5 +1,6 @@
 ﻿using Lx.Identity.Contracts.Config;
 using Lx.Identity.Endpoint.Config;
+using Lx.Utilities.Contract.Authentication.Config;
 using Lx.Utilities.Contract.IoC;
 using Lx.Utilities.Contract.Persistence;
 using Lx.Utilities.Contract.ServiceBus;

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hub Tester</title>
+    <script src="jquery.js"></script>
+    <script src="jquery.cookie.js"></script>
+    <script src="moment.js"></script>
+    <script src="jquery.signalR.js"></script>
+    <script src="sr/hubs"></script>
+</head>
+<body style="font-family: Arial">
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-header">
+            <h2>
+                Hub Tester
+            </h2>
+            <div class="form-group" style="margin-bottom: 10px">
+                <label>Group Name:</label>
+                <span id="group-name"></span>
+            </div>
+            <div class="form-group" style="margin-bottom: 10px">
+                <label>Group Allocation Time:</label>
+                <span id="group-time"></span>
+            </div>
+            <div class="form-group" style="margin-bottom: 10px">
+            </div>
+        </div>
+        <div id="hub-info" style="background-color: #ffeedd; margin: 10px 0; padding: 10px; word-break: break-all"></div>
+        <p>
+            <a href="tester.html?remember_data=true" target="tester-cookie">Remember Tester Data</a>
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-danger">
+                <div class="panel-body">
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <label>Hub Name:</label>
+                        <input type="text" size="80" class="form-control" id="hub-name">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <label>Function Name:</label>
+                        <input type="text" id="func-name" size="80" class="form-control" placeholder="function name">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <label>Access Token:</label>
+                        <input type="text" id="access-token" size="80" class="form-control" placeholder="access token">
+                        <button type="button" id="join-group" class="btn btn-danger" style="display: block; margin: 5px 0;">Join Group with Access Token</button>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px">
+                        <div style="margin: 5px 0;">
+                            <label>Request </label>
+                            <button type="button" id="save-to-cookie" class="btn btn-danger">Save Value to Cookie</button>
+                            <button type="button" id="restore" class="btn btn-danger">Restore Value from Cookie</button>
+                        </div>
+                        <div>
+                            <textarea id="request" rows="25" style="width: 100%"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="invoke" class="btn btn-danger">Invoke</button>
+                </div>
+            </div>
+        </div>
+        <div id="response" style="background-color: #ffeedd; margin: 10px 0; padding: 10px; word-break: break-all"></div>
+        <div>
+            <ul id="hub-list"></ul>
+        </div>
+    </div>
+</div>
+<script>
+    var hubs = [];
+    var groupName = "";
+    var isDisconnected = true;
+    var reconnectIntervalId = null;
+    var excludedMethods = [
+        "createGroupAsync", "ensureInGroupAsync", "getRequestSample", "getRequestSampleAsync",
+        "joinGroupAsync", "leaveGroupAsync", "sendGroupResponse", "joinGroupWithAccessTokenAsync"
+    ];
+    var requestReference = new Date().toString();
+
+    function getParam(name) {
+        var vars = {};
+        window.location.href.replace(location.hash, '')
+            .replace(
+                /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                function(m, key, value) { // callback
+                    vars[key] = value !== undefined ? value : '';
+                }
+            );
+        if (name) return vars[name] ? vars[name] : null;
+        return vars;
+    }
+
+    function syntaxHighlight(json) {
+        var string = 'color:green';
+        var number = 'color: darkorange';
+        var boolean = 'color: blue';
+        var nothing = 'color: magenta';
+        var key = 'color: red';
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json
+            .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+                function(match) {
+                    var cls = number;
+                    if (/^"/.test(match)) {
+                        if (/:$/.test(match)) {
+                            cls = key;
+                        } else {
+                            cls = string;
+                        }
+                    } else if (/true|false/.test(match)) {
+                        cls = boolean;
+                    } else if (/null/.test(match)) {
+                        cls = nothing;
+                    }
+                    return '<span style="' + cls + '">' + match + '</span>';
+                });
+    }
+
+    function getTime(d) {
+        var now = d ? d : new Date(),
+            addZero = function(n) { return (n >= 0 && n < 10) ? "0" + n : n + ""; };
+        return '[' +
+            addZero(now.getHours()) +
+            ':' +
+            addZero(now.getMinutes()) +
+            ':' +
+            addZero(now.getSeconds()) +
+            ']';
+    }
+
+    function displayResponse(response) {
+        var json = JSON.stringify(response, undefined, 4);
+        var formatted = (syntaxHighlight(json));
+
+        var heading = response.dataType ? '<h2>' + response.dataType + '</h2>' : '';
+        document.getElementById('response').appendChild(document.createElement('pre')).innerHTML = heading + formatted;
+    }
+
+    function applyFuncName(hubName, funcName) {
+        $('#func-name').val(funcName);
+        $('#hub-name').val(hubName);
+
+        var currentHubName = $.trim($('#hub-name').val());
+        var hub = $.connection[currentHubName];
+        hub.server.getRequestSampleAsync(groupName, funcName, requestReference);
+    }
+
+    function getCookieKeyPrefix() {
+        var prefix = $('#hub-name').val() + $('#func-name').val();
+        return prefix;
+    }
+
+    function invoke() {
+        $('#response').html("");
+
+        var currentHubName = $.trim($('#hub-name').val());
+        var funcName = $.trim($('#func-name').val());
+
+        if (funcName === "")
+            alert("Function name can not be empty");
+
+        var accessToken = $.trim($('#access-token').val());
+
+        var requestJson = $('#request').val();
+        if (!requestJson) {
+            alert("Request is empty");
+        }
+
+        var request = JSON.parse(requestJson);
+        if (!request) {
+            alert("Request is empty");
+        }
+
+        var hub = $.connection[currentHubName];
+
+        request.originatorGroup = groupName;
+        request.accessToken = accessToken;
+        request.requestReference = requestReference;
+
+        $('#request').val(JSON.stringify(request, null, 2));
+
+        hub.invoke(funcName, request);
+    }
+
+    function startConnection(callback, createGroupRequired) {
+        $.connection.hub.start()
+            .done(function() {
+                $('#hub-info').html(getTime() + ' <span style="color:#0a0"> Connected </span>');
+
+                if (createGroupRequired)
+                    $.connection[$('#hub-name').val()].server.createGroupAsync();
+
+                isDisconnected = false;
+                stopRetry();
+
+                if (callback)
+                    callback();
+            });
+    }
+
+    function stopRetry() {
+        clearInterval(reconnectIntervalId);
+        reconnectIntervalId = null;
+    }
+
+    setInterval(function() {
+        $.cookie('accessToken', $('#access-token').val());
+            if (getParam('remember_data')) {
+                $.cookie(getCookieKeyPrefix() + "request", $('#request').val());
+                $.cookie("func-name", $('#func-name').val());
+                $.cookie("hub-name", $('#hub-name').val());
+            }
+        },
+        2000);
+
+    $(function() {
+        $('#access-token').val($.cookie('accessToken'));
+        if (getParam('remember_data')) {
+            $('#request').val($.cookie(getCookieKeyPrefix() + 'request'));
+            $('#func-name').val($.cookie('func-name'));
+            $('#hub-name').val($.cookie('hub-name'));
+        }
+        $.connection.hub.logging = true;
+
+        $.each($.connection,
+            function(index, hub) {
+                if (!hub.hubName) {
+                    return;
+                }
+
+                $('#hub-list')
+                    .append('<li><strong>' +
+                        index +
+                        '</strong> <ul id="' +
+                        index +
+                        '"></ul></li>');
+
+                if ($.trim($('#hub-name').val()) === "")
+                    $('#hub-name').val(index);
+
+                for (var i in hub.server) {
+                    var functionName = i.toString();
+                    if (functionName.indexOf("handle") >= 0) {
+                        continue;
+                    }
+
+                    var isExcluded = false;
+                    for (var excludedMethodIndex in excludedMethods) {
+                        if (excludedMethods[excludedMethodIndex] === functionName) {
+                            isExcluded = true;
+                            break;
+                        }
+                    }
+                    if (isExcluded) {
+                        continue;
+                    }
+
+                    var linkFunc = "javascript:applyFuncName('" + index + "','" + functionName + "')";
+                    $('#' + index).append('<li><a href="' + linkFunc + '">' + functionName + '</a></li>');
+                }
+
+                var currentHub = $.connection[index];
+                hubs.push(currentHub);
+
+                currentHub.client.groupAllocated = function(newGroupName) {
+                    groupName = newGroupName;
+                    $('#group-name').html(newGroupName);
+                    $('#group-time').html(moment().format());
+
+                    var requestJson = $('#request').val();
+                    if (!requestJson)
+                        return;
+
+                    var request = JSON.parse(requestJson);
+                    if (!request || !request.hasOwnProperty("originatorGroup"))
+                        return;
+
+                    request.originatorGroup = groupName;
+                    $('#request').val(JSON.stringify(request, null, 2));
+                };
+                currentHub.client.groupResponseReceived = function(response) {
+                    displayResponse(response);
+
+                    if (response.dataType !== "GetTokensResponse")
+                        return;
+
+                    var accessToken = response.data.accessToken;
+                    $('#access-token').val(accessToken);
+
+                    var requestJson = $('#request').val();
+                    if (!requestJson)
+                        return;
+                    var request = JSON.parse(requestJson);
+                    if (!request)
+                        return;
+                    request.accessToken = accessToken;
+                    $('#request').val(JSON.stringify(request, null, 2));
+
+                };
+                currentHub.client.requestSampleReturned = function (response, returnedRequestReference) {
+                    if (returnedRequestReference !== requestReference)
+                        return;
+
+                    var requestSample = JSON.parse(response);
+                    if (requestSample.hasOwnProperty("accessToken"))
+                        requestSample.accessToken = $('#access-token').val();
+                    if (requestSample.hasOwnProperty("originatorGroup"))
+                        requestSample.originatorGroup = groupName;
+
+                    $('#request').val(JSON.stringify(requestSample, null, 2));
+                };
+            });
+
+        $('#invoke')
+            .click(function(e) {
+                e.preventDefault();
+
+                if (isDisconnected)
+                    startConnection(invoke);
+                else
+                    invoke();
+            });
+
+        $('#join-group')
+            .click(function(e) {
+                if (isDisconnected)
+                    startConnection();
+
+                var accessToken = $('#access-token').val();
+                if (!accessToken || $.trim(accessToken) === "") {
+                    alert("Access token is required.");
+                    return;
+                }
+
+                if (!hubs || hubs.length === 0)
+                    return;
+
+                for (var hubIndex in hubs) {
+                    hubs[hubIndex].invoke("JoinGroupWithAccessTokenAsync", accessToken);
+                }
+            });
+
+        $('#restore')
+            .click(function(e) {
+                var cookieValue = $.cookie(getCookieKeyPrefix() + 'request');
+
+                if (cookieValue)
+                    $('#request').val(cookieValue);
+            });
+
+        $('#save-to-cookie')
+            .click(function(e) {
+                $.cookie(getCookieKeyPrefix() + 'request', $('#request').val(), { expires: 1000 });
+            });
+
+        $.connection.hub.reconnecting(function() {
+            $('#hub-info').html(getTime() + ' <span style="color:#f82"> Reconnecting... </span>');
+        });
+        $.connection.hub.reconnected(function() {
+            $('#hub-info').html(getTime() + ' <span style="color:#0a0"> Reconnected </span>');
+        });
+        $.connection.hub.disconnected(function() {
+            $('#hub-info').html(getTime() + ' <span style="color:#444"> Disconnected </span>');
+            isDisconnected = true;
+
+            //reconnectIntervalId = setInterval(function() {
+            //        if (isDisconnected) //TODO: the interval can not be cleared and the looping still runs after the clearInterval()
+            //            startConnection(null, true);
+            //    },
+            //    20000);
+        });
+
+        startConnection(null, true);
+    });
+
+    //Solution to handle SignalR reconnection (especially for mobile app):
+
+    //Background: We're building an iOS app using Xamarin / Monotouch and the .NET SignalR 2.0.3 client. We're using the default SignalR
+    //protocols - and it seems to be using SSE instead of web sockets. I'm not sure yet if it's possible to use web sockets with
+    //Xamarin / Monotouch. Everything is hosted using Azure websites.
+
+    //We needed the app to reconnect to our SignalR server quickly, but we kept having problems where the connection didn't reconnect on
+    //its own - or the reconnect took exactly 30 seconds (due to an underlying protocol timeout).
+
+    //There were three scenarios we ended up testing for:
+
+    //Scenario A - connecting the first time the app was loaded. This worked flawlessly from day one. The connection completes in less
+    //than .25 seconds even over 3G mobile connections. (assuming the radio is already on)
+
+    //Scenario B - reconnecting to the SignalR server after the app was idle/closed for 30 seconds. In this scenario, the SignalR client
+    // will eventually reconnect to the server on its own without any special work - but it seems to wait exactly 30 seconds before
+    //attempting to reconnect. (way too slow for our app)
+
+    //During this 30 second waiting period, we tried calling HubConnection.Start() which had no effect. And calling HubConnection.Stop()
+    //also takes 30 seconds. I found a related bugg on the SignalR site that appears to be resolved, but we're still having the same
+    //problem in v2.0.3.
+
+    //Scenario C - reconnecting to the SignalR server after the app was idle/closed for 120 seconds or longer. In this scenario,
+    //the SignalR transport protocol has already timed out so the client never automatically reconnects. This explains why the client
+    //was sometimes but not always reconnecting on its own. The good news is, calling HubConnection.Start() works almost instantly
+    //like scenario A.
+
+    //So it took me a while to realize that the reconnect conditions were different based on whether the app was closed for 30 seconds
+    //vs 120+ seconds. And although the SignalR tracing logs illuminate what's going on with the underlying protocol, I don't believe
+    //there's a way to handle the transport level events in code. (the Closed() event fires after 30 seconds in scenario B, instantly
+    //in scenario C; the State property says "Connected" during these reconnect waiting periods; no other relevant events or methods)
+
+    //Solution: The solution is obvious. We're not waiting for SignalR to do its reconnection magic. Instead, when the app is activated
+    //or when the phone's network connection is restored, we're simply cleaning up the events and de-referencing the HubConnection
+    //(can't dispose it because it takes 30 seconds, hopefully garbage collection will take care of it) and creating a new instance.
+    //Now everything is working great. For some reason, I thought we should be reusing a persisted connection and reconnecting instead
+    //of just creating a new instance.
+
+
+</script>
+</body>
+</html>

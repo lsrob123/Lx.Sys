@@ -52,6 +52,7 @@
     <Compile Include="Entities\ClientScope.cs" />
     <Compile Include="Entities\ClientSecret.cs" />
     <Compile Include="Entities\Consent.cs" />
+    <Compile Include="Entities\IUser.cs" />
     <Compile Include="Entities\Scope.cs" />
     <Compile Include="Entities\ScopeClaim.cs" />
     <Compile Include="Entities\ScopeSecret.cs" />

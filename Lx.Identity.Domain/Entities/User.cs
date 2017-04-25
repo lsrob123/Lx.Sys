@@ -8,7 +8,7 @@ using Lx.Utilities.Contract.Infrastructure.ValueObjects;
 
 namespace Lx.Identity.Domain.Entities
 {
-    public class User : EntityBase
+    public class User : EntityBase, IUser
     {
         public User() : this(Guid.Empty, null, null, new Email(), new PhoneNumber(), UserState.Unknown)
         {

@@ -10,6 +10,7 @@ using IdentityServer3.Core.Services.Default;
 using Lx.Identity.Contracts.Config;
 using Lx.Identity.Services.Services;
 using Lx.Shared.All.Identity.DTOs;
+using Lx.Utilities.Contract.Authentication.Config;
 using Lx.Utilities.Contract.Authentication.Constants;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Crypto;

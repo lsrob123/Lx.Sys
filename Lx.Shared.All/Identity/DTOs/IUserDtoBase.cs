@@ -12,5 +12,7 @@ namespace Lx.Shared.All.Identity.DTOs {
         UserState UserState { get; set; }
         PersonNameDto Name { get; set; }
         bool IsAdmin { get; set; }
+        string Nickname { get; set; }
+        AvatarDto Avatar { get; set; }
     }
 }

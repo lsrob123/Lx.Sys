@@ -36,6 +36,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
@@ -53,28 +54,32 @@
     <Compile Include="Dependencies\Register.cs" />
     <Compile Include="Identity\Config\UserProfileConfig.cs" />
     <Compile Include="Identity\Config\IUserProfileConfig.cs" />
-    <Compile Include="Identity\DTOs\CreateUserReply.cs" />
+    <Compile Include="Identity\DTOs\AvatarDto.cs" />
     <Compile Include="Identity\DTOs\CreateUserRequest.cs" />
     <Compile Include="Identity\DTOs\GetUserKeyEmailsRequest.cs" />
     <Compile Include="Identity\DTOs\GetUserKeyEmailsResponse.cs" />
-    <Compile Include="Identity\DTOs\IBasicUserInfoDto.cs" />
     <Compile Include="Identity\DTOs\IUserDto.cs" />
     <Compile Include="Identity\DTOs\IUserDtoBase.cs" />
     <Compile Include="Identity\DTOs\IUserKeyEmailDto.cs" />
     <Compile Include="Identity\DTOs\UpdateUserProfileRequest.cs" />
     <Compile Include="Identity\DTOs\UpdateUserProfileResponse.cs" />
     <Compile Include="Identity\DTOs\UpdateUserRequest.cs" />
+    <Compile Include="Identity\DTOs\UpdateUserRequestBase.cs" />
     <Compile Include="Identity\DTOs\UpdateUserResponse.cs" />
     <Compile Include="Identity\DTOs\UserDto.cs" />
     <Compile Include="Identity\DTOs\UserKeyEmailDto.cs" />
     <Compile Include="Identity\DTOs\UserProfileDto.cs" />
     <Compile Include="Identity\DTOs\UserUpdatedEvent.cs" />
-    <Compile Include="Identity\Enumerations\UserCreationResultType.cs" />
+    <Compile Include="Identity\DTOs\UserUpdateDto.cs" />
+    <Compile Include="Identity\Interfaces\IAvatar.cs" />
+    <Compile Include="Identity\Enumerations\UserUpdateResultType.cs" />
+    <Compile Include="Common\Interfaces\IDeactivatable.cs" />
     <Compile Include="Identity\Interfaces\IHasUserProfileOriginator.cs" />
-    <Compile Include="Identity\DTOs\IUserCreationDto.cs" />
+    <Compile Include="Common\Interfaces\IUploadFileInfo.cs" />
     <Compile Include="Identity\Interfaces\IUserBase.cs" />
-    <Compile Include="Identity\Interfaces\IUserCreationResult.cs" />
     <Compile Include="Identity\Interfaces\IUserProfile.cs" />
+    <Compile Include="Identity\ValueObjects\Avatar.cs" />
+    <Compile Include="Identity\Interfaces\IWithUserKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Identity\Constants\" />
+    <Folder Include="Identity\Entities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\index.html">

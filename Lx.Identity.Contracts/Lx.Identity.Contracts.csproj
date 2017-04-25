@@ -61,7 +61,6 @@
     <Compile Include="DTOs\ScopeDto.cs" />
     <Compile Include="DTOs\ScopeSecretDto.cs" />
     <Compile Include="DTOs\SendVerificationCodeFailedResponse.cs" />
-    <Compile Include="DTOs\UserCreationResult.cs" />
     <Compile Include="Enumerations\AccessTokenType.cs" />
     <Compile Include="Enumerations\Flows.cs" />
     <Compile Include="Enumerations\ResetPasswordMethod.cs" />

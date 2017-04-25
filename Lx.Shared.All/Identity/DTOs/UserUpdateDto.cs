@@ -1,13 +1,12 @@
 ﻿using System;
 using Lx.Shared.All.Common.DTOs;
-using Lx.Shared.All.Identity.Enumerations;
-using Lx.Shared.All.Identity.Interfaces;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 
-namespace Lx.Identity.Contracts.DTOs
+namespace Lx.Shared.All.Identity.DTOs
 {
-    public class UserCreationResult : IUserCreationResult
+    public class UserUpdateDto : IUserDtoBase
     {
+        public string PlainTextPassword { get; set; }
         public string Username { get; set; }
         public EmailDto Email { get; set; }
         public PhoneNumberDto MobileNumber { get; set; }
@@ -15,6 +14,7 @@ namespace Lx.Identity.Contracts.DTOs
         public UserState UserState { get; set; }
         public PersonNameDto Name { get; set; }
         public bool IsAdmin { get; set; }
-        public UserCreationResultType ResultType { get; set; }
+        public string Nickname { get; set; }
+        public AvatarDto Avatar { get; set; }
     }
 }

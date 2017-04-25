@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Enumerations;
+using Lx.Shared.All.Identity.ValueObjects;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
@@ -48,6 +49,8 @@ namespace Lx.Identity.Domain.Entities
 
         public Email Email { get; protected set; }
         public PhoneNumber MobileNumber { get; protected set; }
+        public string Nickname { get; protected set; }
+        public Avatar Avatar { get; protected set; }
 
         public void SetAdminRole(bool isAdmin)
         {
@@ -162,6 +165,7 @@ namespace Lx.Identity.Domain.Entities
             VerificationPurpose = VerificationPurpose ?? VerificationPurpose.Nothing;
             ResetPasswordMethod = ResetPasswordMethod ?? ResetPasswordMethod.Nothing;
             Name = Name ?? new PersonName();
+            Avatar = Avatar ?? new Avatar();
         }
     }
 }

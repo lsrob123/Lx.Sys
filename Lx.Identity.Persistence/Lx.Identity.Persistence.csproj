@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seeding\SeedCollections.cs" />
     <Compile Include="Uow\IdentityUow.cs" />
     <Compile Include="Uow\IOAuthUowFactory.cs" />
     <Compile Include="Uow\IUserUowFactory.cs" />

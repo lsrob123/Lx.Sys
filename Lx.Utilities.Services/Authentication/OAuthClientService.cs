@@ -22,20 +22,24 @@ namespace Lx.Utilities.Services.Authentication
     {
         private readonly IOAuthUris _config;
         private readonly IMappingService _mappingService;
+        private readonly IOAuthClientSettings _oauthClientSettings;
 
-        public OAuthClientService(IOAuthUris config, IMappingService mappingService)
+        public OAuthClientService(IOAuthUris config, IMappingService mappingService,
+            IOAuthClientSettings oauthClientSettings)
         {
             _config = config;
             _mappingService = mappingService;
+            _oauthClientSettings = oauthClientSettings;
         }
 
         public async Task<GetTokensResponse> GetTokensAsync(GetTokensRequest request)
         {
             if ((request.OAuthLogin == null) || !request.OAuthLogin.IsValid)
-                return new GetTokensResponse()
-                    .LinkTo(request)
-                    .WithProcessResult(ProcessResultType.BadRequest,
-                        $"Null reference of or invalid {nameof(request.OAuthLogin)}.");
+                request.OAuthLogin = new OAuthLogin
+                {
+                    ClientId = _oauthClientSettings.DefaultClientId,
+                    ClientSecret = _oauthClientSettings.DefaultClientSecret
+                };
 
             var tokenClient = new TokenClient(GetOAuthEndpointUri("token").AbsoluteUri, request.OAuthLogin.ClientId,
                 request.OAuthLogin.ClientSecret);
@@ -50,11 +54,7 @@ namespace Lx.Utilities.Services.Authentication
 
         public async Task<GetTokensResponse> RefreshTokensAsync(RefreshTokensRequest request)
         {
-            if (!request.OAuthClient.IsValid)
-                return new GetTokensResponse()
-                    .LinkTo(request)
-                    .WithProcessResult(ProcessResultType.BadRequest,
-                        $"Null reference of or invalid {nameof(request.OAuthClient)}.");
+            EnsureOAuthLoginClientExistence(request);
 
             var tokenClient = new TokenClient(GetOAuthEndpointUri("token").AbsoluteUri, request.OAuthClient.ClientId,
                 request.OAuthClient.ClientSecret);
@@ -63,6 +63,16 @@ namespace Lx.Utilities.Services.Authentication
             var response = CreateTokenResponse(request, result);
 
             return response;
+        }
+
+        private void EnsureOAuthLoginClientExistence(IHasOAuthLoginClient request)
+        {
+            if (request.OAuthClient == null || !request.OAuthClient.IsValid)
+                request.OAuthClient = new OAuthLoginClient
+                {
+                    ClientId = _oauthClientSettings.DefaultClientId,
+                    ClientSecret = _oauthClientSettings.DefaultClientSecret
+                };
         }
 
         public async Task<GetUserInfoResponse> GetUserInfoAsync(GetUserInfoRequest request)
@@ -77,10 +87,7 @@ namespace Lx.Utilities.Services.Authentication
 
         public async Task<RevokeTokenResponse> RevokeTokenAsync(RevokeTokenRequest request)
         {
-            if (!request.OAuthClient.IsValid)
-                return new RevokeTokenResponse().LinkTo(request)
-                    .WithProcessResult(ProcessResultType.BadRequest,
-                        $"Null reference of or invalid {nameof(request.OAuthClient)}.");
+            EnsureOAuthLoginClientExistence(request);
 
             var response = new RevokeTokenResponse().LinkTo(request);
 

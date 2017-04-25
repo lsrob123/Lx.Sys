@@ -83,6 +83,7 @@
     <Compile Include="Authentication\DTOs\GetUserInfoRequest.cs" />
     <Compile Include="Authentication\DTOs\GetUserInfoResponse.cs" />
     <Compile Include="Authentication\DTOs\IdentityDto.cs" />
+    <Compile Include="Authentication\DTOs\IHasOAuthLoginClient.cs" />
     <Compile Include="Authentication\DTOs\IIdentityDto.cs" />
     <Compile Include="Authentication\Config\IIdentityServiceConfig.cs" />
     <Compile Include="Authentication\Interfaces\IOAuthClientService.cs" />

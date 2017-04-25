@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Lx.Utilities.Contract.Authentication.DTOs
 {
-    public class RevokeTokenRequest : RequestBase
+    public class RevokeTokenRequest : RequestBase, IHasOAuthLoginClient
     {
         [JsonProperty(PropertyName = "oauthClient")]
         public OAuthLoginClient OAuthClient { get; set; }

@@ -200,6 +200,7 @@
   <ItemGroup>
     <Compile Include="Authentication\IdentityDtoExtensions.cs" />
     <Compile Include="Authentication\IdentityServerConfigurator.cs" />
+    <Compile Include="Authentication\OAuthClientService.cs" />
     <Compile Include="Infrastructure\AssemblyHelper.cs" />
     <Compile Include="Infrastructure\AssemblyHelperConfig.cs" />
     <Compile Include="Spatial\SpatialExtensions.cs" />

@@ -1,5 +1,6 @@
 ﻿using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.Config;
+using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Authorization;
 using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Crypto;
@@ -42,6 +43,7 @@ namespace Lx.Utilities.Services.Dependencies
             Register<IOAuthClientSettings, OAuthClientSettings>();
             Register<IRequestDispatchingProxy, RequestDispatchingProxy>();
             Register<IEventBroadcastingProxy, EventBroadcastingProxy>();
+            Register<IOAuthClientService, OAuthClientService>();
         }
     }
 }

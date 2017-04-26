@@ -5,7 +5,7 @@ using Lx.Utilities.Contract.Infrastructure.DTOs;
 
 namespace Lx.Shared.All.Identity.DTOs
 {
-    public class UserUpdatedEvent : ResponseBase
+    public class UserUpdatedEvent : EventBase
     {
         public UserDto UpdatedUser { get; set; }
         public ICollection<RoleDto> Roles { get; set; }

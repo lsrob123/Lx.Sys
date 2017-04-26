@@ -48,5 +48,13 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs
                 .WithProcessResult(processResult);
             return response;
         }
+
+        public TEvent CreateEvent<TEvent>(ProcessResult processResult = null) where TEvent : EventBase, new()
+        {
+            var response = new TEvent()
+                .LinkTo(this)
+                .WithProcessResult(processResult);
+            return response;
+        }
     }
 }

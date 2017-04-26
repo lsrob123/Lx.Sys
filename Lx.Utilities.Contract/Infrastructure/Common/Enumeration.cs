@@ -40,6 +40,11 @@ namespace Lx.Utilities.Contract.Infrastructure.Common
             Name = name;
         }
 
+        protected void SetValueAndName(Enumeration other)
+        {
+            SetData(other.Value, other.Name);
+        }
+
         public override string ToString()
         {
             return Name;

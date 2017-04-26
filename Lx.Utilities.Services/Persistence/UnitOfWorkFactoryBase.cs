@@ -116,7 +116,7 @@ namespace Lx.Utilities.Services.Persistence
             }
         }
 
-        protected virtual void DispatchEvent<TEvent>(TEvent eventObject) where TEvent : ResponseBase
+        protected virtual void DispatchEvent<TEvent>(TEvent eventObject) where TEvent : ResultBase
         {
             EventDispatchingProxy.Broadcast(eventObject, EventBroadcastingScope.CrossProcesses);
         }

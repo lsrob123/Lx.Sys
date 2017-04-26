@@ -27,7 +27,7 @@ namespace Lx.Utilities.Services.Infrastructure
             Register(new NsbEventBroadcaster(Bus));
         }
 
-        public void Broadcast<TEvent>(TEvent e, EventBroadcastingScope scope) where TEvent : ResponseBase
+        public void Broadcast<TEvent>(TEvent e, EventBroadcastingScope scope) where TEvent : ResultBase
         {
             var broadcasters = new List<IEventBroadcaster>();
             Lock.EnterReadLock();

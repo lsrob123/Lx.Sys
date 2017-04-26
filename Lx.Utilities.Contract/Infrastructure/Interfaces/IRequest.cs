@@ -10,5 +10,8 @@ namespace Lx.Utilities.Contract.Infrastructure.Interfaces
 
         TResponse CreateResponse<TResponse>(ProcessResult processResult = null)
             where TResponse : ResponseBase, new();
+
+        TEvent CreateEvent<TEvent>(ProcessResult processResult = null)
+            where TEvent : EventBase, new();
     }
 }

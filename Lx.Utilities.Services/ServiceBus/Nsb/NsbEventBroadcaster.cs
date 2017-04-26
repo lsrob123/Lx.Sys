@@ -16,7 +16,7 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb
 
         public EventBroadcastingScope AllowedScope => EventBroadcastingScope.CrossProcesses;
 
-        public void Broadcast<TEvent>(TEvent e) where TEvent : ResponseBase
+        public void Broadcast<TEvent>(TEvent e) where TEvent : ResultBase
         {
             Bus.Publish(e);
         }

@@ -115,6 +115,7 @@
     <Compile Include="Crypto\IConfigCrypto.cs" />
     <Compile Include="Crypto\ICryptoService.cs" />
     <Compile Include="Infrastructure\Attributes\InvisibleInTestExampleAttribute.cs" />
+    <Compile Include="Infrastructure\DTOs\EventBase.cs" />
     <Compile Include="Infrastructure\Interfaces\IHasRichContent.cs" />
     <Compile Include="Infrastructure\DTOs\NotToBeMediatedAttribute.cs" />
     <Compile Include="Infrastructure\Enumerations\Locale.cs" />
@@ -165,7 +166,6 @@
     <Compile Include="Infrastructure\Interfaces\ICompletionState.cs" />
     <Compile Include="Infrastructure\Interfaces\IDisplayOrder.cs" />
     <Compile Include="Infrastructure\Interfaces\IDto.cs" />
-    <Compile Include="Infrastructure\Interfaces\IEvent.cs" />
     <Compile Include="Infrastructure\Interfaces\IExpectsResponse.cs" />
     <Compile Include="Infrastructure\Interfaces\IHasOriginatorDevice.cs" />
     <Compile Include="Infrastructure\Interfaces\IHasOriginatorIp.cs" />

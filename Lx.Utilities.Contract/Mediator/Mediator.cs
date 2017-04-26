@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Lx.Utilities.Contract.Configuration;
-using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Contract.Mediator
@@ -98,16 +97,28 @@ namespace Lx.Utilities.Contract.Mediator
             var methodInfo = MediatorType.GetMethod(nameof(RegisterHandler),
                 BindingFlags.Instance | BindingFlags.NonPublic);
 
-            var mediatorMessageTypes = objectType.GetInterfaces()
+            //var mediatorMessageTypes = objectType.GetInterfaces()
+            //    .Where(x => MediatorMessageHandlerType.IsAssignableFrom(x) &&
+            //                (x.GenericTypeArguments != null) &&
+            //                x.GenericTypeArguments.Any())
+            //    .Select(x => x.GenericTypeArguments.First())
+            //    .ToList();
+
+            //foreach (var mediatorMessageType in mediatorMessageTypes)
+            //{
+            //    var method = methodInfo.MakeGenericMethod(mediatorMessageType);
+            //    method.Invoke(this, new[] {o});
+            //}
+
+            var methods = objectType.GetInterfaces()
                 .Where(x => MediatorMessageHandlerType.IsAssignableFrom(x) &&
                             (x.GenericTypeArguments != null) &&
                             x.GenericTypeArguments.Any())
-                .Select(x => x.GenericTypeArguments.First())
+                .Select(x => methodInfo.MakeGenericMethod(x.GenericTypeArguments.First()))
                 .ToList();
 
-            foreach (var mediatorMessageType in mediatorMessageTypes)
+            foreach (var method in methods)
             {
-                var method = methodInfo.MakeGenericMethod(mediatorMessageType);
                 method.Invoke(this, new[] {o});
             }
         }

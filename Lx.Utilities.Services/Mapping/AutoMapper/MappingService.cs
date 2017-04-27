@@ -14,6 +14,9 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
 
         public TDestination Map<TDestination>(object source)
         {
+            if (source == null)
+                return default(TDestination);
+
             var mappedObject = Mapper.Map<TDestination>(source);
             (mappedObject as IEntity)?.AssignDefaultValuesToComplexPropertiesIfNull();
 
@@ -22,6 +25,9 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
 
         public TDestination Map<TSource, TDestination>(TSource source)
         {
+            if (source == null)
+                return default(TDestination);
+
             var mappedObject = Mapper.Map<TSource, TDestination>(source);
             (mappedObject as IEntity)?.AssignDefaultValuesToComplexPropertiesIfNull();
 

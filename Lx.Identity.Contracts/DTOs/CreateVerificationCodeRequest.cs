@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Lx.Shared.All.Common.DTOs;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Newtonsoft.Json;

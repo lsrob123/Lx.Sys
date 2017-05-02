@@ -1,6 +1,6 @@
 ﻿using System;
-using Lx.Shared.All.Common.DTOs;
 using Lx.Utilities.Contract.Authentication.Enumerations;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 
 namespace Lx.Shared.All.Identity.DTOs
 {

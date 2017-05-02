@@ -47,10 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\DTOs\AddressDto.cs" />
-    <Compile Include="Common\DTOs\EmailDto.cs" />
-    <Compile Include="Common\DTOs\PersonNameDto.cs" />
-    <Compile Include="Common\DTOs\PhoneNumberDto.cs" />
     <Compile Include="Dependencies\Register.cs" />
     <Compile Include="Identity\Config\UserProfileConfig.cs" />
     <Compile Include="Identity\Config\IUserProfileConfig.cs" />
@@ -97,6 +93,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\DTOs\" />
     <Folder Include="Identity\Constants\" />
     <Folder Include="Identity\Entities\" />
   </ItemGroup>

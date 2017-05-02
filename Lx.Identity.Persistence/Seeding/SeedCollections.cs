@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Lx.Identity.Domain.Entities;
-using Lx.Shared.All.Common.DTOs;
 using Lx.Shared.All.Identity.DTOs;
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Crypto;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Membership;
 using Lx.Utilities.Contract.Serialization;

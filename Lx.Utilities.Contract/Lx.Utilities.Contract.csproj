@@ -115,7 +115,12 @@
     <Compile Include="Crypto\IConfigCrypto.cs" />
     <Compile Include="Crypto\ICryptoService.cs" />
     <Compile Include="Infrastructure\Attributes\InvisibleInTestExampleAttribute.cs" />
+    <Compile Include="Infrastructure\DTOs\AddressDto.cs" />
+    <Compile Include="Infrastructure\DTOs\EmailDto.cs" />
     <Compile Include="Infrastructure\DTOs\EventBase.cs" />
+    <Compile Include="Infrastructure\DTOs\PersonNameDto.cs" />
+    <Compile Include="Infrastructure\DTOs\PhoneNumberDto.cs" />
+    <Compile Include="Infrastructure\Extensions\PersonNameExtensions.cs" />
     <Compile Include="Infrastructure\Interfaces\IHasRichContent.cs" />
     <Compile Include="Infrastructure\DTOs\NotToBeMediatedAttribute.cs" />
     <Compile Include="Infrastructure\Enumerations\Locale.cs" />
@@ -133,7 +138,7 @@
     <Compile Include="Infrastructure\Helpers\PhoneNumberHelper.cs" />
     <Compile Include="Infrastructure\Interfaces\IAddress.cs" />
     <Compile Include="Infrastructure\Interfaces\IBasicRequestKey.cs" />
-    <Compile Include="Infrastructure\Interfaces\IImageProcess.cs" />
+    <Compile Include="Graphics\IImageProcessor.cs" />
     <Compile Include="Persistence\IDbConfig.cs" />
     <Compile Include="Infrastructure\Interfaces\IDevice.cs" />
     <Compile Include="Infrastructure\Interfaces\IEmail.cs" />

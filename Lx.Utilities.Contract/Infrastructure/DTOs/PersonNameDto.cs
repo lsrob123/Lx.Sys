@@ -1,6 +1,6 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Shared.All.Common.DTOs {
+namespace Lx.Utilities.Contract.Infrastructure.DTOs {
     public class PersonNameDto : IDto, IPersonName {
         public string FamilyName { get; set; }
         public string GivenName { get; set; }

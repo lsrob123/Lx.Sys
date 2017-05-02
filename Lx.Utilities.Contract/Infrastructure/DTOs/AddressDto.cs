@@ -1,6 +1,6 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Shared.All.Common.DTOs {
+namespace Lx.Utilities.Contract.Infrastructure.DTOs {
     public class AddressDto : IDto, IAddress {
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

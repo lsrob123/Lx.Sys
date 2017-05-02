@@ -9,6 +9,14 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions
 {
     public static class RequestResponseExtensions
     {
+        public static TRequest WithUser<TRequest>(this TRequest result, IdentityDto user)
+            where TRequest : IRequest
+        {
+            result.User = user;
+            result.OriginatorGroup = user.Key.ToString();
+            return result;
+        }
+
         public static TResult WithProcessResult<TResult>(this TResult result, ProcessResult processResult,
             string reason = null)
             where TResult : ResultBase

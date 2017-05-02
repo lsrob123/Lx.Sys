@@ -10,7 +10,7 @@ namespace Lx.Utilities.Services.Authorization
     {
         public virtual bool IsAuthorized(IAccessCriteria criteria, IdentityDto actualUser)
         {
-            if (!actualUser.State.Equals(UserState.Active))
+            if (actualUser?.State == null || !actualUser.State.Equals(UserState.Active))
                 return false;
 
             var isAuthorized = false;

@@ -10,10 +10,6 @@ namespace Lx.Identity.Endpoint
 {
     public class ServiceManager : ServiceManagerBase
     {
-        public ServiceManager() : base(true)
-        {
-        }
-
         public override void StartService()
         {
             var container = new ContainerBuilder().StartNonWeb();

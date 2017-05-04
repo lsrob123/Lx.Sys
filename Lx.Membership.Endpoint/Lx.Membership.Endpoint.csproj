@@ -66,8 +66,8 @@
       <HintPath>..\packages\Microsoft.Owin.FileSystems.3.0.1\lib\net45\Microsoft.Owin.FileSystems.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=2.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.2.0.2\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.1.0\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin.Hosting, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -132,6 +132,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lx.Membership.Contracts\Lx.Membership.Contracts.csproj">
+      <Project>{2e6e53ca-8636-43ff-96f9-176d71858f68}</Project>
+      <Name>Lx.Membership.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Membership.Domain\Lx.Membership.Domain.csproj">
+      <Project>{84d978d0-3a8f-431e-ab24-30d8c8b180e2}</Project>
+      <Name>Lx.Membership.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Membership.Persistence\Lx.Membership.Persistence.csproj">
+      <Project>{eba3f5ae-e8d7-451f-bc0f-4e5eef933a1e}</Project>
+      <Name>Lx.Membership.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Membership.Services\Lx.Membership.Services.csproj">
+      <Project>{c07955c7-252f-4cb9-b060-5071c99a81ea}</Project>
+      <Name>Lx.Membership.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lx.Membership.SignalR\Lx.Membership.SignalR.csproj">
       <Project>{0e799624-c427-45d7-8c35-5aa54c377988}</Project>
       <Name>Lx.Membership.SignalR</Name>

@@ -19,8 +19,8 @@ namespace Lx.Utilities.Services.WindowsService.Topshelf
                     configurator.Service<TServiceManager>(service =>
                     {
                         service.ConstructUsing(s => new TServiceManager());
-                        service.WhenStarted(start => start.StartService());
-                        service.WhenStopped(stop => stop.StopService());
+                        service.WhenStarted(x => x.StartService());
+                        service.WhenStopped(x => x.StopService());
                     });
 
                     if (runAsNetworkService)

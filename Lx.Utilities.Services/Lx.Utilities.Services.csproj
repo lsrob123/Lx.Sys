@@ -35,6 +35,10 @@
       <HintPath>..\packages\Autofac.4.2.1\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Autofac.Integration.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Owin.4.0.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Autofac.Integration.SignalR, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.SignalR.3.0.2\lib\net40\Autofac.Integration.SignalR.dll</HintPath>
       <Private>True</Private>
@@ -207,6 +211,7 @@
     <Compile Include="Infrastructure\AssemblyHelperConfig.cs" />
     <Compile Include="Infrastructure\PropertyValueReplicator.cs" />
     <Compile Include="Spatial\SpatialExtensions.cs" />
+    <Compile Include="Web\AppBuilderExtensions.cs" />
     <Compile Include="Web\AuthorizeWithUserInRequestAttribute.cs" />
     <Compile Include="Web\OAuthAuthenticationMiddleware.cs" />
     <Compile Include="Authentication\OAuthClientSettings.cs" />

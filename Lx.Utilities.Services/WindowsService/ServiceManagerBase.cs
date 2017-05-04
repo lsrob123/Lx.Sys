@@ -1,10 +1,18 @@
-﻿using Lx.Utilities.Contract.WindowsService;
+﻿using System;
+using Autofac;
+using Lx.Utilities.Contract.Web;
+using Lx.Utilities.Contract.WindowsService;
 using Lx.Utilities.Services.Config;
+using Lx.Utilities.Services.IoC.AutoFac;
+using Lx.Utilities.Services.Web;
+using Microsoft.Owin.Hosting;
 
 namespace Lx.Utilities.Services.WindowsService
 {
     public abstract class ServiceManagerBase : IServiceManager
     {
+        protected IDisposable WebAppInstance;
+
         /// <summary>
         ///     ServiceManagerBase
         /// </summary>
@@ -24,5 +32,15 @@ namespace Lx.Utilities.Services.WindowsService
 
         public abstract void StartService();
         public abstract void StopService();
+
+        protected virtual string StartEndpointWithStaticFileFolders(params string[] staticFileRootFolders)
+        {
+            var container = new ContainerBuilder().StartEverything();
+            var endPointBaseUri = container.Resolve<IWebEndpointSettings>().EndpointBaseUri;
+            WebAppInstance = WebApp.Start(endPointBaseUri, app => app.UseEverything(container, staticFileRootFolders));
+            Console.WriteLine("Server running on {0}", endPointBaseUri);
+
+            return endPointBaseUri;
+        }
     }
 }

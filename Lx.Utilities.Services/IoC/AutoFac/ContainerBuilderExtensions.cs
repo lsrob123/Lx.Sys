@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Autofac;
-using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.IoC;
 using Lx.Utilities.Services.Config;
 using Lx.Utilities.Services.Infrastructure;
@@ -80,6 +79,33 @@ namespace Lx.Utilities.Services.IoC.AutoFac
                 LinkRegisterToContainerBuilder(builder, register);
 
             return builder;
+        }
+
+        public static IContainer StartEverything(this ContainerBuilder builder)
+        {
+            var container = new ContainerBuilder()
+                .CallDefaultDependencyRegisters()
+                .RegisterWithSignalR()
+                .RegisterWithWebApi()
+                .Build()
+                .StartBus()
+                .InstantiateSignalRHubs()
+                .ClearCache()
+                .SetAsGlobalDependencyResolver();
+
+            return container;
+        }
+
+        public static IContainer StartNonWeb(this ContainerBuilder builder)
+        {
+            var container = new ContainerBuilder()
+                .CallDefaultDependencyRegisters()
+                .Build()
+                .StartBus()
+                .ClearCache()
+                .SetAsGlobalDependencyResolver();
+
+            return container;
         }
     }
 }

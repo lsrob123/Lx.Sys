@@ -31,7 +31,11 @@ namespace Lx.Utilities.Services.WindowsService
         }
 
         public abstract void StartService();
-        public abstract void StopService();
+
+        public virtual void StopService()
+        {
+            WebAppInstance?.Dispose();
+        }
 
         protected virtual string StartEndpointWithStaticFileFolders(params string[] staticFileRootFolders)
         {

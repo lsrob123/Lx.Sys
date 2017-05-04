@@ -12,10 +12,5 @@ namespace Lx.Membership.Endpoint
         {
             StartEndpointWithStaticFileFolders("Assets");
         }
-
-        public override void StopService()
-        {
-            WebAppInstance.Dispose();
-        }
     }
 }

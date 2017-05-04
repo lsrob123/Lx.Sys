@@ -22,10 +22,5 @@ namespace Lx.Identity.Endpoint
 
             Console.WriteLine("Server running on {0}", endpointBaseUri);
         }
-
-        public override void StopService()
-        {
-            WebAppInstance.Dispose();
-        }
     }
 }

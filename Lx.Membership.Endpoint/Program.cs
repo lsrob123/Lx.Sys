@@ -1,15 +1,12 @@
 ﻿using Lx.Utilities.Services.WindowsService.Topshelf;
-using Topshelf;
 
 namespace Lx.Membership.Endpoint
 {
-    internal class Program
+    internal class Program : ProgramBase<ServiceManager>
     {
-        public static Host Host { get; protected set; }
-
         private static void Main(string[] args)
         {
-            Host = new ServiceHostInitializer<ServiceManager>().Host;
+            Init();
         }
     }
 }

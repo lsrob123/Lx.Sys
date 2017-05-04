@@ -1,4 +1,5 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Common;
+﻿using System;
+using Lx.Utilities.Contract.Infrastructure.Common;
 
 namespace Lx.Utilities.Contract.Serialization
 {
@@ -15,5 +16,7 @@ namespace Lx.Utilities.Contract.Serialization
         T Deserialize<T>(string serialized, Casing casing = Casing.Default,
             SerializationOptions serializationOptions =
                 SerializationOptions.UseFullContractResolver | SerializationOptions.IgnoreSelfReferencedProperties);
+
+        object Deserialize(string serialized, Type type);
     }
 }

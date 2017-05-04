@@ -27,7 +27,7 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions
             where TOriginalResponse : class, IResponse
             where TRepublish : RepublishedResponseBase<TOriginalResponse>
         {
-            return republish.With(mappingService.Map<TOriginalResponse>, originatorGroup, originalResponse);
+            return republish.With(x => mappingService.Map<TOriginalResponse>(x), originatorGroup, originalResponse);
         }
     }
 }

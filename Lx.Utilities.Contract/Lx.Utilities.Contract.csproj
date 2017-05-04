@@ -114,6 +114,11 @@
     <Compile Include="Configuration\PreconfigurationAttribute.cs" />
     <Compile Include="Crypto\IConfigCrypto.cs" />
     <Compile Include="Crypto\ICryptoService.cs" />
+    <Compile Include="Graphics\IImageFull.cs" />
+    <Compile Include="Graphics\IImageSafe.cs" />
+    <Compile Include="Graphics\ImageFullDto.cs" />
+    <Compile Include="Graphics\ImageSafeDto.cs" />
+    <Compile Include="Graphics\ImageValueObject.cs" />
     <Compile Include="Infrastructure\Attributes\InvisibleInTestExampleAttribute.cs" />
     <Compile Include="Infrastructure\DTOs\AddressDto.cs" />
     <Compile Include="Infrastructure\DTOs\EmailDto.cs" />

@@ -5,6 +5,7 @@ namespace Lx.Utilities.Contract.Caching
 {
     public interface ICache : ICacheBase, IDisposable
     {
+        object GetCachedItem(string cacheKey, Type type);
         bool Exists(string cacheKey);
         Task<bool> RemoveCachedItemAsync(string cacheKey);
         Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem);

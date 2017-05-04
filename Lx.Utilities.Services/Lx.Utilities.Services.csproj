@@ -205,6 +205,7 @@
     <Compile Include="Graphics\ThumbnailProcessor.cs" />
     <Compile Include="Infrastructure\AssemblyHelper.cs" />
     <Compile Include="Infrastructure\AssemblyHelperConfig.cs" />
+    <Compile Include="Infrastructure\PropertyValueReplicator.cs" />
     <Compile Include="Spatial\SpatialExtensions.cs" />
     <Compile Include="Web\AuthorizeWithUserInRequestAttribute.cs" />
     <Compile Include="Web\OAuthAuthenticationMiddleware.cs" />

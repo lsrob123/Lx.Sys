@@ -58,6 +58,14 @@ namespace Lx.Utilities.Services.Caching.Redis
                 : Serializer.Deserialize<T>(redisValue);
         }
 
+        public object GetCachedItem(string cacheKey, Type type)
+        {
+            var redisValue = Database.StringGet(cacheKey).ToString();
+            return string.IsNullOrWhiteSpace(redisValue)
+                ? null
+                : Serializer.Deserialize(redisValue, type);
+        }
+
         public async Task<bool> SetCachedItemAsync<T>(string cacheKey, T cachedItem, TimeSpan expiration)
         {
             var cachedString = Serializer.Serialize(cachedItem);

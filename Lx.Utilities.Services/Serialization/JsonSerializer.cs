@@ -54,6 +54,12 @@ namespace Lx.Utilities.Services.Serialization
             return targetObject;
         }
 
+        public object Deserialize(string serialized, Type type)
+        {
+            var deserialized = JsonConvert.DeserializeObject(serialized, type);
+            return deserialized;
+        }
+
         protected virtual JsonSerializerSettings GetJsonSerializerSettings(SerializationOptions serializationOptions,
             Casing serializationCasing)
         {

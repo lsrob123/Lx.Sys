@@ -5,6 +5,7 @@ using System.Linq;
 using AutoMapper;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 using Lx.Utilities.Contract.Mapping;
+using Lx.Utilities.Services.Infrastructure;
 
 namespace Lx.Utilities.Services.Mapping.AutoMapper
 {
@@ -12,7 +13,7 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
     {
         protected static readonly ConcurrentBag<MapSetting> MapSettings = new ConcurrentBag<MapSetting>();
 
-        public TDestination Map<TDestination>(object source)
+        public TDestination Map<TDestination>(object source, Func<string, bool> isMappedFirstTierProperty = null)
         {
             if (source == null)
                 return default(TDestination);
@@ -20,10 +21,11 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
             var mappedObject = Mapper.Map<TDestination>(source);
             (mappedObject as IEntity)?.AssignDefaultValuesToComplexPropertiesIfNull();
 
-            return mappedObject;
+            return ProcessMappedObject(isMappedFirstTierProperty, mappedObject);
         }
 
-        public TDestination Map<TSource, TDestination>(TSource source)
+        public TDestination Map<TSource, TDestination>(TSource source,
+            Func<string, bool> isMappedFirstTierProperty = null)
         {
             if (source == null)
                 return default(TDestination);
@@ -31,8 +33,21 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
             var mappedObject = Mapper.Map<TSource, TDestination>(source);
             (mappedObject as IEntity)?.AssignDefaultValuesToComplexPropertiesIfNull();
 
-            return mappedObject;
+            return ProcessMappedObject(isMappedFirstTierProperty, mappedObject);
         }
+
+        protected TDestination ProcessMappedObject<TDestination>(Func<string, bool> isMappedFirstTierProperty,
+            TDestination mappedObject)
+        {
+            if (isMappedFirstTierProperty == null)
+                return mappedObject;
+
+            var destObject = Activator.CreateInstance<TDestination>();
+            PropertyValueReplicator.Replicate(mappedObject, destObject, isMappedFirstTierProperty);
+
+            return destObject;
+        }
+
 
         //public object Map(object source, Type destinationType)
         //{
@@ -63,6 +78,7 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
                 return;
 
             var mapList = maps.ToList();
+            // ReSharper disable once LoopCanBePartlyConvertedToQuery
             foreach (var map in mapList)
             {
                 if (MapSettings.Any(x => (x.Source == map.Source) && (x.Destination == map.Destination)))

@@ -1,4 +1,4 @@
-﻿namespace Lx.Utilities.Contract.Authentication
+﻿namespace Lx.Utilities.Contract.Authentication.Interfaces
 {
     public interface IOAuthLoginClient
     {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.Constants;
+using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Authorization;
 using Lx.Utilities.Contract.IoC;
 using Lx.Utilities.Contract.Logging;

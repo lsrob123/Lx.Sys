@@ -5,6 +5,7 @@ using Lx.Shared.All.Identity.DTOs;
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Crypto;
+using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Membership;
@@ -60,15 +61,12 @@ namespace Lx.Identity.Persistence.Seeding
             };
         }
 
-        private static UserProfileDto CreateUserProfileDto(Guid userKey, string roleType)
-        {
-            var memberInfo = new BasicMemberInfo
-            {
+        private static UserProfileDto CreateUserProfileDto(Guid userKey, string roleType) {
+            var memberInfo = new BasicMemberInfo {
                 Key = userKey,
                 State = UserState.Active,
-                Roles = new List<RoleDto>
-                {
-                    new RoleDto {RoleType = roleType}
+                Roles = new List<RoleDto> {
+                    new RoleDto {RoleType = Enumeration.FromName<RoleType>(roleType)}
                 }
             };
 

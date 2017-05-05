@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.DTOs;
+using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.Attributes;
 using Lx.Utilities.Contract.Infrastructure.Common;
 using Lx.Utilities.Contract.Infrastructure.DTOs;

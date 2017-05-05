@@ -6,6 +6,7 @@ using IdentityModel.Client;
 using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.Config;
 using Lx.Utilities.Contract.Authentication.DTOs;
+using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Caching;
 
 namespace Lx.Utilities.Services.Authentication

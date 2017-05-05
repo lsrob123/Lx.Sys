@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Security.Claims;
 using Lx.Utilities.Contract.Authentication;
+using Lx.Utilities.Contract.Authentication.Interfaces;
 
 namespace Lx.Utilities.Services.Authentication
 {

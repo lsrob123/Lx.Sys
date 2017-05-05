@@ -1,3 +1,4 @@
+using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Contract.Authentication.DTOs

@@ -2,8 +2,8 @@ namespace Lx.Utilities.Contract.Authentication.Interfaces
 {
     public interface IRoleProcess
     {
-        string Name { get; set; }
-        string Target { get; set; }
-        bool IsDenied { get; set; }
+        string Name { get;  }
+        string Target { get; }
+        bool IsDenied { get; }
     }
 }

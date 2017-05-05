@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.Config;
+using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Logging;
 using Microsoft.Owin;
 

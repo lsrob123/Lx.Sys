@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.Config;
+using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Services.Authentication;
 using Owin;

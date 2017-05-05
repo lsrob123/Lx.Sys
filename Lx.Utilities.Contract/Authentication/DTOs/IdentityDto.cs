@@ -9,17 +9,14 @@ using Lx.Utilities.Contract.Authentication.Extensions;
 using Lx.Utilities.Contract.Membership;
 using Newtonsoft.Json;
 
-namespace Lx.Utilities.Contract.Authentication.DTOs
-{
-    public class IdentityDto : IIdentityDto
-    {
+namespace Lx.Utilities.Contract.Authentication.DTOs {
+    public class IdentityDto : IIdentityDto {
         public ICollection<RoleDto> Roles { get; set; }
         public UserState State { get; set; }
         public string AvatarUriDefault { get; set; }
         public string AvatarUriRelative { get; set; }
 
-        public void FromClaims(IEnumerable<Claim> claims, Func<string, IMemberInfo> extractMemberInfo)
-        {
+        public void FromClaims(IEnumerable<Claim> claims, Func<string, IMemberInfo> extractMemberInfo) {
             OriginalClaims = claims?.ToList();
             if ((OriginalClaims == null) || !OriginalClaims.Any())
                 return;
@@ -44,19 +41,16 @@ namespace Lx.Utilities.Contract.Authentication.DTOs
             var memberInfo = extractMemberInfo?.Invoke(Profile);
 
             var rolesInClaims = OriginalClaims.GetRoles() ?? new List<RoleDto>();
-            if (memberInfo == null)
-            {
+            if (memberInfo == null) {
                 State = UserState.MemberInfoNotFound;
                 Roles = rolesInClaims;
-            }
-            else
-            {
+            } else {
                 State = memberInfo.State;
-                var roles = memberInfo.Roles?.ToDictionary(x => x.RoleType) ?? new Dictionary<string, RoleDto>();
+                var roles = memberInfo.Roles?.ToDictionary(x => x.RoleType.Name) ?? new Dictionary<string, RoleDto>();
                 // ReSharper disable once LoopCanBePartlyConvertedToQuery
                 foreach (var role in rolesInClaims)
-                    if (!roles.ContainsKey(role.RoleType))
-                        roles.Add(role.RoleType, role);
+                    if (!roles.ContainsKey(role.RoleType.Name))
+                        roles.Add(role.RoleType.Name, role);
                 Roles = roles.Values.ToList();
             }
         }
@@ -75,8 +69,8 @@ namespace Lx.Utilities.Contract.Authentication.DTOs
         [JsonIgnore]
         public bool IsAdmin =>
             (Roles != null) && Roles.Any(x =>
-                !string.IsNullOrWhiteSpace(x.RoleType) &&
-                x.RoleType.Equals(RoleTypeName.Admin, StringComparison.OrdinalIgnoreCase));
+                !string.IsNullOrWhiteSpace(x.RoleType.Name) &&
+                x.RoleType.Name.Equals(RoleTypeName.Admin, StringComparison.OrdinalIgnoreCase));
 
         public string Email { get; set; }
         public string VerifiedEmail { get; set; }

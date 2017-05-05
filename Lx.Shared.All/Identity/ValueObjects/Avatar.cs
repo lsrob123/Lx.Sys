@@ -11,7 +11,7 @@ namespace Lx.Shared.All.Identity.ValueObjects
         public string UriRelative { get; protected set; }
 
         [StringLength(200)]
-        public string UriAbsoluteDefault { get; protected set; }
+        public string UriDefault { get; protected set; }
 
         [StringLength(500)]
         public string Description { get; protected set; }

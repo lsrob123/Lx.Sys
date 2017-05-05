@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Lx.Utilities.Contract.Authentication.DTOs;
 
-namespace Lx.Utilities.Contract.Authentication
+namespace Lx.Utilities.Contract.Authentication.Interfaces
 {
     public interface IOAuthHelper
     {

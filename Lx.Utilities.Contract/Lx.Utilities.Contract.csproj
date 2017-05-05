@@ -90,6 +90,10 @@
     <Compile Include="Authentication\DTOs\IHasOAuthLoginClient.cs" />
     <Compile Include="Authentication\DTOs\IIdentityDto.cs" />
     <Compile Include="Authentication\Config\IIdentityServiceConfig.cs" />
+    <Compile Include="Authentication\Interfaces\IRole.cs" />
+    <Compile Include="Authentication\Entities\Role.cs" />
+    <Compile Include="Authentication\Entities\RoleProcess.cs" />
+    <Compile Include="Authentication\Enumerations\RoleType.cs" />
     <Compile Include="Authentication\Interfaces\IOAuthClientService.cs" />
     <Compile Include="Authentication\Interfaces\IRoleProcess.cs" />
     <Compile Include="Authentication\DTOs\RefreshTokensRequest.cs" />
@@ -248,7 +252,9 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Authentication\ValueObjects\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

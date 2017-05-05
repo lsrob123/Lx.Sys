@@ -1,4 +1,5 @@
 ﻿using Lx.Utilities.Contract.Authentication;
+using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;

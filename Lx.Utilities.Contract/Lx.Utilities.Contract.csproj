@@ -142,6 +142,10 @@
     <Compile Include="Authentication\Enumerations\PriorUserState.cs" />
     <Compile Include="Authentication\Enumerations\UserState.cs" />
     <Compile Include="Infrastructure\Api\IMediatedApi.cs" />
+    <Compile Include="Tagging\ITag.cs" />
+    <Compile Include="Tagging\TagBase.cs" />
+    <Compile Include="Tagging\TagDto.cs" />
+    <Compile Include="Tagging\TagType.cs" />
     <Compile Include="Web\IWebEndpointSettings.cs" />
     <Compile Include="Infrastructure\Common\Casing.cs" />
     <Compile Include="Infrastructure\Common\Enumeration.cs" />

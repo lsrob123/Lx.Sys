@@ -1,31 +1,46 @@
-namespace Lx.Identity.Persistence.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using System.Data.Entity.Migrations;
+using System.Linq;
+using Lx.Identity.Persistence.EF;
+using Lx.Identity.Persistence.Seeding;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Lx.Identity.Persistence.EF.IdentityDbContext>
-    {
-        public Configuration()
-        {
+namespace Lx.Identity.Persistence.Migrations {
+    internal sealed class Configuration : DbMigrationsConfiguration<IdentityDbContext> {
+        public Configuration() {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Lx.Identity.Persistence.EF.IdentityDbContext context)
-        {
-            //  This method will be called after migrating to the latest version.
+        protected override void Seed(IdentityDbContext context) {
+            foreach (var user in UserSeedCollections.Users())
+                if (!context.Users.Any(x => x.Key == user.Key))
+                    context.Users.AddOrUpdate(user);
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            foreach (var userProfile in UserSeedCollections.UserProfiles())
+                if (!context.UserProfiles.Any(x => x.Key == userProfile.Key))
+                    context.UserProfiles.AddOrUpdate(userProfile);
+
+            foreach (var client in ClientSeedCollections.Clients())
+                if (!context.Clients.Any(x => x.Key == client.Key))
+                    context.Clients.AddOrUpdate(client);
+
+            foreach (var clientScope in ClientSeedCollections.ClientScopes())
+                if (!context.ClientScopes.Any(x => x.Key == clientScope.Key))
+                    context.ClientScopes.AddOrUpdate(clientScope);
+
+            foreach (var clientSecret in ClientSeedCollections.ClientSecrets())
+                if (!context.ClientSecrets.Any(x => x.Key == clientSecret.Key))
+                    context.ClientSecrets.AddOrUpdate(clientSecret);
+
+            foreach (var scope in ScopeSeedCollections.Scopes())
+                if (!context.Scopes.Any(x => x.Key == scope.Key))
+                    context.Scopes.AddOrUpdate(scope);
+
+            foreach (var scopeClaim in ScopeSeedCollections.ScopeClaims())
+                if (!context.ScopeClaims.Any(x => x.Key == scopeClaim.Key))
+                    context.ScopeClaims.AddOrUpdate(scopeClaim);
+
+            foreach (var scopeSecret in ScopeSeedCollections.ScopeSecrets())
+                if (!context.ScopeSecrets.Any(x => x.Key == scopeSecret.Key))
+                    context.ScopeSecrets.AddOrUpdate(scopeSecret);
         }
     }
 }

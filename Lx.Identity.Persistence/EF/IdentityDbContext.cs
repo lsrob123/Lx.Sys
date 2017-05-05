@@ -15,21 +15,21 @@ namespace Lx.Identity.Persistence.EF
             Configuration.ProxyCreationEnabled = false;
         }
 
-        protected DbSet<User> Users { get; set; }
-        protected DbSet<UserProfile> UserProfiles { get; set; }
-        protected DbSet<Client> Clients { get; set; }
-        protected DbSet<ClientClaim> ClientClaims { get; set; }
-        protected DbSet<ClientCorsOrigin> ClientCorsOrigins { get; set; }
-        protected DbSet<ClientCustomGrantType> ClientCustomGrantTypes { get; set; }
-        protected DbSet<ClientIdPRestriction> ClientIdPRestrictions { get; set; }
-        protected DbSet<ClientPostLogoutRedirectUri> ClientPostLogoutRedirectUris { get; set; }
-        protected DbSet<ClientRedirectUri> ClientRedirectUris { get; set; }
-        protected DbSet<ClientScope> ClientScopes { get; set; }
-        protected DbSet<ClientSecret> ClientSecrets { get; set; }
-        protected DbSet<Scope> Scopes { get; set; }
-        protected DbSet<ScopeClaim> ScopeClaims { get; set; }
-        protected DbSet<ScopeSecret> ScopeSecrets { get; set; }
-        protected DbSet<Consent> Consents { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<ClientClaim> ClientClaims { get; set; }
+        public DbSet<ClientCorsOrigin> ClientCorsOrigins { get; set; }
+        public DbSet<ClientCustomGrantType> ClientCustomGrantTypes { get; set; }
+        public DbSet<ClientIdPRestriction> ClientIdPRestrictions { get; set; }
+        public DbSet<ClientPostLogoutRedirectUri> ClientPostLogoutRedirectUris { get; set; }
+        public DbSet<ClientRedirectUri> ClientRedirectUris { get; set; }
+        public DbSet<ClientScope> ClientScopes { get; set; }
+        public DbSet<ClientSecret> ClientSecrets { get; set; }
+        public DbSet<Scope> Scopes { get; set; }
+        public DbSet<ScopeClaim> ScopeClaims { get; set; }
+        public DbSet<ScopeSecret> ScopeSecrets { get; set; }
+        public DbSet<Consent> Consents { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

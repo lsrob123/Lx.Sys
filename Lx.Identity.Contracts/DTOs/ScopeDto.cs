@@ -6,6 +6,7 @@ namespace Lx.Identity.Contracts.DTOs
 {
     public class ScopeDto : IScope
     {
+        public Guid Key { get; set; }
         public ICollection<ScopeClaimDto> ScopeClaims { get; set; }
         public ICollection<ScopeSecretDto> ScopeSecrets { get; set; }
         public bool Enabled { get; set; }
@@ -21,6 +22,5 @@ namespace Lx.Identity.Contracts.DTOs
         public bool AllowUnrestrictedIntrospection { get; set; }
         public DateTimeOffset? TimeCreated { get; set; }
         public DateTimeOffset? TimeModified { get; set; }
-        public Guid Key { get; set; }
     }
 }

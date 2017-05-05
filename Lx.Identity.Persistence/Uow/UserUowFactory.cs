@@ -142,7 +142,7 @@ namespace Lx.Identity.Persistence.Uow
                 CacheKeyHelper.GetCacheKey<UserDto>(userDto.MobileNumber.LocalNumberWithAreaCodeInDigits), userDto);
 
             var userUpdatedEvent = new UserUpdatedEvent {UpdatedUser = userDto};
-            var userProfile = GetUserProfile(userDto.Key, UserProfileConfig.Originator);
+            var userProfile = GetUserProfile(userDto.Key, UserProfileConfig.UserProfileOriginator);
             if (!string.IsNullOrWhiteSpace(userProfile?.Body))
             {
                 var basicMemberInfo = Serializer.Deserialize<BasicMemberInfo>(userProfile.Body);

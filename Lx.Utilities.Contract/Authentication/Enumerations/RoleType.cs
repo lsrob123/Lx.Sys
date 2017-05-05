@@ -9,12 +9,13 @@ namespace Lx.Utilities.Contract.Authentication.Enumerations {
         protected RoleType(int value, string name) : base(value, name) {}
         protected RoleType() {}
         public static RoleType Unknown => new RoleType(0, RoleTypeName.Unknown);
-        public static RoleType Admin => new RoleType(10, RoleTypeName.Admin);
+        public static RoleType BasicMember => new RoleType(10, RoleTypeName.BasicMember);
+        public static RoleType Admin => new RoleType(20, RoleTypeName.Admin);
 
         public static RoleType FromClaim(Claim claim) {
             return !claim.Type.Equals(ClaimType.Role, StringComparison.OrdinalIgnoreCase)
                 ? null
-                : Enumeration.FromName<RoleType>(claim.Type);
+                : FromName<RoleType>(claim.Type);
         }
     }
 }

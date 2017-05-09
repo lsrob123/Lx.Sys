@@ -30,5 +30,9 @@ namespace Lx.Utilities.Contract.Infrastructure.Domain
         {
             TimeCreated = timeCreated;
         }
+
+        public void SetTimeModified(DateTimeOffset? timeModified) {
+            TimeModified = timeModified;
+        }
     }
 }

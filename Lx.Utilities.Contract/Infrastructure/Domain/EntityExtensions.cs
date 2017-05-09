@@ -20,15 +20,15 @@ namespace Lx.Utilities.Contract.Infrastructure.Domain {
             return entity;
         }
 
-        public static TEntity WithTimeCreated<TEntity>(this TEntity entity, DateTimeOffset? timeCreated = null)
+        public static TEntity WithTimeCreated<TEntity>(this TEntity entity, DateTimeOffset? timeCreated)
             where TEntity : IEntity {
-            entity.SetTimeCreated(timeCreated ?? DateTimeOffset.UtcNow);
+            entity.SetTimeCreated(timeCreated);
             return entity;
         }
 
-        public static TEntity WithTimeModified<TEntity>(this TEntity entity, DateTimeOffset? timeModified = null)
+        public static TEntity WithTimeModified<TEntity>(this TEntity entity, DateTimeOffset? timeModified)
             where TEntity : IEntity {
-            entity.SetTimeModified(timeModified ?? DateTimeOffset.UtcNow);
+            entity.SetTimeModified(timeModified);
             return entity;
         }
     }

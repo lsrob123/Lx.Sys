@@ -26,13 +26,21 @@ namespace Lx.Utilities.Contract.Infrastructure.Domain {
             return entity;
         }
 
-        public static TEntity AsNewEntity<TEntity>(this TEntity entity)
+        public static TEntity AsNewEntity<TEntity>(this TEntity entity, bool enforceCurrentTimeToTimeCreated = true,
+            bool enforceCurrentTimeToTimeModified = true)
             where TEntity : IEntity {
-            if (entity.Key == Guid.Empty)
-                entity.EnsureValidKey();
+            entity.EnsureValidKey();
+            if (enforceCurrentTimeToTimeCreated)
+                entity.WithTimeCreated(DateTimeOffset.UtcNow);
+            else
+                entity.WithTimeCreated(entity.TimeCreated ?? DateTimeOffset.UtcNow);
 
-            return entity.WithTimeCreated(entity.TimeCreated ?? DateTimeOffset.UtcNow)
-                .WithTimeModified(entity.TimeModified ?? DateTimeOffset.UtcNow);
+            if (enforceCurrentTimeToTimeModified)
+                entity.WithTimeModified(DateTimeOffset.UtcNow);
+            else
+                entity.WithTimeModified(entity.TimeModified ?? DateTimeOffset.UtcNow);
+
+            return entity;
         }
     }
 }

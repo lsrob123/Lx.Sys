@@ -14,12 +14,6 @@ namespace Lx.Utilities.Contract.Infrastructure.Domain {
             return entity;
         }
 
-        public static TEntity WithValidKey<TEntity>(this TEntity entity)
-            where TEntity : IEntity {
-            entity.EnsureValidKey();
-            return entity;
-        }
-
         public static TEntity WithTimeCreated<TEntity>(this TEntity entity, DateTimeOffset? timeCreated)
             where TEntity : IEntity {
             entity.SetTimeCreated(timeCreated);
@@ -30,6 +24,15 @@ namespace Lx.Utilities.Contract.Infrastructure.Domain {
             where TEntity : IEntity {
             entity.SetTimeModified(timeModified);
             return entity;
+        }
+
+        public static TEntity AsNewEntity<TEntity>(this TEntity entity)
+            where TEntity : IEntity {
+            if (entity.Key == Guid.Empty)
+                entity.EnsureValidKey();
+
+            return entity.WithTimeCreated(entity.TimeCreated ?? DateTimeOffset.UtcNow)
+                .WithTimeModified(entity.TimeModified ?? DateTimeOffset.UtcNow);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Lx.Identity.Persistence.Uow
             ScopeDto updatedScopeDto = null;
             Execute(uow =>
             {
-                var scope = uow.Store.AddOrUpdate(MappingService.Map<Scope>(scopeDto).WithValidKey(),
+                var scope = uow.Store.AddOrUpdate(MappingService.Map<Scope>(scopeDto).AsNewEntity(),
                     x => x.Name == scopeDto.Name);
                 updatedScopeDto = MappingService.Map<ScopeDto>(scope);
 
@@ -136,7 +136,7 @@ namespace Lx.Identity.Persistence.Uow
 
         private ClientDto AddOrUpdateClient(IdentityUow uow, ClientDto clientDto)
         {
-            var client = MappingService.Map<Client>(clientDto).WithValidKey();
+            var client = MappingService.Map<Client>(clientDto).AsNewEntity();
 
             client = uow.Store.AddOrUpdate(client, x => x.ClientId == clientDto.ClientId);
 

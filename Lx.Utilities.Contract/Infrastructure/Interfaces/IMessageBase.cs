@@ -1,6 +1,3 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Interfaces
-{
-    public interface IMessageBase
-    {
-    }
+﻿namespace Lx.Utilities.Contract.Infrastructure.Interfaces {
+    public interface IMessageBase { }
 }

@@ -4,10 +4,8 @@ using System.Security.Claims;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Membership;
 
-namespace Lx.Utilities.Contract.Authentication.DTOs
-{
-    public interface IIdentityDto
-    {
+namespace Lx.Utilities.Contract.Authentication.DTOs {
+    public interface IIdentityDto {
         string AvatarUriDefault { get; set; }
         string AvatarUriRelative { get; set; }
         UserState State { get; set; }

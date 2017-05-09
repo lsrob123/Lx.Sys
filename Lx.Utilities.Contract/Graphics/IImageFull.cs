@@ -1,7 +1,5 @@
-﻿namespace Lx.Utilities.Contract.Graphics
-{
-    public interface IImageFull : IImageSafe
-    {
+﻿namespace Lx.Utilities.Contract.Graphics {
+    public interface IImageFull : IImageSafe {
         string FullFilePath { get; }
     }
 }

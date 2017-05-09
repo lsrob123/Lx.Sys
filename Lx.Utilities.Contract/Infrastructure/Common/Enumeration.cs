@@ -9,7 +9,7 @@ using Lx.Utilities.Contract.Infrastructure.Domain;
 namespace Lx.Utilities.Contract.Infrastructure.Common {
     [Serializable]
     public abstract class Enumeration : IComparable, IValueObject {
-        protected Enumeration() {}
+        protected Enumeration() { }
 
         protected Enumeration(int value, string name) {
             SetData(value, name);

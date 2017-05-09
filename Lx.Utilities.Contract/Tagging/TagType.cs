@@ -2,7 +2,7 @@
 
 namespace Lx.Utilities.Contract.Tagging {
     public class TagType : Enumeration {
-        protected TagType() {}
+        protected TagType() { }
 
         protected TagType(int value, string name, string sign) : base(value, name) {
             Sign = sign;

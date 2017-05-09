@@ -2,10 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
-namespace Lx.Utilities.Contract.Graphics
-{
-    public class ImageValueObject : IValueObject, IImageFull
-    {
+namespace Lx.Utilities.Contract.Graphics {
+    public class ImageValueObject : IValueObject, IImageFull {
         public Guid Key { get; protected set; }
 
         [StringLength(200)]

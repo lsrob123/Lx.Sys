@@ -1,13 +1,9 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Mediator
-{
+namespace Lx.Utilities.Contract.Mediator {
     public abstract class MessageHandlerBase<TMessage> : IMediatorMessageHandler<TMessage>
-        where TMessage : class, IMessageBase
-    {
-        protected MessageHandlerBase(IMediator mediator = null)
-        {
+        where TMessage : class, IMessageBase {
+        protected MessageHandlerBase(IMediator mediator = null) {
             if (mediator == null)
                 mediator = Mediator.Default;
 

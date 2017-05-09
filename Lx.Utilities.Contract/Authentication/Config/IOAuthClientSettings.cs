@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace Lx.Utilities.Contract.Authentication.Config
-{
-    public interface IOAuthClientSettings
-    {
+namespace Lx.Utilities.Contract.Authentication.Config {
+    public interface IOAuthClientSettings {
         string DefaultClientId { get; }
         string DefaultClientSecret { get; }
         string DefaultScopes { get; }

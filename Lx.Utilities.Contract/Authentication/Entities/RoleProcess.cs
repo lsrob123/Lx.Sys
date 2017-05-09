@@ -2,10 +2,8 @@
 using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
-namespace Lx.Utilities.Contract.Authentication.Entities
-{
-    public class RoleProcess : EntityBase, IRoleProcess
-    {
+namespace Lx.Utilities.Contract.Authentication.Entities {
+    public class RoleProcess : EntityBase, IRoleProcess {
         [StringLength(50)]
         public string Name { get; protected set; }
 
@@ -14,8 +12,6 @@ namespace Lx.Utilities.Contract.Authentication.Entities
 
         public bool IsDenied { get; protected set; }
 
-        public override void AssignDefaultValuesToComplexPropertiesIfNull()
-        {
-        }
+        public override void AssignDefaultValuesToComplexPropertiesIfNull() { }
     }
 }

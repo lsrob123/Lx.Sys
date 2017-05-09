@@ -5,9 +5,9 @@ using Lx.Utilities.Contract.Infrastructure.Common;
 
 namespace Lx.Utilities.Contract.Authentication.Enumerations {
     public class RoleType : Enumeration {
-        protected RoleType(Enumeration other) : base(other) {}
-        protected RoleType(int value, string name) : base(value, name) {}
-        protected RoleType() {}
+        protected RoleType(Enumeration other) : base(other) { }
+        protected RoleType(int value, string name) : base(value, name) { }
+        protected RoleType() { }
         public static RoleType Unknown => new RoleType(0, RoleTypeName.Unknown);
         public static RoleType BasicMember => new RoleType(10, RoleTypeName.BasicMember);
         public static RoleType Admin => new RoleType(20, RoleTypeName.Admin);

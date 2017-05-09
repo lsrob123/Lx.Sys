@@ -1,7 +1,5 @@
-﻿namespace Lx.Utilities.Contract.Authentication.Constants
-{
-    public static class ClaimType
-    {
+﻿namespace Lx.Utilities.Contract.Authentication.Constants {
+    public static class ClaimType {
         public const string Subject = "sub",
             IsAuthorized = "is_authorized",
             Profile = "profile",

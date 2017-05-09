@@ -1,7 +1,5 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Interfaces
-{
-    public interface IAddress : IVerified
-    {
+﻿namespace Lx.Utilities.Contract.Infrastructure.Interfaces {
+    public interface IAddress : IVerified {
         string AddressLine1 { get; }
         string AddressLine2 { get; }
         string CityOrSuburb { get; }

@@ -1,14 +1,11 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.ServiceBus;
 
-namespace Lx.Utilities.Contract.Infrastructure.Api
-{
+namespace Lx.Utilities.Contract.Infrastructure.Api {
     /// <summary>
     ///     IMediatedApi
     /// </summary>
-    public interface IMediatedApi
-    {
+    public interface IMediatedApi {
         /// <summary>
         ///     Send request to bus to start some process.
         /// </summary>

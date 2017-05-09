@@ -5,7 +5,7 @@ using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Contract.Authentication.DTOs {
     public class RoleDto : IDto, IRole {
-        public RoleType RoleType { get; set; }
         public ICollection<RoleProcessDto> RoleProcesses { get; set; }
+        public RoleType RoleType { get; set; }
     }
 }

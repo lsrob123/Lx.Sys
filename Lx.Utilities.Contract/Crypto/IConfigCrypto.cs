@@ -1,10 +1,8 @@
-﻿namespace Lx.Utilities.Contract.Crypto
-{
+﻿namespace Lx.Utilities.Contract.Crypto {
     /// <summary>
     ///     For crypto config for PBKDF2 algorithm
     /// </summary>
-    public interface IConfigCrypto
-    {
+    public interface IConfigCrypto {
         /// <summary>
         ///     Salt size in bytes
         /// </summary>

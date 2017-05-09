@@ -1,16 +1,10 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Common;
 
-namespace Lx.Utilities.Contract.Authentication.Enumerations
-{
-    public class VerificationPurpose : Enumeration
-    {
-        protected VerificationPurpose(int value, string name) : base(value, name)
-        {
-        }
+namespace Lx.Utilities.Contract.Authentication.Enumerations {
+    public class VerificationPurpose : Enumeration {
+        protected VerificationPurpose(int value, string name) : base(value, name) { }
 
-        protected VerificationPurpose()
-        {
-        }
+        protected VerificationPurpose() { }
 
         public static VerificationPurpose Nothing => new VerificationPurpose(10,
             nameof(Nothing));

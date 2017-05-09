@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 
 namespace Lx.Utilities.Contract.Infrastructure.DTOs {
     public class PhoneNumberDto : IDto, IPhoneNumber {
+        public string LocalNumberWithAreaCodeInDigits => this.GetLocalNumberInDigits();
         public string LocalNumberWithAreaCode { get; set; }
         public int? CountryCode { get; set; }
         public string CountryName { get; set; }
@@ -13,8 +14,5 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs {
         [IgnoreDataMember]
         [JsonIgnore]
         public string FullNumber => this.GetFullNumber();
-
-        public string LocalNumberWithAreaCodeInDigits => this.GetLocalNumberInDigits();
-
     }
 }

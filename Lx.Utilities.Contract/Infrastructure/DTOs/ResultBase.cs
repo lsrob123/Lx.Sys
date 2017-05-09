@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Infrastructure.DTOs
-{
-    public abstract class ResultBase : IResultBase, IHasInstanceKey
-    {
-        protected ResultBase()
-        {
+namespace Lx.Utilities.Contract.Infrastructure.DTOs {
+    public abstract class ResultBase : IResultBase, IHasInstanceKey {
+        protected ResultBase() {
             ServiceReferences = new List<string>();
             InstanceKey = Guid.NewGuid();
         }
@@ -21,38 +18,33 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs
         public string OriginatorConnection { get; set; }
         public ICollection<string> ServiceReferences { get; set; }
 
-        public virtual void EnsureSecurityForClientSide()
-        {
+        public virtual void EnsureSecurityForClientSide() {
             CleanUpForClientSide();
             EraseShareGroupInfoForClientSide();
         }
 
-        public virtual ICollection<string> ShareGroups()
-        {
+        public virtual ICollection<string> ShareGroups() {
             return null;
         }
 
         public abstract void EraseShareGroupInfoForClientSide();
 
-        protected virtual void CleanUpForClientSide()
-        {
+        protected virtual void CleanUpForClientSide() {
             Result?.SetExceptions(null);
             ServiceReferences = null;
             OriginatorConnection = null;
         }
 
-        protected virtual ICollection<string> MakeShareGroups(IEnumerable<string> shareGroups)
-        {
+        protected virtual ICollection<string> MakeShareGroups(IEnumerable<string> shareGroups) {
             var list = shareGroups?.ToList();
-            if ((list == null) || !list.Any() || string.IsNullOrWhiteSpace(OriginatorGroup))
+            if (list == null || !list.Any() || string.IsNullOrWhiteSpace(OriginatorGroup))
                 return list;
 
             list = list.Where(x => !x.Equals(OriginatorGroup, StringComparison.OrdinalIgnoreCase)).ToList();
             return list;
         }
 
-        protected virtual ICollection<string> MakeShareGroups(params object[] shareGroups)
-        {
+        protected virtual ICollection<string> MakeShareGroups(params object[] shareGroups) {
             return MakeShareGroups(shareGroups?.Select(x => x.ToString()));
         }
     }

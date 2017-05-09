@@ -1,16 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
-namespace Lx.Utilities.Contract.Infrastructure.ValueObjects
-{
-    public class PersonName : IValueObject
-    {
-        public PersonName()
-        {
-        }
+namespace Lx.Utilities.Contract.Infrastructure.ValueObjects {
+    public class PersonName : IValueObject {
+        public PersonName() { }
 
-        public PersonName(string familyName, string givenName, string middleName = null)
-        {
+        public PersonName(string familyName, string givenName, string middleName = null) {
             FamilyName = familyName;
             GivenName = givenName;
             MiddleName = middleName;

@@ -1,7 +1,5 @@
-﻿namespace Lx.Utilities.Contract.Authentication.Interfaces
-{
-    public interface IOAuthLogin : IOAuthLoginClient
-    {
+﻿namespace Lx.Utilities.Contract.Authentication.Interfaces {
+    public interface IOAuthLogin : IOAuthLoginClient {
         string GrantType { get; }
         string Scopes { get; }
     }

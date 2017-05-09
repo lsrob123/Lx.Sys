@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace Lx.Utilities.Contract.Infrastructure.Interfaces
-{
-    public interface IHasSagaId
-    {
+namespace Lx.Utilities.Contract.Infrastructure.Interfaces {
+    public interface IHasSagaId {
         /// <summary>
         ///     Saga look up key
         /// </summary>

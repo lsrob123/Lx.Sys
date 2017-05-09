@@ -1,7 +1,5 @@
-namespace Lx.Utilities.Contract.ServiceBus
-{
-    public interface IBusClient
-    {
+namespace Lx.Utilities.Contract.ServiceBus {
+    public interface IBusClient {
         //string EndpointName { get; }
 
         void Send<T>(T busCommand, string endpointNameOrQueueName = null)

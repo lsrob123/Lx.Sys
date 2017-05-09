@@ -1,6 +1,3 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Interfaces
-{
-    public interface ICommand : IMessage
-    {
-    }
+﻿namespace Lx.Utilities.Contract.Infrastructure.Interfaces {
+    public interface ICommand : IMessage { }
 }

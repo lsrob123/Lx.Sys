@@ -2,14 +2,12 @@
 using System.Transactions;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 
-namespace Lx.Utilities.Contract.Persistence
-{
+namespace Lx.Utilities.Contract.Persistence {
     /// <summary>
     ///     Provides interface for a generic UnitOfWork factory
     /// </summary>
     /// <typeparam name="T">A UnitOfWork type which implements <see cref="IUnitOfWork" /></typeparam>
-    public interface IUnitOfWorkFactory<out T> where T : IUnitOfWork
-    {
+    public interface IUnitOfWorkFactory<out T> where T : IUnitOfWork {
         /// <summary>
         ///     Method for injecting custom action which will be executed within the UnitOfWork's disposable scope, eg. scope with
         ///     DbContext

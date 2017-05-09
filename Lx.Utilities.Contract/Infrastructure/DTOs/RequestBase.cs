@@ -6,12 +6,9 @@ using Lx.Utilities.Contract.Infrastructure.Extensions;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.ServiceBus;
 
-namespace Lx.Utilities.Contract.Infrastructure.DTOs
-{
-    public abstract class RequestBase : IRequest, IBusCommand
-    {
-        protected RequestBase()
-        {
+namespace Lx.Utilities.Contract.Infrastructure.DTOs {
+    public abstract class RequestBase : IRequest, IBusCommand {
+        protected RequestBase() {
             ServiceReferences = new List<string>();
         }
 
@@ -41,16 +38,14 @@ namespace Lx.Utilities.Contract.Infrastructure.DTOs
         public Guid Sid { get; set; }
 
         public virtual TResponse CreateResponse<TResponse>(ProcessResult processResult = null)
-            where TResponse : ResponseBase, new()
-        {
+            where TResponse : ResponseBase, new() {
             var response = new TResponse()
                 .LinkTo(this)
                 .WithProcessResult(processResult);
             return response;
         }
 
-        public TEvent CreateEvent<TEvent>(ProcessResult processResult = null) where TEvent : EventBase, new()
-        {
+        public TEvent CreateEvent<TEvent>(ProcessResult processResult = null) where TEvent : EventBase, new() {
             var response = new TEvent()
                 .LinkTo(this)
                 .WithProcessResult(processResult);

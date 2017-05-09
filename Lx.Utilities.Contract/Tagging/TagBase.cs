@@ -4,7 +4,6 @@ using Lx.Utilities.Contract.Infrastructure.Domain;
 
 namespace Lx.Utilities.Contract.Tagging {
     public abstract class TagBase : EntityBase, ITag {
-
         public abstract string Scope { get; }
         public Guid OwnerObjectKey { get; protected set; }
 

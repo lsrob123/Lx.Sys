@@ -1,9 +1,7 @@
 ﻿using Lx.Utilities.Contract.Infrastructure.Common;
 
-namespace Lx.Utilities.Contract.Infrastructure.Enumerations
-{
-    public class ProcessResultType : Enumeration
-    {
+namespace Lx.Utilities.Contract.Infrastructure.Enumerations {
+    public class ProcessResultType : Enumeration {
         public static ProcessResultType Unknown = new ProcessResultType(0, nameof(Unknown));
         public static ProcessResultType Continue = new ProcessResultType(100, nameof(Continue));
         public static ProcessResultType SwitchingProtocols = new ProcessResultType(101, nameof(SwitchingProtocols));
@@ -47,7 +45,10 @@ namespace Lx.Utilities.Contract.Infrastructure.Enumerations
         public static ProcessResultType Gone = new ProcessResultType(410, nameof(Gone));
         public static ProcessResultType LengthRequired = new ProcessResultType(411, nameof(LengthRequired));
         public static ProcessResultType PreconditionFailed = new ProcessResultType(412, nameof(PreconditionFailed));
-        public static ProcessResultType RequestEntityTooLarge = new ProcessResultType(413, nameof(RequestEntityTooLarge));
+
+        public static ProcessResultType RequestEntityTooLarge =
+            new ProcessResultType(413, nameof(RequestEntityTooLarge));
+
         public static ProcessResultType RequestUriTooLong = new ProcessResultType(414, nameof(RequestUriTooLong));
         public static ProcessResultType UnsupportedMediaType = new ProcessResultType(415, nameof(UnsupportedMediaType));
 
@@ -65,13 +66,10 @@ namespace Lx.Utilities.Contract.Infrastructure.Enumerations
         public static ProcessResultType HttpVersionNotSupported = new ProcessResultType(505,
             nameof(HttpVersionNotSupported));
 
-        public ProcessResultType()
-        {
-        }
+        public ProcessResultType() { }
 
         public ProcessResultType(int value, string name, bool isSuccess = false)
-            : base(value, name)
-        {
+            : base(value, name) {
             IsSuccess = isSuccess;
         }
 

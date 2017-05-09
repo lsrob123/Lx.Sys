@@ -1,12 +1,9 @@
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Infrastructure.Extensions
-{
-    public static class PaginationExtensions
-    {
+namespace Lx.Utilities.Contract.Infrastructure.Extensions {
+    public static class PaginationExtensions {
         public static TWithPagination EnsureValidPageNumberAndSize<TWithPagination>(this TWithPagination ownerObject,
-            int defaultPageSize = 20) where TWithPagination : IWithPagination
-        {
+            int defaultPageSize = 20) where TWithPagination : IWithPagination {
             if (ownerObject.PageNumber == 0)
                 ownerObject.PageNumber = 1;
             if (ownerObject.PageSize == 0)
@@ -17,8 +14,7 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions
 
         public static TPaginatedList WithPaginationAndDisplayOrder<TPaginatedList>(this TPaginatedList list,
             int pageNumber, int pageSize, bool inDescendingOrder, long? itemCount = null)
-            where TPaginatedList : IWithPaginatedList
-        {
+            where TPaginatedList : IWithPaginatedList {
             list.PageNumber = pageNumber > 0 ? pageNumber : 1;
             list.PageSize = pageSize;
             list.InDescendingOrder = inDescendingOrder;
@@ -30,7 +26,7 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions
 
             list.PageCount = itemCount <= pageSize
                 ? 1
-                : (int) (itemCount.Value%pageSize == 0 ? itemCount.Value/pageSize : itemCount.Value/pageSize + 1);
+                : (int) (itemCount.Value % pageSize == 0 ? itemCount.Value / pageSize : itemCount.Value / pageSize + 1);
 
             if (list.PageNumber > list.PageCount.Value)
                 list.PageNumber = list.PageCount.Value;
@@ -39,8 +35,7 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions
         }
 
         public static TPaginatedList WithPaginationAndDisplayOrder<TPaginatedList>(this TPaginatedList list,
-            IWithPaginatedList sourceInfo) where TPaginatedList : IWithPaginatedList
-        {
+            IWithPaginatedList sourceInfo) where TPaginatedList : IWithPaginatedList {
             return list.WithPaginationAndDisplayOrder(sourceInfo.PageNumber, sourceInfo.PageSize,
                 sourceInfo.InDescendingOrder);
         }

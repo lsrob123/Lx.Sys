@@ -18,7 +18,7 @@ namespace Lx.Utilities.Contract.Authentication.DTOs {
 
         public void FromClaims(IEnumerable<Claim> claims, Func<string, IMemberInfo> extractMemberInfo) {
             OriginalClaims = claims?.ToList();
-            if ((OriginalClaims == null) || !OriginalClaims.Any())
+            if (OriginalClaims == null || !OriginalClaims.Any())
                 return;
 
             UserReference = OriginalClaims.GetClaimValue(ClaimType.Subject)?.Trim();
@@ -68,7 +68,7 @@ namespace Lx.Utilities.Contract.Authentication.DTOs {
         [IgnoreDataMember]
         [JsonIgnore]
         public bool IsAdmin =>
-            (Roles != null) && Roles.Any(x =>
+            Roles != null && Roles.Any(x =>
                 !string.IsNullOrWhiteSpace(x.RoleType.Name) &&
                 x.RoleType.Name.Equals(RoleTypeName.Admin, StringComparison.OrdinalIgnoreCase));
 

@@ -1,7 +1,5 @@
-﻿namespace Lx.Utilities.Contract.Infrastructure.Common
-{
-    public enum Casing
-    {
+﻿namespace Lx.Utilities.Contract.Infrastructure.Common {
+    public enum Casing {
         Default = 0,
         Upper = 10,
         Lower = 20,

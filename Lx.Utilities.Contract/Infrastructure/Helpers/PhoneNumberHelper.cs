@@ -3,12 +3,9 @@ using System.Linq;
 using Lx.Utilities.Contract.Infrastructure.Enumerations;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Infrastructure.Helpers
-{
-    public static class PhoneNumberHelper
-    {
-        public static string GetFullNumber(this IPhoneNumber phoneNumberObject)
-        {
+namespace Lx.Utilities.Contract.Infrastructure.Helpers {
+    public static class PhoneNumberHelper {
+        public static string GetFullNumber(this IPhoneNumber phoneNumberObject) {
             if (!phoneNumberObject.CountryCode.HasValue ||
                 string.IsNullOrWhiteSpace(phoneNumberObject.LocalNumberWithAreaCode))
                 return phoneNumberObject.LocalNumberWithAreaCode;
@@ -16,18 +13,15 @@ namespace Lx.Utilities.Contract.Infrastructure.Helpers
             return phoneNumberObject.CountryCode.Value + localNumber;
         }
 
-        public static string GetLocalNumberInDigits(this IPhoneNumber phoneNumberObject)
-        {
+        public static string GetLocalNumberInDigits(this IPhoneNumber phoneNumberObject) {
             return GetNumberInDigits(phoneNumberObject.LocalNumberWithAreaCode);
         }
 
-        public static string GetNumberInDigits(this string originalNumber)
-        {
+        public static string GetNumberInDigits(this string originalNumber) {
             if (string.IsNullOrWhiteSpace(originalNumber))
                 return originalNumber;
 
-            var localNumberDigits = new List<char>(originalNumber.Where(c =>
-            {
+            var localNumberDigits = new List<char>(originalNumber.Where(c => {
                 int digit;
                 return int.TryParse(c.ToString(), out digit);
             })).ToArray();
@@ -39,9 +33,9 @@ namespace Lx.Utilities.Contract.Infrastructure.Helpers
             return localNumber;
         }
 
-        public static PhoneDestinationType GetPhoneDestinationType(this IPhoneNumber phoneNumberObject, int? defCountryCode)
-        {
-            if (!phoneNumberObject.CountryCode.HasValue || (phoneNumberObject.CountryCode.Value == defCountryCode))
+        public static PhoneDestinationType GetPhoneDestinationType(this IPhoneNumber phoneNumberObject,
+            int? defCountryCode) {
+            if (!phoneNumberObject.CountryCode.HasValue || phoneNumberObject.CountryCode.Value == defCountryCode)
                 return PhoneDestinationType.Domestic;
             return PhoneDestinationType.International;
         }

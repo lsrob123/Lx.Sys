@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Lx.Utilities.Contract.Caching
-{
-    public interface ICacheWithHashes : ICache
-    {
+namespace Lx.Utilities.Contract.Caching {
+    public interface ICacheWithHashes : ICache {
         Task HashSetAsync(string hashKey, string itemName, string itemValue);
         Task HashSetAsync(string hashKey, IDictionary<string, string> nameValues);
         Task HashSetAsync(string hashKey, params KeyValuePair<string, string>[] nameValues);

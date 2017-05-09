@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Newtonsoft.Json;
 
-namespace Lx.Utilities.Contract.Web
-{
-    public class UploadFileInfoDto : IDto
-    {
+namespace Lx.Utilities.Contract.Web {
+    public class UploadFileInfoDto : IDto {
         [IgnoreDataMember]
         [JsonIgnore]
         public string TempFileName { get; set; }

@@ -5,10 +5,13 @@ using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
-namespace Lx.Utilities.Contract.Infrastructure.Extensions {
-    public static class RequestResponseExtensions {
+namespace Lx.Utilities.Contract.Infrastructure.Extensions
+{
+    public static class RequestResponseExtensions
+    {
         public static TRequest WithUser<TRequest>(this TRequest result, IdentityDto user)
-            where TRequest : IRequest {
+            where TRequest : IRequest
+        {
             result.User = user;
             result.OriginatorGroup = user.Key.ToString();
             return result;
@@ -16,13 +19,15 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions {
 
         public static TResult WithProcessResult<TResult>(this TResult result, ProcessResult processResult,
             string reason = null)
-            where TResult : ResultBase {
+            where TResult : ResultBase
+        {
             result.Result = processResult.WithReason(reason);
             return result;
         }
 
         public static TResult WithReason<TResult>(this TResult result, string reason)
-            where TResult : ResultBase {
+            where TResult : ResultBase
+        {
             result.Result?.WithReason(reason);
             return result;
         }
@@ -38,7 +43,8 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions {
         /// <returns></returns>
         public static TRequestKey LinkTo<TRequestKey>(this TRequestKey basicRequestKey, IBasicRequestKey other,
             string alternativeGroup = null)
-            where TRequestKey : IBasicRequestKey {
+            where TRequestKey : IBasicRequestKey
+        {
             if (other == null)
                 return basicRequestKey;
 
@@ -49,7 +55,8 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions {
             basicRequestKey.OriginatorConnection = other.OriginatorConnection;
 
             var requestKey = basicRequestKey as IRequestKey;
-            if (requestKey != null) {
+            if (requestKey != null)
+            {
                 var otherAsRequestKey = other as IRequestKey;
                 if (otherAsRequestKey != null)
                     requestKey.ServiceReferences = otherAsRequestKey.ServiceReferences;
@@ -74,7 +81,8 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions {
         /// <param name="serviceReference"></param>
         /// <returns></returns>
         public static TRequestKey AddServiceReference<TRequestKey>(this TRequestKey requestKey, string serviceReference)
-            where TRequestKey : IRequestKey {
+            where TRequestKey : IRequestKey
+        {
             if (requestKey.ServiceReferences == null)
                 requestKey.ServiceReferences = new List<string>();
 
@@ -92,12 +100,14 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions {
         /// <returns></returns>
         public static TRequestKey AddServiceReference<TRequestKey>(this TRequestKey requestKey, IHasInstanceKey service,
             string suffix = null)
-            where TRequestKey : IRequestKey {
+            where TRequestKey : IRequestKey
+        {
             requestKey.AddServiceReference(CreateServiceReference(service, suffix));
             return requestKey;
         }
 
-        private static string CreateServiceReference(IHasInstanceKey service, string suffix) {
+        private static string CreateServiceReference(IHasInstanceKey service, string suffix)
+        {
             return service.InstanceKey + (suffix ?? string.Empty);
         }
 
@@ -109,7 +119,8 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions {
         /// <param name="serviceReference"></param>
         /// <returns></returns>
         public static bool HasServiceReference<TRequestKey>(this TRequestKey requestKey, string serviceReference)
-            where TRequestKey : IRequestKey {
+            where TRequestKey : IRequestKey
+        {
             var hasServiceReference =
                 requestKey.ServiceReferences != null && requestKey.ServiceReferences.Any(
                     x => x.Equals(serviceReference, StringComparison.OrdinalIgnoreCase));
@@ -119,20 +130,16 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions {
 
         public static bool HasServiceReference<TRequestKey>(this TRequestKey requestKey, IHasInstanceKey service,
             string suffix = null)
-            where TRequestKey : IRequestKey {
+            where TRequestKey : IRequestKey
+        {
             return requestKey.HasServiceReference(CreateServiceReference(service, suffix));
         }
 
         public static TRequestKey WithOriginatorGroup<TRequestKey>(this TRequestKey requestKey, string groupName)
-            where TRequestKey : IRequestKey {
+            where TRequestKey : IRequestKey
+        {
             requestKey.OriginatorGroup = groupName;
             return requestKey;
-        }
-
-        public static TRequest LinkToUser<TRequest>(this TRequest request, IdentityDto user)
-            where TRequest : IRequest {
-            request.User = user;
-            return request;
         }
     }
 }

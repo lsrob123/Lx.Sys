@@ -107,7 +107,7 @@ namespace Lx.Utilities.Services.Web
                     ? HttpStatusCode.OK
                     : (HttpStatusCode) originalResponse.Result.Type.Value;
 
-                if ((originalResponse.Result != null) && originalResponse.Result.Type.IsSuccess)
+                if (originalResponse.Result != null && originalResponse.Result.Type.IsSuccess)
                     response = request.CreateResponse(statusCode,
                         $"{originalResponse.Result.Type.Name} with error reference {originalResponse.Result.ResultReference} encountered.");
                 else
@@ -116,75 +116,6 @@ namespace Lx.Utilities.Services.Web
             }
 
             return response;
-        }
-
-        public static async Task<UploadFileResult> ProcessUploadFilesAsync(this ApiController controller,
-            string destinationFolder, Func<string, string> getDestinationFileName = null,
-            Func<string, string> getEnforcedFileNameExtension = null, IImageProcessor imageProcessor = null)
-        {
-            var filesToBeDeleted = Directory.GetFiles(destinationFolder, SearchPatternForTempUploadFiles);
-            foreach (var fileToBeDeleted in filesToBeDeleted)
-                File.Delete(fileToBeDeleted);
-
-            var request = controller.Request;
-            if (!request.Content.IsMimeMultipartContent())
-                return new UploadFileResult()
-                    .WithProcessResult(ProcessResultType.UnsupportedMediaType, "Media type is not supported");
-
-            if (!Directory.Exists(destinationFolder))
-                Directory.CreateDirectory(destinationFolder);
-
-            var provider = new MultipartFormDataStreamProvider(destinationFolder);
-            await request.Content.ReadAsMultipartAsync(provider);
-
-            var result = new UploadFileResult
-            {
-                UploadFiles = provider.FileData
-                    .Select(x => new UploadFileInfoDto
-                    {
-                        MediaType = x.Headers.ContentType.MediaType,
-                        FileName = x.Headers.ContentDisposition.FileName.Replace("\"", string.Empty),
-                        TempFileName = x.LocalFileName
-                    }).ToList(),
-                TimeUploaded = DateTimeOffset.UtcNow
-            };
-
-            var exceptions = new List<Exception>();
-            foreach (var uploadFileInfo in result.UploadFiles)
-                try
-                {
-                    var tempFile = Path.Combine(destinationFolder, uploadFileInfo.TempFileName);
-
-                    var processedFile = tempFile;
-                    if (imageProcessor != null)
-                    {
-                        processedFile = Path.Combine(destinationFolder, Guid.NewGuid().ToString());
-                        imageProcessor.Process(tempFile, processedFile);
-                    }
-
-                    var fileName = getDestinationFileName?.Invoke(uploadFileInfo.FileName) ?? uploadFileInfo.FileName;
-                    if (getEnforcedFileNameExtension == null)
-                        uploadFileInfo.FullFilePath = Path.Combine(destinationFolder, fileName);
-                    else
-                        uploadFileInfo.FullFilePath = Path.Combine(destinationFolder,
-                            Path.GetFileNameWithoutExtension(fileName) + '.' +
-                            getEnforcedFileNameExtension(fileName).TrimStart('.'));
-
-                    if (File.Exists(uploadFileInfo.FullFilePath))
-                        File.Delete(uploadFileInfo.FullFilePath);
-
-                    File.Move(processedFile, uploadFileInfo.FullFilePath);
-                    File.Delete(processedFile);
-                }
-                catch (Exception ex)
-                {
-                    exceptions.Add(ex);
-                }
-
-            result = exceptions.Any()
-                ? result.WithProcessResult(exceptions)
-                : result.WithProcessResult(ProcessResultType.Ok);
-            return result;
         }
 
         public static async Task<HttpResponseMessage> CreateImageResponseAsync(this ApiController controller,
@@ -201,7 +132,7 @@ namespace Lx.Utilities.Services.Web
             var eTag = new EntityTagHeaderValue(fileIdntifier + timeLastWriteString);
 
             var ifModifiedSince = request.Headers.IfModifiedSince;
-            if (ifModifiedSince.HasValue && (timeLastWriteOffset > ifModifiedSince.Value))
+            if (ifModifiedSince.HasValue && timeLastWriteOffset > ifModifiedSince.Value)
                 return CreateNotModifiedResponse(request, eTag, timeLastWriteOffset);
 
             if (request.Headers.IfNoneMatch.Any(x => x.Equals(eTag)))
@@ -239,6 +170,79 @@ namespace Lx.Utilities.Services.Web
             notModifiedResponse.Headers.CacheControl = new CacheControlHeaderValue {Public = true};
             notModifiedResponse.Headers.ETag = eTag;
             notModifiedResponse.Content.Headers.LastModified = timeLastWriteOffset;
+        }
+
+        public static async Task<FormPostResult> ProcessFormPostAsync(this ApiController controller,
+            string destinationFolder, Func<string, string> getDestinationFileName = null,
+            Func<string, string> getEnforcedFileNameExtension = null, IImageProcessor imageProcessor = null)
+        {
+            if (Directory.Exists(destinationFolder))
+            {
+                var filesToBeDeleted = Directory.GetFiles(destinationFolder, "BodyPart_*");
+                foreach (var fileToBeDeleted in filesToBeDeleted)
+                    File.Delete(fileToBeDeleted);
+            }
+            else
+            {
+                Directory.CreateDirectory(destinationFolder);
+            }
+
+            var request = controller.Request;
+            if (!request.Content.IsMimeMultipartContent())
+                return new FormPostResult()
+                    .WithProcessResult(ProcessResultType.UnsupportedMediaType, "Media type is not supported");
+
+            var provider = new MultipartFormDataStreamProvider(destinationFolder);
+            await request.Content.ReadAsMultipartAsync(provider);
+
+            var result = new FormPostResult
+            {
+                Files = provider.FileData
+                    .Select(x => new UploadFileInfoDto
+                    {
+                        MediaType = x.Headers.ContentType.MediaType,
+                        FileName = x.Headers.ContentDisposition.FileName.Replace("\"", string.Empty),
+                        TempFileName = x.LocalFileName
+                    }).ToList(),
+                Fields = provider.FormData
+            };
+
+            var exceptions = new List<Exception>();
+            foreach (var uploadFileInfo in result.Files)
+                try
+                {
+                    var tempFile = Path.Combine(destinationFolder, uploadFileInfo.TempFileName);
+
+                    var processedFile = tempFile;
+                    if (imageProcessor != null)
+                    {
+                        processedFile = Path.Combine(destinationFolder, Guid.NewGuid().ToString());
+                        imageProcessor.Process(tempFile, processedFile);
+                    }
+
+                    var fileName = getDestinationFileName?.Invoke(uploadFileInfo.FileName) ?? uploadFileInfo.FileName;
+                    if (getEnforcedFileNameExtension == null)
+                        uploadFileInfo.FullFilePath = Path.Combine(destinationFolder, fileName);
+                    else
+                        uploadFileInfo.FullFilePath = Path.Combine(destinationFolder,
+                            Path.GetFileNameWithoutExtension(fileName) + '.' +
+                            getEnforcedFileNameExtension(fileName).TrimStart('.'));
+
+                    if (File.Exists(uploadFileInfo.FullFilePath))
+                        File.Delete(uploadFileInfo.FullFilePath);
+
+                    File.Move(processedFile, uploadFileInfo.FullFilePath);
+                    File.Delete(processedFile);
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                }
+
+            result = exceptions.Any()
+                ? result.WithProcessResult(exceptions)
+                : result.WithProcessResult(ProcessResultType.Ok);
+            return result;
         }
     }
 }

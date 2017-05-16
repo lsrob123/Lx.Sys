@@ -213,6 +213,7 @@
     <Compile Include="Spatial\SpatialExtensions.cs" />
     <Compile Include="Web\AppBuilderExtensions.cs" />
     <Compile Include="Web\AuthorizeWithUserInRequestAttribute.cs" />
+    <Compile Include="Web\FormPostResultExtensions.cs" />
     <Compile Include="Web\OAuthAuthenticationMiddleware.cs" />
     <Compile Include="Authentication\OAuthClientSettings.cs" />
     <Compile Include="Authentication\OAuthHelper.cs" />

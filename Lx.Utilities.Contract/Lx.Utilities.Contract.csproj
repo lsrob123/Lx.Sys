@@ -146,6 +146,8 @@
     <Compile Include="Tagging\TagBase.cs" />
     <Compile Include="Tagging\TagDto.cs" />
     <Compile Include="Tagging\TagType.cs" />
+    <Compile Include="Web\FormPostResult.cs" />
+    <Compile Include="Web\IUploadImageSettings.cs" />
     <Compile Include="Web\IWebEndpointSettings.cs" />
     <Compile Include="Infrastructure\Common\Casing.cs" />
     <Compile Include="Infrastructure\Common\Enumeration.cs" />
@@ -249,7 +251,6 @@
     <Compile Include="Web\ITypedModelHtmlGenerationService.cs" />
     <Compile Include="Web\IUploadFileSettings.cs" />
     <Compile Include="Web\UploadFileInfoDto.cs" />
-    <Compile Include="Web\UploadFileResult.cs" />
     <Compile Include="WindowsService\IServiceManager.cs" />
   </ItemGroup>
   <ItemGroup>

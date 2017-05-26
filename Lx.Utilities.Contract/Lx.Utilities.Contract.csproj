@@ -122,6 +122,7 @@
     <Compile Include="Configuration\PreconfigurationAttribute.cs" />
     <Compile Include="Crypto\IConfigCrypto.cs" />
     <Compile Include="Crypto\ICryptoService.cs" />
+    <Compile Include="Graphics\IAttachedImage.cs" />
     <Compile Include="Graphics\IImageFull.cs" />
     <Compile Include="Graphics\IImageSafe.cs" />
     <Compile Include="Graphics\ImageFullDto.cs" />

@@ -65,7 +65,7 @@ namespace Lx.Identity.Persistence.Uow
                          x.Username == usernameOrEmailOrMobileNumber ||
                          x.MobileNumber.LocalNumberWithAreaCode == usernameOrEmailOrMobileNumber ||
                          x.MobileNumber.LocalNumberWithAreaCodeInDigits == localNumberInDigits
-                    );
+                );
                 if (user == null)
                     return;
 
@@ -109,7 +109,7 @@ namespace Lx.Identity.Persistence.Uow
                 return userProfileDto;
 
             userProfileDto = MappingService.Map<UserProfileDto>(uow.Store.FirstOrDefault<UserProfile>(
-                x => (x.UserKey == userKey) && (x.UserProfileOriginator == profileOriginator)));
+                x => x.UserKey == userKey && x.UserProfileOriginator == profileOriginator));
             if (userProfileDto != null)
                 uow.Cache.SetCachedItemAsync(cacheKey, userProfileDto).Wait();
             return userProfileDto;

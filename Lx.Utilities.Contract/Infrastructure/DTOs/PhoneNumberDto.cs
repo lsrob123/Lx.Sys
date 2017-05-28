@@ -3,9 +3,14 @@ using Lx.Utilities.Contract.Infrastructure.Helpers;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Newtonsoft.Json;
 
-namespace Lx.Utilities.Contract.Infrastructure.DTOs {
-    public class PhoneNumberDto : IDto, IPhoneNumber {
+namespace Lx.Utilities.Contract.Infrastructure.DTOs
+{
+    public class PhoneNumberDto : IDto, IPhoneNumber
+    {
+        [IgnoreDataMember]
+        [JsonIgnore]
         public string LocalNumberWithAreaCodeInDigits => this.GetLocalNumberInDigits();
+
         public string LocalNumberWithAreaCode { get; set; }
         public int? CountryCode { get; set; }
         public string CountryName { get; set; }

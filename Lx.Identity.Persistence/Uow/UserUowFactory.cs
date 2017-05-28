@@ -61,17 +61,17 @@ namespace Lx.Identity.Persistence.Uow
                 }
 
                 var user = uow.Store.FirstOrDefault<User>(
-                    x => (x.Email.Address == usernameOrEmailOrMobileNumber) ||
-                         (x.Username == usernameOrEmailOrMobileNumber) ||
-                         (x.MobileNumber.LocalNumberWithAreaCode == usernameOrEmailOrMobileNumber) ||
-                         (x.MobileNumber.LocalNumberWithAreaCodeInDigits == localNumberInDigits)
+                    x => x.Email.Address == usernameOrEmailOrMobileNumber ||
+                         x.Username == usernameOrEmailOrMobileNumber ||
+                         x.MobileNumber.LocalNumberWithAreaCode == usernameOrEmailOrMobileNumber ||
+                         x.MobileNumber.LocalNumberWithAreaCodeInDigits == localNumberInDigits
                     );
                 if (user == null)
                     return;
 
                 userDto = MappingService.Map<UserDto>(user);
                 userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
-                CacheUserDto(userDto, uow);
+                CacheUserDto(uow, userDto);
             });
 
             return userDto;
@@ -95,7 +95,7 @@ namespace Lx.Identity.Persistence.Uow
                     return;
                 userDto = MappingService.Map<UserDto>(user);
                 userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
-                CacheUserDto(userDto, uow);
+                CacheUserDto(uow, userDto);
             });
 
             return userDto;
@@ -124,9 +124,9 @@ namespace Lx.Identity.Persistence.Uow
         /// <summary>
         ///     It doesn't cache user profiles
         /// </summary>
-        /// <param name="userDto"></param>
         /// <param name="uow"></param>
-        protected void CacheUserDto(UserDto userDto, IdentityUow uow)
+        /// <param name="userDto"></param>
+        protected void CacheUserDto(IdentityUow uow, UserDto userDto)
         {
             if (userDto == null)
                 return;

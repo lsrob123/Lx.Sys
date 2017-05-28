@@ -7,7 +7,6 @@ using IdentityServer3.Core;
 using IdentityServer3.Core.Extensions;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.Default;
-using Lx.Identity.Contracts.Config;
 using Lx.Identity.Services.Services;
 using Lx.Shared.All.Identity.DTOs;
 using Lx.Utilities.Contract.Authentication.Config;
@@ -36,7 +35,7 @@ namespace Lx.Identity.ID3.Services
         public override async Task AuthenticateLocalAsync(LocalAuthenticationContext context)
         {
             var user = await Task.Run(() => BackingUserService.GetUser(context.UserName, null));
-            if ((user == null) || !user.UserState.Equals(UserState.Active))
+            if (user == null || !user.UserState.Equals(UserState.Active))
             {
                 context.AuthenticateResult = new AuthenticateResult("Invalid user");
                 return;
@@ -121,7 +120,7 @@ namespace Lx.Identity.ID3.Services
                 await Task.Run(() => BackingUserService.GetUserProfile(user.Key, client.UserProfileOriginator));
             //make sure user is within expected profile group
 
-            context.IsActive = user.UserState.Equals(UserState.Active) && (userProfile != null);
+            context.IsActive = user.UserState.Equals(UserState.Active) && userProfile != null;
         }
 
         protected async Task<IUserDto> GetUserBySubjectAsync(IPrincipal subject)
@@ -129,7 +128,7 @@ namespace Lx.Identity.ID3.Services
             var subjectId = subject.GetSubjectId();
             Guid userKey;
 
-            if ((subjectId == null) || !Guid.TryParse(subjectId, out userKey))
+            if (subjectId == null || !Guid.TryParse(subjectId, out userKey))
                 return null;
 
             var user = await Task.Run(() => BackingUserService.GetUser(userKey, null));

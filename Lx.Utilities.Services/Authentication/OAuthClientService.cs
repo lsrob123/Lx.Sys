@@ -38,7 +38,9 @@ namespace Lx.Utilities.Services.Authentication
                 request.OAuthLogin = new OAuthLogin
                 {
                     ClientId = _oauthClientSettings.DefaultClientId,
-                    ClientSecret = _oauthClientSettings.DefaultClientSecret
+                    ClientSecret = _oauthClientSettings.DefaultClientSecret,
+                    Scopes = _oauthClientSettings.DefaultScopes,
+                    GrantType = _oauthClientSettings.DefaultGrantType
                 };
 
             var tokenClient = new TokenClient(GetOAuthEndpointUri("token").AbsoluteUri, request.OAuthLogin.ClientId,

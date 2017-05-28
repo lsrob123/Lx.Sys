@@ -60,7 +60,7 @@ namespace Lx.Utilities.Services.Config
                     foreach (var action in Actions)
                         action();
 
-                    MappingService.Configure();
+                    ConfigureMapping();
 
                     _isPreConfigurationDone = true;
                 }
@@ -73,6 +73,11 @@ namespace Lx.Utilities.Services.Config
             {
                 Lock.ExitUpgradeableReadLock();
             }
+        }
+
+        public static void ConfigureMapping()
+        {
+            MappingService.Configure();
         }
     }
 }

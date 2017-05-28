@@ -7,13 +7,13 @@ namespace Lx.Identity.Persistence.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Initialcreation : IMigrationMetadata
+    public sealed partial class Created : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initialcreation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Created));
         
         string IMigrationMetadata.Id
         {
-            get { return "201704230535519_Initial creation"; }
+            get { return "201705280346124_Created"; }
         }
         
         string IMigrationMetadata.Source

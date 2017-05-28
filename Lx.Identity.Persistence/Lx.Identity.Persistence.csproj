@@ -60,9 +60,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\IdentityDbContext.cs" />
-    <Compile Include="Migrations\201704230535519_Initial creation.cs" />
-    <Compile Include="Migrations\201704230535519_Initial creation.Designer.cs">
-      <DependentUpon>201704230535519_Initial creation.cs</DependentUpon>
+    <Compile Include="Migrations\201705280346124_Created.cs" />
+    <Compile Include="Migrations\201705280346124_Created.Designer.cs">
+      <DependentUpon>201705280346124_Created.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,8 +102,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704230535519_Initial creation.resx">
-      <DependentUpon>201704230535519_Initial creation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705280346124_Created.resx">
+      <DependentUpon>201705280346124_Created.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

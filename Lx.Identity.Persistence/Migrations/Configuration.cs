@@ -2,14 +2,20 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using Lx.Identity.Persistence.EF;
 using Lx.Identity.Persistence.Seeding;
+using Lx.Utilities.Services.Config;
 
-namespace Lx.Identity.Persistence.Migrations {
-    internal sealed class Configuration : DbMigrationsConfiguration<IdentityDbContext> {
-        public Configuration() {
+namespace Lx.Identity.Persistence.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<IdentityDbContext>
+    {
+        public Configuration()
+        {
+            Preconfigurator.ConfigureMapping();
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(IdentityDbContext context) {
+        protected override void Seed(IdentityDbContext context)
+        {
             foreach (var user in UserSeedCollections.Users())
                 if (!context.Users.Any(x => x.Key == user.Key))
                     context.Users.AddOrUpdate(user);

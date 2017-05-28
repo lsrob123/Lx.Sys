@@ -33,6 +33,7 @@ namespace Lx.Identity.Persistence.Seeding {
                     Verified = true
                 },
                 Name = new PersonNameDto {FamilyName = "Smith", GivenName = "John"},
+                Username = "john",
                 Nickname = "john_s",
                 UserState = UserState.Active
             });
@@ -50,6 +51,7 @@ namespace Lx.Identity.Persistence.Seeding {
                     Verified = true
                 },
                 Name = new PersonNameDto {FamilyName = "Garcia", GivenName = "Maria"},
+                Username = "maria",
                 Nickname = "maria",
                 UserState = UserState.Active
             });

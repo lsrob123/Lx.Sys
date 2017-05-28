@@ -58,7 +58,7 @@ namespace Lx.Identity.Persistence.Seeding {
             return new List<ClientScope> {
                 MappingService.Map<ClientScope>(new ClientScopeDto {
                     ClientKey = ClientKey,
-                    Key = new Guid("be668502-ae52-491f-8616-c120bbf27b80"),
+                    Key = new Guid("b771812b-6321-49f9-981d-6e1bc7886f31"),
                     Scope = "TestScope"
                 }),
                 MappingService.Map<ClientScope>(new ClientScopeDto {

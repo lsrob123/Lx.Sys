@@ -34,7 +34,7 @@ namespace Lx.Utilities.Services.Authentication
 
         public async Task<GetTokensResponse> GetTokensAsync(GetTokensRequest request)
         {
-            if ((request.OAuthLogin == null) || !request.OAuthLogin.IsValid)
+            if (request.OAuthLogin == null || !request.OAuthLogin.IsValid)
                 request.OAuthLogin = new OAuthLogin
                 {
                     ClientId = _oauthClientSettings.DefaultClientId,
@@ -49,7 +49,8 @@ namespace Lx.Utilities.Services.Authentication
             var result = await
                 tokenClient.RequestResourceOwnerPasswordAsync(request.Username, request.Password,
                     request.OAuthLogin.Scopes);
-            var response = CreateTokenResponse(request, result);
+            var response = CreateTokenResponse(request, result, request.RedirectUriOnSuccess,
+                request.RedirectUriOnFailure);
 
             return response;
         }
@@ -62,19 +63,10 @@ namespace Lx.Utilities.Services.Authentication
                 request.OAuthClient.ClientSecret);
 
             var result = await tokenClient.RequestRefreshTokenAsync(request.RefreshToken);
-            var response = CreateTokenResponse(request, result);
+            var response = CreateTokenResponse(request, result, request.RedirectUriOnSuccess,
+                request.RedirectUriOnFailure);
 
             return response;
-        }
-
-        private void EnsureOAuthLoginClientExistence(IHasOAuthLoginClient request)
-        {
-            if (request.OAuthClient == null || !request.OAuthClient.IsValid)
-                request.OAuthClient = new OAuthLoginClient
-                {
-                    ClientId = _oauthClientSettings.DefaultClientId,
-                    ClientSecret = _oauthClientSettings.DefaultClientSecret
-                };
         }
 
         public async Task<GetUserInfoResponse> GetUserInfoAsync(GetUserInfoRequest request)
@@ -124,7 +116,18 @@ namespace Lx.Utilities.Services.Authentication
             return response;
         }
 
-        private GetTokensResponse CreateTokenResponse(IBasicRequestKey request, TokenResponse result)
+        private void EnsureOAuthLoginClientExistence(IHasOAuthLoginClient request)
+        {
+            if (request.OAuthClient == null || !request.OAuthClient.IsValid)
+                request.OAuthClient = new OAuthLoginClient
+                {
+                    ClientId = _oauthClientSettings.DefaultClientId,
+                    ClientSecret = _oauthClientSettings.DefaultClientSecret
+                };
+        }
+
+        private GetTokensResponse CreateTokenResponse(IBasicRequestKey request, TokenResponse result,
+            string redirectUriOnSuccess, string redirectUriOnFailure)
         {
             var response = _mappingService.Map<GetTokensResponse>(result).LinkTo(request);
 
@@ -137,9 +140,15 @@ namespace Lx.Utilities.Services.Authentication
                 exceptions.Add(new HttpException((int) result.HttpStatusCode, result.HttpErrorReason));
 
             if (exceptions.Any())
+            {
                 response.WithProcessResult(exceptions);
+                response.RedirectUri = redirectUriOnFailure;
+            }
             else
+            {
                 response.WithProcessResult(ProcessResultType.Ok);
+                response.RedirectUri = redirectUriOnSuccess;
+            }
 
             return response;
         }

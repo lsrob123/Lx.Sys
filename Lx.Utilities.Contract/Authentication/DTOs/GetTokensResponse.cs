@@ -2,8 +2,10 @@
 using System.Net;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 
-namespace Lx.Utilities.Contract.Authentication.DTOs {
-    public class GetTokensResponse : ResponseBase {
+namespace Lx.Utilities.Contract.Authentication.DTOs
+{
+    public class GetTokensResponse : ResponseBase
+    {
         public string Error { get; set; }
         public string ErrorDescription { get; set; }
         public string ErrorType { get; set; }
@@ -17,7 +19,10 @@ namespace Lx.Utilities.Contract.Authentication.DTOs {
         public string RefreshToken { get; set; }
         public string TokenType { get; set; }
         public string AccessToken { get; set; }
+        public string RedirectUri { get; set; }
 
-        public override void EraseShareGroupInfoForClientSide() { }
+        public override void EraseShareGroupInfoForClientSide()
+        {
+        }
     }
 }

@@ -8,11 +8,11 @@ using IdentityServer3.Core.Extensions;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.Default;
 using Lx.Identity.Services.Services;
-using Lx.Shared.All.Identity.DTOs;
 using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.Constants;
+using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Crypto;
+using Lx.Utilities.Contract.Membership.Constants;
 
 namespace Lx.Identity.ID3.Services
 {
@@ -69,7 +69,7 @@ namespace Lx.Identity.ID3.Services
             context.IssuedClaims = await GetClaimsAsync(context.Client.ClientId, user);
         }
 
-        private async Task<IReadOnlyCollection<Claim>> GetClaimsAsync(string clientId, IUserDtoBase user)
+        private async Task<IReadOnlyCollection<Claim>> GetClaimsAsync(string clientId, IUserDto user)
         {
             var claims = new List<Claim>();
             var client = await Task.Run(() => ClientService.GetClientByClientId(clientId));
@@ -89,11 +89,11 @@ namespace Lx.Identity.ID3.Services
                     claims.Add(new Claim(Constants.ClaimTypes.EmailVerified, user.Email.Address));
             }
 
-            if (!string.IsNullOrWhiteSpace(user.MobileNumber.FullNumber))
+            if (!string.IsNullOrWhiteSpace(user.Mobile.FullNumber))
             {
-                claims.Add(new Claim(Constants.ClaimTypes.PhoneNumber, user.MobileNumber.FullNumber));
-                if (user.MobileNumber.Verified)
-                    claims.Add(new Claim(Constants.ClaimTypes.PhoneNumberVerified, user.MobileNumber.FullNumber));
+                claims.Add(new Claim(Constants.ClaimTypes.PhoneNumber, user.Mobile.FullNumber));
+                if (user.Mobile.Verified)
+                    claims.Add(new Claim(Constants.ClaimTypes.PhoneNumberVerified, user.Mobile.FullNumber));
             }
 
             if (!string.IsNullOrWhiteSpace(userProfile.Body))

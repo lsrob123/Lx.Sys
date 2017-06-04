@@ -1,6 +1,6 @@
 ﻿using System;
 using Lx.Identity.Persistence.Uow;
-using Lx.Shared.All.Identity.DTOs;
+using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Utilities.Contract.Mapping;
 
 namespace Lx.Identity.Services.Services

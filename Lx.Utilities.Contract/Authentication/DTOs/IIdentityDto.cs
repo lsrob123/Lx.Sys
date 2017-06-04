@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Membership;
+using Lx.Utilities.Contract.Membership.DTOs;
 
 namespace Lx.Utilities.Contract.Authentication.DTOs {
     public interface IIdentityDto {

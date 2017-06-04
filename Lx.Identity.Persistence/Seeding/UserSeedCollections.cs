@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Lx.Identity.Domain.Entities;
-using Lx.Shared.All.Identity.DTOs;
+using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Crypto;
 using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Membership;
+using Lx.Utilities.Contract.Membership.DTOs;
+using Lx.Utilities.Contract.Membership.Enumerations;
 using Lx.Utilities.Contract.Serialization;
 using Lx.Utilities.Services.Crypto;
 using Lx.Utilities.Services.Mapping.AutoMapper;
@@ -27,12 +29,12 @@ namespace Lx.Identity.Persistence.Seeding {
                 },
                 HashedPassword = CryptoService.CreateHash("123"),
                 IsAdmin = false,
-                MobileNumber = new PhoneNumberDto {
+                Mobile = new PhoneNumberDto {
                     CountryCode = 61,
                     LocalNumberWithAreaCode = "0421116066",
                     Verified = true
                 },
-                Name = new PersonNameDto {FamilyName = "Smith", GivenName = "John"},
+                PersonName = new PersonNameDto {FamilyName = "Smith", GivenName = "John"},
                 Username = "john",
                 Nickname = "john_s",
                 UserState = UserState.Active
@@ -45,12 +47,12 @@ namespace Lx.Identity.Persistence.Seeding {
                 },
                 HashedPassword = CryptoService.CreateHash("123"),
                 IsAdmin = false,
-                MobileNumber = new PhoneNumberDto {
+                Mobile = new PhoneNumberDto {
                     CountryCode = 61,
                     LocalNumberWithAreaCode = "0433058893",
                     Verified = true
                 },
-                Name = new PersonNameDto {FamilyName = "Garcia", GivenName = "Maria"},
+                PersonName = new PersonNameDto {FamilyName = "Garcia", GivenName = "Maria"},
                 Username = "maria",
                 Nickname = "maria",
                 UserState = UserState.Active
@@ -80,7 +82,7 @@ namespace Lx.Identity.Persistence.Seeding {
         private static UserProfileDto CreateUserProfileDto(Guid key, Guid userKey, RoleType roleType) {
             var memberInfo = new BasicMemberInfo {
                 Key = userKey,
-                State = UserState.Active,
+                UserState = UserState.Active,
                 Roles = new List<RoleDto> {
                     new RoleDto {RoleType = roleType}
                 }

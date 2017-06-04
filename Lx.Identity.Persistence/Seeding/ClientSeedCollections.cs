@@ -4,7 +4,7 @@ using IdentityServer3.Core;
 using IdentityServer3.Core.Models;
 using Lx.Identity.Contracts.DTOs;
 using Lx.Identity.Domain.Entities;
-using Lx.Shared.All.Identity.Config;
+using Lx.Shared.All.Domains.Identity.Config;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Services.Mapping.AutoMapper;
 using AccessTokenType = Lx.Identity.Contracts.Enumerations.AccessTokenType;

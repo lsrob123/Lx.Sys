@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Lx.Shared.All.Identity.Interfaces;
+using Lx.Shared.All.Domains.Identity.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 
 namespace Lx.Identity.Domain.Entities {

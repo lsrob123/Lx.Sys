@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Enumerations;
-using Lx.Shared.All.Identity.ValueObjects;
+using Lx.Shared.All.Domains.Identity.ValueObjects;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
@@ -21,7 +21,7 @@ namespace Lx.Identity.Domain.Entities
             Username = username;
             HashedPassword = hashedPassword;
             Email = email;
-            MobileNumber = mobileNumber;
+            Mobile = mobileNumber;
             UserState = userState;
             IsAdmin = isAdmin;
         }
@@ -41,16 +41,17 @@ namespace Lx.Identity.Domain.Entities
         public PriorUserState PriorUserState { get; protected set; }
         public DateTimeOffset? TimeLockedOut { get; protected set; }
         public UserState UserState { get; protected set; }
-        public PersonName Name { get; protected set; }
+        public PersonName PersonName { get; protected set; }
         public bool IsAdmin { get; protected set; }
 
         [MaxLength(20)]
         public string Username { get; protected set; }
 
         public Email Email { get; protected set; }
-        public PhoneNumber MobileNumber { get; protected set; }
-        public string Nickname { get; protected set; }
-        public Avatar Avatar { get; protected set; }
+        public PhoneNumber Mobile { get; protected set; }
+        public Address HomeAddress { get; protected set; }
+        public Address WorkAddress { get; protected set; }
+        public Address PostalAddress { get; protected set; }
 
         public void SetAdminRole(bool isAdmin)
         {
@@ -65,7 +66,7 @@ namespace Lx.Identity.Domain.Entities
 
         public User SetPersonName(IPersonName value)
         {
-            Name = new PersonName(value.FamilyName, value.GivenName, value.MiddleName);
+            PersonName = new PersonName(value.FamilyName, value.GivenName, value.MiddleName);
             return this;
         }
 
@@ -104,7 +105,7 @@ namespace Lx.Identity.Domain.Entities
             string hashedVerificationCode)
         {
             if (string.IsNullOrWhiteSpace(HashedVerificationCode) || !TimeVerificationCodeExpires.HasValue ||
-                (VerificationPurpose != verificationPurpose))
+                VerificationPurpose != verificationPurpose)
                 return VerificationResult.NewVerificationCodeRequired;
 
             if (!HashedVerificationCode.Equals(hashedVerificationCode, StringComparison.Ordinal))
@@ -120,7 +121,7 @@ namespace Lx.Identity.Domain.Entities
 
         public User SetMobile(IPhoneNumber mobile)
         {
-            MobileNumber = new PhoneNumber(mobile.LocalNumberWithAreaCode, mobile.Verified, mobile.CountryCode,
+            Mobile = new PhoneNumber(mobile.LocalNumberWithAreaCode, mobile.Verified, mobile.CountryCode,
                 mobile.CountryName);
             return this;
         }
@@ -159,13 +160,15 @@ namespace Lx.Identity.Domain.Entities
         public override void AssignDefaultValuesToComplexPropertiesIfNull()
         {
             UserState = UserState ?? UserState.Unknown;
-            Email = Email ?? new Email();
-            MobileNumber = MobileNumber ?? new PhoneNumber();
             PriorUserState = PriorUserState ?? PriorUserState.Unknown;
             VerificationPurpose = VerificationPurpose ?? VerificationPurpose.Nothing;
             ResetPasswordMethod = ResetPasswordMethod ?? ResetPasswordMethod.Nothing;
-            Name = Name ?? new PersonName();
-            Avatar = Avatar ?? new Avatar();
+            PersonName = PersonName ?? new PersonName();
+            Email = Email ?? new Email();
+            Mobile = Mobile ?? new PhoneNumber();
+            HomeAddress = HomeAddress ?? new Address();
+            WorkAddress = WorkAddress ?? new Address();
+            PostalAddress = PostalAddress ?? new Address();
         }
     }
 }

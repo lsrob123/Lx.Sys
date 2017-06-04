@@ -1,14 +1,15 @@
 ﻿using System;
 using Lx.Identity.Domain.Entities;
 using Lx.Identity.Persistence.EF;
-using Lx.Shared.All.Identity.Config;
-using Lx.Shared.All.Identity.DTOs;
+using Lx.Shared.All.Domains.Identity.Config;
+using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
 using Lx.Utilities.Contract.Infrastructure.Helpers;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
 using Lx.Utilities.Contract.Membership;
+using Lx.Utilities.Contract.Membership.DTOs;
 using Lx.Utilities.Contract.Persistence;
 using Lx.Utilities.Contract.Serialization;
 using Lx.Utilities.Services.Persistence;
@@ -63,8 +64,8 @@ namespace Lx.Identity.Persistence.Uow
                 var user = uow.Store.FirstOrDefault<User>(
                     x => x.Email.Address == usernameOrEmailOrMobileNumber ||
                          x.Username == usernameOrEmailOrMobileNumber ||
-                         x.MobileNumber.LocalNumberWithAreaCode == usernameOrEmailOrMobileNumber ||
-                         x.MobileNumber.LocalNumberWithAreaCodeInDigits == localNumberInDigits
+                         x.Mobile.LocalNumberWithAreaCode == usernameOrEmailOrMobileNumber ||
+                         x.Mobile.LocalNumberWithAreaCodeInDigits == localNumberInDigits
                 );
                 if (user == null)
                     return;
@@ -136,10 +137,10 @@ namespace Lx.Identity.Persistence.Uow
             uow.Cache.SetCachedItemAsync(CacheKeyHelper.GetCacheKey<UserDto>(userDto.Email), userDto);
 
             uow.Cache.SetCachedItemAsync(
-                CacheKeyHelper.GetCacheKey<UserDto>(userDto.MobileNumber.LocalNumberWithAreaCode), userDto);
+                CacheKeyHelper.GetCacheKey<UserDto>(userDto.Mobile.LocalNumberWithAreaCode), userDto);
 
             uow.Cache.SetCachedItemAsync(
-                CacheKeyHelper.GetCacheKey<UserDto>(userDto.MobileNumber.LocalNumberWithAreaCodeInDigits), userDto);
+                CacheKeyHelper.GetCacheKey<UserDto>(userDto.Mobile.LocalNumberWithAreaCodeInDigits), userDto);
 
             var userUpdatedEvent = new UserUpdatedEvent {UpdatedUser = userDto};
             var userProfile = GetUserProfile(userDto.Key, UserProfileConfig.UserProfileOriginator);

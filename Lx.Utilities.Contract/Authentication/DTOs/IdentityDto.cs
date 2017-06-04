@@ -6,17 +6,21 @@ using System.Security.Claims;
 using Lx.Utilities.Contract.Authentication.Constants;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Authentication.Extensions;
-using Lx.Utilities.Contract.Membership;
+using Lx.Utilities.Contract.Membership.Constants;
+using Lx.Utilities.Contract.Membership.DTOs;
 using Newtonsoft.Json;
 
-namespace Lx.Utilities.Contract.Authentication.DTOs {
-    public class IdentityDto : IIdentityDto {
+namespace Lx.Utilities.Contract.Authentication.DTOs
+{
+    public class IdentityDto : IIdentityDto
+    {
         public ICollection<RoleDto> Roles { get; set; }
         public UserState State { get; set; }
         public string AvatarUriDefault { get; set; }
         public string AvatarUriRelative { get; set; }
 
-        public void FromClaims(IEnumerable<Claim> claims, Func<string, IMemberInfo> extractMemberInfo) {
+        public void FromClaims(IEnumerable<Claim> claims, Func<string, IMemberInfo> extractMemberInfo)
+        {
             OriginalClaims = claims?.ToList();
             if (OriginalClaims == null || !OriginalClaims.Any())
                 return;
@@ -41,11 +45,14 @@ namespace Lx.Utilities.Contract.Authentication.DTOs {
             var memberInfo = extractMemberInfo?.Invoke(Profile);
 
             var rolesInClaims = OriginalClaims.GetRoles() ?? new List<RoleDto>();
-            if (memberInfo == null) {
+            if (memberInfo == null)
+            {
                 State = UserState.MemberInfoNotFound;
                 Roles = rolesInClaims;
-            } else {
-                State = memberInfo.State;
+            }
+            else
+            {
+                State = memberInfo.UserState;
                 var roles = memberInfo.Roles?.ToDictionary(x => x.RoleType.Name) ?? new Dictionary<string, RoleDto>();
                 // ReSharper disable once LoopCanBePartlyConvertedToQuery
                 foreach (var role in rolesInClaims)

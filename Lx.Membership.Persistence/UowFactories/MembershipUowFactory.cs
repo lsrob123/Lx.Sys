@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Lx.Membership.Contracts.DTOs;
 using Lx.Membership.Contracts.Events;
 using Lx.Membership.Domain.Entities;
 using Lx.Membership.Persistence.EF;
 using Lx.Membership.Persistence.Uow;
+using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Utilities.Contract.Caching;
 using Lx.Utilities.Contract.Infrastructure.Domain;
 using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
@@ -21,7 +23,7 @@ using Lx.Utilities.Services.Persistence;
 
 namespace Lx.Membership.Persistence.UowFactories
 {
-    public class MembershipUowFactory : UnitOfWorkFactoryBase<MembershipUow>
+    public class MembershipUowFactory : UnitOfWorkFactoryBase<MembershipUow>, IMembershipUowFactory
     {
         public MembershipUowFactory(IDbConfig primaryDbConfig, ILogger logger, ICacheFactory cacheFactory,
             IMappingService mappingService, ISerializer serializer, IEventBroadcastingProxy eventDispatchingProxy) :
@@ -35,7 +37,8 @@ namespace Lx.Membership.Persistence.UowFactories
                 MappingService, Logger);
         }
 
-        public MemberUpdatedEvent CreateMember(IBasicRequestKey request, MemberUpdateDto dto)
+        public MemberUpdatedEvent CreateOrUpdateMember(IBasicRequestKey request, MemberUpdateDto dto,
+            Func<MemberUpdateDto, UserProfileDto> createUserProfileDto)
         {
             var member = MappingService.Map<Member>(dto).AsNewEntity();
 
@@ -51,9 +54,21 @@ namespace Lx.Membership.Persistence.UowFactories
             var updatedEvent = new MemberUpdatedEvent().LinkTo(request);
             updatedEvent.WithProcessResult(ExecuteWithProcessResult(uow =>
             {
-                uow.Store.Add(member);
+                var updatedMember = uow.Store.AddOrUpdate(member,
+                    x => x.Email.Address == member.Email.Address ||
+                         x.Mobile.LocalNumberWithAreaCodeInDigits == member.Mobile.LocalNumberWithAreaCodeInDigits ||
+                         x.Username == member.Username
+                );
+                var updatedMemberDto = MappingService.Map<MemberUpdateDto>(updatedMember);
+                updatedMemberDto.Roles = new List<RoleDto>();
+                uow.Store.Delete<Role>(x => x.UserKey == updatedMember.Key);
                 foreach (var role in roles)
-                    uow.Store.Add(role);
+                {
+                    var updatedRole = uow.Store.Add(role);
+                    updatedMemberDto.Roles.Add(MappingService.Map<RoleDto>(updatedRole));
+                }
+                updatedEvent.WithMember(updatedMemberDto)
+                    .WithUserProfile(createUserProfileDto?.Invoke(updatedMemberDto));
             }));
             return updatedEvent;
         }

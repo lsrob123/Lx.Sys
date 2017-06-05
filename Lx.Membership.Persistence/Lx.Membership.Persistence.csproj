@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="EF\MembershipDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UowFactories\IMembershipUowFactory.cs" />
     <Compile Include="UowFactories\MembershipUowFactory.cs" />
     <Compile Include="Uow\MembershipUow.cs" />
   </ItemGroup>
@@ -68,6 +69,10 @@
     <ProjectReference Include="..\Lx.Membership.Domain\Lx.Membership.Domain.csproj">
       <Project>{84D978D0-3A8F-431E-AB24-30D8C8B180E2}</Project>
       <Name>Lx.Membership.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Shared.All\Lx.Shared.All.csproj">
+      <Project>{D3AFDE4C-6F85-4EFD-BD80-50C88C516F0D}</Project>
+      <Name>Lx.Shared.All</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
       <Project>{B40ABC90-1F20-49A5-8734-92E8A13A183F}</Project>

@@ -3,8 +3,7 @@ using Lx.Utilities.Contract.Infrastructure.DTOs;
 
 namespace Lx.Membership.Contracts.RequestsResponses
 {
-    public class CreateMemberRequest : RequestBase
+    public class CreateMemberRequest : UpdateMemberRequestBase
     {
-        public MemberUpdateDto Member { get; set; }
     }
 }

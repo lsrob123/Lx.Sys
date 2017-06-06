@@ -6,5 +6,6 @@ namespace Lx.Identity.Services.Services {
         UserDto GetUser(string usernameOrEmailOrMobileNumber, string userProfileOriginator);
         UserDto GetUser(Guid userKey, string userProfileOriginator);
         UserProfileDto GetUserProfile(Guid userKeystring, string userProfileOriginator);
+        CreateUserResponse CreateUser(CreateUserRequest request);
     }
 }

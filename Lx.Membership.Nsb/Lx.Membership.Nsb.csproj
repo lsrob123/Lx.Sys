@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C07955C7-252F-4CB9-B060-5071C99A81EA}</ProjectGuid>
+    <ProjectGuid>{E2AFED45-EA95-42CB-83FB-E5A4A196DEA0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lx.Membership.Services</RootNamespace>
-    <AssemblyName>Lx.Membership.Services</AssemblyName>
+    <RootNamespace>Lx.Membership.Nsb</RootNamespace>
+    <AssemblyName>Lx.Membership.Nsb</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NServiceBus.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.5.2.8\lib\net45\NServiceBus.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,45 +44,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Processes\IMemberService.cs" />
-    <Compile Include="Processes\MemberService.cs" />
+    <Compile Include="Members\CreateMemberSaga.cs" />
+    <Compile Include="Members\CreateMemberSagaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Lx.Membership.Contracts\Lx.Membership.Contracts.csproj">
-      <Project>{2e6e53ca-8636-43ff-96f9-176d71858f68}</Project>
+      <Project>{2E6E53CA-8636-43FF-96F9-176D71858F68}</Project>
       <Name>Lx.Membership.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Lx.Membership.Domain\Lx.Membership.Domain.csproj">
-      <Project>{84d978d0-3a8f-431e-ab24-30d8c8b180e2}</Project>
-      <Name>Lx.Membership.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lx.Membership.Persistence\Lx.Membership.Persistence.csproj">
-      <Project>{eba3f5ae-e8d7-451f-bc0f-4e5eef933a1e}</Project>
-      <Name>Lx.Membership.Persistence</Name>
+    <ProjectReference Include="..\Lx.Membership.Services\Lx.Membership.Services.csproj">
+      <Project>{C07955C7-252F-4CB9-B060-5071C99A81EA}</Project>
+      <Name>Lx.Membership.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lx.Shared.All\Lx.Shared.All.csproj">
-      <Project>{d3afde4c-6f85-4efd-bd80-50c88c516f0d}</Project>
+      <Project>{D3AFDE4C-6F85-4EFD-BD80-50C88C516F0D}</Project>
       <Name>Lx.Shared.All</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
-      <Project>{b40abc90-1f20-49a5-8734-92e8a13a183f}</Project>
+      <Project>{B40ABC90-1F20-49A5-8734-92E8A13A183F}</Project>
       <Name>Lx.Utilities.Contract</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
-      <Project>{e732222f-4036-4a90-952d-4b72cbdaed08}</Project>
+      <Project>{E732222F-4036-4A90-952D-4B72CBDAED08}</Project>
       <Name>Lx.Utilities.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

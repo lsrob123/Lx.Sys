@@ -48,10 +48,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependencies\Register.cs" />
+    <Compile Include="Domains\Identity\Config\CommonBusEndpointSettings.cs" />
+    <Compile Include="Domains\Identity\Config\ICommonBusEndpointSettings.cs" />
     <Compile Include="Domains\Identity\Config\UserProfileConfig.cs" />
     <Compile Include="Domains\Identity\Config\IUserProfileConfig.cs" />
     <Compile Include="Domains\Identity\DTOs\AvatarDto.cs" />
     <Compile Include="Domains\Identity\DTOs\CreateUserRequest.cs" />
+    <Compile Include="Domains\Identity\DTOs\CreateUserResponse.cs" />
     <Compile Include="Domains\Identity\DTOs\GetUserKeyEmailsRequest.cs" />
     <Compile Include="Domains\Identity\DTOs\GetUserKeyEmailsResponse.cs" />
     <Compile Include="Domains\Identity\DTOs\IUserKeyEmailDto.cs" />
@@ -61,6 +64,7 @@
     <Compile Include="Domains\Identity\DTOs\UpdateUserRequestBase.cs" />
     <Compile Include="Domains\Identity\DTOs\UpdateUserResponse.cs" />
     <Compile Include="Domains\Identity\DTOs\UserDto.cs" />
+    <Compile Include="Domains\Identity\DTOs\UserDtoBase.cs" />
     <Compile Include="Domains\Identity\DTOs\UserKeyEmailDto.cs" />
     <Compile Include="Domains\Identity\DTOs\UserProfileDto.cs" />
     <Compile Include="Domains\Identity\DTOs\UserUpdatedEvent.cs" />

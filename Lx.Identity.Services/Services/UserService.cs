@@ -33,5 +33,10 @@ namespace Lx.Identity.Services.Services
             var userProfileDto = UserUowFactory.GetUserProfile(userKeystring, userProfileOriginator);
             return userProfileDto;
         }
+
+        public CreateUserResponse CreateUser(CreateUserRequest request)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -46,6 +46,8 @@
     <Compile Include="Events\MemberUpdatedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestsResponses\CreateMemberRequest.cs" />
+    <Compile Include="RequestsResponses\UpdateMemberRequest.cs" />
+    <Compile Include="RequestsResponses\UpdateMemberRequestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lx.Shared.All\Lx.Shared.All.csproj">

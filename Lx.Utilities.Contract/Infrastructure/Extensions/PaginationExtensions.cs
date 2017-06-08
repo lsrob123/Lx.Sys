@@ -35,7 +35,7 @@ namespace Lx.Utilities.Contract.Infrastructure.Extensions {
         }
 
         public static TPaginatedList WithPaginationAndDisplayOrder<TPaginatedList>(this TPaginatedList list,
-            IWithPaginatedList sourceInfo) where TPaginatedList : IWithPaginatedList {
+            IWithPagination sourceInfo) where TPaginatedList : IWithPaginatedList {
             return list.WithPaginationAndDisplayOrder(sourceInfo.PageNumber, sourceInfo.PageSize,
                 sourceInfo.InDescendingOrder);
         }

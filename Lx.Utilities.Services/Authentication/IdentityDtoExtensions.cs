@@ -21,7 +21,7 @@ namespace Lx.Utilities.Services.Authentication
         {
             var roleList = roles?.ToList();
             var isInRole = roleList != null &&
-                           roleList.Any(x => x.RoleType.Name.Equals(roleTypeName, StringComparison.OrdinalIgnoreCase));
+                           roleList.Any(x => x.RoleType.Equals(roleTypeName, StringComparison.OrdinalIgnoreCase));
             return isInRole;
         }
 

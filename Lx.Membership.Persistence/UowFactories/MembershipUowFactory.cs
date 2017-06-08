@@ -14,9 +14,9 @@ using Lx.Utilities.Contract.Infrastructure.Extensions;
 using Lx.Utilities.Contract.Infrastructure.Interfaces;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
+using Lx.Utilities.Contract.Membership.Constants;
 using Lx.Utilities.Contract.Membership.DTOs;
 using Lx.Utilities.Contract.Membership.Entities;
-using Lx.Utilities.Contract.Membership.Enumerations;
 using Lx.Utilities.Contract.Persistence;
 using Lx.Utilities.Contract.Serialization;
 using Lx.Utilities.Services.Persistence;
@@ -31,12 +31,6 @@ namespace Lx.Membership.Persistence.UowFactories
         {
         }
 
-        protected override MembershipUow GetUnitOfWork()
-        {
-            return new MembershipUow(() => new MembershipDbContext(PrimaryDbConfig.ConnectionString), CacheFactory,
-                MappingService, Logger);
-        }
-
         public MemberUpdatedEvent CreateOrUpdateMember(IBasicRequestKey request, MemberUpdateDto dto,
             Func<MemberUpdateDto, UserProfileDto> createUserProfileDto)
         {
@@ -45,7 +39,7 @@ namespace Lx.Membership.Persistence.UowFactories
             if (dto.Roles == null)
                 dto.Roles = new List<RoleDto>();
             if (!dto.Roles.Any())
-                dto.Roles.Add(new RoleDto {RoleType = RoleType.BasicMember});
+                dto.Roles.Add(new RoleDto {RoleType = RoleTypeName.BasicMember});
             foreach (var roleDto in dto.Roles)
                 roleDto.UserKey = member.Key;
 
@@ -71,6 +65,12 @@ namespace Lx.Membership.Persistence.UowFactories
                     .WithUserProfile(createUserProfileDto?.Invoke(updatedMemberDto));
             }));
             return updatedEvent;
+        }
+
+        protected override MembershipUow GetUnitOfWork()
+        {
+            return new MembershipUow(() => new MembershipDbContext(PrimaryDbConfig.ConnectionString), CacheFactory,
+                MappingService, Logger);
         }
     }
 }

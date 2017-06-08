@@ -97,7 +97,6 @@
     <Compile Include="Membership\Interfaces\IRole.cs" />
     <Compile Include="Membership\Entities\Role.cs" />
     <Compile Include="Membership\Entities\RoleProcess.cs" />
-    <Compile Include="Membership\Enumerations\RoleType.cs" />
     <Compile Include="Authentication\Interfaces\IOAuthClientService.cs" />
     <Compile Include="Membership\Interfaces\IRoleProcess.cs" />
     <Compile Include="Authentication\DTOs\RefreshTokensRequest.cs" />

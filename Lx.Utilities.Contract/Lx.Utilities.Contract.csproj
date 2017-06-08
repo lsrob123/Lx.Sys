@@ -80,7 +80,9 @@
     <Compile Include="Authentication\Config\IOAuthUris.cs" />
     <Compile Include="Authentication\Constants\ClaimType.cs" />
     <Compile Include="Authentication\Constants\GrantType.cs" />
-    <Compile Include="Authentication\Constants\RoleTypeName.cs" />
+    <Compile Include="Authentication\DTOs\IUserDto.cs" />
+    <Compile Include="Authentication\Interfaces\IUserBase.cs" />
+    <Compile Include="Membership\Constants\RoleTypeName.cs" />
     <Compile Include="Authentication\DTOs\ClaimDto.cs" />
     <Compile Include="Authentication\DTOs\GetTokensRequest.cs" />
     <Compile Include="Authentication\DTOs\GetTokensResponse.cs" />
@@ -90,17 +92,19 @@
     <Compile Include="Authentication\DTOs\IHasOAuthLoginClient.cs" />
     <Compile Include="Authentication\DTOs\IIdentityDto.cs" />
     <Compile Include="Authentication\Config\IIdentityServiceConfig.cs" />
-    <Compile Include="Authentication\Interfaces\IRole.cs" />
-    <Compile Include="Authentication\Entities\Role.cs" />
-    <Compile Include="Authentication\Entities\RoleProcess.cs" />
-    <Compile Include="Authentication\Enumerations\RoleType.cs" />
+    <Compile Include="Membership\Interfaces\IMember.cs" />
+    <Compile Include="Membership\Enumerations\AccountState.cs" />
+    <Compile Include="Membership\Interfaces\IRole.cs" />
+    <Compile Include="Membership\Entities\Role.cs" />
+    <Compile Include="Membership\Entities\RoleProcess.cs" />
+    <Compile Include="Membership\Enumerations\RoleType.cs" />
     <Compile Include="Authentication\Interfaces\IOAuthClientService.cs" />
-    <Compile Include="Authentication\Interfaces\IRoleProcess.cs" />
+    <Compile Include="Membership\Interfaces\IRoleProcess.cs" />
     <Compile Include="Authentication\DTOs\RefreshTokensRequest.cs" />
     <Compile Include="Authentication\DTOs\RevokeTokenRequest.cs" />
     <Compile Include="Authentication\DTOs\RevokeTokenResponse.cs" />
-    <Compile Include="Authentication\DTOs\RoleDto.cs" />
-    <Compile Include="Authentication\DTOs\RoleProcessDto.cs" />
+    <Compile Include="Membership\DTOs\RoleDto.cs" />
+    <Compile Include="Membership\DTOs\RoleProcessDto.cs" />
     <Compile Include="Authentication\Enumerations\VerificationPurpose.cs" />
     <Compile Include="Authentication\Extensions\ClaimsExtensions.cs" />
     <Compile Include="Authentication\Extensions\ClaimsPrincipalExtensions.cs" />
@@ -230,8 +234,8 @@
     <Compile Include="IoC\GlobalDependencyResolver.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Mapping\IMappingService.cs" />
-    <Compile Include="Membership\BasicMemberInfo.cs" />
-    <Compile Include="Membership\IMemberInfo.cs" />
+    <Compile Include="Membership\DTOs\BasicMemberInfo.cs" />
+    <Compile Include="Membership\DTOs\IMemberInfo.cs" />
     <Compile Include="Persistence\IRelationalDataStore.cs" />
     <Compile Include="Persistence\IUnitOfWork.cs" />
     <Compile Include="Persistence\IUnitOfWorkFactory.cs" />
@@ -258,9 +262,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Authentication\ValueObjects\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

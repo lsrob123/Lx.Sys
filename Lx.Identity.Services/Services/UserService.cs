@@ -1,6 +1,6 @@
 ﻿using System;
 using Lx.Identity.Persistence.Uow;
-using Lx.Shared.All.Identity.DTOs;
+using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Utilities.Contract.Mapping;
 
 namespace Lx.Identity.Services.Services
@@ -32,6 +32,11 @@ namespace Lx.Identity.Services.Services
         {
             var userProfileDto = UserUowFactory.GetUserProfile(userKeystring, userProfileOriginator);
             return userProfileDto;
+        }
+
+        public CreateUserResponse CreateUser(CreateUserRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }

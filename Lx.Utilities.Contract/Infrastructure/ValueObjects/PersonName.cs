@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Lx.Utilities.Contract.Infrastructure.Domain;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Contract.Infrastructure.ValueObjects {
-    public class PersonName : IValueObject {
+    public class PersonName : IValueObject, IPersonName {
         public PersonName() { }
 
         public PersonName(string familyName, string givenName, string middleName = null) {

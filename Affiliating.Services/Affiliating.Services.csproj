@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D6926300-A492-411D-9165-F4AAB8A48643}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Affiliating.Services</RootNamespace>
+    <AssemblyName>Affiliating.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Affiliating.Contract\Affiliating.Contract.csproj">
+      <Project>{d2d12301-28d3-4ce7-aa16-b502aa68d904}</Project>
+      <Name>Affiliating.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Affiliating.Domain\Affiliating.Domain.csproj">
+      <Project>{ec4de634-8577-40ac-81ef-cb4ca2615535}</Project>
+      <Name>Affiliating.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Affiliating.Persistence\Affiliating.Persistence.csproj">
+      <Project>{545cd1f6-8524-4fd6-88b8-8207a1347059}</Project>
+      <Name>Affiliating.Persistence</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Shared.All\Lx.Shared.All.csproj">
+      <Project>{d3afde4c-6f85-4efd-bd80-50c88c516f0d}</Project>
+      <Name>Lx.Shared.All</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
+      <Project>{b40abc90-1f20-49a5-8734-92e8a13a183f}</Project>
+      <Name>Lx.Utilities.Contract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
+      <Project>{e732222f-4036-4a90-952d-4b72cbdaed08}</Project>
+      <Name>Lx.Utilities.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

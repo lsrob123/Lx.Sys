@@ -2,6 +2,7 @@
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Authentication.Enumerations;
 using Lx.Utilities.Contract.Authorization;
+using Lx.Utilities.Contract.Membership.Constants;
 using Lx.Utilities.Services.Infrastructure;
 
 namespace Lx.Utilities.Services.Authorization {

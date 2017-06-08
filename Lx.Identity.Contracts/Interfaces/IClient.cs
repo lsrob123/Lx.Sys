@@ -1,6 +1,6 @@
 ﻿using System;
 using Lx.Identity.Contracts.Enumerations;
-using Lx.Shared.All.Identity.Interfaces;
+using Lx.Shared.All.Domains.Identity.Interfaces;
 
 namespace Lx.Identity.Contracts.Interfaces {
     public interface IClient : IHasUserProfileOriginator {

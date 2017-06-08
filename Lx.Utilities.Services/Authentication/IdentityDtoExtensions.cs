@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Membership;
+using Lx.Utilities.Contract.Membership.DTOs;
 using Lx.Utilities.Services.Serialization;
 
 namespace Lx.Utilities.Services.Authentication

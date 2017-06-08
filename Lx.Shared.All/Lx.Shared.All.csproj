@@ -48,34 +48,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependencies\Register.cs" />
-    <Compile Include="Identity\Config\UserProfileConfig.cs" />
-    <Compile Include="Identity\Config\IUserProfileConfig.cs" />
-    <Compile Include="Identity\DTOs\AvatarDto.cs" />
-    <Compile Include="Identity\DTOs\CreateUserRequest.cs" />
-    <Compile Include="Identity\DTOs\GetUserKeyEmailsRequest.cs" />
-    <Compile Include="Identity\DTOs\GetUserKeyEmailsResponse.cs" />
-    <Compile Include="Identity\DTOs\IUserDto.cs" />
-    <Compile Include="Identity\DTOs\IUserDtoBase.cs" />
-    <Compile Include="Identity\DTOs\IUserKeyEmailDto.cs" />
-    <Compile Include="Identity\DTOs\UpdateUserProfileRequest.cs" />
-    <Compile Include="Identity\DTOs\UpdateUserProfileResponse.cs" />
-    <Compile Include="Identity\DTOs\UpdateUserRequest.cs" />
-    <Compile Include="Identity\DTOs\UpdateUserRequestBase.cs" />
-    <Compile Include="Identity\DTOs\UpdateUserResponse.cs" />
-    <Compile Include="Identity\DTOs\UserDto.cs" />
-    <Compile Include="Identity\DTOs\UserKeyEmailDto.cs" />
-    <Compile Include="Identity\DTOs\UserProfileDto.cs" />
-    <Compile Include="Identity\DTOs\UserUpdatedEvent.cs" />
-    <Compile Include="Identity\DTOs\UserUpdateDto.cs" />
-    <Compile Include="Identity\Interfaces\IAvatar.cs" />
-    <Compile Include="Identity\Enumerations\UserUpdateResultType.cs" />
-    <Compile Include="Common\Interfaces\IDeactivatable.cs" />
-    <Compile Include="Identity\Interfaces\IHasUserProfileOriginator.cs" />
-    <Compile Include="Common\Interfaces\IUploadFileInfo.cs" />
-    <Compile Include="Identity\Interfaces\IUserBase.cs" />
-    <Compile Include="Identity\Interfaces\IUserProfile.cs" />
-    <Compile Include="Identity\ValueObjects\Avatar.cs" />
-    <Compile Include="Identity\Interfaces\IWithUserKey.cs" />
+    <Compile Include="Domains\Identity\Config\CommonBusEndpointSettings.cs" />
+    <Compile Include="Domains\Identity\Config\ICommonBusEndpointSettings.cs" />
+    <Compile Include="Domains\Identity\Config\UserProfileConfig.cs" />
+    <Compile Include="Domains\Identity\Config\IUserProfileConfig.cs" />
+    <Compile Include="Domains\Identity\DTOs\AvatarDto.cs" />
+    <Compile Include="Domains\Identity\DTOs\CreateUserRequest.cs" />
+    <Compile Include="Domains\Identity\DTOs\CreateUserResponse.cs" />
+    <Compile Include="Domains\Identity\DTOs\GetUserKeyEmailsRequest.cs" />
+    <Compile Include="Domains\Identity\DTOs\GetUserKeyEmailsResponse.cs" />
+    <Compile Include="Domains\Identity\DTOs\IUserKeyEmailDto.cs" />
+    <Compile Include="Domains\Identity\DTOs\UpdateUserProfileRequest.cs" />
+    <Compile Include="Domains\Identity\DTOs\UpdateUserProfileResponse.cs" />
+    <Compile Include="Domains\Identity\DTOs\UpdateUserRequest.cs" />
+    <Compile Include="Domains\Identity\DTOs\UpdateUserRequestBase.cs" />
+    <Compile Include="Domains\Identity\DTOs\UpdateUserResponse.cs" />
+    <Compile Include="Domains\Identity\DTOs\UserDto.cs" />
+    <Compile Include="Domains\Identity\DTOs\UserDtoBase.cs" />
+    <Compile Include="Domains\Identity\DTOs\UserKeyEmailDto.cs" />
+    <Compile Include="Domains\Identity\DTOs\UserProfileDto.cs" />
+    <Compile Include="Domains\Identity\DTOs\UserUpdatedEvent.cs" />
+    <Compile Include="Domains\Identity\DTOs\UserUpdateDto.cs" />
+    <Compile Include="Domains\Identity\Interfaces\IAvatar.cs" />
+    <Compile Include="Domains\Identity\Enumerations\UserUpdateResultType.cs" />
+    <Compile Include="Domains\Common\Interfaces\IDeactivatable.cs" />
+    <Compile Include="Domains\Identity\Interfaces\IHasUserProfileOriginator.cs" />
+    <Compile Include="Domains\Common\Interfaces\IUploadFileInfo.cs" />
+    <Compile Include="Domains\Identity\Interfaces\IUserProfile.cs" />
+    <Compile Include="Domains\Identity\ValueObjects\Address.cs" />
+    <Compile Include="Domains\Identity\ValueObjects\Avatar.cs" />
+    <Compile Include="Domains\Identity\Interfaces\IWithUserKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,9 +95,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Common\DTOs\" />
-    <Folder Include="Identity\Constants\" />
-    <Folder Include="Identity\Entities\" />
+    <Folder Include="Domains\Common\DTOs\" />
+    <Folder Include="Domains\Identity\Constants\" />
+    <Folder Include="Domains\Identity\Entities\" />
+    <Folder Include="Domains\Membership\Enumerations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\index.html">

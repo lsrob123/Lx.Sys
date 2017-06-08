@@ -1,5 +1,5 @@
 using System;
-using Lx.Shared.All.Identity.DTOs;
+using Lx.Shared.All.Domains.Identity.DTOs;
 
 namespace Lx.Identity.Persistence.Uow
 {

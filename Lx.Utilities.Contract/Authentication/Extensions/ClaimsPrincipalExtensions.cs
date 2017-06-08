@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using Lx.Utilities.Contract.Authentication.DTOs;
+using Lx.Utilities.Contract.Membership.DTOs;
 
 namespace Lx.Utilities.Contract.Authentication.Extensions {
     public static class ClaimsPrincipalExtensions {

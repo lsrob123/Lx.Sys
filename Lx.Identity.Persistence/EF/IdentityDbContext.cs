@@ -36,12 +36,12 @@ namespace Lx.Identity.Persistence.EF
             modelBuilder.UniquelyIndexEntityKey<User>();
             modelBuilder.Index<User>(x => x.Username, true);
             modelBuilder.Index<User>(x => x.Email.Address, true);
-            modelBuilder.Index<User>(x => x.MobileNumber.LocalNumberWithAreaCodeInDigits, true);
+            modelBuilder.Index<User>(x => x.Mobile.LocalNumberWithAreaCodeInDigits, true);
 
             modelBuilder.UniquelyIndexEntityKey<Client>();
             modelBuilder.Index<Client>(x => x.ClientId, true);
             modelBuilder.Index<Client>(x => x.ClientName, true);
-            modelBuilder.Index<User>(x => x.MobileNumber.LocalNumberWithAreaCodeInDigits, true);
+            modelBuilder.Index<User>(x => x.Mobile.LocalNumberWithAreaCodeInDigits, true);
 
             modelBuilder.UniquelyIndexEntityKey<Scope>();
             modelBuilder.Index<Scope>(x => x.Name, true);

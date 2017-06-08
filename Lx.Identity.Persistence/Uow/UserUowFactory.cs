@@ -1,14 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using Lx.Identity.Domain.Entities;
 using Lx.Identity.Persistence.EF;
 using Lx.Shared.All.Domains.Identity.Config;
 using Lx.Shared.All.Domains.Identity.DTOs;
+using Lx.Shared.All.Domains.Identity.Enumerations;
 using Lx.Utilities.Contract.Caching;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
 using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
 using Lx.Utilities.Contract.Infrastructure.Helpers;
 using Lx.Utilities.Contract.Logging;
 using Lx.Utilities.Contract.Mapping;
-using Lx.Utilities.Contract.Membership;
 using Lx.Utilities.Contract.Membership.DTOs;
 using Lx.Utilities.Contract.Persistence;
 using Lx.Utilities.Contract.Serialization;
@@ -39,41 +41,7 @@ namespace Lx.Identity.Persistence.Uow
         public UserDto GetUser(string usernameOrEmailOrMobileNumber, string userProfileOriginator)
         {
             UserDto userDto = null;
-            Execute(uow =>
-            {
-                var cacheKey = CacheKeyHelper.GetCacheKey<UserDto>(usernameOrEmailOrMobileNumber);
-                userDto = uow.Cache.GetCachedItem<UserDto>(cacheKey);
-                if (userDto != null)
-                {
-                    userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
-                    return;
-                }
-
-                var localNumberInDigits = usernameOrEmailOrMobileNumber.GetNumberInDigits();
-                if (!string.IsNullOrWhiteSpace(localNumberInDigits))
-                {
-                    cacheKey = CacheKeyHelper.GetCacheKey<UserDto>(localNumberInDigits);
-                    userDto = uow.Cache.GetCachedItem<UserDto>(cacheKey);
-                }
-                if (userDto != null)
-                {
-                    userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
-                    return;
-                }
-
-                var user = uow.Store.FirstOrDefault<User>(
-                    x => x.Email.Address == usernameOrEmailOrMobileNumber ||
-                         x.Username == usernameOrEmailOrMobileNumber ||
-                         x.Mobile.LocalNumberWithAreaCode == usernameOrEmailOrMobileNumber ||
-                         x.Mobile.LocalNumberWithAreaCodeInDigits == localNumberInDigits
-                );
-                if (user == null)
-                    return;
-
-                userDto = MappingService.Map<UserDto>(user);
-                userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
-                CacheUserDto(uow, userDto);
-            });
+            Execute(uow => { userDto = GetUser(uow, userProfileOriginator, usernameOrEmailOrMobileNumber); });
 
             return userDto;
         }
@@ -102,9 +70,90 @@ namespace Lx.Identity.Persistence.Uow
             return userDto;
         }
 
+        public (ProcessResult Result, UserDtoBase User, UserUpdateResultType UpdateResultType)
+            CreateUser(UserUpdateDto userUpdateDto, ICollection<UserProfileDto> userProfiles)
+        {
+            var updateResultType = UserUpdateResultType.Unknown;
+            UserDto userDto = null;
+            var result = ExecuteWithProcessResult(uow =>
+            {
+                userDto = GetUser(uow, null, userUpdateDto.Email.Address);
+                if (userDto != null)
+                {
+                    updateResultType = UserUpdateResultType.EmailExists;
+                    return;
+                }
+
+                var user = uow.Store.Add(MappingService.Map<User>(userUpdateDto));
+                if (user == null)
+                {
+                    updateResultType = UserUpdateResultType.GeneralFailure;
+                    throw new Exception("Failed to create User.");
+                }
+
+                userDto = MappingService.Map<UserDto>(user);
+                CacheUserDto(uow, userDto);
+                foreach (var userProfileDto in userProfiles)
+                {
+                    userProfileDto.UserKey = user.Key;
+                    var userProfile = MappingService.Map<UserProfile>(userProfileDto);
+                    uow.Store.Add(userProfile);
+                    var cacheKey = GetUserProfileCacheKey(userProfileDto.UserKey, userProfileDto.UserProfileOriginator);
+                    uow.Cache.SetCachedItemAsync(cacheKey, userProfileDto).Wait();
+                }
+            });
+
+            return (result, userDto, updateResultType);
+        }
+
+        private UserDto GetUser(IdentityUow uow, string userProfileOriginator, string usernameOrEmailOrMobileNumber)
+        {
+            var cacheKey = GetUserCacheKey(usernameOrEmailOrMobileNumber);
+            var userDto = uow.Cache.GetCachedItem<UserDto>(cacheKey);
+            if (userDto != null)
+            {
+                userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
+                return userDto;
+            }
+
+            var localNumberInDigits = usernameOrEmailOrMobileNumber.GetNumberInDigits();
+            if (!string.IsNullOrWhiteSpace(localNumberInDigits))
+            {
+                cacheKey = CacheKeyHelper.GetCacheKey<UserDto>(localNumberInDigits);
+                userDto = uow.Cache.GetCachedItem<UserDto>(cacheKey);
+            }
+            if (userDto != null)
+            {
+                userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
+                return userDto;
+            }
+
+            var user = uow.Store.FirstOrDefault<User>(
+                x => x.Email.Address == usernameOrEmailOrMobileNumber ||
+                     x.Username == usernameOrEmailOrMobileNumber ||
+                     x.Mobile.LocalNumberWithAreaCode == usernameOrEmailOrMobileNumber ||
+                     x.Mobile.LocalNumberWithAreaCodeInDigits == localNumberInDigits
+            );
+            if (user == null)
+                return null;
+
+            userDto = MappingService.Map<UserDto>(user);
+            userDto.UserProfile = GetUserProfile(uow, userDto.Key, userProfileOriginator);
+            CacheUserDto(uow, userDto);
+            return userDto;
+        }
+
+        private static string GetUserCacheKey(string usernameOrEmailOrMobileNumber)
+        {
+            return CacheKeyHelper.GetCacheKey<UserDto>(usernameOrEmailOrMobileNumber);
+        }
+
         private UserProfileDto GetUserProfile(IdentityUow uow, Guid userKey, string profileOriginator)
         {
-            var cacheKey = CacheKeyHelper.GetCacheKey<UserProfileDto>(profileOriginator + userKey);
+            if (string.IsNullOrWhiteSpace(profileOriginator))
+                return null;
+
+            var cacheKey = GetUserProfileCacheKey(userKey, profileOriginator);
             var userProfileDto = uow.Cache.GetCachedItem<UserProfileDto>(cacheKey);
             if (userProfileDto != null)
                 return userProfileDto;
@@ -114,6 +163,11 @@ namespace Lx.Identity.Persistence.Uow
             if (userProfileDto != null)
                 uow.Cache.SetCachedItemAsync(cacheKey, userProfileDto).Wait();
             return userProfileDto;
+        }
+
+        private static string GetUserProfileCacheKey(Guid userKey, string profileOriginator)
+        {
+            return CacheKeyHelper.GetCacheKey<UserProfileDto>(profileOriginator + userKey);
         }
 
         protected override IdentityUow GetUnitOfWork()

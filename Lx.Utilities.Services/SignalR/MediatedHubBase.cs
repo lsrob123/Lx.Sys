@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Lx.Utilities.Contract.Authentication;
 using Lx.Utilities.Contract.Authentication.DTOs;
 using Lx.Utilities.Contract.Authentication.Interfaces;
 using Lx.Utilities.Contract.Infrastructure.Attributes;
@@ -26,7 +25,7 @@ namespace Lx.Utilities.Services.SignalR
 {
     public abstract class MediatedHubBase : Hub, IHasInstanceKey
     {
-        protected static readonly Type MediatorMessageHandlerType = typeof (IMediatorMessageHandler);
+        protected static readonly Type MediatorMessageHandlerType = typeof(IMediatorMessageHandler);
         protected readonly ILogger Logger;
         protected readonly IMappingService MappingService;
         protected readonly IOAuthHelper OAuthHelper;
@@ -66,7 +65,7 @@ namespace Lx.Utilities.Services.SignalR
 
         public async Task<string> JoinGroupWithAccessTokenAsync(string accessToken)
         {
-            if ((OAuthHelper == null) || string.IsNullOrWhiteSpace(accessToken))
+            if (OAuthHelper == null || string.IsNullOrWhiteSpace(accessToken))
                 return string.Empty;
 
             var user = await OAuthHelper.GetUserAsync(accessToken);
@@ -109,7 +108,7 @@ namespace Lx.Utilities.Services.SignalR
 
             var enforceNotificationOfAllocatedGroup = false;
 
-            if (tryUseUserKeyAsGroupName && (OAuthHelper != null) && !string.IsNullOrWhiteSpace(request.AccessToken))
+            if (tryUseUserKeyAsGroupName && OAuthHelper != null && !string.IsNullOrWhiteSpace(request.AccessToken))
             {
                 var user = await OAuthHelper.GetUserAsync(request.AccessToken);
                 if (user != null)
@@ -122,7 +121,8 @@ namespace Lx.Utilities.Services.SignalR
                 }
             }
 
-            request.OriginatorGroup = await JoinGroupAsync(request.OriginatorGroup, enforceNotificationOfAllocatedGroup);
+            request.OriginatorGroup =
+                await JoinGroupAsync(request.OriginatorGroup, enforceNotificationOfAllocatedGroup);
             return request.User;
         }
 
@@ -157,7 +157,7 @@ namespace Lx.Utilities.Services.SignalR
         }
 
         protected ProcessResult SendGroupResponse<TResponse>(TResponse response, string message = null,
-            Action<string, Exception> handleException = null) where TResponse : IResponse
+            Action<string, Exception> handleException = null) where TResponse : IResultBase
         {
             var shareGroups = response.ShareGroups();
 
@@ -167,7 +167,7 @@ namespace Lx.Utilities.Services.SignalR
                 group => group.groupResponseReceived(groupResponseToOriginator),
                 exception => handleException?.Invoke(response.OriginatorGroup, exception));
 
-            if ((shareGroups == null) || !shareGroups.Any())
+            if (shareGroups == null || !shareGroups.Any())
                 return result;
 
             var responseToShareGroups = MappingService.Map<TResponse>(response);
@@ -185,17 +185,18 @@ namespace Lx.Utilities.Services.SignalR
 
         protected void BroadcastToAllClients<TResponse>(TResponse response) where TResponse : IResponse
         {
-            this.ExecuteOnAllClients(response, (clients, groupResponse) => clients.groupResponseReceived(groupResponse));
+            this.ExecuteOnAllClients(response,
+                (clients, groupResponse) => clients.groupResponseReceived(groupResponse));
         }
 
         protected void InitializeComplexTypePropertyValuesRecursively(object instance)
         {
-            var invisibleInTestExampleAttributeType = typeof (InvisibleInTestExampleAttribute);
-            var stringType = typeof (string);
-            var dateTimeOffsetType = typeof (DateTimeOffset);
-            var timeSpanType = typeof (TimeSpan);
-            var genericNumerableType = typeof (IEnumerable);
-            var userType = typeof (IdentityDto);
+            var invisibleInTestExampleAttributeType = typeof(InvisibleInTestExampleAttribute);
+            var stringType = typeof(string);
+            var dateTimeOffsetType = typeof(DateTimeOffset);
+            var timeSpanType = typeof(TimeSpan);
+            var genericNumerableType = typeof(IEnumerable);
+            var userType = typeof(IdentityDto);
             const string nameOfServiceReferences = nameof(IRequestKey.ServiceReferences);
             const string nameOfSid = nameof(IRequest.Sid);
 
@@ -204,7 +205,7 @@ namespace Lx.Utilities.Services.SignalR
                 try
                 {
                     if (property.GetCustomAttributes(invisibleInTestExampleAttributeType, false).Any() ||
-                        (property.PropertyType == userType) ||
+                        property.PropertyType == userType ||
                         property.Name.Equals(nameOfServiceReferences) ||
                         property.Name.Equals(nameOfSid))
                     {
@@ -237,7 +238,7 @@ namespace Lx.Utilities.Services.SignalR
                             throw new ArgumentEmptyException(nameof(property.Name));
 
                         var elementType = genericArguments.First();
-                        var listType = typeof (List<>).MakeGenericType(elementType);
+                        var listType = typeof(List<>).MakeGenericType(elementType);
                         var list = Activator.CreateInstance(listType) as IList;
 
                         if (list != null)

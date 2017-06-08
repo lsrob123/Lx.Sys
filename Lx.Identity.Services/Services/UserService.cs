@@ -1,6 +1,7 @@
 ﻿using System;
 using Lx.Identity.Persistence.Uow;
 using Lx.Shared.All.Domains.Identity.DTOs;
+using Lx.Utilities.Contract.Infrastructure.Extensions;
 using Lx.Utilities.Contract.Mapping;
 
 namespace Lx.Identity.Services.Services
@@ -36,7 +37,13 @@ namespace Lx.Identity.Services.Services
 
         public CreateUserResponse CreateUser(CreateUserRequest request)
         {
-            throw new NotImplementedException();
+            var updateResult = UserUowFactory.CreateUser(request.UserUpdate, request.UserProfiles);
+            var response = new CreateUserResponse
+            {
+                User = updateResult.User,
+                ResultType = updateResult.UpdateResultType
+            }.WithProcessResult(updateResult.Result).LinkTo(request);
+            return response;
         }
     }
 }

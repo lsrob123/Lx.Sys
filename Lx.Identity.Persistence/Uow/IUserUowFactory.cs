@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Lx.Shared.All.Domains.Identity.DTOs;
+using Lx.Shared.All.Domains.Identity.Enumerations;
+using Lx.Utilities.Contract.Infrastructure.DTOs;
+using Lx.Utilities.Contract.Infrastructure.Interfaces;
 
 namespace Lx.Identity.Persistence.Uow
 {
@@ -8,5 +12,8 @@ namespace Lx.Identity.Persistence.Uow
         UserProfileDto GetUserProfile(Guid userKey, string profileOriginator);
         UserDto GetUser(string usernameOrEmailOrMobileNumber, string userProfileOriginator);
         UserDto GetUser(Guid userKey, string userProfileOriginator);
+
+        (ProcessResult Result, UserDtoBase User, UserUpdateResultType UpdateResultType)
+            CreateUser(UserUpdateDto userUpdateDto, ICollection<UserProfileDto> userProfiles);
     }
 }

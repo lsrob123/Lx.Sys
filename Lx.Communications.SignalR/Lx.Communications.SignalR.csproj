@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{545CD1F6-8524-4FD6-88B8-8207A1347059}</ProjectGuid>
+    <ProjectGuid>{8F1AF72A-5FC4-42BC-BBF5-A52FC7FC7A7F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Affiliating.Persistence</RootNamespace>
-    <AssemblyName>Affiliating.Persistence</AssemblyName>
+    <RootNamespace>Lx.Communications.SignalR</RootNamespace>
+    <AssemblyName>Lx.Communications.SignalR</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -42,31 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Affiliating.Contract\Affiliating.Contract.csproj">
-      <Project>{d2d12301-28d3-4ce7-aa16-b502aa68d904}</Project>
-      <Name>Affiliating.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Affiliating.Domain\Affiliating.Domain.csproj">
-      <Project>{ec4de634-8577-40ac-81ef-cb4ca2615535}</Project>
-      <Name>Affiliating.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lx.Shared.All\Lx.Shared.All.csproj">
-      <Project>{d3afde4c-6f85-4efd-bd80-50c88c516f0d}</Project>
-      <Name>Lx.Shared.All</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
-      <Project>{b40abc90-1f20-49a5-8734-92e8a13a183f}</Project>
-      <Name>Lx.Utilities.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
-      <Project>{e732222f-4036-4a90-952d-4b72cbdaed08}</Project>
-      <Name>Lx.Utilities.Services</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

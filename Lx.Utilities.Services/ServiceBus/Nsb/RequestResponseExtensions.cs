@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
+﻿using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 using NServiceBus.Saga;
 
 namespace Lx.Utilities.Services.ServiceBus.Nsb
@@ -15,7 +15,7 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb
         public static THasSagaId WithSagaData<THasSagaId>(this THasSagaId hasSagaId, IContainSagaData sagaData)
             where THasSagaId : IHasSagaId
         {
-            return Contract.ServiceBus.RequestResponseExtensions.WithSagaId(hasSagaId, sagaData.Id);
+            return Contracts.ServiceBus.RequestResponseExtensions.WithSagaId(hasSagaId, sagaData.Id);
         }
     }
 }

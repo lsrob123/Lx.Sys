@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Enumerations;
 using Lx.Shared.All.Domains.Identity.ValueObjects;
-using Lx.Utilities.Contract.Authentication.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.Domain;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.ValueObjects;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.ValueObjects;
 
 namespace Lx.Identity.Domain.Entities
 {

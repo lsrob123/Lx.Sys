@@ -1,10 +1,16 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Common;
+﻿using Lx.Utilities.Contracts.Infrastructure.Common;
 
-namespace Lx.Identity.Contracts.Enumerations {
-    public class ResetPasswordMethod : Enumeration {
-        protected ResetPasswordMethod(int value, string name) : base(value, name) {}
+namespace Lx.Identity.Contracts.Enumerations
+{
+    public class ResetPasswordMethod : Enumeration
+    {
+        protected ResetPasswordMethod(int value, string name) : base(value, name)
+        {
+        }
 
-        protected ResetPasswordMethod() {}
+        protected ResetPasswordMethod()
+        {
+        }
 
         public static ResetPasswordMethod Nothing => new ResetPasswordMethod(10,
             nameof(Nothing));

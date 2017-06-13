@@ -7,14 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using IdentityModel.Client;
-using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.Extensions;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Mapping;
+using Lx.Utilities.Contracts.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.Common;
+using Lx.Utilities.Contracts.Infrastructure.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.Extensions;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Mapping;
 
 namespace Lx.Utilities.Services.Authentication
 {

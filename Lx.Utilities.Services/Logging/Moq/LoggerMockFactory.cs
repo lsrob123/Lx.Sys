@@ -1,7 +1,7 @@
 ﻿using System;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mediator;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mediator;
 using Moq;
 
 namespace Lx.Utilities.Services.Logging.Moq

@@ -1,7 +1,7 @@
 ﻿using System;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Serialization;
-using Lx.Utilities.Contract.ServiceBus;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Serialization;
+using Lx.Utilities.Contracts.ServiceBus;
 
 namespace Lx.Utilities.Services.ServiceBus
 {
@@ -26,7 +26,7 @@ namespace Lx.Utilities.Services.ServiceBus
             if (data == null)
                 return;
 
-            var cacheKey = $"{typeof (T).Name}{key ?? string.Empty}";
+            var cacheKey = $"{typeof(T).Name}{key ?? string.Empty}";
 
             var cachedData = Serializer.Serialize(data);
 
@@ -35,7 +35,7 @@ namespace Lx.Utilities.Services.ServiceBus
 
         public T GetItem<T>(string key = null)
         {
-            var cacheKey = $"{typeof (T).Name}{key ?? string.Empty}";
+            var cacheKey = $"{typeof(T).Name}{key ?? string.Empty}";
 
             var cachedData = Cache.HashGet(CacheHashKey, cacheKey);
             if (string.IsNullOrWhiteSpace(cachedData))

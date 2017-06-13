@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Lx.Shared.All.Domains.Identity.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
 
 namespace Lx.Shared.All.Domains.Identity.ValueObjects
 {

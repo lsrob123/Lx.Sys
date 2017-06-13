@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
+﻿using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 using NServiceBus;
 
 namespace Lx.Utilities.Services.ServiceBus.Nsb

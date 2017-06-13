@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Crypto;
+﻿using Lx.Utilities.Contracts.Crypto;
 
 namespace Lx.Utilities.Services.Crypto
 {

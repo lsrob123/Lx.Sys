@@ -87,7 +87,7 @@ namespace Lx.Utilities.Services.Config
             if (string.IsNullOrWhiteSpace(stringValue))
                 return null;
 
-            var value = (TValue) Convert.ChangeType(stringValue, typeof (TValue));
+            var value = (TValue) Convert.ChangeType(stringValue, typeof(TValue));
 
             return value;
         }

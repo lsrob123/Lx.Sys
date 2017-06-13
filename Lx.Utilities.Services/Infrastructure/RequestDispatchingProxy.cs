@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
-using Lx.Utilities.Contract.Mediator;
-using Lx.Utilities.Contract.ServiceBus;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.RequestDispatching;
+using Lx.Utilities.Contracts.Mediator;
+using Lx.Utilities.Contracts.ServiceBus;
 using Lx.Utilities.Services.ServiceBus.Nsb;
 using NServiceBus;
 

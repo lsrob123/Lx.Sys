@@ -4,9 +4,8 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Linq.Expressions;
-using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.Domain;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Services.Persistence.EF
 {

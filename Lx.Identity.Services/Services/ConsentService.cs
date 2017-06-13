@@ -3,7 +3,7 @@ using System.Linq;
 using Lx.Identity.Contracts.DTOs;
 using Lx.Identity.Domain.Entities;
 using Lx.Identity.Persistence.Uow;
-using Lx.Utilities.Contract.Mapping;
+using Lx.Utilities.Contracts.Mapping;
 
 namespace Lx.Identity.Services.Services
 {

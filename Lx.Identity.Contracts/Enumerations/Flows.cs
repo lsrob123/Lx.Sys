@@ -1,10 +1,17 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Common;
+﻿using Lx.Utilities.Contracts.Infrastructure.Common;
 
-namespace Lx.Identity.Contracts.Enumerations {
-    public class Flows : Enumeration {
-        protected Flows(int value, string name) : base(value, name) {}
+namespace Lx.Identity.Contracts.Enumerations
+{
+    public class Flows : Enumeration
+    {
+        protected Flows(int value, string name) : base(value, name)
+        {
+        }
 
-        protected Flows() {}
+        protected Flows()
+        {
+        }
+
         public static Flows AuthorizationCode => new Flows(0, nameof(AuthorizationCode));
         public static Flows Implicit => new Flows(1, nameof(Implicit));
         public static Flows Hybrid => new Flows(2, nameof(Hybrid));

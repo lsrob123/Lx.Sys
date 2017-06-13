@@ -2,13 +2,12 @@
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Authorization;
-using Lx.Utilities.Contract.IoC;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Authorization;
+using Lx.Utilities.Contracts.IoC;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Serialization;
 using Lx.Utilities.Services.Authentication;
 
 namespace Lx.Utilities.Services.Web

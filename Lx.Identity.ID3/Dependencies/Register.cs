@@ -1,7 +1,7 @@
 ﻿using IdentityServer3.Core.Services;
 using Lx.Identity.ID3.Services;
 using Lx.Identity.ID3.Stores;
-using Lx.Utilities.Contract.IoC;
+using Lx.Utilities.Contracts.IoC;
 
 namespace Lx.Identity.ID3.Dependencies
 {

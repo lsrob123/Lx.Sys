@@ -1,6 +1,6 @@
 ﻿using System.Data.Entity;
 using Lx.Membership.Domain.Entities;
-using Lx.Utilities.Contract.Membership.Entities;
+using Lx.Utilities.Contracts.Membership.Entities;
 
 namespace Lx.Membership.Persistence.EF
 {

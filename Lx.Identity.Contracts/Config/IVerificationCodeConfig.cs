@@ -1,5 +1,5 @@
 ﻿using System;
-using Lx.Utilities.Contract.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
 
 namespace Lx.Identity.Contracts.Config
 {

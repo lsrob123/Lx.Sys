@@ -1,5 +1,5 @@
 ﻿using System;
-using Lx.Utilities.Contract.Logging;
+using Lx.Utilities.Contracts.Logging;
 
 namespace Lx.Utilities.Services.Infrastructure
 {

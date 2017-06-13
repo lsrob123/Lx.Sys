@@ -1,6 +1,6 @@
 ﻿using System;
 using Lx.Shared.All.Domains.Identity.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 
 namespace Lx.Shared.All.Domains.Identity.DTOs
 {

@@ -1,5 +1,5 @@
 ﻿using Lx.Shared.All.Domains.Identity.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
 namespace Lx.Shared.All.Domains.Identity.DTOs
 {

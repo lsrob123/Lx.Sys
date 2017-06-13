@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using Lx.Utilities.Contract.ServiceBus;
+using Lx.Utilities.Contracts.ServiceBus;
 using Lx.Utilities.Services.Config;
 
 namespace Lx.Utilities.Services.ServiceBus.Nsb

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Serialization;
 using Lx.Utilities.Services.Caching.Redis.Config;
 using Lx.Utilities.Services.Serialization;
 using StackExchange.Redis;
@@ -126,7 +126,7 @@ namespace Lx.Utilities.Services.Caching.Redis
             params string[] individuallySuppliedNames)
         {
             List<string> names = null;
-            if ((nameEnumerable != null) || ((individuallySuppliedNames != null) && individuallySuppliedNames.Any()))
+            if (nameEnumerable != null || individuallySuppliedNames != null && individuallySuppliedNames.Any())
             {
                 names = new List<string>();
                 if (nameEnumerable != null)
@@ -245,7 +245,7 @@ namespace Lx.Utilities.Services.Caching.Redis
             var dict = new Dictionary<string, string>();
             foreach (var str in strArr)
             {
-                if (string.IsNullOrEmpty(str) || (str[0] == '#'))
+                if (string.IsNullOrEmpty(str) || str[0] == '#')
                     continue;
 
                 var idx = str.IndexOf(':');

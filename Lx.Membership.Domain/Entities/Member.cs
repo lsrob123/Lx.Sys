@@ -1,9 +1,9 @@
 ﻿using Lx.Shared.All.Domains.Identity.ValueObjects;
-using Lx.Utilities.Contract.Authentication.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.Domain;
-using Lx.Utilities.Contract.Infrastructure.ValueObjects;
-using Lx.Utilities.Contract.Membership.Enumerations;
-using Lx.Utilities.Contract.Membership.Interfaces;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.ValueObjects;
+using Lx.Utilities.Contracts.Membership.Enumerations;
+using Lx.Utilities.Contracts.Membership.Interfaces;
 
 namespace Lx.Membership.Domain.Entities
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace Lx.Identity.Contracts.Interfaces {
+namespace Lx.Identity.Contracts.Interfaces
+{
     public interface IClientScope : IHasClientKey
     {
         Guid Key { get; }

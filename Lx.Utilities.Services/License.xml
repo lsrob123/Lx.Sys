@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<license id="93358ac0-aa29-470b-894d-9379561bd575" expiration="2017-09-07T00:00:00.0000000" type="Standard" LicenseVersion="5.0" WorkerThreads="Max" AllowedNumberOfWorkerNodes="Max" MaxMessageThroughputPerSecond="Max" Quantity="3" Edition="Enterprise" Applications="All">
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<license id="93358ac0-aa29-470b-894d-9379561bd575" expiration="2017-09-07T00:00:00.0000000" type="Standard"
+         LicenseVersion="5.0" WorkerThreads="Max" AllowedNumberOfWorkerNodes="Max" MaxMessageThroughputPerSecond="Max"
+         Quantity="3" Edition="Enterprise" Applications="All">
   <name>Lixin Yang</name>
   <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
     <SignedInfo>

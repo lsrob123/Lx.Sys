@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.Constants;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Authorization;
-using Lx.Utilities.Contract.IoC;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Authentication.Constants;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Authorization;
+using Lx.Utilities.Contracts.IoC;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Serialization;
 using Lx.Utilities.Services.Infrastructure;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Owin;
-using IRequest = Lx.Utilities.Contract.Infrastructure.Interfaces.IRequest;
+using IRequest = Lx.Utilities.Contracts.Infrastructure.Interfaces.IRequest;
 
 namespace Lx.Utilities.Services.SignalR
 {
@@ -60,7 +59,7 @@ namespace Lx.Utilities.Services.SignalR
             bool appliesToMethod)
         {
             string accessToken = null;
-            if ((hubIncomingInvokerContext.Args != null) && hubIncomingInvokerContext.Args.Any())
+            if (hubIncomingInvokerContext.Args != null && hubIncomingInvokerContext.Args.Any())
             {
                 var request = hubIncomingInvokerContext.Args[0] as IRequest;
                 if (!string.IsNullOrWhiteSpace(request?.AccessToken))
@@ -70,7 +69,7 @@ namespace Lx.Utilities.Services.SignalR
                 else
                 {
                     var header = hubIncomingInvokerContext.Hub.Context.Request.Headers
-                        .FirstOrDefault(x => (x.Key == "Authorization") && x.Value.Contains("Bearer "))
+                        .FirstOrDefault(x => x.Key == "Authorization" && x.Value.Contains("Bearer "))
                         .Value;
                     if (header != null)
                     {
@@ -79,7 +78,8 @@ namespace Lx.Utilities.Services.SignalR
                     else
                     {
                         var cookie = hubIncomingInvokerContext.Hub.Context.Request.Cookies
-                            .FirstOrDefault(x => x.Key.ToLower().Contains("access") && x.Key.ToLower().Contains("token"))
+                            .FirstOrDefault(
+                                x => x.Key.ToLower().Contains("access") && x.Key.ToLower().Contains("token"))
                             .Value;
                         if (!string.IsNullOrWhiteSpace(cookie.Value))
                         {

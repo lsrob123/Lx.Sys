@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Lx.Utilities.Contract.Web;
+using Lx.Utilities.Contracts.Web;
 using RazorTemplates.Core;
 
 namespace Lx.Utilities.Services.Web

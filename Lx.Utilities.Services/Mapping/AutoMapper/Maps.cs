@@ -1,6 +1,5 @@
-﻿using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Configuration;
+﻿using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Configuration;
 using Lx.Utilities.Services.Authentication;
 
 namespace Lx.Utilities.Services.Mapping.AutoMapper
@@ -25,7 +24,7 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
                         Scopes = ((OAuthClientSettings) x).DefaultScopes,
                         GrantType = ((OAuthClientSettings) x).DefaultGrantType
                     }))
-                );
+            );
         }
     }
 }

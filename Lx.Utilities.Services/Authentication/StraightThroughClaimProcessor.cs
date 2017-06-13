@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
 
 namespace Lx.Utilities.Services.Authentication
 {

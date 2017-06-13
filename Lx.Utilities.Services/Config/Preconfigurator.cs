@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using Lx.Utilities.Contract.Configuration;
-using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Contracts.Configuration;
 using Lx.Utilities.Services.Infrastructure;
 using Lx.Utilities.Services.Mapping.AutoMapper;
 
@@ -51,7 +50,7 @@ namespace Lx.Utilities.Services.Config
                     var actions = AssemblyHelper.GetTypesInReferencedAssemblies()
                         .SelectMany(type => type.GetMethods())
                         .Where(method => method.IsStatic &&
-                                         (method.GetCustomAttribute<PreconfigurationAttribute>() != null))
+                                         method.GetCustomAttribute<PreconfigurationAttribute>() != null)
                         .Select(method => new Action(() => method.Invoke(null, new object[0])))
                         .ToList();
 

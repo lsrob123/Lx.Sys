@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Web;
+﻿using Lx.Utilities.Contracts.Web;
 using Lx.Utilities.Services.Config;
 
 namespace Lx.Identity.Endpoint.Config

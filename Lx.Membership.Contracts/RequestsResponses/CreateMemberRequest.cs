@@ -1,7 +1,4 @@
-﻿using Lx.Membership.Contracts.DTOs;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-
-namespace Lx.Membership.Contracts.RequestsResponses
+﻿namespace Lx.Membership.Contracts.RequestsResponses
 {
     public class CreateMemberRequest : UpdateMemberRequestBase
     {

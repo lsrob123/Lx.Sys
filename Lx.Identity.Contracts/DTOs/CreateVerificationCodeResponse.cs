@@ -1,8 +1,8 @@
 using System;
-using Lx.Utilities.Contract.Authentication.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Extensions;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.Extensions;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 
 namespace Lx.Identity.Contracts.DTOs
 {

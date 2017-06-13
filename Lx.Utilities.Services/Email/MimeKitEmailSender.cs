@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Lx.Utilities.Contract.Email;
-using Lx.Utilities.Contract.Infrastructure.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Email;
+using Lx.Utilities.Contracts.Infrastructure.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 using MailKit.Net.Smtp;
 using MimeKit;
 

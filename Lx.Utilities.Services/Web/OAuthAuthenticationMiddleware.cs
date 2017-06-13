@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Logging;
+using Lx.Utilities.Contracts.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Logging;
 using Microsoft.Owin;
 
 namespace Lx.Utilities.Services.Web

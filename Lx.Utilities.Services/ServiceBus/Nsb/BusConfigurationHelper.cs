@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Autofac;
-using Lx.Utilities.Contract.ServiceBus;
+using Lx.Utilities.Contracts.ServiceBus;
 using NServiceBus;
 using NServiceBus.Features;
 using NServiceBus.Logging;
@@ -12,9 +12,9 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb
 {
     public class BusConfigurationHelper
     {
-        protected static readonly Type BusCommandType = typeof (IBusCommand);
-        protected static readonly Type BusEventType = typeof (IBusEvent);
-        protected static readonly Type BusMessageType = typeof (IBusMessage);
+        protected static readonly Type BusCommandType = typeof(IBusCommand);
+        protected static readonly Type BusEventType = typeof(IBusEvent);
+        protected static readonly Type BusMessageType = typeof(IBusMessage);
 
         public static BusConfiguration GetBusConfiguration(IBusSettings settings,
             bool useDefaultAutofacContainer = false, IContainer autofacContainer = null,
@@ -25,7 +25,7 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb
             busConfiguration.EndpointName(settings.EndpointName);
 
             //busConfiguration.UseSerialization(settings.SerializerType ?? typeof(JsonSerializer));
-            busConfiguration.UseSerialization(settings.SerializerType ?? typeof (NewtonsoftSerializer));
+            busConfiguration.UseSerialization(settings.SerializerType ?? typeof(NewtonsoftSerializer));
 
             var transport = busConfiguration.UseTransport<RabbitMQTransport>();
             transport.ConnectionString(settings.MqConnectionString);
@@ -37,11 +37,11 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb
                 .ConnectionString(settings.PersistenceStoreConnectionString);
 
             busConfiguration.Conventions().DefiningCommandsAs(commandType =>
-                (commandType.Namespace != null) && BusCommandType.IsAssignableFrom(commandType));
+                commandType.Namespace != null && BusCommandType.IsAssignableFrom(commandType));
             busConfiguration.Conventions().DefiningEventsAs(
-                eventType => (eventType.Namespace != null) && BusEventType.IsAssignableFrom(eventType));
+                eventType => eventType.Namespace != null && BusEventType.IsAssignableFrom(eventType));
             busConfiguration.Conventions().DefiningMessagesAs(messageType =>
-                (messageType.Namespace != null) && BusMessageType.IsAssignableFrom(messageType));
+                messageType.Namespace != null && BusMessageType.IsAssignableFrom(messageType));
 
             busConfiguration.PurgeOnStartup(settings.PurgeOnStartup);
 

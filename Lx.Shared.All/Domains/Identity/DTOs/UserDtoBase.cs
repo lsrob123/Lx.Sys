@@ -1,6 +1,6 @@
 ﻿using System;
-using Lx.Utilities.Contract.Authentication.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
 namespace Lx.Shared.All.Domains.Identity.DTOs
 {

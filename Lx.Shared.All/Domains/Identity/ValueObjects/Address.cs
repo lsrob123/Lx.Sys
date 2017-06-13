@@ -1,5 +1,5 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Domain;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+﻿using Lx.Utilities.Contracts.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 
 namespace Lx.Shared.All.Domains.Identity.ValueObjects
 {

@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Common;
+﻿using Lx.Utilities.Contracts.Infrastructure.Common;
 
 namespace Lx.Shared.All.Domains.Identity.Enumerations
 {
@@ -8,7 +8,7 @@ namespace Lx.Shared.All.Domains.Identity.Enumerations
         {
         }
 
-        protected UserUpdateResultType() 
+        protected UserUpdateResultType()
         {
         }
 

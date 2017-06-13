@@ -43,11 +43,5 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
-      <Project>{b40abc90-1f20-49a5-8734-92e8a13a183f}</Project>
-      <Name>Lx.Utilities.Contract</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

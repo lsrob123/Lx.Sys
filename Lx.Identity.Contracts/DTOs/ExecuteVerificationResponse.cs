@@ -1,5 +1,5 @@
 ﻿using Lx.Identity.Contracts.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
 namespace Lx.Identity.Contracts.DTOs
 {

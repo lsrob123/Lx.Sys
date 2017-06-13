@@ -3,23 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.Attributes;
-using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Extensions;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mapping;
-using Lx.Utilities.Contract.Mediator;
+using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.Attributes;
+using Lx.Utilities.Contracts.Infrastructure.Common;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.Extensions;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.RequestDispatching;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mapping;
+using Lx.Utilities.Contracts.Mediator;
 using Lx.Utilities.Services.Infrastructure;
 using Lx.Utilities.Services.Reflection;
 using Lx.Utilities.Services.Serialization;
 using Microsoft.AspNet.SignalR;
 using Remotion.Linq.Utilities;
-using IRequest = Lx.Utilities.Contract.Infrastructure.Interfaces.IRequest;
+using IRequest = Lx.Utilities.Contracts.Infrastructure.Interfaces.IRequest;
 
 namespace Lx.Utilities.Services.SignalR
 {

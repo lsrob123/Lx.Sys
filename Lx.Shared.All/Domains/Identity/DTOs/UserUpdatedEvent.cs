@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Lx.Shared.All.Domains.Identity.Enumerations;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Membership.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Membership.DTOs;
 
 namespace Lx.Shared.All.Domains.Identity.DTOs
 {

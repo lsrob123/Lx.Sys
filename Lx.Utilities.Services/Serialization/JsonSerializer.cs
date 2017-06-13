@@ -1,6 +1,6 @@
 ﻿using System;
-using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Infrastructure.Common;
+using Lx.Utilities.Contracts.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;

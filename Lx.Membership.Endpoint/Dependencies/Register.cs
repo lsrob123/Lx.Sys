@@ -1,11 +1,10 @@
 ﻿using Lx.Membership.Endpoint.Config;
-using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.IoC;
-using Lx.Utilities.Contract.Persistence;
-using Lx.Utilities.Contract.ServiceBus;
-using Lx.Utilities.Contract.Web;
+using Lx.Utilities.Contracts.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.IoC;
+using Lx.Utilities.Contracts.Persistence;
+using Lx.Utilities.Contracts.ServiceBus;
+using Lx.Utilities.Contracts.Web;
 using Lx.Utilities.Services.Authentication;
 
 namespace Lx.Membership.Endpoint.Dependencies

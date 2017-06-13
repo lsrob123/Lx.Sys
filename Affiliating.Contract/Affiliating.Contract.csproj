@@ -48,9 +48,9 @@
       <Project>{d3afde4c-6f85-4efd-bd80-50c88c516f0d}</Project>
       <Name>Lx.Shared.All</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
-      <Project>{b40abc90-1f20-49a5-8734-92e8a13a183f}</Project>
-      <Name>Lx.Utilities.Contract</Name>
+    <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
+      <Project>{27f761eb-df3c-4634-8966-b368350f7524}</Project>
+      <Name>Lx.Utilities.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

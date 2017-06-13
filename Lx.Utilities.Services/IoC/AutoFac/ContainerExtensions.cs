@@ -1,7 +1,7 @@
 ﻿using Autofac;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.IoC;
-using Lx.Utilities.Contract.ServiceBus;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.IoC;
+using Lx.Utilities.Contracts.ServiceBus;
 using Lx.Utilities.Services.ServiceBus.Nsb;
 using Lx.Utilities.Services.SignalR;
 using NServiceBus;

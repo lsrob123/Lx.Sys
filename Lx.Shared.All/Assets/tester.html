@@ -100,7 +100,8 @@
         var key = 'color: red';
         json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         return json
-            .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+            .replace(
+                /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
                 function(match) {
                     var cls = number;
                     if (/^"/.test(match)) {
@@ -206,7 +207,7 @@
     }
 
     setInterval(function() {
-        $.cookie('accessToken', $('#access-token').val());
+            $.cookie('accessToken', $('#access-token').val());
             if (getParam('remember_data')) {
                 $.cookie(getCookieKeyPrefix() + "request", $('#request').val());
                 $.cookie("func-name", $('#func-name').val());
@@ -299,7 +300,7 @@
                     $('#request').val(JSON.stringify(request, null, 2));
 
                 };
-                currentHub.client.requestSampleReturned = function (response, returnedRequestReference) {
+                currentHub.client.requestSampleReturned = function(response, returnedRequestReference) {
                     if (returnedRequestReference !== requestReference)
                         return;
 

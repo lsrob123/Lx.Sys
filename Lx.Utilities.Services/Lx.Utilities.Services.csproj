@@ -316,12 +316,6 @@
     <Compile Include="WindowsService\Topshelf\ServiceHostInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
-      <Project>{b40abc90-1f20-49a5-8734-92e8a13a183f}</Project>
-      <Name>Lx.Utilities.Contract</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Assets\index.html" />
     <Content Include="Assets\jquery.cookie.js" />
     <Content Include="Assets\jquery.js" />
@@ -338,7 +332,12 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
+      <Project>{27f761eb-df3c-4634-8966-b368350f7524}</Project>
+      <Name>Lx.Utilities.Contracts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

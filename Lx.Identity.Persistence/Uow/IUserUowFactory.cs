@@ -2,8 +2,7 @@ using System;
 using System.Collections.Generic;
 using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Shared.All.Domains.Identity.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
 namespace Lx.Identity.Persistence.Uow
 {

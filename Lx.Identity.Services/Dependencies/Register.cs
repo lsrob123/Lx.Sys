@@ -1,6 +1,6 @@
 ﻿using Lx.Identity.Persistence.Uow;
 using Lx.Identity.Services.Services;
-using Lx.Utilities.Contract.IoC;
+using Lx.Utilities.Contracts.IoC;
 
 namespace Lx.Identity.Services.Dependencies
 {

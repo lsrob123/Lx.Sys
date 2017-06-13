@@ -1072,61 +1072,61 @@
                 promise;
             // Add errorDeferred methods, then and promise
             jQuery.extend(deferred,
-            {
-                then: function(doneCallbacks, failCallbacks) {
-                    deferred.done(doneCallbacks).fail(failCallbacks);
-                    return this;
-                },
-                always: function() {
-                    return deferred.done.apply(deferred, arguments).fail.apply(this, arguments);
-                },
-                fail: failDeferred.done,
-                rejectWith: failDeferred.resolveWith,
-                reject: failDeferred.resolve,
-                isRejected: failDeferred.isResolved,
-                pipe: function(fnDone, fnFail) {
-                    return jQuery.Deferred(function(newDefer) {
-                            jQuery.each({
-                                    done: [fnDone, "resolve"],
-                                    fail: [fnFail, "reject"]
-                                },
-                                function(handler, data) {
-                                    var fn = data[0],
-                                        action = data[1],
-                                        returned;
-                                    if (jQuery.isFunction(fn)) {
-                                        deferred[handler](function() {
-                                            returned = fn.apply(this, arguments);
-                                            if (returned && jQuery.isFunction(returned.promise)) {
-                                                returned.promise().then(newDefer.resolve, newDefer.reject);
-                                            } else {
-                                                newDefer[action + "With"
-                                                ](this === deferred ? newDefer : this, [returned]);
-                                            }
-                                        });
-                                    } else {
-                                        deferred[handler](newDefer[action]);
-                                    }
-                                });
-                        })
-                        .promise();
-                },
-                // Get a promise for this deferred
-                // If obj is provided, the promise aspect is added to the object
-                promise: function(obj) {
-                    if (obj == null) {
-                        if (promise) {
-                            return promise;
+                {
+                    then: function(doneCallbacks, failCallbacks) {
+                        deferred.done(doneCallbacks).fail(failCallbacks);
+                        return this;
+                    },
+                    always: function() {
+                        return deferred.done.apply(deferred, arguments).fail.apply(this, arguments);
+                    },
+                    fail: failDeferred.done,
+                    rejectWith: failDeferred.resolveWith,
+                    reject: failDeferred.resolve,
+                    isRejected: failDeferred.isResolved,
+                    pipe: function(fnDone, fnFail) {
+                        return jQuery.Deferred(function(newDefer) {
+                                jQuery.each({
+                                        done: [fnDone, "resolve"],
+                                        fail: [fnFail, "reject"]
+                                    },
+                                    function(handler, data) {
+                                        var fn = data[0],
+                                            action = data[1],
+                                            returned;
+                                        if (jQuery.isFunction(fn)) {
+                                            deferred[handler](function() {
+                                                returned = fn.apply(this, arguments);
+                                                if (returned && jQuery.isFunction(returned.promise)) {
+                                                    returned.promise().then(newDefer.resolve, newDefer.reject);
+                                                } else {
+                                                    newDefer[action + "With"
+                                                    ](this === deferred ? newDefer : this, [returned]);
+                                                }
+                                            });
+                                        } else {
+                                            deferred[handler](newDefer[action]);
+                                        }
+                                    });
+                            })
+                            .promise();
+                    },
+                    // Get a promise for this deferred
+                    // If obj is provided, the promise aspect is added to the object
+                    promise: function(obj) {
+                        if (obj == null) {
+                            if (promise) {
+                                return promise;
+                            }
+                            promise = obj = {};
                         }
-                        promise = obj = {};
+                        var i = promiseMethods.length;
+                        while (i--) {
+                            obj[promiseMethods[i]] = deferred[promiseMethods[i]];
+                        }
+                        return obj;
                     }
-                    var i = promiseMethods.length;
-                    while (i--) {
-                        obj[promiseMethods[i]] = deferred[promiseMethods[i]];
-                    }
-                    return obj;
-                }
-            });
+                });
             // Make sure only one callback list will be used
             deferred.done(failDeferred.cancel).fail(deferred.cancel);
             // Unexpose cancel
@@ -1334,11 +1334,11 @@
         };
         if (body) {
             jQuery.extend(testElementStyle,
-            {
-                position: "absolute",
-                left: "-1000px",
-                top: "-1000px"
-            });
+                {
+                    position: "absolute",
+                    left: "-1000px",
+                    top: "-1000px"
+                });
         }
         for (i in testElementStyle) {
             testElement.style[i] = testElementStyle[i];
@@ -1770,7 +1770,11 @@
                         ? false
                         : data === "null"
                         ? null
-                        : !jQuery.isNaN(data) ? parseFloat(data) : rbrace.test(data) ? jQuery.parseJSON(data) : data;
+                        : !jQuery.isNaN(data)
+                        ? parseFloat(data)
+                        : rbrace.test(data)
+                        ? jQuery.parseJSON(data)
+                        : data;
                 } catch (e) {
                 }
 
@@ -2157,7 +2161,9 @@
                         ret.replace(rreturn, "")
                         :
                         // handle cases where value is null/undef or number
-                        ret == null ? "" : ret;
+                        ret == null
+                        ? ""
+                        : ret;
                 }
 
                 return undefined;
@@ -2467,7 +2473,9 @@
 
                     return attributeNode && attributeNode.specified
                         ? parseInt(attributeNode.value, 10)
-                        : rfocusable.test(elem.nodeName) || rclickable.test(elem.nodeName) && elem.href ? 0 : undefined;
+                        : rfocusable.test(elem.nodeName) || rclickable.test(elem.nodeName) && elem.href
+                        ? 0
+                        : undefined;
                 }
             }
         }
@@ -2535,14 +2543,14 @@
         jQuery.each(["width", "height"],
             function(i, name) {
                 jQuery.attrHooks[name] = jQuery.extend(jQuery.attrHooks[name],
-                {
-                    set: function(elem, value) {
-                        if (value === "") {
-                            elem.setAttribute(name, "auto");
-                            return value;
+                    {
+                        set: function(elem, value) {
+                            if (value === "") {
+                                elem.setAttribute(name, "auto");
+                                return value;
+                            }
                         }
-                    }
-                });
+                    });
             });
     }
 
@@ -2552,12 +2560,12 @@
         jQuery.each(["href", "src", "width", "height"],
             function(i, name) {
                 jQuery.attrHooks[name] = jQuery.extend(jQuery.attrHooks[name],
-                {
-                    get: function(elem) {
-                        var ret = elem.getAttribute(name, 2);
-                        return ret === null ? undefined : ret;
-                    }
-                });
+                    {
+                        get: function(elem) {
+                            var ret = elem.getAttribute(name, 2);
+                            return ret === null ? undefined : ret;
+                        }
+                    });
             });
     }
 
@@ -2578,21 +2586,21 @@
 // Accessing the parent's selectedIndex property fixes it
     if (!jQuery.support.optSelected) {
         jQuery.propHooks.selected = jQuery.extend(jQuery.propHooks.selected,
-        {
-            get: function(elem) {
-                var parent = elem.parentNode;
+            {
+                get: function(elem) {
+                    var parent = elem.parentNode;
 
-                if (parent) {
-                    parent.selectedIndex;
+                    if (parent) {
+                        parent.selectedIndex;
 
-                    // Make sure that it also works with optgroups, see #5701
-                    if (parent.parentNode) {
-                        parent.parentNode.selectedIndex;
+                        // Make sure that it also works with optgroups, see #5701
+                        if (parent.parentNode) {
+                            parent.parentNode.selectedIndex;
+                        }
                     }
+                    return null;
                 }
-                return null;
-            }
-        });
+            });
     }
 
 // Radios and checkboxes getter/setter
@@ -2610,13 +2618,13 @@
     jQuery.each(["radio", "checkbox"],
         function() {
             jQuery.valHooks[this] = jQuery.extend(jQuery.valHooks[this],
-            {
-                set: function(elem, value) {
-                    if (jQuery.isArray(value)) {
-                        return (elem.checked = jQuery.inArray(jQuery(elem).val(), value) >= 0);
+                {
+                    set: function(elem, value) {
+                        if (jQuery.isArray(value)) {
+                            return (elem.checked = jQuery.inArray(jQuery(elem).val(), value) >= 0);
+                        }
                     }
-                }
-            });
+                });
         });
 
 
@@ -3085,7 +3093,8 @@
         },
 
         props:
-            "altKey attrChange attrName bubbles button cancelable charCode clientX clientY ctrlKey currentTarget data detail eventPhase fromElement handler keyCode layerX layerY metaKey newValue offsetX offsetY pageX pageY prevValue relatedNode relatedTarget screenX screenY shiftKey srcElement target toElement view wheelDelta which".split(" "),
+            "altKey attrChange attrName bubbles button cancelable charCode clientX clientY ctrlKey currentTarget data detail eventPhase fromElement handler keyCode layerX layerY metaKey newValue offsetX offsetY pageX pageY prevValue relatedNode relatedTarget screenX screenY shiftKey srcElement target toElement view wheelDelta which"
+                .split(" "),
 
         fix: function(event) {
             if (event[jQuery.expando]) {
@@ -4722,7 +4731,9 @@
                     var name = match[1],
                         result = Expr.attrHandle[name]
                             ? Expr.attrHandle[name](elem)
-                            : elem[name] != null ? elem[name] : elem.getAttribute(name),
+                            : elem[name] != null
+                            ? elem[name]
+                            : elem.getAttribute(name),
                         value = result + "",
                         type = match[2],
                         check = match[4];
@@ -4743,7 +4754,9 @@
                         ? value.indexOf(check) === 0
                         : type === "$="
                         ? value.substr(value.length - check.length) === check
-                        : type === "|=" ? value === check || value.substr(0, check.length + 1) === check + "-" : false;
+                        : type === "|="
+                        ? value === check || value.substr(0, check.length + 1) === check + "-"
+                        : false;
                 },
 
                 POS: function(elem, match, i, array) {
@@ -5599,7 +5612,9 @@
             }
 
             return elems.length === 1
-                ? jQuery.find.matchesSelector(elems[0], expr) ? [elems[0]] : []
+                ? jQuery.find.matchesSelector(elems[0], expr)
+                ? [elems[0]]
+                : []
                 : jQuery.find.matches(expr, elems);
         },
 
@@ -6354,7 +6369,9 @@
                                     :
 
                                     // String was a bare <thead> or <tfoot>
-                                    wrap[1] === "<table>" && !hasBody ? div.childNodes : [];
+                                    wrap[1] === "<table>" && !hasBody
+                                    ? div.childNodes
+                                    : [];
 
                             for (j = tbody.length - 1; j >= 0; --j) {
                                 if (jQuery.nodeName(tbody[j], "tbody") && !tbody[j].childNodes.length) {
@@ -6696,7 +6713,9 @@
                 return ropacity.test((computed && elem.currentStyle ? elem.currentStyle.filter : elem.style.filter) ||
                         "")
                     ? (parseFloat(RegExp.$1) / 100) + ""
-                    : computed ? "1" : "";
+                    : computed
+                    ? "1"
+                    : "";
             },
 
             set: function(elem, value) {
@@ -8118,10 +8137,10 @@
 // Determine support properties
     (function(xhr) {
         jQuery.extend(jQuery.support,
-        {
-            ajax: !!xhr,
-            cors: !!xhr && ("withCredentials" in xhr)
-        });
+            {
+                ajax: !!xhr,
+                cors: !!xhr && ("withCredentials" in xhr)
+            });
     })(jQuery.ajaxSettings.xhr());
 
 // Create transport if the browser can provide an xhr
@@ -8637,7 +8656,9 @@
                 ? 0
                 : typeof opt.duration === "number"
                 ? opt.duration
-                : opt.duration in jQuery.fx.speeds ? jQuery.fx.speeds[opt.duration] : jQuery.fx.speeds._default;
+                : opt.duration in jQuery.fx.speeds
+                ? jQuery.fx.speeds[opt.duration]
+                : jQuery.fx.speeds._default;
 
             // Queueing
             opt.old = opt.complete;
@@ -8821,53 +8842,53 @@
     };
 
     jQuery.extend(jQuery.fx,
-    {
-        tick: function() {
-            for (var timers = jQuery.timers, i = 0; i < timers.length; ++i) {
-                if (!timers[i]()) {
-                    timers.splice(i--, 1);
+        {
+            tick: function() {
+                for (var timers = jQuery.timers, i = 0; i < timers.length; ++i) {
+                    if (!timers[i]()) {
+                        timers.splice(i--, 1);
+                    }
                 }
-            }
 
-            if (!timers.length) {
-                jQuery.fx.stop();
-            }
-        },
-
-        interval: 13,
-
-        stop: function() {
-            clearInterval(timerId);
-            timerId = null;
-        },
-
-        speeds: {
-            slow: 600,
-            fast: 200,
-            // Default speed
-            _default: 400
-        },
-
-        step: {
-            opacity: function(fx) {
-                jQuery.style(fx.elem, "opacity", fx.now);
+                if (!timers.length) {
+                    jQuery.fx.stop();
+                }
             },
 
-            _default: function(fx) {
-                if (fx.elem.style && fx.elem.style[fx.prop] != null) {
-                    fx.elem.style[fx.prop] = (fx
-                            .prop ===
-                            "width" ||
-                            fx.prop === "height"
-                            ? Math.max(0, fx.now)
-                            : fx.now) +
-                        fx.unit;
-                } else {
-                    fx.elem[fx.prop] = fx.now;
+            interval: 13,
+
+            stop: function() {
+                clearInterval(timerId);
+                timerId = null;
+            },
+
+            speeds: {
+                slow: 600,
+                fast: 200,
+                // Default speed
+                _default: 400
+            },
+
+            step: {
+                opacity: function(fx) {
+                    jQuery.style(fx.elem, "opacity", fx.now);
+                },
+
+                _default: function(fx) {
+                    if (fx.elem.style && fx.elem.style[fx.prop] != null) {
+                        fx.elem.style[fx.prop] = (fx
+                                .prop ===
+                                "width" ||
+                                fx.prop === "height"
+                                ? Math.max(0, fx.now)
+                                : fx.now) +
+                            fx.unit;
+                    } else {
+                        fx.elem[fx.prop] = fx.now;
+                    }
                 }
             }
-        }
-    });
+        });
 
     if (jQuery.expr && jQuery.expr.filters) {
         jQuery.expr.filters.animated = function(elem) {
@@ -9062,16 +9083,16 @@
                     "<div style='position:absolute;top:0;left:0;margin:0;border:5px solid #000;padding:0;width:1px;height:1px;'><div></div></div><table style='position:absolute;top:0;left:0;margin:0;border:5px solid #000;padding:0;width:1px;height:1px;' cellpadding='0' cellspacing='0'><tr><td></td></tr></table>";
 
             jQuery.extend(container.style,
-            {
-                position: "absolute",
-                top: 0,
-                left: 0,
-                margin: 0,
-                border: 0,
-                width: "1px",
-                height: "1px",
-                visibility: "hidden"
-            });
+                {
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    margin: 0,
+                    border: 0,
+                    width: "1px",
+                    height: "1px",
+                    visibility: "hidden"
+                });
 
             container.innerHTML = html;
             body.insertBefore(container, body.firstChild);

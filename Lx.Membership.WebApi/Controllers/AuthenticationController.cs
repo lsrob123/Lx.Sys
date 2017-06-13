@@ -2,8 +2,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
 
 namespace Lx.Membership.WebApi.Controllers
 {

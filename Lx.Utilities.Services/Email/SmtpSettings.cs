@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Email;
+﻿using Lx.Utilities.Contracts.Email;
 using Lx.Utilities.Services.Config;
 
 namespace Lx.Utilities.Services.Email

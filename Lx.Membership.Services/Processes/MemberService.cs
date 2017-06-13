@@ -5,9 +5,9 @@ using Lx.Membership.Contracts.RequestsResponses;
 using Lx.Membership.Persistence.UowFactories;
 using Lx.Shared.All.Domains.Identity.Config;
 using Lx.Shared.All.Domains.Identity.DTOs;
-using Lx.Utilities.Contract.Mapping;
-using Lx.Utilities.Contract.Membership.DTOs;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Mapping;
+using Lx.Utilities.Contracts.Membership.DTOs;
+using Lx.Utilities.Contracts.Serialization;
 
 namespace Lx.Membership.Services.Processes
 {

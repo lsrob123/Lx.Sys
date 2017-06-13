@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Caching;
 using System.Threading.Tasks;
-using Lx.Utilities.Contract.Caching;
+using Lx.Utilities.Contracts.Caching;
 
 namespace Lx.Utilities.Services.Caching.InProcess
 {

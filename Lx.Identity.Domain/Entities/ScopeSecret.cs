@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
 
 namespace Lx.Identity.Domain.Entities
 {

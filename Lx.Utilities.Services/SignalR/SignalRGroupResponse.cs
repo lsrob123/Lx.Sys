@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
+﻿using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Services.SignalR
 {

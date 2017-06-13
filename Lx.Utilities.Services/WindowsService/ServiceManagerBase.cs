@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac;
-using Lx.Utilities.Contract.Web;
-using Lx.Utilities.Contract.WindowsService;
+using Lx.Utilities.Contracts.Web;
+using Lx.Utilities.Contracts.WindowsService;
 using Lx.Utilities.Services.Config;
 using Lx.Utilities.Services.IoC.AutoFac;
 using Lx.Utilities.Services.Web;

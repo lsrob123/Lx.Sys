@@ -3,11 +3,9 @@ using System.Web.Http;
 using System.Web.Http.Filters;
 using Autofac;
 using Autofac.Integration.WebApi;
-using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Services.Authentication;
+using Lx.Utilities.Contracts.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Logging;
 using Owin;
 
 namespace Lx.Utilities.Services.Web

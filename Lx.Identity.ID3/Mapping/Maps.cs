@@ -1,5 +1,5 @@
 ﻿using Lx.Identity.Contracts.DTOs;
-using Lx.Utilities.Contract.Configuration;
+using Lx.Utilities.Contracts.Configuration;
 using Lx.Utilities.Services.Mapping.AutoMapper;
 
 namespace Lx.Identity.ID3.Mapping

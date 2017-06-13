@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Mediator;
+﻿using Lx.Utilities.Contracts.Mediator;
 using Lx.Utilities.Modelling.DTOs;
 using Lx.Utilities.Services.ServiceBus;
 using NServiceBus;

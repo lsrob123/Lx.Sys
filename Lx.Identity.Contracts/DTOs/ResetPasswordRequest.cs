@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
 using Newtonsoft.Json;
 
 namespace Lx.Identity.Contracts.DTOs

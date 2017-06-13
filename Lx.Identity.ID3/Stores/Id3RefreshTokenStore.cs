@@ -1,8 +1,8 @@
 ﻿using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Serialization;
 
 namespace Lx.Identity.ID3.Stores
 {

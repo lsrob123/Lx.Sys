@@ -5,15 +5,15 @@ using Lx.Identity.Persistence.EF;
 using Lx.Shared.All.Domains.Identity.Config;
 using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Shared.All.Domains.Identity.Enumerations;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
-using Lx.Utilities.Contract.Infrastructure.Helpers;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mapping;
-using Lx.Utilities.Contract.Membership.DTOs;
-using Lx.Utilities.Contract.Persistence;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.EventBroadcasting;
+using Lx.Utilities.Contracts.Infrastructure.Helpers;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mapping;
+using Lx.Utilities.Contracts.Membership.DTOs;
+using Lx.Utilities.Contracts.Persistence;
+using Lx.Utilities.Contracts.Serialization;
 using Lx.Utilities.Services.Persistence;
 
 namespace Lx.Identity.Persistence.Uow

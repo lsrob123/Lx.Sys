@@ -7,7 +7,7 @@ namespace Lx.Utilities.Services.Infrastructure
     {
         public static void Replicate<T>(T fromObject, T toObject, Func<string, bool> isMappedFirstTierProperty = null)
         {
-            var properties = typeof (T).GetProperties()
+            var properties = typeof(T).GetProperties()
                 .Where(x => isMappedFirstTierProperty?.Invoke(x.Name) ?? true)
                 .ToList();
             foreach (var property in properties)

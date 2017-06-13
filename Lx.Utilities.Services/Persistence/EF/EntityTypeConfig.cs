@@ -5,7 +5,7 @@ using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
 using System.Globalization;
 using System.Linq.Expressions;
-using Lx.Utilities.Contract.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
 
 namespace Lx.Utilities.Services.Persistence.EF
 {
@@ -17,7 +17,7 @@ namespace Lx.Utilities.Services.Persistence.EF
         {
             if (string.IsNullOrWhiteSpace(tableName))
                 tableName = PluralizationService.CreateService(CultureInfo.GetCultureInfo("en-us"))
-                    .Pluralize(typeof (TEntity).Name);
+                    .Pluralize(typeof(TEntity).Name);
 
             ToTable(tableName);
 
@@ -45,7 +45,7 @@ namespace Lx.Utilities.Services.Persistence.EF
             where TProperty : struct
         {
             Property(propertyExpression)
-                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute[] {}));
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName, new IndexAnnotation(new IndexAttribute[] { }));
 
             return this;
         }

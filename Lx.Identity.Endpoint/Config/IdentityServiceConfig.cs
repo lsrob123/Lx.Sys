@@ -1,10 +1,11 @@
 ﻿using System;
-using Lx.Identity.Contracts.Config;
-using Lx.Utilities.Contract.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.Config;
 using Lx.Utilities.Services.Config;
 
-namespace Lx.Identity.Endpoint.Config {
-    public class IdentityServiceConfig : IIdentityServiceConfig {
+namespace Lx.Identity.Endpoint.Config
+{
+    public class IdentityServiceConfig : IIdentityServiceConfig
+    {
         public string IdentityProviderName => this.AppSettingStringValue(x => x.IdentityProviderName);
         public string IdentityServiceSiteName => this.AppSettingStringValue(x => x.IdentityServiceSiteName);
         public string CertificateFilePath => this.AppSettingStringValue(x => x.CertificateFilePath);

@@ -3,14 +3,18 @@ using Autofac;
 using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Services;
 using IdentityServer3.Core.Services.Default;
-using Lx.Utilities.Contract.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.Config;
 
-namespace Lx.Utilities.Services.Authentication {
-    public static class IdentityServerConfigurator {
-        public static IdentityServerServiceFactory IdentityServerServiceFactory(IContainer container) {
+namespace Lx.Utilities.Services.Authentication
+{
+    public static class IdentityServerConfigurator
+    {
+        public static IdentityServerServiceFactory IdentityServerServiceFactory(IContainer container)
+        {
             var config = container.Resolve<IIdentityServiceConfig>();
 
-            var factory = new IdentityServerServiceFactory {
+            var factory = new IdentityServerServiceFactory
+            {
                 UserService = new Registration<IUserService>(x => container.Resolve<IUserService>()),
                 ClientStore = new Registration<IClientStore>(x => container.Resolve<IClientStore>()),
                 ScopeStore = new Registration<IScopeStore>(x => container.Resolve<IScopeStore>()),
@@ -28,16 +32,19 @@ namespace Lx.Utilities.Services.Authentication {
             return factory;
         }
 
-        public static IdentityServerOptions IdentityServerOptions(IContainer container) {
+        public static IdentityServerOptions IdentityServerOptions(IContainer container)
+        {
             var config = container.Resolve<IIdentityServiceConfig>();
 
-            var options = new IdentityServerOptions {
+            var options = new IdentityServerOptions
+            {
                 Factory = IdentityServerServiceFactory(container),
                 SigningCertificate = GetCertificate(container),
                 SiteName = config.IdentityServiceSiteName,
                 Endpoints = new EndpointOptions {EnableAccessTokenValidationEndpoint = false},
 #if DEBUG
-                LoggingOptions = new LoggingOptions {
+                LoggingOptions = new LoggingOptions
+                {
                     EnableHttpLogging = true,
                     EnableWebApiDiagnostics = true,
                     WebApiDiagnosticsIsVerbose = true
@@ -48,7 +55,8 @@ namespace Lx.Utilities.Services.Authentication {
             return options;
         }
 
-        public static X509Certificate2 GetCertificate(IContainer container) {
+        public static X509Certificate2 GetCertificate(IContainer container)
+        {
             var config = container.Resolve<IIdentityServiceConfig>();
             var certificate = new X509Certificate2(config.CertificateFilePath, config.CertificateFilePassword);
 

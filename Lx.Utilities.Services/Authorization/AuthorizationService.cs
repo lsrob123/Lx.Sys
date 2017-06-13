@@ -1,7 +1,7 @@
-﻿using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Enumerations;
-using Lx.Utilities.Contract.Authorization;
-using Lx.Utilities.Contract.Membership.Constants;
+﻿using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Authorization;
+using Lx.Utilities.Contracts.Membership.Constants;
 using Lx.Utilities.Services.Infrastructure;
 
 namespace Lx.Utilities.Services.Authorization

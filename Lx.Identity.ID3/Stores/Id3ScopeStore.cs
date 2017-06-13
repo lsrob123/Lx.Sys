@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
 using Lx.Identity.Services.Services;
-using Lx.Utilities.Contract.Mapping;
+using Lx.Utilities.Contracts.Mapping;
 
 namespace Lx.Identity.ID3.Stores
 {
@@ -25,13 +25,19 @@ namespace Lx.Identity.ID3.Stores
             return scopes;
         }
 
+        public async Task<IEnumerable<Scope>> GetScopesAsync(bool publicOnly = true)
+        {
+            var scopes = await ListScopesAsync(null);
+            return scopes;
+        }
+
         private async Task<ICollection<Scope>> ListScopesAsync(IEnumerable<string> scopeNames)
         {
             var scopes = await Task.Run(() => ScopeService
                 .ListScopes(scopeNames)
                 .Select(x => MappingService.Map<Scope>(x))
                 .ToList()
-                );
+            );
 
             scopes.Add(StandardScopes.OfflineAccess);
             scopes.Add(StandardScopes.Email);
@@ -40,12 +46,6 @@ namespace Lx.Identity.ID3.Stores
             scopes.Add(StandardScopes.Profile);
             scopes.Add(StandardScopes.AllClaims);
 
-            return scopes;
-        }
-
-        public async Task<IEnumerable<Scope>> GetScopesAsync(bool publicOnly = true)
-        {
-            var scopes = await ListScopesAsync(null);
             return scopes;
         }
     }

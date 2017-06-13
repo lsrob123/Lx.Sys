@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Lx.Identity.Contracts.Config;
-using Lx.Utilities.Contract.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
 using Lx.Utilities.Services.Config;
 
 namespace Lx.Identity.Endpoint.Config

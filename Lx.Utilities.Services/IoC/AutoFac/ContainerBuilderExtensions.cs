@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Autofac;
-using Lx.Utilities.Contract.IoC;
+using Lx.Utilities.Contracts.IoC;
 using Lx.Utilities.Services.Config;
 using Lx.Utilities.Services.Infrastructure;
 
@@ -15,7 +15,7 @@ namespace Lx.Utilities.Services.IoC.AutoFac
             executeRegistrations(
                 (tInterface, tImplementation) => builder.RegisterType(tImplementation).As(tInterface),
                 (tInterface, instance) => builder.RegisterInstance(instance).As(tInterface)
-                );
+            );
             return builder;
         }
 
@@ -56,7 +56,7 @@ namespace Lx.Utilities.Services.IoC.AutoFac
                     else
                         builder.RegisterInstance(instance).As(tInterface);
                 }
-                );
+            );
 
             register.AddRegistrations();
 
@@ -67,7 +67,7 @@ namespace Lx.Utilities.Services.IoC.AutoFac
         {
             Preconfigurator.Configure();
 
-            var dependencyRegisterTypeBase = typeof (DefaultDependencyRegisterBase);
+            var dependencyRegisterTypeBase = typeof(DefaultDependencyRegisterBase);
 
             var dependencyRegisters = AssemblyHelper.GetReferencedAssemblies()
                 .SelectMany(a => a.GetTypes())

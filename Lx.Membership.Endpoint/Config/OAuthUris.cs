@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Authentication.Config;
+﻿using Lx.Utilities.Contracts.Authentication.Config;
 using Lx.Utilities.Services.Config;
 
 namespace Lx.Membership.Endpoint.Config

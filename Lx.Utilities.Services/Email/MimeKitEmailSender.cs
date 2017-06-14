@@ -20,32 +20,38 @@ namespace Lx.Utilities.Services.Email
             _settings = settings;
         }
 
-        public async Task<SendEmailResponse> SendEmailAsync(
-            IDictionary<string, string> to, IDictionary<string, string> cc, IDictionary<string, string> bcc,
-            string name, string from, int interval, string subject, string content, bool isHtml,
-            IEnumerable<IEmailAttachment> attachments, IProgressReporter<SendEmailProgress> progressReporter)
+        public async Task<SendEmailResponse> SendEmailAsync(EmailParticipant sender, IEnumerable<EmailParticipant> to,
+            IEnumerable<EmailParticipant> cc, IEnumerable<EmailParticipant> bcc, int interval, string subject,
+            string content, bool isHtml, IEnumerable<IEmailAttachment> attachments,
+            IProgressReporter<SendEmailProgress> progressReporter)
         {
             var attachmentList = attachments.ToList();
+            var toList = to.ToList();
+            var toCount = toList.Count;
+            var ccList = cc.ToList();
+            var bccList = bcc.ToList();
 
-            progressReporter.SetTotal(to.Count, null, $"Sending {to.Count} email(s) to SMTP server...",
+            progressReporter.SetTotal(toCount, null, $"Sending {toCount} email(s) to SMTP server...",
                 DateTimeOffset.UtcNow);
             if (interval <= 0) //don't need to wait, just send them all in one go
             {
-                var res = await SendEmailAsync(to, cc, bcc, name, from, subject, content, isHtml, attachmentList);
-                progressReporter.Report(to.Count, null, $"Sent {to.Count} email(s) to SMTP server.",
+                var res = await SendEmailAsync(sender, toList, ccList, bccList, subject, content, isHtml,
+                    attachmentList);
+                progressReporter.Report(toList.Count, null, $"Sent {toCount} email(s) to SMTP server.",
                     DateTimeOffset.UtcNow);
                 return res;
             }
             else //send email at given interval 
             {
                 var subreslst = new List<SendEmailResponse>();
-                foreach (var pair in to)
+                foreach (var recipient in toList)
                 {
-                    var subres = await
-                        SendEmailAsync(new Dictionary<string, string> {{pair.Key, pair.Value}}, cc, bcc, name, from,
-                            subject, content, isHtml, attachmentList);
+                    var subres = await SendEmailAsync(sender,
+                        new List<EmailParticipant> {recipient}, ccList, bccList, subject, content, isHtml,
+                        attachmentList);
                     subreslst.Add(subres);
-                    progressReporter.Report(1, null, $"Sent email to SMTP server: {pair.Value} ({pair.Key})",
+                    progressReporter.Report(1, null,
+                        $"Sent email to SMTP server: {recipient.EmailAddress} ({recipient.Name})",
                         DateTimeOffset.UtcNow);
                     await Task.Delay(interval);
                 }
@@ -74,10 +80,9 @@ namespace Lx.Utilities.Services.Email
         }
 
 
-        private async Task<SendEmailResponse> SendEmailAsync(
-            IDictionary<string, string> to, IDictionary<string, string> cc, IDictionary<string, string> bcc,
-            string name, string from, string subject, string content, bool isHtml,
-            IEnumerable<IEmailAttachment> attachments)
+        private async Task<SendEmailResponse> SendEmailAsync(EmailParticipant sender, ICollection<EmailParticipant> to,
+            ICollection<EmailParticipant> cc, ICollection<EmailParticipant> bcc, string subject, string content,
+            bool isHtml, IEnumerable<IEmailAttachment> attachments)
         {
             try
             {
@@ -94,7 +99,7 @@ namespace Lx.Utilities.Services.Email
                     if (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
                         client.Authenticate(username, password);
 
-                    var message = ComposeEmail(to, cc, bcc, name, from, subject, content, isHtml, attachments);
+                    var message = ComposeEmail(sender, to, cc, bcc, subject, content, isHtml, attachments);
                     await client.SendAsync(message);
                     client.Disconnect(true);
                     return new SendEmailResponse {Result = ProcessResultType.Ok};
@@ -167,16 +172,14 @@ namespace Lx.Utilities.Services.Email
             return "application/octet-stream";
         }
 
-        private static MimeMessage ComposeEmail(
-            IDictionary<string, string> to, IDictionary<string, string> cc, IDictionary<string, string> bcc,
-            string name, string from, string subject, string content, bool isHtml = false,
-            IEnumerable<IEmailAttachment> attachments = null)
+        private static MimeMessage ComposeEmail(EmailParticipant sender, IEnumerable<EmailParticipant> to,
+            ICollection<EmailParticipant> cc, ICollection<EmailParticipant> bcc, string subject, string content,
+            bool isHtml = false, IEnumerable<IEmailAttachment> attachments = null)
         {
             var message = new MimeMessage(
-                new[] {new MailboxAddress(name, from)},
-                to
-                    .Where(x => !string.IsNullOrWhiteSpace(x.Value))
-                    .Select(x => new MailboxAddress(x.Key, x.Value))
+                new[] {new MailboxAddress(sender.Name, sender.EmailAddress)},
+                to.Where(x => !string.IsNullOrWhiteSpace(x.EmailAddress))
+                    .Select(x => new MailboxAddress(x.Name, x.EmailAddress))
                     .ToList(), //key is name, value is address
                 subject,
                 null
@@ -185,16 +188,16 @@ namespace Lx.Utilities.Services.Email
                 cc.ToList()
                     .ForEach(x =>
                     {
-                        if (!string.IsNullOrWhiteSpace(x.Value))
-                            message.Cc.Add(new MailboxAddress(x.Key, x.Value));
+                        if (!string.IsNullOrWhiteSpace(x.EmailAddress))
+                            message.Cc.Add(new MailboxAddress(x.Name, x.EmailAddress));
                     }); //key is name, value is address
 
             if (bcc != null && bcc.Any())
                 bcc.ToList()
                     .ForEach(x =>
                     {
-                        if (!string.IsNullOrWhiteSpace(x.Value))
-                            message.Bcc.Add(new MailboxAddress(x.Key, x.Value));
+                        if (!string.IsNullOrWhiteSpace(x.EmailAddress))
+                            message.Bcc.Add(new MailboxAddress(x.Name, x.EmailAddress));
                     }); //key is name, value is address
             var body = new TextPart(isHtml ? "html" : "plain")
             {

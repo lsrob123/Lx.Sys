@@ -51,16 +51,16 @@
     <Compile Include="DTOs\ClientScopeDto.cs" />
     <Compile Include="DTOs\ClientSecretDto.cs" />
     <Compile Include="DTOs\ConsentDto.cs" />
-    <Compile Include="DTOs\CreateVerificationCodeRequest.cs" />
-    <Compile Include="DTOs\CreateVerificationCodeResponse.cs" />
-    <Compile Include="DTOs\ExecuteVerificationRequest.cs" />
-    <Compile Include="DTOs\ExecuteVerificationResponse.cs" />
-    <Compile Include="DTOs\ResetPasswordRequest.cs" />
-    <Compile Include="DTOs\ResetPasswordResponse.cs" />
+    <Compile Include="RequestsResponses\CreateVerificationCodeRequest.cs" />
+    <Compile Include="RequestsResponses\CreateVerificationCodeResponse.cs" />
+    <Compile Include="RequestsResponses\ExecuteVerificationRequest.cs" />
+    <Compile Include="RequestsResponses\ExecuteVerificationResponse.cs" />
+    <Compile Include="RequestsResponses\ResetPasswordRequest.cs" />
+    <Compile Include="RequestsResponses\ResetPasswordResponse.cs" />
     <Compile Include="DTOs\ScopeClaimDto.cs" />
     <Compile Include="DTOs\ScopeDto.cs" />
     <Compile Include="DTOs\ScopeSecretDto.cs" />
-    <Compile Include="DTOs\SendVerificationCodeFailedResponse.cs" />
+    <Compile Include="RequestsResponses\SendVerificationCodeFailedResponse.cs" />
     <Compile Include="Enumerations\AccessTokenType.cs" />
     <Compile Include="Enumerations\Flows.cs" />
     <Compile Include="Enumerations\ResetPasswordMethod.cs" />
@@ -98,6 +98,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

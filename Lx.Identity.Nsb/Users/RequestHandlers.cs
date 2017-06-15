@@ -1,4 +1,4 @@
-﻿using Lx.Identity.Services.Services;
+﻿using Lx.Identity.Services.Processes;
 using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Utilities.Services.ServiceBus.Nsb;
 using NServiceBus;

@@ -4,7 +4,7 @@ using Lx.Utilities.Contracts.Infrastructure.DTOs;
 using Lx.Utilities.Contracts.Infrastructure.Extensions;
 using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 
-namespace Lx.Identity.Contracts.DTOs
+namespace Lx.Identity.Contracts.RequestsResponses
 {
     public class CreateVerificationCodeResponse : ResponseBase
     {

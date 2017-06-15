@@ -3,7 +3,7 @@ using Lx.Identity.Contracts.DTOs;
 using Lx.Identity.Persistence.Uow;
 using Lx.Utilities.Contracts.Mapping;
 
-namespace Lx.Identity.Services.Services
+namespace Lx.Identity.Services.Processes
 {
     public class ScopeService : IScopeService
     {

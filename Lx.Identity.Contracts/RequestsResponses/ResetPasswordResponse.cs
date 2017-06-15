@@ -1,6 +1,6 @@
 ﻿using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
-namespace Lx.Identity.Contracts.DTOs
+namespace Lx.Identity.Contracts.RequestsResponses
 {
     public class ResetPasswordResponse : ResponseBase
     {

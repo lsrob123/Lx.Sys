@@ -4,7 +4,7 @@ using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Utilities.Contracts.Infrastructure.Extensions;
 using Lx.Utilities.Contracts.Mapping;
 
-namespace Lx.Identity.Services.Services
+namespace Lx.Identity.Services.Processes
 {
     public class UserService : IUserService
     {

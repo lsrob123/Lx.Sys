@@ -1,5 +1,5 @@
 ﻿using Lx.Identity.Persistence.Uow;
-using Lx.Identity.Services.Services;
+using Lx.Identity.Services.Processes;
 using Lx.Utilities.Contracts.IoC;
 
 namespace Lx.Identity.Services.Dependencies

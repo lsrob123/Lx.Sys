@@ -5,7 +5,7 @@ using Lx.Identity.Domain.Entities;
 using Lx.Identity.Persistence.Uow;
 using Lx.Utilities.Contracts.Mapping;
 
-namespace Lx.Identity.Services.Services
+namespace Lx.Identity.Services.Processes
 {
     public class ConsentService : IConsentService
     {

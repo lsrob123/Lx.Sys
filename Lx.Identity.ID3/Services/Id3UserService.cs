@@ -7,7 +7,7 @@ using IdentityServer3.Core;
 using IdentityServer3.Core.Extensions;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.Default;
-using Lx.Identity.Services.Services;
+using Lx.Identity.Services.Processes;
 using Lx.Utilities.Contracts.Authentication.Config;
 using Lx.Utilities.Contracts.Authentication.DTOs;
 using Lx.Utilities.Contracts.Authentication.Enumerations;

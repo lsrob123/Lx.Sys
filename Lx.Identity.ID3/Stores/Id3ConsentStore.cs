@@ -5,7 +5,7 @@ using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
 using Lx.Identity.Contracts.DTOs;
 using Lx.Utilities.Contracts.Mapping;
-using IConsentService = Lx.Identity.Services.Services.IConsentService;
+using IConsentService = Lx.Identity.Services.Processes.IConsentService;
 
 namespace Lx.Identity.ID3.Stores
 {

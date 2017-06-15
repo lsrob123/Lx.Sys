@@ -1,7 +1,7 @@
 ﻿using Lx.Identity.Contracts.Enumerations;
 using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
-namespace Lx.Identity.Contracts.DTOs
+namespace Lx.Identity.Contracts.RequestsResponses
 {
     public class ExecuteVerificationResponse : ResponseBase
     {

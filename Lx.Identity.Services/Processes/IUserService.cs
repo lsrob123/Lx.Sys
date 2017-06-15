@@ -1,7 +1,7 @@
 ﻿using System;
 using Lx.Shared.All.Domains.Identity.DTOs;
 
-namespace Lx.Identity.Services.Services
+namespace Lx.Identity.Services.Processes
 {
     public interface IUserService
     {

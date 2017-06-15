@@ -1,7 +1,7 @@
 ﻿using Lx.Identity.Contracts.DTOs;
 using Lx.Identity.Persistence.Uow;
 
-namespace Lx.Identity.Services.Services
+namespace Lx.Identity.Services.Processes
 {
     public class ClientService : IClientService
     {

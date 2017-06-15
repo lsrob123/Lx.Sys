@@ -316,12 +316,22 @@
     <Compile Include="WindowsService\Topshelf\ServiceHostInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\index.html" />
+    <Content Include="Assets\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\jquery.cookie.js" />
-    <Content Include="Assets\jquery.js" />
-    <Content Include="Assets\jquery.signalR.js" />
-    <Content Include="Assets\moment.js" />
-    <Content Include="Assets\tester.html" />
+    <Content Include="Assets\jquery.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\jquery.signalR.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\moment.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\tester.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="License.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

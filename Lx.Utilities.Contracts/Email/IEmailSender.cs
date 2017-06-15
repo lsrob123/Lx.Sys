@@ -6,6 +6,12 @@ namespace Lx.Utilities.Contracts.Email
 {
     public interface IEmailSender
     {
-        Task<SendEmailResponse> SendEmailAsync(EmailParticipant @from, IEnumerable<EmailParticipant> to, IEnumerable<EmailParticipant> cc, IEnumerable<EmailParticipant> bcc, int interval, string subject, string content, bool isHtml, IEnumerable<IEmailAttachment> attachments, IProgressReporter<SendEmailProgress> progressReporter);
+        Task<SendEmailResponse> SendEmailAsync(SendEmailRequest request, int interval,
+            IProgressReporter<SendEmailProgress> progressReporter);
+
+        Task<SendEmailResponse> SendEmailAsync(EmailParticipant sender, IEnumerable<EmailParticipant> to,
+            IEnumerable<EmailParticipant> cc, IEnumerable<EmailParticipant> bcc, int interval, string subject,
+            string content, bool isHtml, IEnumerable<EmailAttachment> attachments,
+            IProgressReporter<SendEmailProgress> progressReporter);
     }
 }

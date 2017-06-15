@@ -20,9 +20,16 @@ namespace Lx.Utilities.Services.Email
             _settings = settings;
         }
 
+        public Task<SendEmailResponse> SendEmailAsync(SendEmailRequest request, int interval,
+            IProgressReporter<SendEmailProgress> progressReporter)
+        {
+            return SendEmailAsync(request.Sender, request.To, request.Cc, request.Bcc, interval, request.Subject,
+                request.Content, request.IsHtml, request.Attachments, progressReporter);
+        }
+
         public async Task<SendEmailResponse> SendEmailAsync(EmailParticipant sender, IEnumerable<EmailParticipant> to,
             IEnumerable<EmailParticipant> cc, IEnumerable<EmailParticipant> bcc, int interval, string subject,
-            string content, bool isHtml, IEnumerable<IEmailAttachment> attachments,
+            string content, bool isHtml, IEnumerable<EmailAttachment> attachments,
             IProgressReporter<SendEmailProgress> progressReporter)
         {
             var attachmentList = attachments.ToList();
@@ -31,13 +38,13 @@ namespace Lx.Utilities.Services.Email
             var ccList = cc.ToList();
             var bccList = bcc.ToList();
 
-            progressReporter.SetTotal(toCount, null, $"Sending {toCount} email(s) to SMTP server...",
+            progressReporter?.SetTotal(toCount, null, $"Sending {toCount} email(s) to SMTP server...",
                 DateTimeOffset.UtcNow);
             if (interval <= 0) //don't need to wait, just send them all in one go
             {
                 var res = await SendEmailAsync(sender, toList, ccList, bccList, subject, content, isHtml,
                     attachmentList);
-                progressReporter.Report(toList.Count, null, $"Sent {toCount} email(s) to SMTP server.",
+                progressReporter?.Report(toList.Count, null, $"Sent {toCount} email(s) to SMTP server.",
                     DateTimeOffset.UtcNow);
                 return res;
             }
@@ -50,7 +57,7 @@ namespace Lx.Utilities.Services.Email
                         new List<EmailParticipant> {recipient}, ccList, bccList, subject, content, isHtml,
                         attachmentList);
                     subreslst.Add(subres);
-                    progressReporter.Report(1, null,
+                    progressReporter?.Report(1, null,
                         $"Sent email to SMTP server: {recipient.EmailAddress} ({recipient.Name})",
                         DateTimeOffset.UtcNow);
                     await Task.Delay(interval);
@@ -82,7 +89,7 @@ namespace Lx.Utilities.Services.Email
 
         private async Task<SendEmailResponse> SendEmailAsync(EmailParticipant sender, ICollection<EmailParticipant> to,
             ICollection<EmailParticipant> cc, ICollection<EmailParticipant> bcc, string subject, string content,
-            bool isHtml, IEnumerable<IEmailAttachment> attachments)
+            bool isHtml, IEnumerable<EmailAttachment> attachments)
         {
             try
             {
@@ -174,7 +181,7 @@ namespace Lx.Utilities.Services.Email
 
         private static MimeMessage ComposeEmail(EmailParticipant sender, IEnumerable<EmailParticipant> to,
             ICollection<EmailParticipant> cc, ICollection<EmailParticipant> bcc, string subject, string content,
-            bool isHtml = false, IEnumerable<IEmailAttachment> attachments = null)
+            bool isHtml = false, IEnumerable<EmailAttachment> attachments = null)
         {
             var message = new MimeMessage(
                 new[] {new MailboxAddress(sender.Name, sender.EmailAddress)},

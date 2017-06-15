@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NServiceBus.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NServiceBus.5.2.8\lib\net45\NServiceBus.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Email\RequestHandlers.cs" />
+    <Compile Include="Email\ResponseHandlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lx.Communications.Services\Lx.Communications.Services.csproj">
+      <Project>{B088AD99-9C15-4BD9-A968-1B525AD7EAA9}</Project>
+      <Name>Lx.Communications.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
+      <Project>{27F761EB-DF3C-4634-8966-B368350F7524}</Project>
+      <Name>Lx.Utilities.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
+      <Project>{E732222F-4036-4A90-952D-4B72CBDAED08}</Project>
+      <Name>Lx.Utilities.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -41,7 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dependencies\Register.cs" />
+    <Compile Include="Porcesses\EmailService.cs" />
+    <Compile Include="Porcesses\IEmailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
+      <Project>{27F761EB-DF3C-4634-8966-B368350F7524}</Project>
+      <Name>Lx.Utilities.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
+      <Project>{E732222F-4036-4A90-952D-4B72CBDAED08}</Project>
+      <Name>Lx.Utilities.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

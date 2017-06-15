@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
 namespace Lx.Utilities.Contracts.Email
 {
-   public class SendEmailRequest:RequestBase
+    public class SendEmailRequest : RequestBase
     {
+        public EmailParticipant Sender { get; set; }
+        public ICollection<EmailParticipant> To { get; set; }
+        public ICollection<EmailParticipant> Cc { get; set; }
+        public ICollection<EmailParticipant> Bcc { get; set; }
+        public string Subject { get; set; }
+        public string Content { get; set; }
+        public bool IsHtml { get; set; }
+        public ICollection<EmailAttachment> Attachments { get; set; }
     }
 }

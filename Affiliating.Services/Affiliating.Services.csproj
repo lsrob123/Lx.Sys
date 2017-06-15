@@ -60,6 +60,10 @@
       <Project>{d3afde4c-6f85-4efd-bd80-50c88c516f0d}</Project>
       <Name>Lx.Shared.All</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
+      <Project>{27F761EB-DF3C-4634-8966-B368350F7524}</Project>
+      <Name>Lx.Utilities.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
       <Project>{e732222f-4036-4a90-952d-4b72cbdaed08}</Project>
       <Name>Lx.Utilities.Services</Name>

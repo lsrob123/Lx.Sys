@@ -5,6 +5,7 @@ using Lx.Identity.Persistence.EF;
 using Lx.Shared.All.Domains.Identity.Config;
 using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Shared.All.Domains.Identity.Enumerations;
+using Lx.Shared.All.Domains.Identity.Events;
 using Lx.Utilities.Contracts.Caching;
 using Lx.Utilities.Contracts.Infrastructure.DTOs;
 using Lx.Utilities.Contracts.Infrastructure.EventBroadcasting;
@@ -206,5 +207,7 @@ namespace Lx.Identity.Persistence.Uow
 
             DispatchEvent(userUpdatedEvent);
         }
+
+        public ProcessResult SetVerificationCode(string hashedVerificationCode, )
     }
 }

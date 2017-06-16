@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Lx.Identity.Contracts.DTOs;
 using Lx.Identity.Contracts.RequestsResponses;
+using Lx.Shared.All.Domains.Identity.RequestsResponses;
 using Lx.Utilities.Contracts.Authentication.Enumerations;
 using Lx.Utilities.Contracts.Infrastructure.DTOs;
 using Lx.Utilities.Contracts.Infrastructure.Interfaces;

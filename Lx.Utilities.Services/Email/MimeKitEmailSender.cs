@@ -48,12 +48,17 @@ namespace Lx.Utilities.Services.Email
                     DateTimeOffset.UtcNow.ToString("yyyy-MM-dd HHmmss") + subject);
                 var dumpContentBuilder = new StringBuilder();
                 dumpContentBuilder.AppendLine(subject);
+                dumpContentBuilder.AppendLine();
 
                 if (!string.IsNullOrWhiteSpace(sender?.EmailAddress))
                     dumpContentBuilder.AppendLine("From: " + sender.EmailAddress);
 
+                dumpContentBuilder.AppendLine();
+
                 foreach (var ccItem in ccList)
                     dumpContentBuilder.AppendLine("To: " + ccItem.EmailAddress);
+
+                dumpContentBuilder.AppendLine();
 
                 dumpContentBuilder.AppendLine(content);
                 File.WriteAllText(filePath, dumpContentBuilder.ToString());

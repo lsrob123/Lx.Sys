@@ -1,5 +1,6 @@
 ﻿using System;
 using Lx.Shared.All.Domains.Identity.DTOs;
+using Lx.Shared.All.Domains.Identity.RequestsResponses;
 
 namespace Lx.Identity.Services.Processes
 {

@@ -10,8 +10,8 @@ namespace Lx.Identity.Endpoint.Config
         protected int EmailVerificationCodeLiveSpanMinutes
             => this.AppSettingIntValue(x => EmailVerificationCodeLiveSpanMinutes);
 
-        protected int PasswordlessVerificationCodeLiveSpanMinutes
-            => this.AppSettingIntValue(x => PasswordlessVerificationCodeLiveSpanMinutes);
+        protected int PasswordResetVerificationCodeLiveSpanMinutes
+            => this.AppSettingIntValue(x => PasswordResetVerificationCodeLiveSpanMinutes);
 
         protected int MobileVerificationCodeLiveSpanMinutes
             => this.AppSettingIntValue(x => MobileVerificationCodeLiveSpanMinutes);
@@ -19,8 +19,8 @@ namespace Lx.Identity.Endpoint.Config
         public TimeSpan EmailVerificationCodeLiveSpan => TimeSpan.FromMinutes(EmailVerificationCodeLiveSpanMinutes);
         public TimeSpan MobileVerificationCodeLiveSpan => TimeSpan.FromMinutes(MobileVerificationCodeLiveSpanMinutes);
 
-        public TimeSpan PasswordlessLoginVerificationCodeLiveSpan
-            => TimeSpan.FromMinutes(PasswordlessVerificationCodeLiveSpanMinutes);
+        public TimeSpan PasswordResetVerificationCodeLiveSpan
+            => TimeSpan.FromMinutes(PasswordResetVerificationCodeLiveSpanMinutes);
 
         public TimeSpan GetLiveSpan(VerificationPurpose purpose)
         {
@@ -29,7 +29,7 @@ namespace Lx.Identity.Endpoint.Config
             if (purpose.Equals(VerificationPurpose.VerifyMobile))
                 return MobileVerificationCodeLiveSpan;
             return purpose.Equals(VerificationPurpose.PasswordlessLogin)
-                ? PasswordlessLoginVerificationCodeLiveSpan
+                ? PasswordResetVerificationCodeLiveSpan
                 : TimeSpan.Zero;
         }
     }

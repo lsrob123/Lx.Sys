@@ -1,8 +1,8 @@
 ﻿using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
-namespace Lx.Identity.Contracts.RequestsResponses
+namespace Lx.Shared.All.Domains.Identity.Events
 {
-    public class ResetPasswordResponse : ResponseBase
+    public class PasswordResetCompletedEvent : EventBase
     {
         public override void EraseShareGroupInfoForClientSide()
         {

@@ -55,8 +55,6 @@
     <Compile Include="RequestsResponses\CreateVerificationCodeResponse.cs" />
     <Compile Include="RequestsResponses\ExecuteVerificationRequest.cs" />
     <Compile Include="RequestsResponses\ExecuteVerificationResponse.cs" />
-    <Compile Include="RequestsResponses\ResetPasswordRequest.cs" />
-    <Compile Include="RequestsResponses\ResetPasswordResponse.cs" />
     <Compile Include="DTOs\ScopeClaimDto.cs" />
     <Compile Include="DTOs\ScopeDto.cs" />
     <Compile Include="DTOs\ScopeSecretDto.cs" />

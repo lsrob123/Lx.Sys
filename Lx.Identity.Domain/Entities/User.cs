@@ -30,6 +30,10 @@ namespace Lx.Identity.Domain.Entities
         public string HashedPassword { get; protected set; }
 
         public VerificationPurpose VerificationPurpose { get; protected set; }
+
+        /// <summary>
+        /// TODO: Review to see if really needed
+        /// </summary>
         public ResetPasswordMethod ResetPasswordMethod { get; protected set; }
 
         [StringLength(1000)]
@@ -105,7 +109,7 @@ namespace Lx.Identity.Domain.Entities
             string hashedVerificationCode)
         {
             if (string.IsNullOrWhiteSpace(HashedVerificationCode) || !TimeVerificationCodeExpires.HasValue ||
-                VerificationPurpose != verificationPurpose)
+                !Equals(VerificationPurpose, verificationPurpose))
                 return VerificationResult.NewVerificationCodeRequired;
 
             if (!HashedVerificationCode.Equals(hashedVerificationCode, StringComparison.Ordinal))

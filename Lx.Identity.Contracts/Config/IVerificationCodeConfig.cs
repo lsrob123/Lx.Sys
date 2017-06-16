@@ -7,7 +7,7 @@ namespace Lx.Identity.Contracts.Config
     {
         TimeSpan EmailVerificationCodeLiveSpan { get; }
         TimeSpan MobileVerificationCodeLiveSpan { get; }
-        TimeSpan PasswordlessLoginVerificationCodeLiveSpan { get; }
+        TimeSpan PasswordResetVerificationCodeLiveSpan { get; }
         TimeSpan GetLiveSpan(VerificationPurpose purpose);
     }
 }

@@ -5,6 +5,7 @@ using Lx.Membership.Services.Processes;
 using Lx.Shared.All.Domains.Identity.Config;
 using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Shared.All.Domains.Identity.Enumerations;
+using Lx.Shared.All.Domains.Identity.RequestsResponses;
 using Lx.Utilities.Contracts.Caching;
 using Lx.Utilities.Contracts.Infrastructure.Extensions;
 using Lx.Utilities.Contracts.Logging;

@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Lx.Utilities.Contracts.Email;
 using Lx.Utilities.Contracts.Infrastructure.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.Extensions;
 using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 using MailKit.Net.Smtp;
 using MimeKit;
@@ -13,11 +15,13 @@ namespace Lx.Utilities.Services.Email
 {
     public class MimeKitEmailSender : IEmailSender
     {
+        private readonly IEmailSettings _emailSettings;
         private readonly ISmtpSettings _settings;
 
-        public MimeKitEmailSender(ISmtpSettings settings)
+        public MimeKitEmailSender(ISmtpSettings settings, IEmailSettings emailSettings)
         {
             _settings = settings;
+            _emailSettings = emailSettings;
         }
 
         public Task<SendEmailResponse> SendEmailAsync(SendEmailRequest request, int interval,
@@ -37,6 +41,24 @@ namespace Lx.Utilities.Services.Email
             var toCount = toList.Count;
             var ccList = cc.ToList();
             var bccList = bcc.ToList();
+
+            if (_emailSettings.DumpToFilesOnly)
+            {
+                var filePath = Path.Combine(_emailSettings.DumpFileFolder,
+                    DateTimeOffset.UtcNow.ToString("yyyy-MM-dd HHmmss") + subject);
+                var dumpContentBuilder = new StringBuilder();
+                dumpContentBuilder.AppendLine(subject);
+
+                if (!string.IsNullOrWhiteSpace(sender?.EmailAddress))
+                    dumpContentBuilder.AppendLine("From: " + sender.EmailAddress);
+
+                foreach (var ccItem in ccList)
+                    dumpContentBuilder.AppendLine("To: " + ccItem.EmailAddress);
+
+                dumpContentBuilder.AppendLine(content);
+                File.WriteAllText(filePath, dumpContentBuilder.ToString());
+                return new SendEmailResponse().WithProcessResult(ProcessResultType.Ok);
+            }
 
             progressReporter?.SetTotal(toCount, null, $"Sending {toCount} email(s) to SMTP server...",
                 DateTimeOffset.UtcNow);

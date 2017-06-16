@@ -215,6 +215,7 @@
     <Compile Include="Authentication\IdentityDtoExtensions.cs" />
     <Compile Include="Authentication\IdentityServerConfigurator.cs" />
     <Compile Include="Authentication\OAuthClientService.cs" />
+    <Compile Include="Email\EmailSettings.cs" />
     <Compile Include="Email\MimeKitEmailSender.cs" />
     <Compile Include="Email\SmtpSettings.cs" />
     <Compile Include="Graphics\ImageExtension.cs" />

@@ -3,6 +3,7 @@ using Lx.Utilities.Contracts.Authentication.Interfaces;
 using Lx.Utilities.Contracts.Authorization;
 using Lx.Utilities.Contracts.Caching;
 using Lx.Utilities.Contracts.Crypto;
+using Lx.Utilities.Contracts.Email;
 using Lx.Utilities.Contracts.Infrastructure.EventBroadcasting;
 using Lx.Utilities.Contracts.Infrastructure.RequestDispatching;
 using Lx.Utilities.Contracts.IoC;
@@ -15,6 +16,7 @@ using Lx.Utilities.Services.Authorization;
 using Lx.Utilities.Services.Caching.InProcess;
 using Lx.Utilities.Services.Caching.Redis;
 using Lx.Utilities.Services.Crypto;
+using Lx.Utilities.Services.Email;
 using Lx.Utilities.Services.Infrastructure;
 using Lx.Utilities.Services.Logging.Log4Net;
 using Lx.Utilities.Services.Mapping.AutoMapper;
@@ -43,6 +45,7 @@ namespace Lx.Utilities.Services.Dependencies
             Register<IRequestDispatchingProxy, RequestDispatchingProxy>();
             Register<IEventBroadcastingProxy, EventBroadcastingProxy>();
             Register<IOAuthClientService, OAuthClientService>();
+            Register<IEmailSettings, EmailSettings>();
         }
     }
 }

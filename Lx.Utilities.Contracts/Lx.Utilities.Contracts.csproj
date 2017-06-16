@@ -101,6 +101,7 @@
     <Compile Include="Email\EmailAttachmentDto.cs" />
     <Compile Include="Email\EmailParticipant.cs" />
     <Compile Include="Email\IEmailAttachment.cs" />
+    <Compile Include="Email\IEmailSettings.cs" />
     <Compile Include="Email\IEmailSender.cs" />
     <Compile Include="Email\ISmtpSettings.cs" />
     <Compile Include="Email\SendEmailProgress.cs" />

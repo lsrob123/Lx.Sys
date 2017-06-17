@@ -28,7 +28,7 @@ namespace Lx.Identity.Endpoint.Config
                 return EmailVerificationCodeLiveSpan;
             if (purpose.Equals(VerificationPurpose.VerifyMobile))
                 return MobileVerificationCodeLiveSpan;
-            return purpose.Equals(VerificationPurpose.PasswordlessLogin)
+            return purpose.Equals(VerificationPurpose.ResetPassword)
                 ? PasswordResetVerificationCodeLiveSpan
                 : TimeSpan.Zero;
         }

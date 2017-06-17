@@ -21,7 +21,7 @@ namespace Lx.Utilities.Contracts.Authentication.Enumerations
         public static VerificationPurpose VerifyMobile => new VerificationPurpose(30,
             nameof(VerifyMobile));
 
-        public static VerificationPurpose PasswordlessLogin => new VerificationPurpose(40,
-            nameof(PasswordlessLogin));
+        public static VerificationPurpose ResetPassword => new VerificationPurpose(40,
+            nameof(ResetPassword));
     }
 }

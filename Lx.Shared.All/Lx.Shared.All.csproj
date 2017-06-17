@@ -54,7 +54,7 @@
     <Compile Include="Domains\Identity\Config\IUserProfileConfig.cs" />
     <Compile Include="Domains\Identity\DTOs\AvatarDto.cs" />
     <Compile Include="Domains\Identity\Events\PasswordResetCompletedEvent.cs" />
-    <Compile Include="Domains\Identity\Events\PasswordResetVerificationCodeGeneratedEvent.cs" />
+    <Compile Include="Domains\Identity\Events\PasswordResetVerificationCodeEvent.cs" />
     <Compile Include="Domains\Identity\RequestsResponses\CreateUserRequest.cs" />
     <Compile Include="Domains\Identity\RequestsResponses\CreateUserResponse.cs" />
     <Compile Include="Domains\Identity\RequestsResponses\GetUserKeyEmailsRequest.cs" />

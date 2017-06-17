@@ -6,6 +6,7 @@ using Lx.Shared.All.Domains.Identity.Config;
 using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Shared.All.Domains.Identity.Enumerations;
 using Lx.Shared.All.Domains.Identity.Events;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
 using Lx.Utilities.Contracts.Caching;
 using Lx.Utilities.Contracts.Infrastructure.DTOs;
 using Lx.Utilities.Contracts.Infrastructure.EventBroadcasting;
@@ -208,6 +209,28 @@ namespace Lx.Identity.Persistence.Uow
             DispatchEvent(userUpdatedEvent);
         }
 
-        public ProcessResult SetVerificationCode(string hashedVerificationCode, )
+        protected UserDto UpdateUser(IdentityUow uow, Guid userKey, Action<User> updateAction)
+        {
+            var user = uow.Store.UpdatePropertiesOnly(x => x.Key == userKey, updateAction);
+            var userDto = MappingService.Map<UserDto>(user);
+            CacheUserDto(uow, userDto);
+            return userDto;
+        }
+
+        public ProcessResult SetVerificationCode(string email, VerificationPurpose verificationPurpose,
+            string hashedVerificationCode, DateTimeOffset timeVerificationCodeExpires)
+        {
+            var result = ExecuteWithProcessResult(uow =>
+            {
+                var user = uow.Store.UpdatePropertiesOnly<User>(x => x.Email.Address == email,
+                    x => x.WithVerificationCode(verificationPurpose, hashedVerificationCode,
+                        timeVerificationCodeExpires));
+                var userDto = MappingService.Map<UserDto>(user);
+                CacheUserDto(uow, userDto);
+
+            });
+
+            return result;
+        }
     }
 }

@@ -87,12 +87,11 @@ namespace Lx.Identity.Domain.Entities
         }
 
         public User WithVerificationCode(VerificationPurpose verificationPurpose, string hashedVerificationCode,
-            DateTimeOffset timeVerificationCodeExpires, DateTimeOffset? timeVerificationCodeSent = null)
+            DateTimeOffset timeVerificationCodeExpires)
         {
             VerificationPurpose = verificationPurpose;
             HashedVerificationCode = hashedVerificationCode;
             TimeVerificationCodeExpires = timeVerificationCodeExpires;
-            TimeVerificationCodeSent = timeVerificationCodeSent;
             return this;
         }
 
@@ -103,24 +102,6 @@ namespace Lx.Identity.Domain.Entities
             TimeVerificationCodeExpires = null;
             TimeVerificationCodeSent = null;
             return this;
-        }
-
-        public VerificationResult ExecuteVerification(VerificationPurpose verificationPurpose,
-            string hashedVerificationCode)
-        {
-            if (string.IsNullOrWhiteSpace(HashedVerificationCode) || !TimeVerificationCodeExpires.HasValue ||
-                !Equals(VerificationPurpose, verificationPurpose))
-                return VerificationResult.NewVerificationCodeRequired;
-
-            if (!HashedVerificationCode.Equals(hashedVerificationCode, StringComparison.Ordinal))
-                return VerificationResult.InvalidCode;
-
-            var result = DateTimeOffset.UtcNow <= TimeVerificationCodeExpires.Value
-                ? VerificationResult.Passed
-                : VerificationResult.ExpiredCode;
-
-            ResetVerificationCode();
-            return result;
         }
 
         public User SetMobile(IPhoneNumber mobile)

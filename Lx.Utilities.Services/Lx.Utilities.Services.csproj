@@ -223,6 +223,7 @@
     <Compile Include="Infrastructure\AssemblyHelper.cs" />
     <Compile Include="Infrastructure\AssemblyHelperConfig.cs" />
     <Compile Include="Infrastructure\PropertyValueReplicator.cs" />
+    <Compile Include="Infrastructure\ShortGuid.cs" />
     <Compile Include="Spatial\SpatialExtensions.cs" />
     <Compile Include="Web\AppBuilderExtensions.cs" />
     <Compile Include="Web\AuthorizeWithUserInRequestAttribute.cs" />

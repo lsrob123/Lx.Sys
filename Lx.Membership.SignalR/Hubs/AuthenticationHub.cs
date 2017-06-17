@@ -1,4 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Lx.Membership.Services.APIs;
+using Lx.Shared.All.Domains.Identity.RequestsResponses;
 using Lx.Utilities.Contracts.Authentication.DTOs;
 using Lx.Utilities.Contracts.Authentication.Interfaces;
 using Lx.Utilities.Contracts.Infrastructure.Extensions;
@@ -12,14 +14,16 @@ namespace Lx.Membership.SignalR.Hubs
 {
     public class AuthenticationHub : MediatedHubBase
     {
+        private readonly IAuthenticationApi _authenticationApi;
         private readonly IOAuthClientService _service;
 
         public AuthenticationHub(IMediator mediator, ILogger logger, IMappingService mappingService,
             IRequestDispatchingProxy requestDispatchingProxy, IOAuthClientService service,
-            IOAuthHelper oauthHelper = null)
+            IAuthenticationApi authenticationApi, IOAuthHelper oauthHelper = null)
             : base(mediator, logger, mappingService, requestDispatchingProxy, oauthHelper)
         {
             _service = service;
+            _authenticationApi = authenticationApi;
         }
 
         public async Task GetTokensAsync(GetTokensRequest request)
@@ -55,6 +59,12 @@ namespace Lx.Membership.SignalR.Hubs
             await EnsureInGroupAsync(request);
             var response = await _service.RevokeTokenAsync(request);
             SendGroupResponse(response);
+        }
+
+        public async Task ResetPassword(ResetPasswordRequest request)
+        {
+            await EnsureInGroupAsync(request);
+            _authenticationApi.Start(request);
         }
     }
 }

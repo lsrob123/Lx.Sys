@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Shared.All.Domains.Identity.Enumerations;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
 using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
 namespace Lx.Identity.Persistence.Uow
@@ -14,5 +15,7 @@ namespace Lx.Identity.Persistence.Uow
 
         (ProcessResult Result, UserDtoBase User, UserUpdateResultType UpdateResultType)
             CreateUser(UserUpdateDto userUpdateDto, ICollection<UserProfileDto> userProfiles);
+
+        ProcessResult SetVerificationCode(string email, VerificationPurpose verificationPurpose, string hashedVerificationCode, DateTimeOffset timeVerificationCodeExpires);
     }
 }

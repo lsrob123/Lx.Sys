@@ -47,6 +47,8 @@
     <Compile Include="APIs\AuthenticationApi.cs" />
     <Compile Include="APIs\IAuthenticationApi.cs" />
     <Compile Include="Dependencies\Register.cs" />
+    <Compile Include="Processes\AuthenticationService.cs" />
+    <Compile Include="Processes\IAuthenticationService.cs" />
     <Compile Include="Processes\IMemberService.cs" />
     <Compile Include="Processes\MemberService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

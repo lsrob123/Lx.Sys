@@ -1,4 +1,6 @@
-﻿using Lx.Utilities.Contracts.Infrastructure.DTOs;
+﻿using Lx.Utilities.Contracts.Email;
+using Lx.Utilities.Contracts.Infrastructure.Attributes;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
 namespace Lx.Shared.All.Domains.Identity.RequestsResponses
 {

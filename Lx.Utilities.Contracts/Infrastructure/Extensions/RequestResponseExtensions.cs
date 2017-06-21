@@ -17,6 +17,13 @@ namespace Lx.Utilities.Contracts.Infrastructure.Extensions
             return result;
         }
 
+        public static TResponse WithUserKey<TResponse>(this TResponse result, Guid userKey)
+            where TResponse : IResultBase
+        {
+            result.OriginatorGroup = userKey.ToString();
+            return result;
+        }
+
         public static TResult WithProcessResult<TResult>(this TResult result, ProcessResult processResult,
             string reason = null)
             where TResult : ResultBase

@@ -14,12 +14,12 @@ namespace Lx.Communications.Nsb.Email
 
         public void Handle(SendEmailProgress message)
         {
-            Publish(message);
+            PublishByMediator(message);
         }
 
         public void Handle(SendEmailResponse message)
         {
-            Publish(message);
+            PublishByMediator(message);
         }
     }
 }

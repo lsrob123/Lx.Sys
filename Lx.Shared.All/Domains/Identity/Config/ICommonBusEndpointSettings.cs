@@ -3,5 +3,6 @@
     public interface ICommonBusEndpointSettings
     {
         string Identity { get; }
+        string Communications { get; }
     }
 }

@@ -12,7 +12,7 @@ namespace Lx.Utilities.Services.ServiceBus
             Mediator = mediator;
         }
 
-        protected virtual void Publish<TResponse>(TResponse response)
+        protected virtual void PublishByMediator<TResponse>(TResponse response)
             where TResponse : IResultBase
         {
             Mediator.Publish(response);

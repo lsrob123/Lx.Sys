@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\IPasswordResetEmailTemplates.cs" />
     <Compile Include="DTOs\MemberDto.cs" />
     <Compile Include="DTOs\MemberUpdateDto.cs" />
     <Compile Include="Events\MemberUpdatedEvent.cs" />

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Members\CreateMemberSaga.cs" />
     <Compile Include="Members\CreateMemberSagaData.cs" />
+    <Compile Include="Members\RequestHandlers.cs" />
     <Compile Include="Members\ResponseHandlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

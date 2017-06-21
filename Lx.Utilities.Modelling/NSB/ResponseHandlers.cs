@@ -16,7 +16,7 @@ namespace Lx.Utilities.Modelling.NSB
 
         public void Handle(TrialResponse message)
         {
-            Publish(message);
+            PublishByMediator(message);
         }
     }
 }

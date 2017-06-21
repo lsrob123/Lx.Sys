@@ -108,6 +108,22 @@ namespace Lx.Identity.Persistence.Uow
             return (result, userDto, updateResultType);
         }
 
+        public UserDto SetVerificationCode(string email, VerificationPurpose verificationPurpose,
+            string hashedVerificationCode, DateTimeOffset timeVerificationCodeExpires)
+        {
+            UserDto userDto = null;
+            Execute(uow =>
+            {
+                var user = uow.Store.UpdatePropertiesOnly<User>(x => x.Email.Address == email,
+                    x => x.WithVerificationCode(verificationPurpose, hashedVerificationCode,
+                        timeVerificationCodeExpires));
+                userDto = MappingService.Map<UserDto>(user);
+                CacheUserDto(uow, userDto);
+            });
+
+            return userDto;
+        }
+
         private UserDto GetUser(IdentityUow uow, string userProfileOriginator, string usernameOrEmailOrMobileNumber)
         {
             var cacheKey = GetUserCacheKey(usernameOrEmailOrMobileNumber);
@@ -215,22 +231,6 @@ namespace Lx.Identity.Persistence.Uow
             var userDto = MappingService.Map<UserDto>(user);
             CacheUserDto(uow, userDto);
             return userDto;
-        }
-
-        public ProcessResult SetVerificationCode(string email, VerificationPurpose verificationPurpose,
-            string hashedVerificationCode, DateTimeOffset timeVerificationCodeExpires)
-        {
-            var result = ExecuteWithProcessResult(uow =>
-            {
-                var user = uow.Store.UpdatePropertiesOnly<User>(x => x.Email.Address == email,
-                    x => x.WithVerificationCode(verificationPurpose, hashedVerificationCode,
-                        timeVerificationCodeExpires));
-                var userDto = MappingService.Map<UserDto>(user);
-                CacheUserDto(uow, userDto);
-
-            });
-
-            return result;
         }
     }
 }

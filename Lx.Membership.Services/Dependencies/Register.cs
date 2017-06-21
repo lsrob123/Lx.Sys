@@ -14,6 +14,7 @@ namespace Lx.Membership.Services.Dependencies
             Register<IAuthenticationApi, AuthenticationApi>();
 
             Register<IMemberService, MemberService>();
+            Register<IAuthenticationService, AuthenticationService>();
         }
     }
 }

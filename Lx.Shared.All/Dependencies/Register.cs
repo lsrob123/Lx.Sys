@@ -1,4 +1,5 @@
-﻿using Lx.Shared.All.Domains.Identity.Config;
+﻿using Lx.Shared.All.Domains.Communications;
+using Lx.Shared.All.Domains.Identity.Config;
 using Lx.Utilities.Contracts.IoC;
 
 namespace Lx.Shared.All.Dependencies
@@ -9,6 +10,7 @@ namespace Lx.Shared.All.Dependencies
         {
             Register<IUserProfileConfig, UserProfileConfig>();
             Register<ICommonBusEndpointSettings, CommonBusEndpointSettings>();
+            Register<IEmailSenderConfig, EmailSenderConfig>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Lx.Membership.Endpoint.Config;
+﻿using Lx.Membership.Contracts.Config;
+using Lx.Membership.Endpoint.Config;
 using Lx.Utilities.Contracts.Authentication.Config;
 using Lx.Utilities.Contracts.Authentication.Interfaces;
 using Lx.Utilities.Contracts.IoC;
@@ -19,6 +20,7 @@ namespace Lx.Membership.Endpoint.Dependencies
             Register<IBusSettings, BusSettings>();
             Register<IBusEndpointMapFactory, DefaultBusEndpointMapFactory>();
             Register<IOAuthUris, OAuthUris>();
+            Register<IPasswordResetEmailTemplates, PasswordResetEmailTemplates>();
             Register<IClaimProcessor, StraightThroughClaimProcessor>();
         }
     }

@@ -13,7 +13,7 @@ namespace Lx.Membership.Nsb.Members
 
         public void Handle(MemberUpdatedEvent message)
         {
-            Publish(message);
+            PublishByMediator(message);
         }
     }
 }

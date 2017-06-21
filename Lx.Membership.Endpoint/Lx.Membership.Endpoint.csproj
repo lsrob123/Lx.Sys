@@ -121,6 +121,7 @@
     <Compile Include="Config\BusSettings.cs" />
     <Compile Include="Config\DbConfig.cs" />
     <Compile Include="Config\OAuthUris.cs" />
+    <Compile Include="Config\PasswordResetEmailTemplates.cs" />
     <Compile Include="Config\WebEndpointSettings.cs" />
     <Compile Include="Dependencies\Register.cs" />
     <Compile Include="Program.cs" />
@@ -170,6 +171,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Templates\PasswordResetEmail.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

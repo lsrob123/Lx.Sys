@@ -28,7 +28,7 @@ namespace Lx.Utilities.Services.Email
             IProgressReporter<SendEmailProgress> progressReporter)
         {
             return SendEmailAsync(request.Sender, request.To, request.Cc, request.Bcc, interval, request.Subject,
-                request.Content, request.IsHtml, request.Attachments, progressReporter);
+                request.Body, request.IsHtml, request.Attachments, progressReporter);
         }
 
         public async Task<SendEmailResponse> SendEmailAsync(EmailParticipant sender, IEnumerable<EmailParticipant> to,

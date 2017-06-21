@@ -17,5 +17,8 @@ namespace Lx.Identity.Persistence.Uow
             CreateUser(UserUpdateDto userUpdateDto, ICollection<UserProfileDto> userProfiles);
 
         UserDto SetVerificationCode(string email, VerificationPurpose verificationPurpose, string hashedVerificationCode, DateTimeOffset timeVerificationCodeExpires);
+
+        ProcessResult ResetPassword(Guid userKey, VerificationPurpose verificationPurpose,
+            string plainTextVerificationCode, string newHashedPassword);
     }
 }

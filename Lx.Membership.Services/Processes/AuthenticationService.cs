@@ -22,7 +22,7 @@ namespace Lx.Membership.Services.Processes
         public SendEmailRequest CreateSendEmailRequest(VerificationCodeCreatedEvent verificationCodeCreatedEvent)
         {
             var url = string.Format(_passwordResetEmailTemplates.Url,
-                verificationCodeCreatedEvent.PlainTextVerificationCode);
+                verificationCodeCreatedEvent.UserKey, verificationCodeCreatedEvent.PlainTextVerificationCode);
 
             var sendEmailRequest = new SendEmailRequest
             {

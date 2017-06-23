@@ -1,11 +1,12 @@
-﻿using Lx.Utilities.Contracts.Email;
-using Lx.Utilities.Contracts.Infrastructure.Attributes;
+﻿using System;
 using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
 namespace Lx.Shared.All.Domains.Identity.RequestsResponses
 {
     public class ResetPasswordRequest : RequestBase
     {
-        public string Email { get; set; }
+        public Guid UserKey { get; set; }
+        public string PlainTextVerificationCode { get; set; }
+        public string NewPlainTextPassword { get; set; }
     }
 }

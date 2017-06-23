@@ -12,7 +12,7 @@ using Lx.Utilities.Services.SignalR;
 
 namespace Lx.Membership.SignalR.Hubs
 {
-    public class AuthenticationHub : MediatedHubBase
+    public class AuthenticationHub : MediatedHubBase, IMediatorMessageHandler<ResetPasswordResponse>
     {
         private readonly IAuthenticationApi _authenticationApi;
         private readonly IOAuthClientService _service;
@@ -24,6 +24,11 @@ namespace Lx.Membership.SignalR.Hubs
         {
             _service = service;
             _authenticationApi = authenticationApi;
+        }
+
+        public void Handle(ResetPasswordResponse message)
+        {
+            SendGroupResponse(message);
         }
 
         public async Task GetTokensAsync(GetTokensRequest request)
@@ -59,6 +64,13 @@ namespace Lx.Membership.SignalR.Hubs
             await EnsureInGroupAsync(request);
             var response = await _service.RevokeTokenAsync(request);
             SendGroupResponse(response);
+        }
+
+        public async Task CreatePasswordResetVerificationCodePassword(
+            CreatePasswordResetVerificationCodeRequest request)
+        {
+            await EnsureInGroupAsync(request);
+            _authenticationApi.Start(request);
         }
 
         public async Task ResetPassword(ResetPasswordRequest request)

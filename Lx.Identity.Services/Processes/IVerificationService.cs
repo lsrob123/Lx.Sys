@@ -13,12 +13,14 @@ namespace Lx.Identity.Services.Processes
     public interface IVerificationService
     {
         ExecuteVerificationResponse ExecuteVerification(ExecuteVerificationRequest request);
-        VerificationCodeCreatedEvent StartResetPassword(ResetPasswordRequest request);
+        VerificationCodeCreatedEvent CreatePasswordResetVerificationCode(CreatePasswordResetVerificationCodeRequest request);
 
         CreateVerificationCodeResponse CreateVerificationCode(Guid userKey, IBasicRequestKey request,
             VerificationPurpose verificationPurpose);
 
         T GenerateValidationFailedResponse<T>(RequestBase request, IEnumerable<string> exs)
             where T : ResponseBase, new();
+
+        ResetPasswordResponse ResetPassword(ResetPasswordRequest request);
     }
 }

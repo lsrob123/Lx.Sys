@@ -18,6 +18,11 @@ namespace Lx.Membership.Services.APIs
             _commonBusEndpointSettings = commonBusEndpointSettings;
         }
 
+        public void Start(CreatePasswordResetVerificationCodeRequest request)
+        {
+            SendToBus(request, _commonBusEndpointSettings.Identity);
+        }
+
         public void Start(ResetPasswordRequest request)
         {
             SendToBus(request, _commonBusEndpointSettings.Identity);

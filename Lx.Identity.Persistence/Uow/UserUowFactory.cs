@@ -128,7 +128,7 @@ namespace Lx.Identity.Persistence.Uow
         }
 
         public ProcessResult ResetPassword(Guid userKey, VerificationPurpose verificationPurpose,
-            string plainTextVerificationCode, string newHashedPassword)
+            string plainTextVerificationCode, string newPlainTextPassword)
         {
             var verificationSucceeds = false;
             var currentTime = DateTimeOffset.UtcNow;
@@ -142,6 +142,12 @@ namespace Lx.Identity.Persistence.Uow
                             _cryptoService.Validate(plainTextVerificationCode, x.HashedVerificationCode) &&
                             x.TimeVerificationCodeExpires.HasValue &&
                             x.TimeVerificationCodeExpires.Value > currentTime;
+
+                        if (verificationSucceeds)
+                        {
+                            var hashedPassword = _cryptoService.CreateHash(newPlainTextPassword);
+                            x.SetHashedPassword(hashedPassword);
+                        }
 
                         x.ResetVerificationCode();
                     });

@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lx.Membership.Services\Lx.Membership.Services.csproj">
+      <Project>{C07955C7-252F-4CB9-B060-5071C99A81EA}</Project>
+      <Name>Lx.Membership.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lx.Shared.All\Lx.Shared.All.csproj">
       <Project>{d3afde4c-6f85-4efd-bd80-50c88c516f0d}</Project>
       <Name>Lx.Shared.All</Name>

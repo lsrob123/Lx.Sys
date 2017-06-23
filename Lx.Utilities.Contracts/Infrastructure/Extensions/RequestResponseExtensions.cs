@@ -9,12 +9,19 @@ namespace Lx.Utilities.Contracts.Infrastructure.Extensions
 {
     public static class RequestResponseExtensions
     {
-        public static TRequest WithUser<TRequest>(this TRequest result, IdentityDto user)
+        public static TRequest WithUser<TRequest>(this TRequest request, IdentityDto user)
             where TRequest : IRequest
         {
-            result.User = user;
-            result.OriginatorGroup = user.Key.ToString();
-            return result;
+            request.User = user;
+            request.OriginatorGroup = user.Key.ToString();
+            return request;
+        }
+
+        public static TRequest WithUser<TRequest>(this TRequest request, Guid userKey)
+            where TRequest : IRequest
+        {
+            request.OriginatorGroup = userKey.ToString();
+            return request;
         }
 
         public static TResponse WithUserKey<TResponse>(this TResponse result, Guid userKey)

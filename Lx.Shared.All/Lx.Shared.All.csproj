@@ -62,6 +62,7 @@
     <Compile Include="Domains\Identity\RequestsResponses\GetUserKeyEmailsRequest.cs" />
     <Compile Include="Domains\Identity\RequestsResponses\GetUserKeyEmailsResponse.cs" />
     <Compile Include="Domains\Identity\DTOs\IUserKeyEmailDto.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\CreatePasswordResetVerificationCodeRequest.cs" />
     <Compile Include="Domains\Identity\RequestsResponses\ResetPasswordRequest.cs" />
     <Compile Include="Domains\Identity\RequestsResponses\ResetPasswordResponse.cs" />
     <Compile Include="Domains\Identity\RequestsResponses\UpdateUserProfileRequest.cs" />

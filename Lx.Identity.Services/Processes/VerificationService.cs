@@ -30,7 +30,8 @@ namespace Lx.Identity.Services.Processes
             throw new NotImplementedException();
         }
 
-        public VerificationCodeCreatedEvent StartResetPassword(ResetPasswordRequest request)
+        public VerificationCodeCreatedEvent CreatePasswordResetVerificationCode(
+            CreatePasswordResetVerificationCodeRequest request)
         {
             var expiry = DateTimeOffset.UtcNow.AddMinutes(5);
             var verificationCode = new ShortGuid(Guid.NewGuid());
@@ -51,6 +52,15 @@ namespace Lx.Identity.Services.Processes
             }.LinkTo(request);
             return verificationCodeEvent;
         }
+
+        public ResetPasswordResponse ResetPassword(ResetPasswordRequest request)
+        {
+            var response = new ResetPasswordResponse().LinkTo(request)
+                .WithProcessResult(_userUowFactory.ResetPassword(request.UserKey, VerificationPurpose.ResetPassword,
+                    request.PlainTextVerificationCode, request.NewPlainTextPassword));
+            return response;
+        }
+
 
         public CreateVerificationCodeResponse CreateVerificationCode(Guid userKey, IBasicRequestKey request,
             VerificationPurpose verificationPurpose)

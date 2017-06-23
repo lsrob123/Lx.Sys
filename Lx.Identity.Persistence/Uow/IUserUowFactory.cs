@@ -19,6 +19,6 @@ namespace Lx.Identity.Persistence.Uow
         UserDto SetVerificationCode(string email, VerificationPurpose verificationPurpose, string hashedVerificationCode, DateTimeOffset timeVerificationCodeExpires);
 
         ProcessResult ResetPassword(Guid userKey, VerificationPurpose verificationPurpose,
-            string plainTextVerificationCode, string newHashedPassword);
+            string plainTextVerificationCode, string newPlainTextPassword);
     }
 }

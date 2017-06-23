@@ -6,7 +6,7 @@ using NServiceBus;
 namespace Lx.Identity.Nsb.Users
 {
     public class RequestHandlers : RequestHandlersBase, IHandleMessages<CreateUserRequest>,
-        IHandleMessages<ResetPasswordRequest>
+        IHandleMessages<CreatePasswordResetVerificationCodeRequest>, IHandleMessages<ResetPasswordRequest>
     {
         private readonly IUserService _userService;
         private readonly IVerificationService _verificationService;
@@ -17,6 +17,12 @@ namespace Lx.Identity.Nsb.Users
             _verificationService = verificationService;
         }
 
+        public void Handle(CreatePasswordResetVerificationCodeRequest message)
+        {
+            var verificationCodeCreatedEvent = _verificationService.CreatePasswordResetVerificationCode(message);
+            PublishToBus(verificationCodeCreatedEvent);
+        }
+
         public void Handle(CreateUserRequest message)
         {
             var response = _userService.CreateUser(message);
@@ -25,8 +31,8 @@ namespace Lx.Identity.Nsb.Users
 
         public void Handle(ResetPasswordRequest message)
         {
-            var verificationCodeCreatedEvent = _verificationService.StartResetPassword(message);
-            PublishToBus(verificationCodeCreatedEvent);
+            var response = _verificationService.ResetPassword(message);
+            PublishToBus(response);
         }
     }
 }

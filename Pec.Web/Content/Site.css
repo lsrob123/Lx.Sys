@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    font-size: 16px;
+    font-family: Arial;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -14,5 +14,12 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.panel {
+    display: block;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 

@@ -81,14 +81,14 @@ namespace Lx.Utilities.Services.IoC.AutoFac
             return builder;
         }
 
-        public static IContainer StartForWindowsService(this ContainerBuilder builder)
+        public static IContainer StartForWindowsService(this ContainerBuilder builder, string licenseFilePath = null)
         {
             var container = new ContainerBuilder()
                 .CallDefaultDependencyRegisters()
                 .RegisterWithSignalR()
                 .RegisterWithWebApi()
                 .Build()
-                .StartBus()
+                .StartBus(licenseFilePath)
                 .InstantiateSignalRHubs()
                 .ClearCache()
                 .SetAsGlobalDependencyResolver();
@@ -96,19 +96,19 @@ namespace Lx.Utilities.Services.IoC.AutoFac
             return container;
         }
 
-        public static IContainer StartNonWeb(this ContainerBuilder builder)
+        public static IContainer StartNonWeb(this ContainerBuilder builder, string licenseFilePath = null)
         {
             var container = new ContainerBuilder()
                 .CallDefaultDependencyRegisters()
                 .Build()
-                .StartBus()
+                .StartBus(licenseFilePath)
                 .ClearCache()
                 .SetAsGlobalDependencyResolver();
 
             return container;
         }
 
-        public static IContainer StartForMvcSite(this ContainerBuilder builder)
+        public static IContainer StartForMvcSite(this ContainerBuilder builder, string licenseFilePath = null)
         {
             var container = new ContainerBuilder()
                 .CallDefaultDependencyRegisters()
@@ -116,7 +116,7 @@ namespace Lx.Utilities.Services.IoC.AutoFac
                 .RegisterWithWebApi()
                 .RegisterWithMvc()
                 .Build()
-                .StartBus()
+                .StartBus(licenseFilePath)
                 .InstantiateSignalRHubs()
                 .ClearCache()
                 .SetAsGlobalDependencyResolver();

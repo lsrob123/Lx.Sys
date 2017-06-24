@@ -23,6 +23,8 @@ namespace Lx.Utilities.Services.Infrastructure
                 .Where(x => namespaceKeywords.Any(y => x.FullName.Contains(y)))
                 .ToList();
 
+            domainAssemblies.Add(Assembly.GetExecutingAssembly());
+
             Lock.EnterUpgradeableReadLock();
             try
             {
@@ -62,6 +64,7 @@ namespace Lx.Utilities.Services.Infrastructure
                 .SelectMany(a => a.GetTypes())
                 .Where(t => typeFilter?.Invoke(t) ?? true)
                 .ToList();
+
             return types;
         }
     }

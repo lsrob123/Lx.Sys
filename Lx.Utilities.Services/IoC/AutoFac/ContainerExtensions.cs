@@ -10,10 +10,11 @@ namespace Lx.Utilities.Services.IoC.AutoFac
 {
     public static class ContainerExtensions
     {
-        public static IContainer StartBus(this IContainer container)
+        public static IContainer StartBus(this IContainer container, string licenseFilePath = null)
         {
             var busSettings = container.Resolve<IBusSettings>();
-            Bus.Create(BusConfigurationHelper.GetBusConfiguration(busSettings, autofacContainer: container))
+            Bus.Create(BusConfigurationHelper.GetBusConfiguration(busSettings, autofacContainer: container,
+                    licenseFilePath: licenseFilePath))
                 .Start();
 
             return container;

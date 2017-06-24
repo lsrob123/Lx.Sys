@@ -18,7 +18,7 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb
 
         public static BusConfiguration GetBusConfiguration(IBusSettings settings,
             bool useDefaultAutofacContainer = false, IContainer autofacContainer = null,
-            Action<BusConfiguration> registerIocContainer = null)
+            Action<BusConfiguration> registerIocContainer = null, string licenseFilePath = null)
         {
             var busConfiguration = new BusConfiguration();
 
@@ -30,7 +30,8 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb
             var transport = busConfiguration.UseTransport<RabbitMQTransport>();
             transport.ConnectionString(settings.MqConnectionString);
 
-            busConfiguration.LicensePath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "License.xml"));
+            licenseFilePath = licenseFilePath ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "License.xml");
+            busConfiguration.LicensePath(licenseFilePath);
 
             busConfiguration.EnableInstallers();
             busConfiguration.UsePersistence<NHibernatePersistence>()

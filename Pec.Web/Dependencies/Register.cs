@@ -12,7 +12,6 @@ namespace Pec.Web.Dependencies
     {
         public override void AddRegistrations()
         {
-            //Register<IVerificationCodeConfig, VerificationCodeConfig>();
             Register<IDbConfig, DbConfig>();
             Register<IBusSettings, BusSettings>();
             Register<IBusEndpointMapFactory, DefaultBusEndpointMapFactory>();

@@ -212,7 +212,7 @@
     <Compile Include="Membership\DTOs\RoleProcessDto.cs" />
     <Compile Include="Membership\Entities\Role.cs" />
     <Compile Include="Membership\Entities\RoleProcess.cs" />
-    <Compile Include="Membership\Enumerations\AccountState.cs" />
+    <Compile Include="Membership\Enumerations\MemberState.cs" />
     <Compile Include="Membership\Interfaces\IMember.cs" />
     <Compile Include="Membership\Interfaces\IRole.cs" />
     <Compile Include="Membership\Interfaces\IRoleProcess.cs" />

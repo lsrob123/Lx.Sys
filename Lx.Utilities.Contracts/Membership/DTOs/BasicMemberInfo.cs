@@ -20,7 +20,7 @@ namespace Lx.Utilities.Contracts.Membership.DTOs
         public PersonNameDto PersonName { get; set; }
         public bool IsAdmin { get; set; }
         public string Username { get; set; }
-        public AccountState AccountState { get; set; }
+        public MemberState MemberState { get; set; }
         public EmailDto Email { get; set; }
         public PhoneNumberDto Mobile { get; set; }
     }

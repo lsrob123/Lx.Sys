@@ -46,7 +46,9 @@
     <Compile Include="Porcesses\IEmailService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
       <Project>{27F761EB-DF3C-4634-8966-B368350F7524}</Project>

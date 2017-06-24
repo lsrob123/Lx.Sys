@@ -81,7 +81,7 @@ namespace Lx.Utilities.Services.IoC.AutoFac
             return builder;
         }
 
-        public static IContainer StartEverything(this ContainerBuilder builder)
+        public static IContainer StartForWindowsService(this ContainerBuilder builder)
         {
             var container = new ContainerBuilder()
                 .CallDefaultDependencyRegisters()
@@ -107,5 +107,22 @@ namespace Lx.Utilities.Services.IoC.AutoFac
 
             return container;
         }
+
+        public static IContainer StartForMvcSite(this ContainerBuilder builder)
+        {
+            var container = new ContainerBuilder()
+                .CallDefaultDependencyRegisters()
+                .RegisterWithSignalR()
+                .RegisterWithWebApi()
+                .RegisterWithMvc()
+                .Build()
+                .StartBus()
+                .InstantiateSignalRHubs()
+                .ClearCache()
+                .SetAsGlobalDependencyResolver();
+
+            return container;
+        }
+
     }
 }

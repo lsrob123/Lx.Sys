@@ -44,6 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.2.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.2.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -107,6 +113,11 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Config\BusSettings.cs" />
+    <Compile Include="Config\DbConfig.cs" />
+    <Compile Include="Config\OAuthUris.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Dependencies\Register.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -124,25 +135,33 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Affiliating.Contract\Affiliating.Contract.csproj">
-      <Project>{d2d12301-28d3-4ce7-aa16-b502aa68d904}</Project>
-      <Name>Affiliating.Contract</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Affiliating.Services\Affiliating.Services.csproj">
-      <Project>{d6926300-a492-411d-9165-f4aab8a48643}</Project>
-      <Name>Affiliating.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Lx.Shared.All\Lx.Shared.All.csproj">
       <Project>{d3afde4c-6f85-4efd-bd80-50c88c516f0d}</Project>
       <Name>Lx.Shared.All</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
+      <Project>{27F761EB-DF3C-4634-8966-B368350F7524}</Project>
+      <Name>Lx.Utilities.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
       <Project>{e732222f-4036-4a90-952d-4b72cbdaed08}</Project>
       <Name>Lx.Utilities.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pec.Contracts\Pec.Contracts.csproj">
+      <Project>{15816b87-94f1-4d5a-a874-dc43da797d3a}</Project>
+      <Name>Pec.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pec.Domain\Pec.Domain.csproj">
+      <Project>{886a3053-7c84-480f-8c9c-eb15bae79bb7}</Project>
+      <Name>Pec.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pec.Services\Pec.Services.csproj">
+      <Project>{6268ef7b-ca82-4f3c-8291-a7c8c7802d3f}</Project>
+      <Name>Pec.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

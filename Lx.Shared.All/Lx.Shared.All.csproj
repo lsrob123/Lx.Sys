@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domains\Common\DTOs\" />
+    <Folder Include="Domains\CRM\" />
     <Folder Include="Domains\Identity\Constants\" />
     <Folder Include="Domains\Identity\Entities\" />
     <Folder Include="Domains\Membership\Enumerations\" />

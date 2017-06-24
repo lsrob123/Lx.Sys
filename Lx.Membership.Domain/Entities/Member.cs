@@ -13,7 +13,7 @@ namespace Lx.Membership.Domain.Entities
         public PersonName PersonName { get; protected set; }
         public bool IsAdmin { get; protected set; }
         public string Username { get; protected set; }
-        public AccountState AccountState { get; protected set; }
+        public MemberState MemberState { get; protected set; }
         public string AvatarUriDefault { get; protected set; }
         public string AvatarUriRelative { get; protected set; }
         public string Nickname { get; protected set; }
@@ -25,7 +25,7 @@ namespace Lx.Membership.Domain.Entities
 
         public override void AssignDefaultValuesToComplexPropertiesIfNull()
         {
-            AccountState = AccountState ?? AccountState.Unknown;
+            MemberState = MemberState ?? MemberState.Unknown;
             UserState = UserState ?? UserState.Unknown;
             Email = Email ?? new Email();
             Mobile = Mobile ?? new PhoneNumber();
@@ -33,6 +33,12 @@ namespace Lx.Membership.Domain.Entities
             HomeAddress = HomeAddress ?? new Address();
             WorkAddress = WorkAddress ?? new Address();
             PostalAddress = PostalAddress ?? new Address();
+        }
+
+        public Member WithMemberState(MemberState memberState)
+        {
+            MemberState = memberState;
+            return this;
         }
     }
 }

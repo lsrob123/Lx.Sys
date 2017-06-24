@@ -28,7 +28,7 @@ namespace Lx.Membership.Contracts.DTOs
         public string Username { get; set; }
 
         [InvisibleInTestExample]
-        public AccountState AccountState { get; set; }
+        public MemberState MemberState { get; set; }
 
         [InvisibleInTestExample]
         public string AvatarUriDefault { get; set; }

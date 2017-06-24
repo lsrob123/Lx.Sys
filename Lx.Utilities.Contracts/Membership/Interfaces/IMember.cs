@@ -11,7 +11,7 @@ namespace Lx.Utilities.Contracts.Membership.Interfaces
         where TMobileNumber : IPhoneNumber
         where TAddress : IAddress
     {
-        AccountState AccountState { get; }
+        MemberState MemberState { get; }
         string AvatarUriDefault { get; }
         string AvatarUriRelative { get; }
         string Nickname { get; }

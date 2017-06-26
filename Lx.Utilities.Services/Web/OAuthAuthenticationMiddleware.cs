@@ -16,21 +16,20 @@ namespace Lx.Utilities.Services.Web
         protected readonly IClaimProcessor ClaimProcessor;
         protected readonly ILogger Logger;
         protected readonly IOAuthHelper OAuthHelper;
-        protected readonly IOAuthClientSettings Settings;
+        protected readonly IOAuthClientSettings OAuthClientSettings;
 
         public OAuthAuthenticationMiddleware(OwinMiddleware next, ILogger logger, IOAuthClientSettings settings,
             IClaimProcessor claimProcessor, IOAuthHelper oauthHelper) : base(next)
         {
             Logger = logger;
-            Settings = settings;
+            OAuthClientSettings = settings;
             ClaimProcessor = claimProcessor;
             OAuthHelper = oauthHelper;
         }
 
         public override async Task Invoke(IOwinContext context)
         {
-            string[] authorizationHeaders;
-            if (!context.Request.Headers.TryGetValue(AuthorizationHeaderName, out authorizationHeaders))
+            if (!context.Request.Headers.TryGetValue(AuthorizationHeaderName, out string[] authorizationHeaders))
             {
                 await Next.Invoke(context);
                 return;

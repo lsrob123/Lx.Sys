@@ -85,6 +85,9 @@
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Lx.Utilities.Contract">
+      <HintPath>..\Pec.Web\Bin\Lx.Utilities.Contract.dll</HintPath>
+    </Reference>
     <Reference Include="MailKit, Version=1.16.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
       <HintPath>..\packages\MailKit.1.16.1\lib\net451\MailKit.dll</HintPath>
     </Reference>
@@ -251,6 +254,7 @@
     <Compile Include="IoC\AutoFac\ContainerBuilderExtensionsForMvc.cs" />
     <Compile Include="Spatial\SpatialExtensions.cs" />
     <Compile Include="Web\AppBuilderExtensions.cs" />
+    <Compile Include="Web\AuthorizeWithCookiesAttribute.cs" />
     <Compile Include="Web\AuthorizeWithUserInRequestAttribute.cs" />
     <Compile Include="Web\FormPostResultExtensions.cs" />
     <Compile Include="Web\OAuthAuthenticationMiddleware.cs" />

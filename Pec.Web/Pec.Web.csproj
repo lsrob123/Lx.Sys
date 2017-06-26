@@ -132,6 +132,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Config\WebAuthenticationSettings.cs" />
     <Compile Include="Config\BusSettings.cs" />
     <Compile Include="Config\DbConfig.cs" />
     <Compile Include="Config\OAuthUris.cs" />

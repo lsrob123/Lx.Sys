@@ -239,6 +239,7 @@
     <Compile Include="Tagging\TagType.cs" />
     <Compile Include="ValidationAttributes\EnumerationValidateAttribute.cs" />
     <Compile Include="Web\FormPostResult.cs" />
+    <Compile Include="Web\IWebAuthenticationSettings.cs" />
     <Compile Include="Web\ITypedModelHtmlGenerationService.cs" />
     <Compile Include="Web\IUploadFileSettings.cs" />
     <Compile Include="Web\IUploadImageSettings.cs" />

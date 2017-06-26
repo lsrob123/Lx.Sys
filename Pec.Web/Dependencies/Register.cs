@@ -3,6 +3,7 @@ using Lx.Utilities.Contracts.Authentication.Interfaces;
 using Lx.Utilities.Contracts.IoC;
 using Lx.Utilities.Contracts.Persistence;
 using Lx.Utilities.Contracts.ServiceBus;
+using Lx.Utilities.Contracts.Web;
 using Lx.Utilities.Services.Authentication;
 using Pec.Web.Config;
 
@@ -14,6 +15,7 @@ namespace Pec.Web.Dependencies
         {
             Register<IDbConfig, DbConfig>();
             Register<IBusSettings, BusSettings>();
+            Register<IWebAuthenticationSettings, WebAuthenticationSettings>();
             Register<IBusEndpointMapFactory, DefaultBusEndpointMapFactory>();
             Register<IOAuthUris, OAuthUris>();
             Register<IClaimProcessor, StraightThroughClaimProcessor>();

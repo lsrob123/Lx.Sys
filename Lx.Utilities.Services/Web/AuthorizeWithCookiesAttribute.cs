@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using Lx.Utilities.Contract.Logging;
@@ -67,7 +69,23 @@ namespace Lx.Utilities.Services.Web
             if (string.IsNullOrWhiteSpace(accessTokenExpiryCookieValue))
                 return false;
 
-            var accessTokenExpiry =DateTimeOffset.Parse(accessTokenExpiryCookieValue);
+           if (!DateTimeOffset.TryParse(accessTokenExpiryCookieValue, out DateTimeOffset accessTokenExpiry))
+                return false;
+            if (DateTimeOffset.UtcNow.Subtract(accessTokenExpiry) > TimeSpan.Zero)
+            {
+               //TODO: Refresh tokens?
+                
+            }
+
+            var user = OAuthHelper.GetUserAsync(accessToken).Result;
+            if (user == null || !user.OriginalClaims.Any())
+                return false;
+
+            var claimsIdentity = new ClaimsIdentity(user.OriginalClaims);
+            httpContext.User = new ClaimsPrincipal(claimsIdentity);
+
+            var isAuthorized = AuthorizationService.IsAuthorized(this, user) || GetUserInfoOnly;
+            return isAuthorized;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Claims;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -12,7 +12,7 @@ namespace Lx.Utilities.Services.Serialization
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof (Claim);
+            return objectType == typeof(Claim);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,

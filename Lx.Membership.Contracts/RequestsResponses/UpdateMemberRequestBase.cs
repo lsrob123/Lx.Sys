@@ -1,5 +1,5 @@
 using Lx.Membership.Contracts.DTOs;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
 
 namespace Lx.Membership.Contracts.RequestsResponses
 {

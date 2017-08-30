@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using System.Threading;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Serialization;
 using Lx.Utilities.Services.Caching.Redis.Config;
 using StackExchange.Redis;
 

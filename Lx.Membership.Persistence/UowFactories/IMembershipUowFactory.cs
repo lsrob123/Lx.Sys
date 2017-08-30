@@ -2,7 +2,7 @@ using System;
 using Lx.Membership.Contracts.DTOs;
 using Lx.Membership.Contracts.Events;
 using Lx.Shared.All.Domains.Identity.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 
 namespace Lx.Membership.Persistence.UowFactories
 {

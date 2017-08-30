@@ -1,11 +1,13 @@
 ﻿using Lx.Membership.Contracts.Events;
-using Lx.Utilities.Contract.Mediator;
+using Lx.Shared.All.Domains.Identity.RequestsResponses;
+using Lx.Utilities.Contracts.Mediator;
 using Lx.Utilities.Services.ServiceBus;
 using NServiceBus;
 
 namespace Lx.Membership.Nsb.Members
 {
-    public class ResponseHandlers : ResponseHandlersBase, IHandleMessages<MemberUpdatedEvent>
+    public class ResponseHandlers : ResponseHandlersBase, IHandleMessages<MemberUpdatedEvent>,
+        IHandleMessages<ResetPasswordResponse>
     {
         public ResponseHandlers(IMediator mediator) : base(mediator)
         {
@@ -13,7 +15,12 @@ namespace Lx.Membership.Nsb.Members
 
         public void Handle(MemberUpdatedEvent message)
         {
-            Publish(message);
+            PublishByMediator(message);
+        }
+
+        public void Handle(ResetPasswordResponse message)
+        {
+            PublishByMediator(message);
         }
     }
 }

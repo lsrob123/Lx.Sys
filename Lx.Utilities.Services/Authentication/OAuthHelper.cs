@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityModel.Client;
-using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Caching;
+using Lx.Utilities.Contracts.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Caching;
 
 namespace Lx.Utilities.Services.Authentication
 {
     public class OAuthHelper : IOAuthHelper
     {
-        protected static readonly string OAuthHelperTypeName = typeof (OAuthHelper).FullName;
+        protected static readonly string OAuthHelperTypeName = typeof(OAuthHelper).FullName;
         protected readonly IClaimProcessor ClaimProcessor;
         protected readonly IInProcessCache InProcessCache;
         protected readonly IOAuthClientSettings Settings;

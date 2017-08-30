@@ -1,9 +1,9 @@
 ﻿using System;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mapping;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mapping;
+using Lx.Utilities.Contracts.Serialization;
 using NServiceBus.Saga;
 
 namespace Lx.Utilities.Services.ServiceBus.Nsb

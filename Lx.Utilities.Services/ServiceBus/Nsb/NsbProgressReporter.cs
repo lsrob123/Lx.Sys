@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Transactions;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 using Lx.Utilities.Services.Infrastructure;
 using NServiceBus;
 

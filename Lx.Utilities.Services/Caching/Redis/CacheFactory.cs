@@ -1,5 +1,5 @@
 ﻿using System;
-using Lx.Utilities.Contract.Caching;
+using Lx.Utilities.Contracts.Caching;
 
 namespace Lx.Utilities.Services.Caching.Redis
 {

@@ -1,27 +1,34 @@
 ﻿using System.Threading.Tasks;
-using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.Extensions;
-using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mapping;
-using Lx.Utilities.Contract.Mediator;
+using Lx.Membership.Services.APIs;
+using Lx.Shared.All.Domains.Identity.RequestsResponses;
+using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.Extensions;
+using Lx.Utilities.Contracts.Infrastructure.RequestDispatching;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mapping;
+using Lx.Utilities.Contracts.Mediator;
 using Lx.Utilities.Services.SignalR;
 
 namespace Lx.Membership.SignalR.Hubs
 {
-    public class AuthenticationHub : MediatedHubBase
+    public class AuthenticationHub : MediatedHubBase, IMediatorMessageHandler<ResetPasswordResponse>
     {
+        private readonly IAuthenticationApi _authenticationApi;
         private readonly IOAuthClientService _service;
 
         public AuthenticationHub(IMediator mediator, ILogger logger, IMappingService mappingService,
             IRequestDispatchingProxy requestDispatchingProxy, IOAuthClientService service,
-            IOAuthHelper oauthHelper = null)
+            IAuthenticationApi authenticationApi, IOAuthHelper oauthHelper = null)
             : base(mediator, logger, mappingService, requestDispatchingProxy, oauthHelper)
         {
             _service = service;
+            _authenticationApi = authenticationApi;
+        }
+
+        public void Handle(ResetPasswordResponse message)
+        {
+            SendGroupResponse(message);
         }
 
         public async Task GetTokensAsync(GetTokensRequest request)
@@ -57,6 +64,19 @@ namespace Lx.Membership.SignalR.Hubs
             await EnsureInGroupAsync(request);
             var response = await _service.RevokeTokenAsync(request);
             SendGroupResponse(response);
+        }
+
+        public async Task CreatePasswordResetVerificationCodePassword(
+            CreatePasswordResetVerificationCodeRequest request)
+        {
+            await EnsureInGroupAsync(request);
+            _authenticationApi.Start(request);
+        }
+
+        public async Task ResetPassword(ResetPasswordRequest request)
+        {
+            await EnsureInGroupAsync(request);
+            _authenticationApi.Start(request);
         }
     }
 }

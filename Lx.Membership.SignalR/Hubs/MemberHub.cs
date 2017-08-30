@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Lx.Membership.Contracts.Events;
 using Lx.Membership.Contracts.RequestsResponses;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mapping;
-using Lx.Utilities.Contract.Mediator;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.RequestDispatching;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mapping;
+using Lx.Utilities.Contracts.Mediator;
 using Lx.Utilities.Services.SignalR;
 
 namespace Lx.Membership.SignalR.Hubs

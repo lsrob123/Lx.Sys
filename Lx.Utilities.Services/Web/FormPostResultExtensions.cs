@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Lx.Utilities.Contract.Web;
+using Lx.Utilities.Contracts.Web;
 using Lx.Utilities.Services.Serialization;
 
 namespace Lx.Utilities.Services.Web

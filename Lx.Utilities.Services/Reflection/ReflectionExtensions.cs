@@ -45,7 +45,7 @@ namespace Lx.Utilities.Services.Reflection
         public static PropertyInfo GetPropertyInfo<TSource, TProperty>(this TSource source,
             Expression<Func<TSource, TProperty>> propertyGetterExpression)
         {
-            var type = typeof (TSource);
+            var type = typeof(TSource);
 
             var member = propertyGetterExpression.Body as MemberExpression;
             if (member == null)
@@ -57,7 +57,7 @@ namespace Lx.Utilities.Services.Reflection
                 throw new ArgumentException(
                     $"Expression '{propertyGetterExpression}' refers to a field, not a property.");
 
-            if ((propInfo.ReflectedType != null) && (type != propInfo.ReflectedType) &&
+            if (propInfo.ReflectedType != null && type != propInfo.ReflectedType &&
                 !type.IsSubclassOf(propInfo.ReflectedType))
                 throw new ArgumentException(
                     $"Expresion '{propertyGetterExpression}' refers to a property that is not from type {type}.");

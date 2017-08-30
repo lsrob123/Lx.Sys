@@ -1,5 +1,5 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.Extensions;
+﻿using Lx.Utilities.Contracts.Infrastructure.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.Extensions;
 using Lx.Utilities.Modelling.DTOs;
 
 namespace Lx.Utilities.Modelling.Processes

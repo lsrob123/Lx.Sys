@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 using Microsoft.AspNet.SignalR;
 using IRequest = Microsoft.AspNet.SignalR.IRequest;
 

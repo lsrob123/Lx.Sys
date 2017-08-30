@@ -11,11 +11,11 @@ using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using Lx.Utilities.Contract.Graphics;
-using Lx.Utilities.Contract.Infrastructure.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.Extensions;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Web;
+using Lx.Utilities.Contracts.Graphics;
+using Lx.Utilities.Contracts.Infrastructure.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.Extensions;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Web;
 using Microsoft.Owin;
 
 namespace Lx.Utilities.Services.Web

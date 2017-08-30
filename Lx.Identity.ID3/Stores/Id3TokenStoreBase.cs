@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Serialization;
 
 namespace Lx.Identity.ID3.Stores
 {
@@ -15,12 +15,12 @@ namespace Lx.Identity.ID3.Stores
         protected readonly IClaimRelatedJsonDeserializer ClaimRelatedJsonDeserializer;
         protected readonly ILogger Logger;
         protected readonly ISerializer Serializer;
-        protected readonly string TokenHashKey = typeof (T).FullName;
+        protected readonly string TokenHashKey = typeof(T).FullName;
 
-        protected readonly string TokenSubjectClientHashKey = typeof (T).FullName + "Subject" +
-                                                              typeof (Client).Name + "Hash";
+        protected readonly string TokenSubjectClientHashKey = typeof(T).FullName + "Subject" +
+                                                              typeof(Client).Name + "Hash";
 
-        protected readonly string TokenSubjectHashKey = typeof (T).FullName + "SubjectHash";
+        protected readonly string TokenSubjectHashKey = typeof(T).FullName + "SubjectHash";
 
         protected Id3TokenStoreBase(ICacheFactory cacheFactory, ISerializer serializer, ILogger logger,
             IClaimRelatedJsonDeserializer claimRelatedJsonDeserializer)
@@ -74,10 +74,10 @@ namespace Lx.Identity.ID3.Stores
             {
                 var fieldNames = cache.HashGet(GetTokenSubjectHashKey(subject)).Keys;
                 var tokens = (from fieldName in fieldNames
-                    select cache.HashGet(TokenHashKey, fieldName)
-                    into tokenValue
-                    where tokenValue != null
-                    select DeserializeToken(tokenValue))
+                        select cache.HashGet(TokenHashKey, fieldName)
+                        into tokenValue
+                        where tokenValue != null
+                        select DeserializeToken(tokenValue))
                     .ToList();
                 return await Task.FromResult(tokens);
             }

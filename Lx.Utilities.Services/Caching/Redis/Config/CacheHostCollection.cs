@@ -6,7 +6,7 @@ namespace Lx.Utilities.Services.Caching.Redis.Config
     {
         public CacheHost this[int index]
         {
-            get { return BaseGet(index) as CacheHost; }
+            get => BaseGet(index) as CacheHost;
             set
             {
                 if (BaseGet(index) != null)

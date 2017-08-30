@@ -12,12 +12,12 @@ namespace Lx.Utilities.Services.Infrastructure
             {
                 var keywords = new List<string>
                 {
-                    typeof (AssemblyHelper).Namespace?.Split('.')[0]
+                    typeof(AssemblyHelper).Namespace?.Split('.')[0]
                 };
 
                 var keywordsInConfigFile =
                     this.AppSettingStringValue(x => x.NamespaceKeywords)?
-                        .Split(new[] {" ", ",", ";"}, StringSplitOptions.RemoveEmptyEntries) ?? new string[] {};
+                        .Split(new[] {" ", ",", ";"}, StringSplitOptions.RemoveEmptyEntries) ?? new string[] { };
                 keywords.AddRange(keywordsInConfigFile);
                 return keywords;
             }

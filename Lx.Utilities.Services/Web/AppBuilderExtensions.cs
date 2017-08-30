@@ -19,9 +19,7 @@ namespace Lx.Utilities.Services.Web
             app.UseAutofacMiddleware(container);
             app.UseCors(CorsOptions.AllowAll);
             foreach (var staticFileRootFolder in staticFileRootFolders)
-            {
                 app.UseFileServer(new FileServerOptions().WithFolderAndDefaultFile(staticFileRootFolder));
-            }
 
             app.MapSignalR(container.Resolve<ISignalRConfig>().VirtualFolder,
                 new HubConfiguration().WithAutofac(container));
@@ -29,7 +27,7 @@ namespace Lx.Utilities.Services.Web
             app.UseWebApi(new HttpConfiguration()
                 .WithAutofac(container)
                 .WithDefaultSettings(app, container)
-                );
+            );
 
             return app;
         }

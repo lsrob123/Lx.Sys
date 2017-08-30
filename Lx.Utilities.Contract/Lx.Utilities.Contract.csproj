@@ -82,6 +82,13 @@
     <Compile Include="Authentication\Constants\GrantType.cs" />
     <Compile Include="Authentication\DTOs\IUserDto.cs" />
     <Compile Include="Authentication\Interfaces\IUserBase.cs" />
+    <Compile Include="Email\EmailAttachment.cs" />
+    <Compile Include="Email\EmailAttachmentDto.cs" />
+    <Compile Include="Email\IEmailAttachment.cs" />
+    <Compile Include="Email\IEmailSender.cs" />
+    <Compile Include="Email\ISmtpSettings.cs" />
+    <Compile Include="Email\SendEmailProgress.cs" />
+    <Compile Include="Email\SendEmailResponse.cs" />
     <Compile Include="Membership\Constants\RoleTypeName.cs" />
     <Compile Include="Authentication\DTOs\ClaimDto.cs" />
     <Compile Include="Authentication\DTOs\GetTokensRequest.cs" />

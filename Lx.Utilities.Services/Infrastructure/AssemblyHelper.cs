@@ -14,13 +14,16 @@ namespace Lx.Utilities.Services.Infrastructure
 
         private static readonly List<Assembly> ReferencedAssemblies = new List<Assembly>();
 
-        public static IReadOnlyCollection<Assembly> GetReferencedAssemblies(ICollection<string> namespaceKeywords = null)
+        public static IReadOnlyCollection<Assembly> GetReferencedAssemblies(
+            ICollection<string> namespaceKeywords = null)
         {
             namespaceKeywords = new AssemblyHelperConfig().NamespaceKeywords;
 
             var domainAssemblies = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(x => namespaceKeywords.Any(y => x.FullName.Contains(y)))
                 .ToList();
+
+            domainAssemblies.Add(Assembly.GetExecutingAssembly());
 
             Lock.EnterUpgradeableReadLock();
             try
@@ -34,7 +37,7 @@ namespace Lx.Utilities.Services.Infrastructure
 
                         ReferencedAssemblies.AddRange(
                             referencedPaths.Select(
-                                path => AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path)))
+                                    path => AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path)))
                                 .Where(x => namespaceKeywords.Any(y => x.FullName.Contains(y))));
                     }
                     finally
@@ -61,6 +64,7 @@ namespace Lx.Utilities.Services.Infrastructure
                 .SelectMany(a => a.GetTypes())
                 .Where(t => typeFilter?.Invoke(t) ?? true)
                 .ToList();
+
             return types;
         }
     }

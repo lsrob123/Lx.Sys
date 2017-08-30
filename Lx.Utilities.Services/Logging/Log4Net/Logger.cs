@@ -2,9 +2,9 @@
 using System.Reflection;
 using log4net;
 using log4net.Config;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mediator;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mediator;
 
 namespace Lx.Utilities.Services.Logging.Log4Net
 {

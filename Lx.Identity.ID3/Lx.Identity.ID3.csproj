@@ -80,9 +80,9 @@
       <Project>{D3AFDE4C-6F85-4EFD-BD80-50C88C516F0D}</Project>
       <Name>Lx.Shared.All</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
-      <Project>{B40ABC90-1F20-49A5-8734-92E8A13A183F}</Project>
-      <Name>Lx.Utilities.Contract</Name>
+    <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
+      <Project>{27f761eb-df3c-4634-8966-b368350f7524}</Project>
+      <Name>Lx.Utilities.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
       <Project>{e732222f-4036-4a90-952d-4b72cbdaed08}</Project>

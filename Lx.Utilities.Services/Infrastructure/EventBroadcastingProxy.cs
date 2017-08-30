@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Enums;
-using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.Enums;
+using Lx.Utilities.Contracts.Infrastructure.EventBroadcasting;
 using Lx.Utilities.Services.ServiceBus.Nsb;
 using NServiceBus;
 
@@ -41,9 +41,7 @@ namespace Lx.Utilities.Services.Infrastructure
             }
 
             foreach (var broadcaster in broadcasters)
-            {
                 broadcaster.Broadcast(e);
-            }
         }
 
         public void Register<TBroadcaster>(TBroadcaster broadcaster) where TBroadcaster : IEventBroadcaster

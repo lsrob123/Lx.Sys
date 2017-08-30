@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
-using Lx.Identity.Services.Services;
-using Lx.Utilities.Contract.Mapping;
+using Lx.Identity.Services.Processes;
+using Lx.Utilities.Contracts.Mapping;
 
 namespace Lx.Identity.ID3.Stores
 {

@@ -7,12 +7,12 @@ using IdentityServer3.Core;
 using IdentityServer3.Core.Extensions;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services.Default;
-using Lx.Identity.Services.Services;
-using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Enumerations;
-using Lx.Utilities.Contract.Crypto;
-using Lx.Utilities.Contract.Membership.Constants;
+using Lx.Identity.Services.Processes;
+using Lx.Utilities.Contracts.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Crypto;
+using Lx.Utilities.Contracts.Membership.Constants;
 
 namespace Lx.Identity.ID3.Services
 {

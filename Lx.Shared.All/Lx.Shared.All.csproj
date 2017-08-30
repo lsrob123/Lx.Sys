@@ -48,26 +48,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependencies\Register.cs" />
+    <Compile Include="Domains\Communications\EmailSenderConfig.cs" />
+    <Compile Include="Domains\Communications\IEmailSenderConfig.cs" />
     <Compile Include="Domains\Identity\Config\CommonBusEndpointSettings.cs" />
     <Compile Include="Domains\Identity\Config\ICommonBusEndpointSettings.cs" />
     <Compile Include="Domains\Identity\Config\UserProfileConfig.cs" />
     <Compile Include="Domains\Identity\Config\IUserProfileConfig.cs" />
     <Compile Include="Domains\Identity\DTOs\AvatarDto.cs" />
-    <Compile Include="Domains\Identity\DTOs\CreateUserRequest.cs" />
-    <Compile Include="Domains\Identity\DTOs\CreateUserResponse.cs" />
-    <Compile Include="Domains\Identity\DTOs\GetUserKeyEmailsRequest.cs" />
-    <Compile Include="Domains\Identity\DTOs\GetUserKeyEmailsResponse.cs" />
+    <Compile Include="Domains\Identity\Events\PasswordResetCompletedEvent.cs" />
+    <Compile Include="Domains\Identity\Events\VerificationCodeCreatedEvent.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\CreateUserRequest.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\CreateUserResponse.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\GetUserKeyEmailsRequest.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\GetUserKeyEmailsResponse.cs" />
     <Compile Include="Domains\Identity\DTOs\IUserKeyEmailDto.cs" />
-    <Compile Include="Domains\Identity\DTOs\UpdateUserProfileRequest.cs" />
-    <Compile Include="Domains\Identity\DTOs\UpdateUserProfileResponse.cs" />
-    <Compile Include="Domains\Identity\DTOs\UpdateUserRequest.cs" />
-    <Compile Include="Domains\Identity\DTOs\UpdateUserRequestBase.cs" />
-    <Compile Include="Domains\Identity\DTOs\UpdateUserResponse.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\CreatePasswordResetVerificationCodeRequest.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\ResetPasswordRequest.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\ResetPasswordResponse.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\UpdateUserProfileRequest.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\UpdateUserProfileResponse.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\UpdateUserRequest.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\UpdateUserRequestBase.cs" />
+    <Compile Include="Domains\Identity\RequestsResponses\UpdateUserResponse.cs" />
     <Compile Include="Domains\Identity\DTOs\UserDto.cs" />
     <Compile Include="Domains\Identity\DTOs\UserDtoBase.cs" />
     <Compile Include="Domains\Identity\DTOs\UserKeyEmailDto.cs" />
     <Compile Include="Domains\Identity\DTOs\UserProfileDto.cs" />
-    <Compile Include="Domains\Identity\DTOs\UserUpdatedEvent.cs" />
+    <Compile Include="Domains\Identity\Events\UserUpdatedEvent.cs" />
     <Compile Include="Domains\Identity\DTOs\UserUpdateDto.cs" />
     <Compile Include="Domains\Identity\Interfaces\IAvatar.cs" />
     <Compile Include="Domains\Identity\Enumerations\UserUpdateResultType.cs" />
@@ -81,9 +88,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
-      <Project>{b40abc90-1f20-49a5-8734-92e8a13a183f}</Project>
-      <Name>Lx.Utilities.Contract</Name>
+    <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
+      <Project>{27f761eb-df3c-4634-8966-b368350f7524}</Project>
+      <Name>Lx.Utilities.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lx.Utilities.Services\Lx.Utilities.Services.csproj">
       <Project>{e732222f-4036-4a90-952d-4b72cbdaed08}</Project>
@@ -96,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Domains\Common\DTOs\" />
+    <Folder Include="Domains\CRM\" />
     <Folder Include="Domains\Identity\Constants\" />
     <Folder Include="Domains\Identity\Entities\" />
     <Folder Include="Domains\Membership\Enumerations\" />

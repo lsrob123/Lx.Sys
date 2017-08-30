@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer3.Core.Models;
 using IdentityServer3.Core.Services;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Serialization;
 
 namespace Lx.Identity.ID3.Stores
 {
     public class Id3AuthorizationCodeStore : IAuthorizationCodeStore
     {
-        protected static readonly string KeyToAuthorizationCodeHash = typeof (AuthorizationCode).FullName;
+        protected static readonly string KeyToAuthorizationCodeHash = typeof(AuthorizationCode).FullName;
         protected readonly ICacheFactory CacheFactory;
         protected readonly ISerializer Serializer;
 

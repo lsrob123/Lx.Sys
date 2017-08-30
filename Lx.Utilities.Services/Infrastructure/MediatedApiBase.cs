@@ -1,9 +1,8 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Api;
-using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Mediator;
-using Lx.Utilities.Contract.Serialization;
-using Lx.Utilities.Contract.ServiceBus;
+﻿using Lx.Utilities.Contracts.Infrastructure.Api;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Mediator;
+using Lx.Utilities.Contracts.Serialization;
+using Lx.Utilities.Contracts.ServiceBus;
 using NServiceBus;
 
 namespace Lx.Utilities.Services.Infrastructure

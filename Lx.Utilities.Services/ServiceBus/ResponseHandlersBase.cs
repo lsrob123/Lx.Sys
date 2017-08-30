@@ -1,5 +1,5 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Mediator;
+﻿using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Mediator;
 
 namespace Lx.Utilities.Services.ServiceBus
 {
@@ -12,7 +12,7 @@ namespace Lx.Utilities.Services.ServiceBus
             Mediator = mediator;
         }
 
-        protected virtual void Publish<TResponse>(TResponse response)
+        protected virtual void PublishByMediator<TResponse>(TResponse response)
             where TResponse : IResultBase
         {
             Mediator.Publish(response);

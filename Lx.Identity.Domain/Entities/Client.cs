@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Enumerations;
 using Lx.Identity.Contracts.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
 
-namespace Lx.Identity.Domain.Entities {
-    public class Client : EntityBase, IClient {
+namespace Lx.Identity.Domain.Entities
+{
+    public class Client : EntityBase, IClient
+    {
         public bool Enabled { get; protected set; }
 
         [Required]
@@ -65,7 +67,8 @@ namespace Lx.Identity.Domain.Entities {
         [StringLength(100)]
         public string UserProfileOriginator { get; protected set; }
 
-        public override void AssignDefaultValuesToComplexPropertiesIfNull() {
+        public override void AssignDefaultValuesToComplexPropertiesIfNull()
+        {
             Flow = Flow ?? Flows.ResourceOwner;
             RefreshTokenUsage = RefreshTokenUsage ?? TokenUsage.ReUse;
             RefreshTokenExpiration = RefreshTokenExpiration ?? TokenExpiration.Sliding;

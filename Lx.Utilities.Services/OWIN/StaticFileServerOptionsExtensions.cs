@@ -12,7 +12,7 @@ namespace Lx.Utilities.Services.OWIN
         {
             options.EnableDirectoryBrowsing = false;
             options.EnableDefaultFiles = true;
-            options.DefaultFilesOptions.DefaultFileNames = new List<string> { defaultFileName };
+            options.DefaultFilesOptions.DefaultFileNames = new List<string> {defaultFileName};
 
             options.FileSystem = new PhysicalFileSystem(folderName);
             options.StaticFileOptions.ContentTypeProvider = new FileExtensionContentTypeProvider();

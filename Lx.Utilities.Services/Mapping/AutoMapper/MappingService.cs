@@ -3,8 +3,8 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Lx.Utilities.Contract.Infrastructure.Domain;
-using Lx.Utilities.Contract.Mapping;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Mapping;
 using Lx.Utilities.Services.Infrastructure;
 
 namespace Lx.Utilities.Services.Mapping.AutoMapper
@@ -81,7 +81,7 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
             // ReSharper disable once LoopCanBePartlyConvertedToQuery
             foreach (var map in mapList)
             {
-                if (MapSettings.Any(x => (x.Source == map.Source) && (x.Destination == map.Destination)))
+                if (MapSettings.Any(x => x.Source == map.Source && x.Destination == map.Destination))
                     continue;
 
                 MapSettings.Add(map);

@@ -51,16 +51,14 @@
     <Compile Include="DTOs\ClientScopeDto.cs" />
     <Compile Include="DTOs\ClientSecretDto.cs" />
     <Compile Include="DTOs\ConsentDto.cs" />
-    <Compile Include="DTOs\CreateVerificationCodeRequest.cs" />
-    <Compile Include="DTOs\CreateVerificationCodeResponse.cs" />
-    <Compile Include="DTOs\ExecuteVerificationRequest.cs" />
-    <Compile Include="DTOs\ExecuteVerificationResponse.cs" />
-    <Compile Include="DTOs\ResetPasswordRequest.cs" />
-    <Compile Include="DTOs\ResetPasswordResponse.cs" />
+    <Compile Include="RequestsResponses\CreateVerificationCodeRequest.cs" />
+    <Compile Include="RequestsResponses\CreateVerificationCodeResponse.cs" />
+    <Compile Include="RequestsResponses\ExecuteVerificationRequest.cs" />
+    <Compile Include="RequestsResponses\ExecuteVerificationResponse.cs" />
     <Compile Include="DTOs\ScopeClaimDto.cs" />
     <Compile Include="DTOs\ScopeDto.cs" />
     <Compile Include="DTOs\ScopeSecretDto.cs" />
-    <Compile Include="DTOs\SendVerificationCodeFailedResponse.cs" />
+    <Compile Include="RequestsResponses\SendVerificationCodeFailedResponse.cs" />
     <Compile Include="Enumerations\AccessTokenType.cs" />
     <Compile Include="Enumerations\Flows.cs" />
     <Compile Include="Enumerations\ResetPasswordMethod.cs" />
@@ -89,15 +87,16 @@
       <Project>{D3AFDE4C-6F85-4EFD-BD80-50C88C516F0D}</Project>
       <Name>Lx.Shared.All</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Lx.Utilities.Contract\Lx.Utilities.Contract.csproj">
-      <Project>{B40ABC90-1F20-49A5-8734-92E8A13A183F}</Project>
-      <Name>Lx.Utilities.Contract</Name>
+    <ProjectReference Include="..\Lx.Utilities.Contracts\Lx.Utilities.Contracts.csproj">
+      <Project>{27f761eb-df3c-4634-8966-b368350f7524}</Project>
+      <Name>Lx.Utilities.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

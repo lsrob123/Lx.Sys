@@ -1,6 +1,6 @@
 ﻿using System;
 using AutoMapper;
-using Lx.Utilities.Contract.Infrastructure.Common;
+using Lx.Utilities.Contracts.Infrastructure.Common;
 
 namespace Lx.Utilities.Services.Mapping.AutoMapper
 {
@@ -34,7 +34,7 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
             where TEnum : struct, IComparable, IConvertible, IFormattable
         {
             return new MapSetting<TEnumeration, TEnum>(exp => exp.ConstructUsing(x =>
-                (TEnum) Enum.Parse(typeof (TEnum), ((TEnumeration) x).Name)));
+                (TEnum) Enum.Parse(typeof(TEnum), ((TEnumeration) x).Name)));
         }
 
         public static MapSetting<TEnumeration, string> EnumerationToStringMap<TEnumeration>()
@@ -55,7 +55,7 @@ namespace Lx.Utilities.Services.Mapping.AutoMapper
     public class MapSetting<TSource, TDestination> : MapSetting
     {
         public MapSetting(Func<IMappingExpression, IMappingExpression> customMapFunc = null)
-            : base(typeof (TSource), typeof (TDestination), customMapFunc)
+            : base(typeof(TSource), typeof(TDestination), customMapFunc)
         {
         }
     }

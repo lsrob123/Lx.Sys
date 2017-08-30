@@ -1,5 +1,5 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Mediator;
+﻿using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Mediator;
 using NServiceBus;
 
 namespace Lx.Utilities.Services.ServiceBus.Nsb

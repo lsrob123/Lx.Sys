@@ -1,5 +1,5 @@
 ﻿using System;
-using Lx.Utilities.Contract.Persistence;
+using Lx.Utilities.Contracts.Persistence;
 
 namespace Lx.Utilities.Services.Persistence
 {

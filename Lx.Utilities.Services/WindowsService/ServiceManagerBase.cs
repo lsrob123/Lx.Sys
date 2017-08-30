@@ -1,7 +1,7 @@
 ﻿using System;
 using Autofac;
-using Lx.Utilities.Contract.Web;
-using Lx.Utilities.Contract.WindowsService;
+using Lx.Utilities.Contracts.Web;
+using Lx.Utilities.Contracts.WindowsService;
 using Lx.Utilities.Services.Config;
 using Lx.Utilities.Services.IoC.AutoFac;
 using Lx.Utilities.Services.Web;
@@ -39,7 +39,7 @@ namespace Lx.Utilities.Services.WindowsService
 
         protected virtual string StartEndpointWithStaticFileFolders(params string[] staticFileRootFolders)
         {
-            var container = new ContainerBuilder().StartEverything();
+            var container = new ContainerBuilder().StartForWindowsService();
             var endPointBaseUri = container.Resolve<IWebEndpointSettings>().EndpointBaseUri;
             WebAppInstance = WebApp.Start(endPointBaseUri, app => app.UseEverything(container, staticFileRootFolders));
             Console.WriteLine("Server running on {0}", endPointBaseUri);

@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{27F761EB-DF3C-4634-8966-B368350F7524}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lx.Utilities.Contracts</RootNamespace>
+    <AssemblyName>Lx.Utilities.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authentication\Config\IIdentityServiceConfig.cs" />
+    <Compile Include="Authentication\Config\IOAuthClientSettings.cs" />
+    <Compile Include="Authentication\Config\IOAuthUris.cs" />
+    <Compile Include="Authentication\Constants\ClaimType.cs" />
+    <Compile Include="Authentication\Constants\GrantType.cs" />
+    <Compile Include="Authentication\DTOs\ClaimDto.cs" />
+    <Compile Include="Authentication\DTOs\GetTokensRequest.cs" />
+    <Compile Include="Authentication\DTOs\GetTokensResponse.cs" />
+    <Compile Include="Authentication\DTOs\GetUserInfoRequest.cs" />
+    <Compile Include="Authentication\DTOs\GetUserInfoResponse.cs" />
+    <Compile Include="Authentication\DTOs\IdentityDto.cs" />
+    <Compile Include="Authentication\DTOs\IHasOAuthLoginClient.cs" />
+    <Compile Include="Authentication\DTOs\IIdentityDto.cs" />
+    <Compile Include="Authentication\DTOs\IUserDto.cs" />
+    <Compile Include="Authentication\DTOs\OAuthLogin.cs" />
+    <Compile Include="Authentication\DTOs\OAuthLoginClient.cs" />
+    <Compile Include="Authentication\DTOs\RefreshTokensRequest.cs" />
+    <Compile Include="Authentication\DTOs\RevokeTokenRequest.cs" />
+    <Compile Include="Authentication\DTOs\RevokeTokenResponse.cs" />
+    <Compile Include="Authentication\DTOs\VerificationFields.cs" />
+    <Compile Include="Authentication\Enumerations\PriorUserState.cs" />
+    <Compile Include="Authentication\Enumerations\UserState.cs" />
+    <Compile Include="Authentication\Enumerations\VerificationPurpose.cs" />
+    <Compile Include="Authentication\Extensions\ClaimsExtensions.cs" />
+    <Compile Include="Authentication\Extensions\ClaimsPrincipalExtensions.cs" />
+    <Compile Include="Authentication\Interfaces\IClaimProcessor.cs" />
+    <Compile Include="Authentication\Interfaces\IHasVerificationFields.cs" />
+    <Compile Include="Authentication\Interfaces\IOAuthClientService.cs" />
+    <Compile Include="Authentication\Interfaces\IOAuthHelper.cs" />
+    <Compile Include="Authentication\Interfaces\IOAuthLogin.cs" />
+    <Compile Include="Authentication\Interfaces\IOAuthLoginClient.cs" />
+    <Compile Include="Authentication\Interfaces\IUserBase.cs" />
+    <Compile Include="Authorization\IAccessCriteria.cs" />
+    <Compile Include="Authorization\IAuthorizationService.cs" />
+    <Compile Include="Authorization\ICustomAuthorizeAttribute.cs" />
+    <Compile Include="Caching\CacheKeyHelper.cs" />
+    <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\ICacheBase.cs" />
+    <Compile Include="Caching\ICacheFactory.cs" />
+    <Compile Include="Caching\ICacheWithHashes.cs" />
+    <Compile Include="Caching\IInProcessCache.cs" />
+    <Compile Include="Configuration\PreconfigurationAttribute.cs" />
+    <Compile Include="Crypto\IConfigCrypto.cs" />
+    <Compile Include="Crypto\ICryptoService.cs" />
+    <Compile Include="Email\EmailAttachment.cs" />
+    <Compile Include="Email\EmailAttachmentDto.cs" />
+    <Compile Include="Email\EmailParticipant.cs" />
+    <Compile Include="Email\IEmailAttachment.cs" />
+    <Compile Include="Email\IEmailSettings.cs" />
+    <Compile Include="Email\IEmailSender.cs" />
+    <Compile Include="Email\ISmtpSettings.cs" />
+    <Compile Include="Email\SendEmailProgress.cs" />
+    <Compile Include="Email\SendEmailRequest.cs" />
+    <Compile Include="Email\SendEmailResponse.cs" />
+    <Compile Include="Graphics\IAttachedImage.cs" />
+    <Compile Include="Graphics\IImageFull.cs" />
+    <Compile Include="Graphics\IImageProcessor.cs" />
+    <Compile Include="Graphics\IImageSafe.cs" />
+    <Compile Include="Graphics\ImageFullDto.cs" />
+    <Compile Include="Graphics\ImageSafeDto.cs" />
+    <Compile Include="Graphics\ImageValueObject.cs" />
+    <Compile Include="Infrastructure\Api\IMediatedApi.cs" />
+    <Compile Include="Infrastructure\Attributes\InvisibleInTestExampleAttribute.cs" />
+    <Compile Include="Infrastructure\Common\Casing.cs" />
+    <Compile Include="Infrastructure\Common\Enumeration.cs" />
+    <Compile Include="Infrastructure\Domain\EntityBase.cs" />
+    <Compile Include="Infrastructure\Domain\EntityExtensions.cs" />
+    <Compile Include="Infrastructure\Domain\IEntity.cs" />
+    <Compile Include="Infrastructure\Domain\IRelatedValueObject.cs" />
+    <Compile Include="Infrastructure\Domain\IValueObject.cs" />
+    <Compile Include="Infrastructure\Domain\RelatedValueObjectBase.cs" />
+    <Compile Include="Infrastructure\DTOs\AddressDto.cs" />
+    <Compile Include="Infrastructure\DTOs\CompletionState.cs" />
+    <Compile Include="Infrastructure\DTOs\DeviceDto.cs" />
+    <Compile Include="Infrastructure\DTOs\EmailDto.cs" />
+    <Compile Include="Infrastructure\DTOs\EventBase.cs" />
+    <Compile Include="Infrastructure\DTOs\NotToBeMediatedAttribute.cs" />
+    <Compile Include="Infrastructure\DTOs\PersonNameDto.cs" />
+    <Compile Include="Infrastructure\DTOs\PhoneNumberDto.cs" />
+    <Compile Include="Infrastructure\DTOs\ProcessResult.cs" />
+    <Compile Include="Infrastructure\DTOs\Progress.cs" />
+    <Compile Include="Infrastructure\DTOs\ReplyBase.cs" />
+    <Compile Include="Infrastructure\DTOs\RepublishedResponseBase.cs" />
+    <Compile Include="Infrastructure\DTOs\RequestBase.cs" />
+    <Compile Include="Infrastructure\DTOs\ResponseBase.cs" />
+    <Compile Include="Infrastructure\DTOs\ResultBase.cs" />
+    <Compile Include="Infrastructure\Enumerations\Locale.cs" />
+    <Compile Include="Infrastructure\Enumerations\PhoneDestinationType.cs" />
+    <Compile Include="Infrastructure\Enumerations\Privilege.cs" />
+    <Compile Include="Infrastructure\Enumerations\ProcessResultType.cs" />
+    <Compile Include="Infrastructure\Enumerations\PushNotificationType.cs" />
+    <Compile Include="Infrastructure\Enumerations\RichContentType.cs" />
+    <Compile Include="Infrastructure\Enums\AddUpdateOptions.cs" />
+    <Compile Include="Infrastructure\Enums\EventBroadcastingScope.cs" />
+    <Compile Include="Infrastructure\EventBroadcasting\IEventBroadcaster.cs" />
+    <Compile Include="Infrastructure\EventBroadcasting\IEventBroadcastingProxy.cs" />
+    <Compile Include="Infrastructure\Exceptions\ForbiddenException.cs" />
+    <Compile Include="Infrastructure\Extensions\PaginationExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\PersonNameExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\ProgressExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\RepublishedResponseExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\RequestResponseExtensions.cs" />
+    <Compile Include="Infrastructure\Helpers\PhoneNumberHelper.cs" />
+    <Compile Include="Infrastructure\Interfaces\IAddress.cs" />
+    <Compile Include="Infrastructure\Interfaces\IBasicRequestKey.cs" />
+    <Compile Include="Infrastructure\Interfaces\ICommand.cs" />
+    <Compile Include="Infrastructure\Interfaces\ICompletionState.cs" />
+    <Compile Include="Infrastructure\Interfaces\IDevice.cs" />
+    <Compile Include="Infrastructure\Interfaces\IDisplayOrder.cs" />
+    <Compile Include="Infrastructure\Interfaces\IDto.cs" />
+    <Compile Include="Infrastructure\Interfaces\IEmail.cs" />
+    <Compile Include="Infrastructure\Interfaces\IEndpointSettings.cs" />
+    <Compile Include="Infrastructure\Interfaces\IExpectsResponse.cs" />
+    <Compile Include="Infrastructure\Interfaces\IHasInstanceKey.cs" />
+    <Compile Include="Infrastructure\Interfaces\IHasOriginatorDevice.cs" />
+    <Compile Include="Infrastructure\Interfaces\IHasOriginatorIp.cs" />
+    <Compile Include="Infrastructure\Interfaces\IHasRichContent.cs" />
+    <Compile Include="Infrastructure\Interfaces\IHasSagaId.cs" />
+    <Compile Include="Infrastructure\Interfaces\IHasShareGroups.cs" />
+    <Compile Include="Infrastructure\Interfaces\IIpAddressSet.cs" />
+    <Compile Include="Infrastructure\Interfaces\IMessage.cs" />
+    <Compile Include="Infrastructure\Interfaces\IMessageBase.cs" />
+    <Compile Include="Infrastructure\Interfaces\IpAddressSetDto.cs" />
+    <Compile Include="Infrastructure\Interfaces\IPersonName.cs" />
+    <Compile Include="Infrastructure\Interfaces\IPhoneNumber.cs" />
+    <Compile Include="Infrastructure\Interfaces\IProgress.cs" />
+    <Compile Include="Infrastructure\Interfaces\IProgressReporter.cs" />
+    <Compile Include="Infrastructure\Interfaces\IRequest.cs" />
+    <Compile Include="Infrastructure\Interfaces\IRequestKey.cs" />
+    <Compile Include="Infrastructure\Interfaces\IResponse.cs" />
+    <Compile Include="Infrastructure\Interfaces\IResultBase.cs" />
+    <Compile Include="Infrastructure\Interfaces\IVerified.cs" />
+    <Compile Include="Infrastructure\Interfaces\IWithPaginatedList.cs" />
+    <Compile Include="Infrastructure\Interfaces\IWithPagination.cs" />
+    <Compile Include="Infrastructure\Interfaces\IWithRelationalId.cs" />
+    <Compile Include="Infrastructure\RequestDispatching\IRequestDispatcher.cs" />
+    <Compile Include="Infrastructure\RequestDispatching\IRequestDispatcherBase.cs" />
+    <Compile Include="Infrastructure\RequestDispatching\IRequestDispatchingProxy.cs" />
+    <Compile Include="Infrastructure\ValueObjects\Device.cs" />
+    <Compile Include="Infrastructure\ValueObjects\Email.cs" />
+    <Compile Include="Infrastructure\ValueObjects\IpAddressSet.cs" />
+    <Compile Include="Infrastructure\ValueObjects\PersonName.cs" />
+    <Compile Include="Infrastructure\ValueObjects\PhoneNumber.cs" />
+    <Compile Include="IoC\DefaultDependencyRegisterBase.cs" />
+    <Compile Include="IoC\GlobalDependencyResolver.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Mapping\IMappingService.cs" />
+    <Compile Include="Mediator\IMediator.cs" />
+    <Compile Include="Mediator\IMediatorMessageHandler.cs" />
+    <Compile Include="Mediator\Mediator.cs" />
+    <Compile Include="Mediator\MediatorReadyEvent.cs" />
+    <Compile Include="Mediator\MessageHandlerBase.cs" />
+    <Compile Include="Membership\Constants\RoleTypeName.cs" />
+    <Compile Include="Membership\DTOs\BasicMemberInfo.cs" />
+    <Compile Include="Membership\DTOs\IMemberInfo.cs" />
+    <Compile Include="Membership\DTOs\RoleDto.cs" />
+    <Compile Include="Membership\DTOs\RoleProcessDto.cs" />
+    <Compile Include="Membership\Entities\Role.cs" />
+    <Compile Include="Membership\Entities\RoleProcess.cs" />
+    <Compile Include="Membership\Enumerations\MemberState.cs" />
+    <Compile Include="Membership\Interfaces\IMember.cs" />
+    <Compile Include="Membership\Interfaces\IRole.cs" />
+    <Compile Include="Membership\Interfaces\IRoleProcess.cs" />
+    <Compile Include="Persistence\IDbConfig.cs" />
+    <Compile Include="Persistence\IRelationalDataStore.cs" />
+    <Compile Include="Persistence\IUnitOfWork.cs" />
+    <Compile Include="Persistence\IUnitOfWorkFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\IClaimRelatedJsonDeserializer.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\SerializationOptions.cs" />
+    <Compile Include="ServiceBus\DefaultBusEndpointMapFactory.cs" />
+    <Compile Include="ServiceBus\IBusClient.cs" />
+    <Compile Include="ServiceBus\IBusCommand.cs" />
+    <Compile Include="ServiceBus\IBusEndpointMapFactory.cs" />
+    <Compile Include="ServiceBus\IBusEvent.cs" />
+    <Compile Include="ServiceBus\IBusMessage.cs" />
+    <Compile Include="ServiceBus\IBusSettings.cs" />
+    <Compile Include="ServiceBus\ISagaDataCache.cs" />
+    <Compile Include="ServiceBus\RequestResponseExtensions.cs" />
+    <Compile Include="Tagging\ITag.cs" />
+    <Compile Include="Tagging\TagBase.cs" />
+    <Compile Include="Tagging\TagDto.cs" />
+    <Compile Include="Tagging\TagType.cs" />
+    <Compile Include="ValidationAttributes\EnumerationValidateAttribute.cs" />
+    <Compile Include="Web\FormPostResult.cs" />
+    <Compile Include="Web\IWebAuthenticationSettings.cs" />
+    <Compile Include="Web\ITypedModelHtmlGenerationService.cs" />
+    <Compile Include="Web\IUploadFileSettings.cs" />
+    <Compile Include="Web\IUploadImageSettings.cs" />
+    <Compile Include="Web\IWebEndpointSettings.cs" />
+    <Compile Include="Web\UploadFileInfoDto.cs" />
+    <Compile Include="WindowsService\IServiceManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

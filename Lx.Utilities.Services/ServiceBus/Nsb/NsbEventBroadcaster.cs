@@ -1,6 +1,6 @@
-﻿using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Enums;
-using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
+﻿using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.Enums;
+using Lx.Utilities.Contracts.Infrastructure.EventBroadcasting;
 using NServiceBus;
 
 namespace Lx.Utilities.Services.ServiceBus.Nsb

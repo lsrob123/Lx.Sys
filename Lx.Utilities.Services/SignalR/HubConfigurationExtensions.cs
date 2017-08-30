@@ -17,7 +17,7 @@ namespace Lx.Utilities.Services.SignalR
 
             var jsonSettings = new JsonSerializerSettings {ContractResolver = new SignalRContractResolver()};
             var serializer = JsonSerializer.Create(jsonSettings);
-            hubConfig.Resolver.Register(typeof (JsonSerializer), () => serializer);
+            hubConfig.Resolver.Register(typeof(JsonSerializer), () => serializer);
 
 #if DEBUG
             hubConfig.EnableDetailedErrors = true;

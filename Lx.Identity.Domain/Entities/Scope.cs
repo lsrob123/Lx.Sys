@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
 
-namespace Lx.Identity.Domain.Entities {
-    public class Scope : EntityBase, IScope {
+namespace Lx.Identity.Domain.Entities
+{
+    public class Scope : EntityBase, IScope
+    {
         public bool Enabled { get; protected set; }
 
         [Required]
@@ -27,6 +29,8 @@ namespace Lx.Identity.Domain.Entities {
         public bool ShowInDiscoveryDocument { get; protected set; }
         public bool AllowUnrestrictedIntrospection { get; protected set; }
 
-        public override void AssignDefaultValuesToComplexPropertiesIfNull() {}
+        public override void AssignDefaultValuesToComplexPropertiesIfNull()
+        {
+        }
     }
 }

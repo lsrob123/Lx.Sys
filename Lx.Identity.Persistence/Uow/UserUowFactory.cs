@@ -5,29 +5,34 @@ using Lx.Identity.Persistence.EF;
 using Lx.Shared.All.Domains.Identity.Config;
 using Lx.Shared.All.Domains.Identity.DTOs;
 using Lx.Shared.All.Domains.Identity.Enumerations;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
-using Lx.Utilities.Contract.Infrastructure.Helpers;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mapping;
-using Lx.Utilities.Contract.Membership.DTOs;
-using Lx.Utilities.Contract.Persistence;
-using Lx.Utilities.Contract.Serialization;
+using Lx.Shared.All.Domains.Identity.Events;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Crypto;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.EventBroadcasting;
+using Lx.Utilities.Contracts.Infrastructure.Helpers;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mapping;
+using Lx.Utilities.Contracts.Membership.DTOs;
+using Lx.Utilities.Contracts.Persistence;
+using Lx.Utilities.Contracts.Serialization;
 using Lx.Utilities.Services.Persistence;
 
 namespace Lx.Identity.Persistence.Uow
 {
     public class UserUowFactory : UnitOfWorkFactoryBase<IdentityUow>, IUserUowFactory
     {
-        protected readonly IUserProfileConfig UserProfileConfig;
+        private readonly ICryptoService _cryptoService;
+        private readonly IUserProfileConfig _userProfileConfig;
 
         public UserUowFactory(ILogger logger, ICacheFactory cacheFactory, IMappingService mappingService,
             IDbConfig primaryDbConfig, ISerializer serializer, IEventBroadcastingProxy eventDispatchingProxy,
-            IUserProfileConfig userProfileConfig)
+            IUserProfileConfig userProfileConfig, ICryptoService cryptoService)
             : base(primaryDbConfig, logger, cacheFactory, mappingService, serializer, eventDispatchingProxy)
         {
-            UserProfileConfig = userProfileConfig;
+            _userProfileConfig = userProfileConfig;
+            _cryptoService = cryptoService;
         }
 
         public UserProfileDto GetUserProfile(Guid userKey, string profileOriginator)
@@ -104,6 +109,55 @@ namespace Lx.Identity.Persistence.Uow
             });
 
             return (result, userDto, updateResultType);
+        }
+
+        public UserDto SetVerificationCode(string email, VerificationPurpose verificationPurpose,
+            string hashedVerificationCode, DateTimeOffset timeVerificationCodeExpires)
+        {
+            UserDto userDto = null;
+            Execute(uow =>
+            {
+                var user = uow.Store.UpdatePropertiesOnly<User>(x => x.Email.Address == email,
+                    x => x.WithVerificationCode(verificationPurpose, hashedVerificationCode,
+                        timeVerificationCodeExpires));
+                userDto = MappingService.Map<UserDto>(user);
+                CacheUserDto(uow, userDto);
+            });
+
+            return userDto;
+        }
+
+        public ProcessResult ResetPassword(Guid userKey, VerificationPurpose verificationPurpose,
+            string plainTextVerificationCode, string newPlainTextPassword)
+        {
+            var verificationSucceeds = false;
+            var currentTime = DateTimeOffset.UtcNow;
+            var result = ExecuteWithProcessResult(uow =>
+            {
+                var user = uow.Store.UpdatePropertiesOnly<User>(
+                    x => x.Key == userKey && x.VerificationPurpose.Name == verificationPurpose.Name,
+                    x =>
+                    {
+                        verificationSucceeds =
+                            _cryptoService.Validate(plainTextVerificationCode, x.HashedVerificationCode) &&
+                            x.TimeVerificationCodeExpires.HasValue &&
+                            x.TimeVerificationCodeExpires.Value > currentTime;
+
+                        if (verificationSucceeds)
+                        {
+                            var hashedPassword = _cryptoService.CreateHash(newPlainTextPassword);
+                            x.SetHashedPassword(hashedPassword);
+                        }
+
+                        x.ResetVerificationCode();
+                    });
+                if (user == null)
+                    throw new KeyNotFoundException($"User {userKey} is not found.");
+
+                if (!verificationSucceeds)
+                    throw new Exception("Password reset failed.");
+            });
+            return result;
         }
 
         private UserDto GetUser(IdentityUow uow, string userProfileOriginator, string usernameOrEmailOrMobileNumber)
@@ -197,7 +251,7 @@ namespace Lx.Identity.Persistence.Uow
                 CacheKeyHelper.GetCacheKey<UserDto>(userDto.Mobile.LocalNumberWithAreaCodeInDigits), userDto);
 
             var userUpdatedEvent = new UserUpdatedEvent {UpdatedUser = userDto};
-            var userProfile = GetUserProfile(userDto.Key, UserProfileConfig.UserProfileOriginator);
+            var userProfile = GetUserProfile(userDto.Key, _userProfileConfig.UserProfileOriginator);
             if (!string.IsNullOrWhiteSpace(userProfile?.Body))
             {
                 var basicMemberInfo = Serializer.Deserialize<BasicMemberInfo>(userProfile.Body);
@@ -205,6 +259,14 @@ namespace Lx.Identity.Persistence.Uow
             }
 
             DispatchEvent(userUpdatedEvent);
+        }
+
+        protected UserDto UpdateUser(IdentityUow uow, Guid userKey, Action<User> updateAction)
+        {
+            var user = uow.Store.UpdatePropertiesOnly(x => x.Key == userKey, updateAction);
+            var userDto = MappingService.Map<UserDto>(user);
+            CacheUserDto(uow, userDto);
+            return userDto;
         }
     }
 }

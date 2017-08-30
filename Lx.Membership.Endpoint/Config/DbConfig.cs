@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Persistence;
+﻿using Lx.Utilities.Contracts.Persistence;
 
 namespace Lx.Membership.Endpoint.Config
 {

@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Lx.Identity.Contracts.Interfaces {
-    public interface IScope {
+namespace Lx.Identity.Contracts.Interfaces
+{
+    public interface IScope
+    {
         bool Enabled { get; }
         string Name { get; }
         string DisplayName { get; }

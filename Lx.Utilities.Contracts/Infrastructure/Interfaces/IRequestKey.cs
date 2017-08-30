@@ -1,0 +1,9 @@
+﻿using System.Collections.Generic;
+
+namespace Lx.Utilities.Contracts.Infrastructure.Interfaces
+{
+    public interface IRequestKey : IBasicRequestKey
+    {
+        ICollection<string> ServiceReferences { get; set; }
+    }
+}

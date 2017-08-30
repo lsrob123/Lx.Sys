@@ -2,8 +2,10 @@
 using Lx.Identity.Contracts.Enumerations;
 using Lx.Shared.All.Domains.Identity.Interfaces;
 
-namespace Lx.Identity.Contracts.Interfaces {
-    public interface IClient : IHasUserProfileOriginator {
+namespace Lx.Identity.Contracts.Interfaces
+{
+    public interface IClient : IHasUserProfileOriginator
+    {
         bool Enabled { get; }
         string ClientId { get; }
         string ClientName { get; }

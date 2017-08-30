@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Data.Entity;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mapping;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mapping;
 
 namespace Lx.Utilities.Services.Persistence.EF
 {

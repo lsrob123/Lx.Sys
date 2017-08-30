@@ -1,21 +1,22 @@
-﻿using Lx.Utilities.Contract.Authentication;
-using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.Interfaces;
-using Lx.Utilities.Contract.Authorization;
-using Lx.Utilities.Contract.Caching;
-using Lx.Utilities.Contract.Crypto;
-using Lx.Utilities.Contract.Infrastructure.EventBroadcasting;
-using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
-using Lx.Utilities.Contract.IoC;
-using Lx.Utilities.Contract.Logging;
-using Lx.Utilities.Contract.Mapping;
-using Lx.Utilities.Contract.Mediator;
-using Lx.Utilities.Contract.Serialization;
+﻿using Lx.Utilities.Contracts.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Authorization;
+using Lx.Utilities.Contracts.Caching;
+using Lx.Utilities.Contracts.Crypto;
+using Lx.Utilities.Contracts.Email;
+using Lx.Utilities.Contracts.Infrastructure.EventBroadcasting;
+using Lx.Utilities.Contracts.Infrastructure.RequestDispatching;
+using Lx.Utilities.Contracts.IoC;
+using Lx.Utilities.Contracts.Logging;
+using Lx.Utilities.Contracts.Mapping;
+using Lx.Utilities.Contracts.Mediator;
+using Lx.Utilities.Contracts.Serialization;
 using Lx.Utilities.Services.Authentication;
 using Lx.Utilities.Services.Authorization;
 using Lx.Utilities.Services.Caching.InProcess;
 using Lx.Utilities.Services.Caching.Redis;
 using Lx.Utilities.Services.Crypto;
+using Lx.Utilities.Services.Email;
 using Lx.Utilities.Services.Infrastructure;
 using Lx.Utilities.Services.Logging.Log4Net;
 using Lx.Utilities.Services.Mapping.AutoMapper;
@@ -44,6 +45,7 @@ namespace Lx.Utilities.Services.Dependencies
             Register<IRequestDispatchingProxy, RequestDispatchingProxy>();
             Register<IEventBroadcastingProxy, EventBroadcastingProxy>();
             Register<IOAuthClientService, OAuthClientService>();
+            Register<IEmailSettings, EmailSettings>();
         }
     }
 }

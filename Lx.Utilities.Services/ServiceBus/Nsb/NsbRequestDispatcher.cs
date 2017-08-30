@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.RequestDispatching;
-using Lx.Utilities.Contract.ServiceBus;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.RequestDispatching;
+using Lx.Utilities.Contracts.ServiceBus;
 using NServiceBus;
 
 namespace Lx.Utilities.Services.ServiceBus.Nsb
@@ -26,7 +26,7 @@ namespace Lx.Utilities.Services.ServiceBus.Nsb
         public void Dispatch<TRequest>(TRequest request) where TRequest : IRequest
         {
             string busEndpoint;
-            if ((ExceptionalBusEndpointMaps == null) ||
+            if (ExceptionalBusEndpointMaps == null ||
                 !ExceptionalBusEndpointMaps.TryGetValue(request.GetType(), out busEndpoint))
                 busEndpoint = BusSettings.EndpointName;
 

@@ -1,4 +1,4 @@
-﻿using Lx.Utilities.Contract.Infrastructure.Common;
+﻿using Lx.Utilities.Contracts.Infrastructure.Common;
 
 namespace Lx.Identity.Contracts.Enumerations
 {

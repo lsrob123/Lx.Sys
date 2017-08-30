@@ -1,6 +1,6 @@
 ﻿using System;
-using Lx.Utilities.Contract.Authentication.Config;
-using Lx.Utilities.Contract.Authentication.Constants;
+using Lx.Utilities.Contracts.Authentication.Config;
+using Lx.Utilities.Contracts.Authentication.Constants;
 using Lx.Utilities.Services.Config;
 
 namespace Lx.Utilities.Services.Authentication
@@ -16,7 +16,7 @@ namespace Lx.Utilities.Services.Authentication
 
         public TimeSpan? AccessTokenValidationResultLifeSpan
             =>
-                TimeSpan.FromSeconds(double.Parse(this.AppSettingStringValue(x => x.AccessTokenValidationResultLifeSpan)))
-            ;
+                TimeSpan.FromSeconds(
+                    double.Parse(this.AppSettingStringValue(x => x.AccessTokenValidationResultLifeSpan)));
     }
 }

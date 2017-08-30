@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using Lx.Identity.Contracts.Enumerations;
 using Lx.Shared.All.Domains.Identity.ValueObjects;
-using Lx.Utilities.Contract.Authentication.Enumerations;
-using Lx.Utilities.Contract.Infrastructure.Domain;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
-using Lx.Utilities.Contract.Infrastructure.ValueObjects;
+using Lx.Utilities.Contracts.Authentication.Enumerations;
+using Lx.Utilities.Contracts.Infrastructure.Domain;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.ValueObjects;
 
 namespace Lx.Identity.Domain.Entities
 {
@@ -30,6 +30,10 @@ namespace Lx.Identity.Domain.Entities
         public string HashedPassword { get; protected set; }
 
         public VerificationPurpose VerificationPurpose { get; protected set; }
+
+        /// <summary>
+        /// TODO: Review to see if really needed
+        /// </summary>
         public ResetPasswordMethod ResetPasswordMethod { get; protected set; }
 
         [StringLength(1000)]
@@ -83,12 +87,11 @@ namespace Lx.Identity.Domain.Entities
         }
 
         public User WithVerificationCode(VerificationPurpose verificationPurpose, string hashedVerificationCode,
-            DateTimeOffset timeVerificationCodeExpires, DateTimeOffset? timeVerificationCodeSent = null)
+            DateTimeOffset timeVerificationCodeExpires)
         {
             VerificationPurpose = verificationPurpose;
             HashedVerificationCode = hashedVerificationCode;
             TimeVerificationCodeExpires = timeVerificationCodeExpires;
-            TimeVerificationCodeSent = timeVerificationCodeSent;
             return this;
         }
 
@@ -99,24 +102,6 @@ namespace Lx.Identity.Domain.Entities
             TimeVerificationCodeExpires = null;
             TimeVerificationCodeSent = null;
             return this;
-        }
-
-        public VerificationResult ExecuteVerification(VerificationPurpose verificationPurpose,
-            string hashedVerificationCode)
-        {
-            if (string.IsNullOrWhiteSpace(HashedVerificationCode) || !TimeVerificationCodeExpires.HasValue ||
-                VerificationPurpose != verificationPurpose)
-                return VerificationResult.NewVerificationCodeRequired;
-
-            if (!HashedVerificationCode.Equals(hashedVerificationCode, StringComparison.Ordinal))
-                return VerificationResult.InvalidCode;
-
-            var result = DateTimeOffset.UtcNow <= TimeVerificationCodeExpires.Value
-                ? VerificationResult.Passed
-                : VerificationResult.ExpiredCode;
-
-            ResetVerificationCode();
-            return result;
         }
 
         public User SetMobile(IPhoneNumber mobile)

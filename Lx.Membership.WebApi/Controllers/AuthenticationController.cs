@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Lx.Utilities.Contract.Authentication.DTOs;
-using Lx.Utilities.Contract.Authentication.Interfaces;
+using Lx.Membership.Services.APIs;
+using Lx.Shared.All.Domains.Identity.RequestsResponses;
+using Lx.Utilities.Contracts.Authentication.DTOs;
+using Lx.Utilities.Contracts.Authentication.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.Extensions;
 
 namespace Lx.Membership.WebApi.Controllers
 {
@@ -11,10 +15,12 @@ namespace Lx.Membership.WebApi.Controllers
     public class AuthenticationController : ApiController
     {
         private readonly IOAuthClientService _service;
+        private readonly IAuthenticationApi _authenticationApi;
 
-        public AuthenticationController(IOAuthClientService service)
+        public AuthenticationController(IOAuthClientService service, IAuthenticationApi authenticationApi)
         {
             _service = service;
+            _authenticationApi = authenticationApi;
         }
 
         [Route("time")]
@@ -60,5 +66,27 @@ namespace Lx.Membership.WebApi.Controllers
             var response = await _service.RevokeTokenAsync(request);
             return Request.CreateResponse(response);
         }
+
+        [Route("users/{userKey}/verifications/{plainTextVerificationCode}")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> ResetPassword(Guid userKey, string plainTextVerificationCode)
+        {
+            var formData = await Request.Content.ReadAsFormDataAsync();
+            if (formData == null || !formData.HasKeys() || string.IsNullOrWhiteSpace(formData.Get("password")))
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "No password was posted with a form.");
+            }
+
+            var request=new ResetPasswordRequest
+            {
+                UserKey = userKey,
+                PlainTextVerificationCode = plainTextVerificationCode,
+                NewPlainTextPassword = formData["password"]
+            }.WithUser(userKey);
+
+            _authenticationApi.Start(request);
+            return Request.CreateResponse(HttpStatusCode.Accepted);
+        }
+
     }
 }

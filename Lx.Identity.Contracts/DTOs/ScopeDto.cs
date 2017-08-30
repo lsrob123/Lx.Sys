@@ -6,9 +6,9 @@ namespace Lx.Identity.Contracts.DTOs
 {
     public class ScopeDto : IScope
     {
-        public Guid Key { get; set; }
         public ICollection<ScopeClaimDto> ScopeClaims { get; set; }
         public ICollection<ScopeSecretDto> ScopeSecrets { get; set; }
+        public Guid Key { get; set; }
         public bool Enabled { get; set; }
         public string Name { get; set; }
         public string DisplayName { get; set; }

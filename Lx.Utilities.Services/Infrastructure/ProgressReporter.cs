@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading;
-using Lx.Utilities.Contract.Infrastructure.Common;
-using Lx.Utilities.Contract.Infrastructure.DTOs;
-using Lx.Utilities.Contract.Infrastructure.Extensions;
-using Lx.Utilities.Contract.Infrastructure.Interfaces;
+using Lx.Utilities.Contracts.Infrastructure.DTOs;
+using Lx.Utilities.Contracts.Infrastructure.Extensions;
+using Lx.Utilities.Contracts.Infrastructure.Interfaces;
 
 namespace Lx.Utilities.Services.Infrastructure
 {
@@ -48,16 +47,17 @@ namespace Lx.Utilities.Services.Infrastructure
                 return null;
 
             var progress = CompletionState as TProgress ?? new TProgress()
-                .LinkTo(requestKey ?? DefaultRequestKey)
-                .WithUpdate(CompletionState.ProgressCompleted, CompletionState.ProgressTotal)
-                .WithMessage(CompletionState.ProgressMessage);
+                               .LinkTo(requestKey ?? DefaultRequestKey)
+                               .WithUpdate(CompletionState.ProgressCompleted, CompletionState.ProgressTotal)
+                               .WithMessage(CompletionState.ProgressMessage);
 
             extraActionOnProgressObject?.Invoke(progress);
 
             return progress;
         }
 
-        public virtual void SetTotal(decimal total, Action<TProgress> extraActionOnProgressObject, string message = null,
+        public virtual void SetTotal(decimal total, Action<TProgress> extraActionOnProgressObject,
+            string message = null,
             object data = null,
             IRequestKey requestKey = null)
         {

@@ -144,13 +144,17 @@ namespace Lx.Utilities.Services.Persistence.EF
         public TEntity AddOrUpdateByKey<TEntity>(TEntity entity, bool addWithoutRelatedEntities = false,
             Action<TEntity> updatePropertiesAction = null,
             AddUpdateOptions addUpdateOptions = AddUpdateOptions.Add | AddUpdateOptions.Update, bool saveChanges = true)
-            where TEntity : class, IEntity, new()
-        {
+            where TEntity : class, IEntity, new() {
             if (entity.Key == Guid.Empty)
                 return null;
 
-            return AddOrUpdate(entity, existing => existing.Key == entity.Key, addWithoutRelatedEntities,
-                x => updatePropertiesAction?.Invoke(x), addUpdateOptions, saveChanges);
+            Action<TEntity> updateProperties = null;
+            if (updatePropertiesAction != null)
+                updateProperties = updatePropertiesAction;
+
+            var updated = AddOrUpdate(entity, existing => existing.Key == entity.Key, addWithoutRelatedEntities,
+                updateProperties, addUpdateOptions, saveChanges);
+            return updated;
         }
 
         public ProcessResult Delete<TWithRelationalId>(Func<TWithRelationalId, bool> queryExpression,

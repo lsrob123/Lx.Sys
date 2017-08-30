@@ -25,7 +25,7 @@ namespace Lx.Utilities.Contract.Infrastructure.Common {
         public virtual string Name { get; set; }
 
         public int CompareTo(object other) {
-            return Value.CompareTo(((Enumeration) other).Value);
+            return Value.CompareTo(((Enumeration)other).Value);
         }
 
         protected void SetData(int value, string name) {
@@ -41,11 +41,14 @@ namespace Lx.Utilities.Contract.Infrastructure.Common {
             return Name;
         }
 
-        public static IEnumerable<T> GetAll<T>() where T : Enumeration {
+        public static ICollection<T> GetAll<T>() where T : Enumeration {
             var type = typeof(T);
-            var fields = type.GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly);
-
-            return fields.Select(info => info.GetValue(null)).OfType<T>();
+            var values = type
+                .GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)
+                .Select(x => x.GetValue(null))
+                .OfType<T>()
+                .ToList();
+            return values;
         }
 
         public bool EqualsAnyIn<T>(params T[] list) where T : Enumeration {
@@ -89,8 +92,8 @@ namespace Lx.Utilities.Contract.Infrastructure.Common {
             return matchingItem;
         }
 
-        public HttpStatusCode ToHttpStatusCode() {
-            var httpStatusCode = (HttpStatusCode) Value;
+        public virtual HttpStatusCode ToHttpStatusCode() {
+            var httpStatusCode = (HttpStatusCode)Value;
             return httpStatusCode;
         }
     }

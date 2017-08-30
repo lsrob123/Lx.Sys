@@ -101,7 +101,15 @@ namespace Lx.Utilities.Contract.Mediator {
         }
 
         protected void ExecuteHandler<T>(IMediatorMessageHandler handler, T message) where T : IMessageBase {
-            ((IMediatorMessageHandler<T>) handler)?.Handle(message);
+            if (handler == null || message == null)
+                return; //TODO: Add logging logic
+
+            try {
+                ((IMediatorMessageHandler<T>) handler)?.Handle(message);
+            } catch (Exception ex) {
+                var exceptionString = ex.ToString();
+                Console.WriteLine(exceptionString);
+            }
         }
 
         protected void RegisterHandler<TMessage>(object o)

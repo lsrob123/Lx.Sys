@@ -93,6 +93,9 @@ namespace Lx.Utilities.Services.Crypto
         /// <returns>A hash of the password.</returns>
         private static byte[] Pbkdf2(string password, byte[] salt, int iterations, int outputBytes)
         {
+            if (string.IsNullOrWhiteSpace(password))
+                return new byte[] { };
+
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt) {IterationCount = iterations};
             return pbkdf2.GetBytes(outputBytes);
         }
